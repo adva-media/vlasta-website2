@@ -217,6 +217,30 @@
     }, { passive: false });
   }
 
+  /* ------------------------------------------- country map name tooltip */
+  var cmap = $('.cmap');
+  if (cmap) {
+    var tip = $('.cmap__tip', cmap);
+    var homes = $$('.cm__c--home', cmap);
+    function showTip(el, ev) {
+      var box = cmap.getBoundingClientRect();
+      var r = el.getBoundingClientRect();
+      var x = ev ? ev.clientX - box.left : r.left + r.width / 2 - box.left;
+      var y = ev ? ev.clientY - box.top : r.top + r.height / 2 - box.top;
+      tip.textContent = el.getAttribute('data-name') || '';
+      tip.style.left = x + 'px';
+      tip.style.top = y + 'px';
+      tip.hidden = false;
+    }
+    homes.forEach(function (el) {
+      el.addEventListener('pointerenter', function (e) { showTip(el, e); });
+      el.addEventListener('pointermove', function (e) { showTip(el, e); });
+      el.addEventListener('pointerleave', function () { tip.hidden = true; });
+      el.addEventListener('focus', function () { showTip(el, null); });
+      el.addEventListener('blur', function () { tip.hidden = true; });
+    });
+  }
+
   /* ----------------------------------------------------- contact form */
   var form = $('#contactForm');
   if (form) {

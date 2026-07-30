@@ -69,7 +69,7 @@ input,textarea,select{font:inherit}
 /* ---------------------------------------------------------------- layout */
 .wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:var(--gutter)}
 .wrap--narrow{max-width:900px}
-.sec{padding-block:clamp(62px,8vw,120px);position:relative}
+.sec{padding-block:clamp(62px,8vw,120px);position:relative;background:var(--paper)}
 .sec--tight{padding-block:clamp(44px,5vw,72px)}
 .sec--alt{background:var(--paper-alt)}
 .sec--tint{background:var(--paper-tint)}
@@ -166,6 +166,8 @@ h1,h2,h3,h4{font-family:var(--ui);color:var(--ink);line-height:1.14;letter-spaci
 .tb svg{width:13px;height:13px;opacity:.6;flex:none}
 .topbar a:hover{color:#fff}
 .topbar__r{display:flex;align-items:center;gap:14px}
+.topbar .tt{color:rgba(255,255,255,.7)}
+.topbar .tt:hover{color:#fff}
 .lang{display:flex;align-items:center;gap:2px;font-weight:600}
 .lang a{padding:3px 7px;border-radius:5px;transition:var(--t)}
 .lang a.is-on{background:rgba(255,255,255,.13);color:#fff}
@@ -191,9 +193,9 @@ h1,h2,h3,h4{font-family:var(--ui);color:var(--ink);line-height:1.14;letter-spaci
 .nav a.is-on::after,.nav a:hover::after{transform:scaleX(1)}
 .hdr__cta{display:flex;align-items:center;gap:14px}
 
-.tt{width:38px;height:38px;border-radius:50%;flex:none;display:grid;place-items:center;
-  border:1px solid var(--line);color:var(--body);transition:var(--t)}
-.tt:hover{border-color:var(--accent);color:var(--accent)}
+.tt{width:32px;height:32px;flex:none;display:grid;place-items:center;
+  color:var(--body);transition:color var(--t),transform var(--t);border:0;background:none}
+.tt:hover{color:var(--accent);transform:translateY(-1px)}
 .tt svg{width:17px;height:17px}
 .tt .i-sun{display:none}
 
@@ -206,18 +208,46 @@ h1,h2,h3,h4{font-family:var(--ui);color:var(--ink);line-height:1.14;letter-spaci
 .burger.is-on span:nth-child(2){opacity:0}
 .burger.is-on span:nth-child(3){top:8px;transform:rotate(-45deg)}
 
+/* ------------------------------------------------- fixed tower backdrop */
+/* The photo is pinned to the viewport, so the frosted tiles in .glasszone
+   reveal a different part of it as the page scrolls. */
+.skyline{position:fixed;inset:0;z-index:-2;pointer-events:none}
+.skyline img{width:100%;height:100%;object-fit:cover;object-position:50% 32%}
+.skyline::after{content:"";position:absolute;inset:0;background:
+  linear-gradient(180deg,rgba(10,16,28,.72) 0%,rgba(12,19,33,.62) 42%,rgba(14,22,38,.78) 100%)}
+
+/* sections that sit over the backdrop stay transparent … */
+.glasszone{position:relative;z-index:0;color:#fff}
+.glasszone .sec{background:transparent}
+.glasszone h1,.glasszone h2,.glasszone h3,.glasszone h4{color:#fff}
+.glasszone .lead,.glasszone p{color:rgba(255,255,255,.78)}
+.glasszone .kick{color:var(--mist)}
+.glasszone .seeall{color:#fff}
+/* … and everything after it is opaque again, so the page reads light */
+.glasszone~*{position:relative;z-index:1}
+
 /* ---------------------------------------------------------------- hero */
-.hero{position:relative;overflow:hidden;
-  background:
-    radial-gradient(120% 100% at 88% -10%,rgba(52,67,97,.10),transparent 58%),
-    linear-gradient(180deg,#fff 0%,var(--paper-alt) 100%);
-  padding-block:clamp(52px,7vw,96px) clamp(34px,4vw,56px)}
-.hero .wrap{position:relative;z-index:1}
-.hero__grid{display:grid;gap:clamp(30px,4vw,54px);align-items:center}
-@media (min-width:960px){.hero__grid{grid-template-columns:1.02fr .98fr}}
-.hero .display{margin-top:22px}
-.hero__lead{max-width:50ch;margin-top:24px}
-.hero__cta{display:flex;gap:13px;flex-wrap:wrap;margin-top:34px}
+.hero{position:relative;min-height:min(88vh,780px);display:grid;align-items:center;
+  padding-block:clamp(70px,12vh,140px) clamp(56px,9vh,104px)}
+.hero__inner{display:flex;flex-direction:column;align-items:center;text-align:center;gap:clamp(34px,6vh,64px)}
+.hero__t{font-size:clamp(34px,6.4vw,80px);font-weight:700;letter-spacing:-.035em;line-height:1.06;
+  color:#fff;text-wrap:balance;text-shadow:0 2px 30px rgba(6,11,20,.45)}
+
+/* scroll cue: a hairline that drains downward, then the chevron */
+.scrollcue{display:inline-flex;flex-direction:column;align-items:center;gap:10px;
+  color:rgba(255,255,255,.72);transition:color var(--t)}
+.scrollcue:hover{color:#fff}
+.scrollcue__l{width:1px;height:52px;background:linear-gradient(rgba(255,255,255,.06),rgba(255,255,255,.85));
+  transform-origin:top;animation:drain 2.6s var(--ease) infinite}
+.scrollcue svg{width:22px;height:22px;animation:nudge 2.6s var(--ease) infinite}
+@keyframes drain{0%{transform:scaleY(0);opacity:0}30%{opacity:1}60%{transform:scaleY(1);opacity:1}100%{transform:scaleY(1);opacity:0}}
+@keyframes nudge{0%,55%{transform:translateY(0)}72%{transform:translateY(5px)}100%{transform:translateY(0)}}
+@media (prefers-reduced-motion:reduce){.scrollcue__l,.scrollcue svg{animation:none}}
+
+/* the opening statement, set large and quiet */
+.intro{max-width:min(100%,940px);font-size:clamp(19px,2.3vw,30px);font-weight:300;
+  line-height:1.42;letter-spacing:-.015em;color:#fff;text-wrap:pretty}
+.glasszone .intro{color:rgba(255,255,255,.92)}
 
 /* eyebrow pill */
 .pill{display:inline-flex;align-items:center;gap:9px;padding:7px 15px;border-radius:999px;
@@ -256,17 +286,17 @@ h1,h2,h3,h4{font-family:var(--ui);color:var(--ink);line-height:1.14;letter-spaci
 @keyframes nm-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
 
 /* ------------------------------------------------------------ stats bar */
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
-  margin-top:clamp(40px,5vw,70px);border-radius:var(--r-md);overflow:hidden;
-  background:var(--line);border:1px solid var(--line)}
-.stat{background:rgba(255,255,255,.72);
-  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
-  padding:26px 26px 28px;transition:background var(--t)}
-.stat:hover{background:#fff}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;
+  margin-top:clamp(38px,5vw,60px)}
+.stat{padding:26px 26px 28px;border-radius:var(--r-md);
+  background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.20);
+  -webkit-backdrop-filter:blur(18px) saturate(1.5);backdrop-filter:blur(18px) saturate(1.5);
+  transition:var(--t)}
+.stat:hover{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.32);transform:translateY(-3px)}
 .stat__n{font-size:clamp(30px,3.3vw,44px);font-weight:700;letter-spacing:-.035em;line-height:1;
-  color:var(--ink);font-variant-numeric:tabular-nums}
-.stat__n .u{font-size:.36em;font-weight:600;color:var(--steel);letter-spacing:0;margin-left:3px}
-.stat__l{margin-top:11px;font-size:13px;color:var(--steel);line-height:1.45}
+  color:#fff;font-variant-numeric:tabular-nums}
+.stat__n .u{font-size:.36em;font-weight:600;color:var(--mist);letter-spacing:0;margin-left:3px}
+.stat__l{margin-top:11px;font-size:13px;color:rgba(255,255,255,.68);line-height:1.45}
 
 /* ---------------------------------------------------------------- cards */
 /* paper card — for white/alt backgrounds where real glass would read as mud */
@@ -290,8 +320,21 @@ h1,h2,h3,h4{font-family:var(--ui);color:var(--ink);line-height:1.14;letter-spaci
 .sec--dark .ico,.sec--ink .ico{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.16);color:var(--mist)}
 
 /* ------------------------------------------------------------- services */
-.svc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+.svc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
 .svc{overflow:hidden}
+/* frosted tiles: the pinned photo behind them gives the glass something to bend */
+.glasszone .card{background:rgba(255,255,255,.10);border-color:rgba(255,255,255,.20);
+  -webkit-backdrop-filter:blur(20px) saturate(1.5);backdrop-filter:blur(20px) saturate(1.5);
+  box-shadow:0 20px 50px -28px rgba(4,9,18,.7)}
+.glasszone .card:hover{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.34)}
+.glasszone .svc__hl li{color:rgba(255,255,255,.9)}
+.glasszone .svc__hl li::before{background:var(--mist)}
+.glasszone .svc__tag{color:rgba(255,255,255,.74)}
+.glasszone .ico{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.22);color:#fff}
+.glasszone .card:hover .ico{background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.34)}
+.glasszone .svc__blk{color:var(--mist)}
+.glasszone .arrow-link{color:#fff}
+.glasszone .svc::before{background:var(--mist)}
 .svc::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent);
   transform:scaleY(0);transform-origin:top;transition:transform .45s var(--ease)}
 .svc:hover::before{transform:scaleY(1)}
@@ -349,15 +392,20 @@ h1,h2,h3,h4{font-family:var(--ui);color:var(--ink);line-height:1.14;letter-spaci
 /* -------------------------------------------------------------- results */
 .res{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
 .res__c{padding:32px 26px;text-align:center;display:flex;flex-direction:column;align-items:center}
-.gauge{position:relative;width:120px;height:120px;margin-bottom:20px}
+.gauge{position:relative;width:132px;height:132px;margin-bottom:20px}
 .gauge svg{width:100%;height:100%;transform:rotate(-90deg)}
 .gauge__tr{fill:none;stroke:rgba(255,255,255,.13);stroke-width:7}
 .gauge__fl{fill:none;stroke:var(--mist);stroke-width:7;stroke-linecap:round;
   stroke-dasharray:327;stroke-dashoffset:327;transition:stroke-dashoffset 1.5s var(--ease) .1s}
 .reveal.is-in .gauge__fl{stroke-dashoffset:var(--off,0)}
+/* the number is centred on its own; the unit is absolutely placed so it can
+   never push the figure off-centre */
 .gauge__v{position:absolute;inset:0;display:grid;place-items:center;
-  font-size:27px;font-weight:700;color:#fff;letter-spacing:-.02em}
-.gauge__v small{font-size:.5em;font-weight:600;color:var(--mist)}
+  font-size:36px;font-weight:700;color:#fff;letter-spacing:-.03em;line-height:1;
+  font-variant-numeric:tabular-nums}
+.gauge__v small{position:absolute;left:50%;top:calc(50% + 1.05em);transform:translateX(-50%);
+  font-size:.36em;font-weight:600;color:rgba(197,205,218,.9);letter-spacing:.06em;
+  text-transform:uppercase;white-space:nowrap}
 .res__l{font-size:14px;line-height:1.5;color:rgba(255,255,255,.76)}
 
 /* ------------------------------------------------------------- geography */
@@ -713,7 +761,7 @@ html.is-locked,html.is-locked body{overflow:hidden}
 .mnav__f a{color:#fff}
 .mnav__extra{display:flex;align-items:center;gap:12px;margin-top:22px}
 .mnav .lang a.is-on{background:rgba(255,255,255,.14)}
-.mnav .tt{border-color:rgba(255,255,255,.22);color:#fff}
+.mnav .tt{color:#fff}
 .overlay{position:fixed;inset:0;z-index:150;background:rgba(17,25,43,.5);
   -webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);
   opacity:0;visibility:hidden;transition:.34s}
@@ -833,7 +881,7 @@ html.is-locked,html.is-locked body{overflow:hidden}
   linear-gradient(180deg,var(--paper) 0%,var(--paper-alt) 100%)}
 [data-theme="dark"] .phero,[data-theme="dark"] .case-hero{background:#0A101C}
 [data-theme="dark"] .burger span{background:var(--ink)}
-[data-theme="dark"] .tt{color:var(--ink);border-color:var(--line)}
+[data-theme="dark"] .tt{color:var(--ink)}
 [data-theme="dark"] .tt .i-moon{display:none}
 [data-theme="dark"] .tt .i-sun{display:block}
 [data-theme="dark"] .client,[data-theme="dark"] .assoc__logo,
@@ -873,3 +921,59 @@ section[id]{scroll-margin-top:96px}
 
 /* EN switch is inert until the English mirror ships */
 .lang__soon{padding:3px 7px;border-radius:5px;opacity:.4;cursor:not-allowed}
+
+/* =========================================================================
+   Country map — Russia and its neighbours (geo-map.json)
+   ========================================================================= */
+.cmap{position:relative;width:100%}
+.cmap svg{width:100%;height:auto;display:block}
+.cm__c{
+  fill:rgba(255,255,255,.04);
+  stroke:rgba(255,255,255,.13);
+  stroke-width:.7;
+  stroke-linejoin:round;
+  transition:fill .3s var(--ease),stroke .3s var(--ease);
+}
+/* countries where the company runs programmes */
+.cm__c--home{
+  fill:rgba(197,205,218,.30);
+  stroke:rgba(226,232,240,.75);
+  stroke-width:.9;
+  cursor:pointer;
+}
+.cm__c--home:hover,.cm__c--home:focus-visible{
+  fill:rgba(255,255,255,.42);
+  stroke:#fff;
+  stroke-width:1.3;
+  outline:none;
+  filter:drop-shadow(0 0 14px rgba(197,205,218,.55));
+}
+/* dim the rest while one is picked out, so the highlight reads clearly */
+.cm__g:has(.cm__c--home:hover) .cm__c:not(:hover),
+.cm__g:has(.cm__c--home:focus-visible) .cm__c:not(:focus-visible){opacity:.55}
+
+.cmap__tip{
+  position:absolute;left:0;top:0;transform:translate(-50%,-140%);
+  padding:6px 12px;border-radius:999px;pointer-events:none;white-space:nowrap;
+  font-size:12px;font-weight:600;letter-spacing:.02em;color:var(--ink);
+  background:rgba(255,255,255,.92);border:1px solid rgba(255,255,255,.7);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  box-shadow:0 8px 22px -10px rgba(4,9,18,.6);z-index:2;
+}
+
+/* =========================================================================
+   Contacts without a form
+   ========================================================================= */
+.ci-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+.map-embed--tall{height:100%;min-height:420px}
+
+/* case detail: facts in the hero, topics at the end */
+.facts--hero{margin-top:28px;margin-bottom:0;background:rgba(255,255,255,.12);
+  border-color:rgba(255,255,255,.18)}
+.facts--hero .fact{background:rgba(255,255,255,.04)}
+.facts--hero .fact span{color:var(--mist)}
+.facts--hero .fact strong{color:#fff}
+.taglist{margin-top:40px;padding-top:24px;border-top:1px solid var(--line)}
+.taglist h4{font-size:12px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--steel);margin-bottom:14px}
+.taglist .tag{border-color:var(--line);color:var(--accent);background:var(--paper-alt)}

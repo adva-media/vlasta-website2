@@ -85,6 +85,25 @@ const engrave = (pos = 'tr', id = 'g1') =>
   `<div class="engrave engrave--${pos}" aria-hidden="true">${guilloche(id)}</div>`;
 
 /* ------------------------------------ signature hero: link-analysis netmap */
+/* Russia and its neighbours, from Natural Earth via tools/make-map.mjs.
+   Each country is its own path so it can light up under the cursor. */
+function countryMap() {
+  const m = rd('content/geo-map.json');
+  const paths = m.countries.map(c =>
+    `<path class="cm__c${c.home ? ' cm__c--home' : ''}" d="${c.d}" tabindex="${c.home ? 0 : -1}" role="img" aria-label="${esc(c.name)}" data-name="${esc(c.name)}"><title>${esc(c.name)}</title></path>`
+  ).join('');
+  return `<div class="cmap">
+  <svg viewBox="0 0 ${m.width} ${m.height}" role="group" aria-label="Карта: Россия, страны СНГ и ЕАЭС">
+    <defs><radialGradient id="cmFade" cx="50%" cy="50%" r="62%">
+      <stop offset="72%" stop-color="#fff"/><stop offset="100%" stop-color="#000"/>
+    </radialGradient>
+    <mask id="cmMask"><rect width="${m.width}" height="${m.height}" fill="url(#cmFade)"/></mask></defs>
+    <g class="cm__g" mask="url(#cmMask)">${paths}</g>
+  </svg>
+  <span class="cmap__tip" hidden></span>
+</div>`;
+}
+
 function netmap(uid = 'a') {
   /* A graticule chart rather than a drawn coastline: nodes sit at their true
      relative lat/long, so the region reads as Eurasia without a fake outline.
@@ -229,7 +248,7 @@ function chrome(active, depth = 0) {
   const tt = `<button class="tt" type="button" aria-label="Переключить тёмную тему" aria-pressed="false">${I.moon}${I.sun}</button>`;
   const brand = (light) => `<a class="brand" href="${R('index.html')}" aria-label="${esc(O.name)} — на главную">
       <img class="brand__mark" src="${R(light ? 'assets/img/logo-light.svg' : 'assets/img/logo-dark.svg')}" alt="" width="38" height="44">
-      <span><span class="brand__name">${esc(O.name)}</span><span class="brand__sub">${esc(O.tagline)}</span></span>
+      <span><span class="brand__name">${esc(O.name.toUpperCase())}</span><span class="brand__sub">${esc(O.tagline)}</span></span>
     </a>`;
 
   return {
@@ -251,7 +270,7 @@ function chrome(active, depth = 0) {
     ${brand(false)}
     <nav class="nav" aria-label="Основная навигация">${links}</nav>
     <div class="hdr__cta">
-      <a href="${R('contacts.html')}" class="btn btn--primary">Консультация</a>
+      <a href="${R('contacts.html')}" class="btn btn--primary">Связаться</a>
       <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="mnav"><span></span><span></span><span></span></button>
     </div>
   </div>
@@ -328,10 +347,10 @@ const ctaBand = (depth = 0) => `<section class="sec">
       <div class="cta__in">
         <span class="pill"><span class="pill__d"></span>Начнём сотрудничество</span>
         <h2 class="h2">Обсудим, как защитить ваш бизнес</h2>
-        <p>Оставьте заявку — проведём конфиденциальную консультацию, оценим риски и предложим решение под вашу задачу.</p>
+        <p>Позвоните или напишите — проведём конфиденциальную консультацию, оценим риски и предложим решение под вашу задачу.</p>
         <div class="cta__btns">
-          <a href="${rel(depth, 'contacts.html')}" class="btn btn--light">Получить консультацию ${I.arrow}</a>
-          <a href="tel:${O.phoneHref}" class="btn btn--onDark">${esc(O.phone)}</a>
+          <a href="tel:${O.phoneHref}" class="btn btn--light">${esc(O.phone)} ${I.arrow}</a>
+          <a href="mailto:${O.email}" class="btn btn--onDark">${esc(O.email)}</a>
         </div>
       </div>
     </div>
@@ -426,22 +445,27 @@ function buildHome() {
     c.header,
     `<main>
 
+<!-- the tower photo is a fixed layer: sections in the glass zone below let it
+     show through, so scrolling shifts what sits behind the frosted tiles -->
+<div class="skyline" aria-hidden="true">
+  <img src="assets/img/hero-tower.jpg" alt="" fetchpriority="high" decoding="async">
+</div>
+
+<div class="glasszone">
 <section class="hero">
-  ${engrave('tr', 'hero')}
+  <div class="wrap hero__inner">
+    <h1 class="hero__t rise">Безопасность бизнеса<br>в надёжных руках</h1>
+    <a class="scrollcue rise" data-d="2" href="#intro" aria-label="Пролистать к описанию">
+      <span class="scrollcue__l"></span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+    </a>
+  </div>
+</section>
+
+<section class="sec" id="intro">
   <div class="wrap">
-    <div class="hero__grid">
-      <div>
-        <span class="pill rise"><span class="pill__d"></span>С ${O.founded} года · Москва · Россия и ЕАЭС</span>
-        <h1 class="display rise" data-d="1">Безопасность бизнеса<br>в <b>надёжных руках</b></h1>
-        <p class="hero__lead lead rise" data-d="2">Защищаем бренды от контрафакта и обеспечиваем экономическую безопасность компаний в России, СНГ и странах ЕАЭС — опираясь на передовые технологии и высокие моральные ценности.</p>
-        <div class="hero__cta rise" data-d="3">
-          <a href="services.html" class="btn btn--primary">Наши услуги ${I.arrow}</a>
-          <a href="contacts.html" class="btn btn--outline">Связаться с нами</a>
-        </div>
-      </div>
-      <div class="rise" data-d="3">${netmap("hero")}</div>
-    </div>
-    <div class="stats rise" data-d="4">
+    <p class="intro reveal">Защищаем бренды от контрафакта и обеспечиваем экономическую безопасность компаний в России, СНГ и странах ЕАЭС — опираясь на передовые технологии и высокие моральные ценности.</p>
+    <div class="stats reveal" data-d="1">
       ${site.stats.map(s => `<div class="stat">
         <div class="stat__n">${esc(s.n)}${s.suffix ? `<span class="u">${esc(s.suffix)}</span>` : ''}${s.unit ? `<span class="u">${esc(s.unit)}</span>` : ''}</div>
         <div class="stat__l">${esc(s.label)}</div>
@@ -450,17 +474,16 @@ function buildHome() {
   </div>
 </section>
 
-${marquee()}
-
 <section class="sec" id="services">
   <div class="wrap">
     ${shead({
-      k: 'Направления работы', h: 'Восемь направлений в четырёх блоках',
-      d: 'Единая методология — от анализа рисков до сопровождения «под ключ» в суде. Каждый блок работает самостоятельно и усиливает остальные.',
+      k: 'Услуги', h: 'Наши направления',
+      d: 'Единая методология — от анализа рисков до сопровождения «под ключ» в суде. Каждое направление работает самостоятельно и усиливает остальные.',
+      extra: `<a href="services.html" class="seeall"><span class="seeall__l">Все услуги</span><span class="seeall__r">${I.arrow}</span></a>`,
     })}
     <div class="svc-grid">
-      ${site.services.map((s, i) => `<a class="card svc reveal" href="services.html#${s.id}"${i ? ` data-d="${i}"` : ''}>
-        <div class="svc__top"><span class="ico">${I[s.icon]}</span><span class="svc__blk">${esc(s.block)}</span></div>
+      ${site.services.map((s, i) => `<a class="card glass svc reveal" href="services.html#${s.id}"${i ? ` data-d="${i}"` : ''}>
+        <div class="svc__top"><span class="ico">${I[s.icon]}</span><span class="svc__blk">${esc(s.num)}</span></div>
         <h3 class="h3">${esc(s.title)}</h3>
         <p class="svc__tag">${esc(s.tagline)}</p>
         <ul class="svc__hl">${s.highlights.map(h => `<li>${esc(h)}</li>`).join('')}</ul>
@@ -469,6 +492,9 @@ ${marquee()}
     </div>
   </div>
 </section>
+</div><!-- /glasszone -->
+
+${marquee()}
 
 <section class="sec sec--alt" id="approach">
   ${engrave('bl', 'appr')}
@@ -515,7 +541,7 @@ ${marquee()}
       <ul class="geo__list">${site.geography.regions.map(r => `<li><span class="geo__d"></span>${esc(r)}</li>`).join('')}</ul>
       <div class="geo__bar">${site.geography.bar.map(b => `<div><b>${esc(b.n)}</b><span>${esc(b.label)}</span></div>`).join('')}</div>
     </div>
-    <div class="reveal" data-d="1">${netmap("geo")}</div>
+    <div class="reveal" data-d="1">${countryMap()}</div>
   </div>
 </section>
 
@@ -526,16 +552,6 @@ ${marquee()}
       extra: `<a href="cases.html" class="seeall"><span class="seeall__l">Все кейсы</span><span class="seeall__r">${I.arrow}</span></a>`,
     })}
     <div class="case-grid">${featCases.map((x, i) => caseCard(x, 0, i)).join('')}</div>
-  </div>
-</section>
-
-<section class="sec sec--alt">
-  <div class="wrap">
-    ${shead({
-      k: 'Клиенты', h: 'Нам доверяют ведущие бренды', mod: 'center',
-    })}
-    <div class="clients reveal">${clientsGrid()}</div>
-    <p class="clients-note">и ещё <b>более 80 брендов</b> под нашей защитой</p>
   </div>
 </section>
 
@@ -580,7 +596,7 @@ function buildServices() {
     <nav class="crumbs" aria-label="Хлебные крошки"><a href="index.html">Главная</a> / <span>Услуги</span></nav>
     ${kick('Направления работы')}
     <h1 class="h1">Услуги по защите бренда и безопасности бизнеса</h1>
-    <p class="lead">Четыре блока, восемь направлений, единая методология: анализ рисков, предупреждение угроз и сопровождение клиента вплоть до защиты интересов в суде — в России, СНГ и странах ЕАЭС.</p>
+    <p class="lead">Единая методология: анализ рисков, предупреждение угроз и сопровождение клиента вплоть до защиты интересов в суде — в России, СНГ и странах ЕАЭС.</p>
   </div>
 </section>
 
@@ -596,7 +612,7 @@ function buildServices() {
   <div class="wrap">
     ${site.services.map(s => `<article class="svc-detail reveal" id="${s.id}">
       <div class="svc-detail__head">
-        <span class="svc-detail__num">${esc(s.block)} · ${esc(s.num)}</span>
+        <span class="svc-detail__num">${esc(s.num)}</span>
         <h2 class="h2">${esc(s.title)}</h2>
       </div>
       <p class="lead" style="max-width:70ch">${esc(s.intro)}</p>
@@ -815,21 +831,24 @@ ${ctaBand(0)}
     ${kick(x.category)}
     <h1 class="h1">${esc(x.title)}</h1>
     <p class="lead">${esc(x.intro)}</p>
-    <div class="tags">${x.tags.map(t => `<span class="tag">${esc(t)}</span>`).join('')}</div>
+    <div class="facts facts--hero">
+      <div class="fact"><span>Направление</span><strong>${esc(x.category)}</strong></div>
+      <div class="fact"><span>Регион</span><strong>Россия · СНГ · ЕАЭС</strong></div>
+      <div class="fact"><span>${x.metric ? 'Результат' : 'Формат'}</span><strong>${esc(x.metric || 'Проектная работа')}</strong></div>
+    </div>
   </div>
 </section>
 
 <section class="sec">
   <div class="wrap wrap--narrow">
-    <div class="facts reveal">
-      <div class="fact"><span>Направление</span><strong>${esc(x.category)}</strong></div>
-      <div class="fact"><span>Регион</span><strong>Россия · СНГ · ЕАЭС</strong></div>
-      <div class="fact"><span>${x.metric ? 'Результат' : 'Формат'}</span><strong>${esc(x.metric || 'Проектная работа')}</strong></div>
-    </div>
     ${x.img ? `<div class="article__hero reveal"><img src="../${x.img}" alt="${esc(x.title)}" loading="lazy" decoding="async"></div>` : ''}
     <div class="prose reveal">
       ${x.sections.map((s, i) => `<h2><span class="step">${String(i + 1).padStart(2, '0')}</span>${esc(s.h)}</h2>
       ${s.p.map(p => `<p>${esc(p)}</p>`).join('')}`).join('')}
+    </div>
+    <div class="taglist">
+      <h4>Темы кейса</h4>
+      <div class="tags">${x.tags.map(t => `<span class="tag">${esc(t)}</span>`).join('')}</div>
     </div>
     <nav class="pager" aria-label="Другие кейсы">
       ${prev ? `<a class="arrow-link" href="${prev.slug}.html" style="transform:scaleX(1)">${I.arrow} ${esc(prev.title)}</a>` : '<span></span>'}
@@ -1010,7 +1029,7 @@ function buildContacts() {
     <nav class="crumbs" aria-label="Хлебные крошки"><a href="index.html">Главная</a> / <span>Контакты</span></nav>
     ${kick('Свяжитесь с нами')}
     <h1 class="h1">Обсудим безопасность вашего бизнеса</h1>
-    <p class="lead">Оставьте заявку или свяжитесь напрямую — проведём конфиденциальную консультацию и предложим решение под вашу задачу.</p>
+    <p class="lead">Позвоните или напишите — проведём конфиденциальную консультацию и предложим решение под вашу задачу.</p>
   </div>
 </section>
 
@@ -1018,41 +1037,20 @@ function buildContacts() {
   <div class="wrap contact-grid">
     <div class="reveal">
       <div class="ci">
-        <div class="ci__i"><span class="ci__ico">${I.pin}</span><div><h4>Адрес</h4><p>${esc(O.addressZip)}, ${esc(O.addressCity)},<br>${esc(O.addressStreet)}</p></div></div>
         <div class="ci__i"><span class="ci__ico">${I.phone}</span><div><h4>Телефон</h4><a href="tel:${O.phoneHref}">${esc(O.phone)}</a></div></div>
         <div class="ci__i"><span class="ci__ico">${I.mail}</span><div><h4>Электронная почта</h4><a href="mailto:${O.email}">${esc(O.email)}</a></div></div>
+        <div class="ci__i"><span class="ci__ico">${I.pin}</span><div><h4>Адрес</h4><p>${esc(O.addressZip)}, ${esc(O.addressCity)},<br>${esc(O.addressStreet)}</p></div></div>
         <div class="ci__i"><span class="ci__ico">${I.clock}</span><div><h4>Часы работы</h4><p>Понедельник – Пятница<br>9:30 – 18:00</p></div></div>
       </div>
-      <div class="map-embed" style="margin-top:26px">
-        <iframe title="Офис «Власта-Консалтинг» на карте: Москва, ул. Усачёва, 13" loading="lazy" src="https://yandex.ru/map-widget/v1/?ll=37.566%2C55.728&z=16&text=${encodeURIComponent(O.address)}"></iframe>
+      <div class="ci-actions">
+        <a href="tel:${O.phoneHref}" class="btn btn--primary">Позвонить ${I.arrow}</a>
+        <a href="mailto:${O.email}" class="btn btn--outline">Написать письмо</a>
       </div>
     </div>
-
     <div class="reveal" data-d="1">
-      <form class="form" id="contactForm" novalidate>
-        <div class="form__ok" id="formOk" role="status">Заявка отправлена. Мы свяжемся с вами в рабочее время.</div>
-        <h2 class="h3">Оставить заявку</h2>
-        <p class="muted" style="font-size:15px;margin:8px 0 22px">Заполните форму — специалист свяжется с вами для конфиденциальной консультации.</p>
-        <div class="row">
-          <div class="field"><label for="name">Имя *</label><input id="name" name="name" type="text" placeholder="Ваше имя" required autocomplete="name"></div>
-          <div class="field"><label for="company">Компания</label><input id="company" name="company" type="text" placeholder="Название компании" autocomplete="organization"></div>
-        </div>
-        <div class="row">
-          <div class="field"><label for="phone">Телефон *</label><input id="phone" name="phone" type="tel" placeholder="+7 (___) ___-__-__" required autocomplete="tel"></div>
-          <div class="field"><label for="email">E-mail</label><input id="email" name="email" type="email" placeholder="you@company.com" autocomplete="email"></div>
-        </div>
-        <div class="field">
-          <label for="topic">Направление</label>
-          <select id="topic" name="topic">
-            <option value="">Выберите направление</option>
-            ${site.services.map(s => `<option>${esc(s.title)}</option>`).join('')}
-            <option>Другое</option>
-          </select>
-        </div>
-        <div class="field"><label for="message">Сообщение</label><textarea id="message" name="message" placeholder="Кратко опишите задачу"></textarea></div>
-        <button class="btn btn--primary btn--wide" type="submit">Отправить заявку ${I.arrow}</button>
-        <p class="form__note">Нажимая «Отправить», вы соглашаетесь с <a href="privacy.html" style="color:var(--accent)">обработкой персональных данных</a>. Гарантируем конфиденциальность.</p>
-      </form>
+      <div class="map-embed map-embed--tall">
+        <iframe title="Офис «Власта-Консалтинг» на карте: Москва, ул. Усачёва, 13" loading="lazy" src="https://yandex.ru/map-widget/v1/?ll=37.566%2C55.728&z=16&text=${encodeURIComponent(O.address)}"></iframe>
+      </div>
     </div>
   </div>
 </section>
@@ -1065,8 +1063,8 @@ function buildContacts() {
 function buildPrivacy() {
   const c = chrome('contacts.html', 0);
   const S = [
-    ['Общие положения', [`Настоящая Политика определяет порядок обработки персональных данных ${O.legal} (далее — Компания) и меры по обеспечению их безопасности.`, 'Используя сайт и отправляя данные через формы обратной связи, вы соглашаетесь с условиями настоящей Политики.']],
-    ['Какие данные мы обрабатываем', ['Имя, название компании, телефон, адрес электронной почты и текст обращения — в объёме, который вы указываете в форме обратной связи.', 'Технические данные: IP-адрес, тип браузера и устройства, источник перехода, действия на сайте — в обезличенном виде для статистики.']],
+    ['Общие положения', [`Настоящая Политика определяет порядок обработки персональных данных ${O.legal} (далее — Компания) и меры по обеспечению их безопасности.`, 'Используя сайт и обращаясь к нам по телефону или электронной почте, вы соглашаетесь с условиями настоящей Политики.']],
+    ['Какие данные мы обрабатываем', ['Имя, название компании, телефон, адрес электронной почты и содержание обращения — в объёме, который вы сообщаете нам сами.', 'Технические данные: IP-адрес, тип браузера и устройства, источник перехода, действия на сайте — в обезличенном виде для статистики.']],
     ['Цели обработки', ['Ответ на ваше обращение и проведение консультации.', 'Улучшение работы сайта и качества услуг.', 'Исполнение требований законодательства Российской Федерации.']],
     ['Правовые основания', ['Обработка осуществляется на основании вашего согласия, а также в соответствии с Федеральным законом от 27.07.2006 № 152-ФЗ «О персональных данных».']],
     ['Передача третьим лицам', ['Компания не продаёт и не передаёт персональные данные третьим лицам, за исключением случаев, прямо предусмотренных законодательством, либо когда это необходимо для исполнения вашего обращения.']],
