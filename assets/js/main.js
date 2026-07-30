@@ -76,6 +76,48 @@
     rev.forEach(function (el) { el.classList.add('is-in'); });
   }
 
+  /* ------------------------------- practice figures count up on first view */
+  var figures = $$('.res__n[data-count]');
+  if (figures.length) {
+    var fmt = function (n, dec) {
+      // Russian copy uses a comma for the decimal separator
+      var s = dec ? n.toFixed(dec) : String(Math.round(n));
+      return root.lang === 'en' ? s : s.replace('.', ',');
+    };
+    var run = function (el) {
+      var target = parseFloat(el.getAttribute('data-count'));
+      var dec = parseInt(el.getAttribute('data-decimals') || '0', 10);
+      var out = $('.res__v', el);
+      if (!out || isNaN(target)) return;
+      if (reduce) { out.textContent = fmt(target, dec); return; }
+      var start = null, dur = 1400;
+      (function tick(ts) {
+        if (!start) start = ts;
+        var p = Math.min((ts - start) / dur, 1);
+        var eased = 1 - Math.pow(1 - p, 3);
+        out.textContent = fmt(target * eased, dec);
+        if (p < 1) requestAnimationFrame(tick);
+        else out.textContent = fmt(target, dec);
+      })(performance.now());
+    };
+    if ('IntersectionObserver' in window) {
+      var fo = new IntersectionObserver(function (es) {
+        es.forEach(function (e) {
+          if (!e.isIntersecting) return;
+          run(e.target);
+          fo.unobserve(e.target);
+        });
+      }, { threshold: 0.4 });
+      figures.forEach(function (el) {
+        var out = $('.res__v', el);
+        if (out) out.textContent = '0';
+        fo.observe(el);
+      });
+    } else {
+      figures.forEach(run);
+    }
+  }
+
   /* --------------------------------------------- generic filter chips */
   function wireFilter(gridId, emptyId, countId, initial) {
     var grid = $('#' + gridId);

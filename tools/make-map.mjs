@@ -128,9 +128,14 @@ for (const c of raw) {
     if (y < minY) minY = y; if (y > maxY) maxY = y;
   }
 }
-// a little air so the outline never touches the frame
-const mx = (maxX - minX) * 0.04, my = (maxY - minY) * 0.10;
-minX -= mx; maxX += mx; minY -= my; maxY += my;
+/* Frame tighter (a ~50% closer crop) and bias the window left of centre, which
+   pushes the landmass to the right inside the panel. */
+const ZOOM = 1.5, SHIFT_X = 0.14;
+const cx = (minX + maxX) / 2, cy = (minY + maxY) / 2;
+const halfW = (maxX - minX) / 2 / ZOOM, halfH = (maxY - minY) / 2 / ZOOM;
+const offX = halfW * 2 * SHIFT_X;
+minX = cx - halfW - offX; maxX = cx + halfW - offX;
+minY = cy - halfH; maxY = cy + halfH;
 const s = Math.min((W - PAD * 2) / (maxX - minX), (H - PAD * 2) / (maxY - minY));
 const ox = PAD + ((W - PAD * 2) - (maxX - minX) * s) / 2;
 const oy = PAD + ((H - PAD * 2) - (maxY - minY) * s) / 2;

@@ -50,20 +50,34 @@
       "unit": "%",
       "pct": 95,
       "label": "снижение количества жалоб потребителей на горячую линию",
-      "label_en": "reduction in consumer complaints to the hotline"
+      "label_en": "reduction in consumer complaints to the hotline",
+      "count": 95,
+      "unit_en": "%",
+      "icon": "trendDown",
+      "prefix": ""
     },
     {
-      "value": "×4,8",
+      "value": "4,8",
       "pct": 82,
       "label": "предотвращённого ущерба на каждый вложенный рубль",
-      "label_en": "damage prevented for every rouble invested"
+      "label_en": "damage prevented for every rouble invested",
+      "count": 4.8,
+      "decimals": 1,
+      "unit": "",
+      "unit_en": "",
+      "icon": "coins",
+      "prefix": "×"
     },
     {
       "value": "60",
       "unit": "%",
       "pct": 60,
       "label": "бюджета программы возвращается через компенсации по искам",
-      "label_en": "of the programme budget recovered through claims"
+      "label_en": "of the programme budget recovered through claims",
+      "count": 60,
+      "unit_en": "%",
+      "icon": "scales",
+      "prefix": ""
     },
     {
       "value": "4",
@@ -71,7 +85,10 @@
       "pct": 70,
       "label": "рейда в неделю с непосредственным участием наших специалистов",
       "label_en": "raids a week with our specialists directly involved",
-      "unit_en": "/ wk"
+      "unit_en": "/ wk",
+      "count": 4,
+      "icon": "raid",
+      "prefix": ""
     }
   ],
   "services": [

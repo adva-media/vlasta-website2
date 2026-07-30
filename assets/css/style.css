@@ -143,6 +143,15 @@ h1,h2,h3,h4{font-family:var(--ui);color:var(--ink);line-height:1.14;letter-spaci
 .btn--light{background:#fff;color:var(--accent)}
 .btn--light:hover{background:var(--paper-tint)}
 .btn--wide{width:100%}
+/* frosted, same family as the service tiles */
+.btn--glass{background:rgba(255,255,255,.12);color:var(--ink);
+  border-color:rgba(255,255,255,.55);
+  -webkit-backdrop-filter:blur(18px) saturate(1.6);backdrop-filter:blur(18px) saturate(1.6);
+  box-shadow:0 6px 20px -12px rgba(17,25,43,.4)}
+.btn--glass:hover{background:rgba(255,255,255,.3);border-color:var(--accent);color:var(--accent)}
+[data-theme="dark"] .btn--glass{background:rgba(255,255,255,.09);color:var(--ink);
+  border-color:rgba(255,255,255,.2)}
+[data-theme="dark"] .btn--glass:hover{background:rgba(255,255,255,.16);color:#fff}
 
 .arrow-link{display:inline-flex;align-items:center;gap:9px;font-size:14px;font-weight:600;color:var(--accent)}
 .arrow-link svg{width:15px;height:15px;transition:transform .3s var(--ease)}
@@ -253,15 +262,21 @@ h1,h2,h3,h4{font-family:var(--ui);color:var(--ink);line-height:1.14;letter-spaci
    from the viewport and shifts as you scroll — the glass reads as a window. */
 .glasszone #intro{background:var(--paper)}
 .glasszone #intro .intro{color:var(--ink)}
+/* The tiles read as frosted glass over the pinned photo, exactly like the
+   service tiles. Hover lifts them; it must not swap the backdrop. */
 #intro .stat{
   background-image:linear-gradient(rgba(23,38,66,.62),rgba(17,25,43,.72)),url("../img/hero-tower.jpg");
   background-attachment:fixed,fixed;
   background-size:cover,cover;
   background-position:center,center;
-  border-color:rgba(255,255,255,.16);
+  border-color:rgba(255,255,255,.20);
+  -webkit-backdrop-filter:blur(18px) saturate(1.5);backdrop-filter:blur(18px) saturate(1.5);
 }
-#intro .stat:hover{background-image:linear-gradient(rgba(23,38,66,.5),rgba(17,25,43,.6)),url("../img/hero-tower.jpg")}
-/* iOS ignores fixed attachment; a static crop still looks intentional */
+#intro .stat:hover{
+  border-color:rgba(255,255,255,.34);
+  transform:translateY(-3px);
+  box-shadow:0 20px 50px -28px rgba(4,9,18,.7);
+}
 @supports (-webkit-touch-callout:none){#intro .stat{background-attachment:scroll,scroll}}
 
 /* eyebrow pill */
@@ -409,22 +424,19 @@ h1,h2,h3,h4{font-family:var(--ui);color:var(--ink);line-height:1.14;letter-spaci
 
 /* -------------------------------------------------------------- results */
 .res{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
-.res__c{padding:32px 26px;text-align:center;display:flex;flex-direction:column;align-items:center}
-.gauge{position:relative;width:132px;height:132px;margin-bottom:20px}
-.gauge svg{width:100%;height:100%;transform:rotate(-90deg)}
-.gauge__tr{fill:none;stroke:rgba(255,255,255,.13);stroke-width:7}
-.gauge__fl{fill:none;stroke:var(--mist);stroke-width:7;stroke-linecap:round;
-  stroke-dasharray:327;stroke-dashoffset:327;transition:stroke-dashoffset 1.5s var(--ease) .1s}
-.reveal.is-in .gauge__fl{stroke-dashoffset:var(--off,0)}
-/* the number is centred on its own; the unit is absolutely placed so it can
-   never push the figure off-centre */
-.gauge__v{position:absolute;inset:0;display:grid;place-items:center;
-  font-size:36px;font-weight:700;color:#fff;letter-spacing:-.03em;line-height:1;
-  font-variant-numeric:tabular-nums}
-.gauge__v small{position:absolute;left:50%;top:calc(50% + 1.05em);transform:translateX(-50%);
-  font-size:.36em;font-weight:600;color:rgba(197,205,218,.9);letter-spacing:.06em;
-  text-transform:uppercase;white-space:nowrap}
-.res__l{font-size:14px;line-height:1.5;color:rgba(255,255,255,.76)}
+.res__c{padding:34px 28px 30px;text-align:center;display:flex;flex-direction:column;align-items:center}
+.res__ico{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;margin-bottom:22px;
+  background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.20);color:var(--mist);
+  transition:var(--t)}
+.res__ico svg{width:22px;height:22px;stroke-width:1.5}
+.res__c:hover .res__ico{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.34);color:#fff}
+/* one figure, set large; the unit rides the baseline so nothing shifts */
+.res__n{display:flex;align-items:baseline;justify-content:center;gap:2px;
+  font-size:clamp(46px,5vw,62px);font-weight:700;letter-spacing:-.04em;line-height:1;
+  color:#fff;font-variant-numeric:tabular-nums}
+.res__pre,.res__u{font-size:.46em;font-weight:600;color:var(--mist);letter-spacing:0}
+.res__u{white-space:nowrap;margin-left:3px}
+.res__l{margin-top:18px;font-size:14px;line-height:1.5;color:rgba(255,255,255,.76)}
 
 /* ------------------------------------------------------------- geography */
 .geo{display:grid;gap:clamp(34px,4vw,60px)}
@@ -442,13 +454,21 @@ h1,h2,h3,h4{font-family:var(--ui);color:var(--ink);line-height:1.14;letter-spaci
 
 /* -------------------------------------------------------------- timeline */
 /* years sit ABOVE the rail; rail scrolls horizontally at every width */
-.tl{position:relative;margin-top:8px}
-.tl__rail{display:flex;overflow-x:auto;scroll-snap-type:x proximity;
-  padding:4px 0 24px;scrollbar-width:thin;scrollbar-color:var(--mist) transparent}
+/* The rail bleeds to the viewport edges: inside the padded .wrap the years
+   were being clipped against the section box as it scrolled. */
+.tl{position:relative;margin-top:8px;
+  margin-inline:calc(var(--gutter) * -1);
+  padding-inline:var(--gutter)}
+/* overflow-y cannot stay visible while overflow-x is auto — CSS promotes it to
+   auto, which is what was boxing in the rail and clipping the years. Clip it
+   explicitly and use padding so nothing touches an edge. */
+.tl__rail{display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x proximity;
+  padding:16px 0 34px;scrollbar-width:thin;scrollbar-color:var(--mist) transparent}
 .tl__rail::-webkit-scrollbar{height:5px}
 .tl__rail::-webkit-scrollbar-thumb{background:var(--mist);border-radius:99px}
 .tl__rail::-webkit-scrollbar-track{background:transparent}
 .tl__i{flex:0 0 254px;scroll-snap-align:start;padding-right:20px;position:relative}
+.tl__i:last-child{padding-right:var(--gutter)}
 .tl__yr{font-size:23px;font-weight:700;color:var(--steel);letter-spacing:-.02em;line-height:1;
   padding-bottom:14px;transition:color var(--t)}
 .tl__i--hi .tl__yr{color:var(--accent)}
@@ -701,17 +721,23 @@ html.is-locked,html.is-locked body{overflow:hidden}
 .value:hover h3{color:#fff}
 .value:hover p{color:rgba(255,255,255,.8)}
 
-/* letters */
-.letters{display:grid;grid-template-columns:repeat(5,1fr);gap:18px}
-.letter{cursor:pointer;text-align:left;transition:transform var(--t)}
+/* letters: a horizontal carousel of uniform tiles, like the client strip */
+.letters-rail{display:flex;gap:18px;overflow-x:auto;padding:4px 0 22px;
+  scroll-snap-type:x proximity;scrollbar-width:thin;scrollbar-color:var(--mist) transparent}
+.letters-rail::-webkit-scrollbar{height:5px}
+.letters-rail::-webkit-scrollbar-thumb{background:var(--mist);border-radius:99px}
+.letters-rail::-webkit-scrollbar-track{background:transparent}
+.letter{flex:0 0 236px;scroll-snap-align:start;cursor:pointer;text-align:left;
+  transition:transform var(--t)}
 .letter:hover{transform:translateY(-4px)}
-.letter__th{aspect-ratio:1/1.414;border-radius:var(--r-md);overflow:hidden;background:#fff;
-  border:1px solid var(--line);box-shadow:var(--sh-sm);transition:var(--t)}
+.letter:focus-visible{outline:2px solid var(--accent);outline-offset:4px;border-radius:var(--r-md)}
+.letter__th{aspect-ratio:1/1.32;border-radius:var(--r-md);overflow:hidden;background:#fff;
+  border:1px solid var(--line);box-shadow:var(--sh-sm);transition:var(--t);display:block}
 .letter:hover .letter__th{box-shadow:var(--sh-md);border-color:var(--mist)}
-.letter__th img{width:100%;height:100%;object-fit:contain;object-position:center top;
-  /* faint office scans need a nudge to read at thumbnail size */
-  filter:contrast(1.08) saturate(1.05)}
-.letter__n{display:block;margin-top:11px;font-size:13.5px;font-weight:600;color:var(--ink)}
+.letter__th img{width:100%;height:100%;object-fit:cover;object-position:center top;
+  filter:contrast(1.06) saturate(1.04)}
+.letter__n{display:block;margin-top:12px;font-size:13.5px;font-weight:600;color:var(--ink)}
+@media (max-width:620px){.letter{flex-basis:200px}}
 
 .lightbox{position:fixed;inset:0;z-index:400;display:grid;place-items:center;padding:24px;
   background:rgba(17,25,43,.86);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
@@ -956,7 +982,7 @@ html.is-locked,html.is-locked body{overflow:hidden}
 [data-theme="dark"] .value:hover .value__n{color:rgba(14,21,36,.6)}
 [data-theme="dark"] .cta{background:linear-gradient(132deg,#26314A,#1B2437 52%,#0E1524)}
 [data-theme="dark"] .btn--light{background:var(--accent);color:#0E1524}
-[data-theme="dark"] .gauge__v,[data-theme="dark"] .geo__bar b{color:#fff}
+[data-theme="dark"] .geo__bar b{color:#fff}
 [data-theme="dark"] .appr__c--hi h3,[data-theme="dark"] .appr__c--hi p{color:#0E1524}
 [data-theme="dark"] .appr__c--hi .appr__n{color:rgba(14,21,36,.5)}
 
@@ -966,8 +992,7 @@ html.is-locked,html.is-locked body{overflow:hidden}
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;
     transition-duration:.01ms!important}
   .reveal{opacity:1;transform:none}
-  .gauge__fl{transition:none;stroke-dashoffset:var(--off,0)}
-}
+  }
 
 /* ---------------------------------------------------------------- print */
 @media print{

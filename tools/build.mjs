@@ -41,7 +41,7 @@ const BASE = O.domain;
 const T = {
   ru: {
     nav: [['index.html','Главная'],['services.html','Услуги'],['about.html','О компании'],
-          ['cases.html','Кейсы'],['news.html','Новости'],['contacts.html','Контакты']],
+          ['cases.html','Кейсы'],['news.html','Новости']],
     contact:'Связаться', menu:'Меню', more:'Подробнее', readOn:'Читать',
     allServices:'Все услуги', allCases:'Все кейсы', allNews:'Все новости',
     caseStudy:'Разбор кейса', home:'Главная',
@@ -67,7 +67,7 @@ const T = {
   },
   en: {
     nav: [['index.html','Home'],['services.html','Services'],['about.html','About'],
-          ['cases.html','Cases'],['news.html','News'],['contacts.html','Contact']],
+          ['cases.html','Cases'],['news.html','News']],
     contact:'Get in touch', menu:'Menu', more:'Learn more', readOn:'Read',
     allServices:'All services', allCases:'All cases', allNews:'All news',
     caseStudy:'Read the case', home:'Home',
@@ -289,6 +289,9 @@ const I = {
   scales: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M7 21h10M4 7h16M8 7l-4 6h8zM16 7l4 6h-8z"/></svg>',
   layers: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 3 8l9 5 9-5z"/><path d="m3 13 9 5 9-5M3 18l9 5 9-5"/></svg>',
   check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13l4.5 4.5L20 6"/></svg>',
+  trendDown: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l6.5 6.5 4-4L21 17"/><path d="M15 17h6v-6"/></svg>',
+  coins: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6.5" rx="7.5" ry="3.2"/><path d="M4.5 6.5v5c0 1.8 3.4 3.2 7.5 3.2s7.5-1.4 7.5-3.2v-5"/><path d="M4.5 11.5v5c0 1.8 3.4 3.2 7.5 3.2s7.5-1.4 7.5-3.2v-5"/></svg>',
+  raid: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 3v5.2c0 4.6-3.1 7.8-7.5 9.3-4.4-1.5-7.5-4.7-7.5-9.3V6z"/><path d="M12 8.4v4.2M12 15.4h.01"/></svg>',
   drag: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M15 7l5 5-5 5"/></svg>',
 };
 
@@ -318,8 +321,8 @@ function countryMap() {
   ).join('');
   return `<div class="cmap">
   <svg viewBox="0 0 ${m.width} ${m.height}" role="group" aria-label="${C.geoMapLabel}">
-    <defs><radialGradient id="cmFade" cx="50%" cy="50%" r="62%">
-      <stop offset="72%" stop-color="#fff"/><stop offset="100%" stop-color="#000"/>
+    <defs><radialGradient id="cmFade" cx="50%" cy="50%" r="76%">
+      <stop offset="46%" stop-color="#fff"/><stop offset="86%" stop-color="#fff" stop-opacity=".55"/><stop offset="100%" stop-color="#000"/>
     </radialGradient>
     <mask id="cmMask"><rect width="${m.width}" height="${m.height}" fill="url(#cmFade)"/></mask></defs>
     <g class="cm__g" mask="url(#cmMask)">${paths}</g>
@@ -469,7 +472,8 @@ function chrome(active, depth = 0) {
   const enHref = toRoot + 'en/' + active;
   const links = NAV.map(([h, t]) =>
     `<a href="${R(h)}"${h === active ? ' class="is-on" aria-current="page"' : ''}>${t}</a>`).join('');
-  const mlinks = NAV.map(([h, t]) =>
+  const mnavItems = [...NAV, ['contacts.html', T.nav_contacts]];
+  const mlinks = mnavItems.map(([h, t]) =>
     `<a class="mnav__l${h === active ? ' is-on' : ''}" href="${R(h)}"${h === active ? ' aria-current="page"' : ''}>${t}</a>`).join('');
   const tt = `<button class="tt" type="button" aria-label="${T.themeLabel}" aria-pressed="false">${I.moon}${I.sun}</button>`;
   const brand = (light) => `<a class="brand" href="${R('index.html')}" aria-label="${esc(O.name)} — на главную">
@@ -496,7 +500,7 @@ function chrome(active, depth = 0) {
     ${brand(false)}
     <nav class="nav" aria-label="${T.mainNav}">${links}</nav>
     <div class="hdr__cta">
-      <a href="${R('contacts.html')}" class="btn btn--primary">${T.contact}</a>
+      <a href="${R('contacts.html')}" class="btn btn--glass">${T.nav_contacts}</a>
       <button class="burger" type="button" aria-label="${T.openMenu}" aria-expanded="false" aria-controls="mnav"><span></span><span></span><span></span></button>
     </div>
   </div>
@@ -582,7 +586,7 @@ function shead({ k, h, d, extra, mod = 'split', tag = 'h2' }) {
 const ctaBand = (depth = 0) => `<section class="sec">
   <div class="wrap">
     <div class="cta reveal">
-      <div class="cta__mark" aria-hidden="true"><img src="${rel(depth, 'assets/img/logo-light.svg')}" alt="" loading="lazy" decoding="async"></div>
+      <div class="cta__mark" aria-hidden="true"><img src="${rel(depth, 'assets/img/logo-mark.svg')}" alt="" loading="lazy" decoding="async"></div>
       <div class="cta__in">
         <span class="pill"><span class="pill__d"></span>${T.ctaKicker}</span>
         <h2 class="h2">${T.ctaTitle}</h2>
@@ -757,16 +761,13 @@ ${marquee()}
       d: C.resDesc,
     })}
     <div class="res">
-      ${site.results.map((r, i) => {
-        const off = (327 * (100 - r.pct) / 100).toFixed(0);
-        return `<div class="card glass res__c reveal"${i ? ` data-d="${i}"` : ''}>
-        <div class="gauge" style="--off:${off}">
-          <svg viewBox="0 0 120 120" aria-hidden="true"><circle class="gauge__tr" cx="60" cy="60" r="52"/><circle class="gauge__fl" cx="60" cy="60" r="52"/></svg>
-          <div class="gauge__v">${esc(r.value)}${t(r,'unit') ? `<small>${esc(t(r,'unit'))}</small>` : ''}</div>
+      ${site.results.map((r, i) => `<div class="card glass res__c reveal"${i ? ` data-d="${i}"` : ''}>
+        <span class="res__ico">${I[r.icon] || I.shield}</span>
+        <div class="res__n" data-count="${esc(r.count)}"${r.decimals ? ` data-decimals="${r.decimals}"` : ''}>
+          <span class="res__pre">${esc(r.prefix || '')}</span><span class="res__v">${esc(r.value)}</span><span class="res__u">${esc(t(r, 'unit') || '')}</span>
         </div>
-        <p class="res__l">${esc(t(r,'label'))}</p>
-      </div>`;
-      }).join('')}
+        <p class="res__l">${esc(t(r, 'label'))}</p>
+      </div>`).join('')}
     </div>
   </div>
 </section>
@@ -962,8 +963,8 @@ function buildAbout() {
 <section class="sec sec--alt" id="letters">
   <div class="wrap">
     ${shead({ k: C.lettersKicker, h: C.lettersTitle, d: C.lettersDesc })}
-    <div class="letters">
-      ${site.letters.map((l, i) => `<button class="letter reveal" type="button" data-letter${i ? ` data-d="${i}"` : ''}>
+    <div class="letters-rail reveal" tabindex="0" role="group" aria-label="${C.lettersTitle}">
+      ${site.letters.map(l => `<button class="letter" type="button" data-letter>
         <span class="letter__th"><img src="${rel(0, l.img)}" alt="${C.letterAlt} — ${esc(l.name)}" decoding="async"></span>
         <span class="letter__n">${esc(l.name)}</span>
       </button>`).join('')}
