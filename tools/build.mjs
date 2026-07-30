@@ -38,6 +38,23 @@ const rich = s => String(s ?? '')
   .replace(/&(?!(amp|lt|gt|quot|#\d+|nbsp);)/g, '&amp;')
   .replace(/<(?!\/?(a|b|strong|i|em|u)\b)/gi, '&lt;');
 const j = (...c) => c.filter(Boolean).join('\n');
+
+/* Body entries starting with "• " are list items; consecutive ones become
+   one <ul> so enumerations break onto their own lines. */
+function renderBody(body) {
+  let out = '', open = false;
+  for (const raw of body) {
+    const t = String(raw);
+    if (t.startsWith('• ')) {
+      if (!open) { out += '<ul>'; open = true; }
+      out += `<li>${rich(t.slice(2))}</li>`;
+    } else {
+      if (open) { out += '</ul>'; open = false; }
+      out += `<p>${rich(t)}</p>`;
+    }
+  }
+  return out + (open ? '</ul>' : '');
+}
 const rel = (depth, p) => (depth ? '../'.repeat(depth) : '') + p;
 
 function write(rp, html) {
@@ -293,12 +310,12 @@ function chrome(active, depth = 0) {
       </div>
       <div>
         <h4>Контакты</h4>
-        <div class="ft__ls">
+        <ul class="ft__ls ft__ls--dot">
+          <li><a href="tel:${O.phoneHref}">${esc(O.phone)}</a></li>
+          <li><a href="mailto:${O.email}">${esc(O.email)}</a></li>
           <li>${esc(O.address)}</li>
-          <a href="tel:${O.phoneHref}">${esc(O.phone)}</a>
-          <a href="mailto:${O.email}">${esc(O.email)}</a>
           <li>${esc(O.hours)}</li>
-        </div>
+        </ul>
       </div>
     </div>
     <div class="ft__bot">
@@ -323,6 +340,19 @@ function chrome(active, depth = 0) {
     <a href="mailto:${O.email}">${esc(O.email)}</a>
   </div>
 </aside>
+<div class="cookie" id="cookie" role="dialog" aria-labelledby="ckT" aria-describedby="ckD" hidden>
+  <div class="cookie__c">
+    <div class="cookie__txt">
+      <h4 id="ckT">Файлы cookie</h4>
+      <p id="ckD">Мы используем cookie, чтобы сайт работал корректно и чтобы понимать, какие материалы вам полезны. Аналитику можно отключить — на работу сайта это не повлияет. <a href="${R('privacy.html')}">Подробнее</a></p>
+    </div>
+    <div class="cookie__btns">
+      <button class="btn btn--ghostline" type="button" data-ck="reject">Отклонить всё</button>
+      <button class="btn btn--ghostline" type="button" data-ck="necessary">Только необходимые</button>
+      <button class="btn btn--primary" type="button" data-ck="all">Принять всё</button>
+    </div>
+  </div>
+</div>
 <button class="totop" type="button" aria-label="Наверх">${I.up}</button>
 <script src="${R('assets/js/main.js')}?v=${V.js}" defer></script>
 </body>
@@ -347,7 +377,7 @@ const ctaBand = (depth = 0) => `<section class="sec">
       <div class="cta__in">
         <span class="pill"><span class="pill__d"></span>Начнём сотрудничество</span>
         <h2 class="h2">Обсудим, как защитить ваш бизнес</h2>
-        <p>Позвоните или напишите — проведём конфиденциальную консультацию, оценим риски и предложим решение под вашу задачу.</p>
+        <p>Проведём конфиденциальную консультацию, оценим риски и предложим решение под вашу задачу.</p>
         <div class="cta__btns">
           <a href="tel:${O.phoneHref}" class="btn btn--light">${esc(O.phone)} ${I.arrow}</a>
           <a href="mailto:${O.email}" class="btn btn--onDark">${esc(O.email)}</a>
@@ -379,7 +409,7 @@ const timeline = () => `<div class="tl">
       </div>
     </div>`;
 
-const assocGrid = () => `<div class="assoc-grid">
+const assocGrid = () => `<div class="assoc-rail" tabindex="0" role="group" aria-label="Ассоциации — прокрутите по горизонтали">
       ${site.associations.map((a, i) => `<button class="card glass assoc reveal" type="button" data-assoc="${i}" aria-haspopup="dialog">
         <span class="assoc__logo"><img src="${a.logo}" alt="${esc(a.abbr)}" loading="lazy" decoding="async"></span>
         <h3>${esc(a.name)}</h3>
@@ -414,9 +444,10 @@ const caseCard = (c, depth = 0, d = 0) => `<a class="card case reveal" href="${r
         <div class="case__b">
           <span class="case__cat">${esc(c.category)}</span>
           <h3>${esc(c.title)}</h3>
-          <p>${esc(c.intro)}</p>
+          ${c.metric ? `<span class="case__win">${esc(c.metric)}</span>` : ''}
+          <p>${esc(c.outcome || c.intro)}</p>
           <div class="case__f">
-            ${c.metric ? `<span class="case__m">${esc(c.metric)}</span>` : '<span></span>'}
+            <span class="case__more arrow-link">Разбор кейса</span>
             <span class="case__go" aria-hidden="true">${I.arrow}</span>
           </div>
         </div>
@@ -552,6 +583,17 @@ ${marquee()}
       extra: `<a href="cases.html" class="seeall"><span class="seeall__l">Все кейсы</span><span class="seeall__r">${I.arrow}</span></a>`,
     })}
     <div class="case-grid">${featCases.map((x, i) => caseCard(x, 0, i)).join('')}</div>
+  </div>
+</section>
+
+<section class="sec sec--alt" id="history">
+  ${engrave('bl', 'tlh')}
+  <div class="wrap">
+    ${shead({
+      k: 'История компании', h: 'Путь, отмеченный международным признанием',
+      extra: `<p class="tl__hint">От московского старта до международной практики ${I.drag} листайте</p>`,
+    })}
+    ${timeline()}
   </div>
 </section>
 
@@ -781,9 +823,10 @@ function buildCases() {
         <div class="case__b">
           <span class="case__cat">${esc(x.category)}</span>
           <h2 class="h3">${esc(x.title)}</h2>
-          <p>${esc(x.intro)}</p>
+          ${x.metric ? `<span class="case__win">${esc(x.metric)}</span>` : ''}
+          <p>${esc(x.outcome || x.intro)}</p>
           <div class="case__f">
-            ${x.metric ? `<span class="case__m">${esc(x.metric)}</span>` : '<span></span>'}
+            <span class="case__more arrow-link">Разбор кейса</span>
             <span class="case__go" aria-hidden="true">${I.arrow}</span>
           </div>
         </div>
@@ -836,6 +879,7 @@ ${ctaBand(0)}
       <div class="fact"><span>Регион</span><strong>Россия · СНГ · ЕАЭС</strong></div>
       <div class="fact"><span>${x.metric ? 'Результат' : 'Формат'}</span><strong>${esc(x.metric || 'Проектная работа')}</strong></div>
     </div>
+    ${x.outcome ? `<p class="case-outcome">${esc(x.outcome)}</p>` : ''}
   </div>
 </section>
 
@@ -937,7 +981,7 @@ function buildNews() {
     const related = news.filter(r => r.cluster === n.cluster && r.slug !== n.slug).slice(0, 3);
     const videoBlock = n.video
       ? (n.video.type === 'mp4'
-        ? `<div class="video"><video controls preload="none"${n.img ? ` poster="../${n.img}"` : ''}><source src="${esc(n.video.src)}" type="video/mp4">Ваш браузер не поддерживает видео.</video></div>`
+        ? `<div class="video"><video controls preload="metadata"><source src="${esc(n.video.src)}" type="video/mp4">Ваш браузер не поддерживает видео.</video></div>`
         : `<div class="video"><iframe src="${esc(n.video.src)}" title="Видео к материалу: ${esc(n.title)}" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>`)
       : '';
 
@@ -964,8 +1008,8 @@ function buildNews() {
       }),
       cc.header,
       `<main>
-<section class="phero">
-  ${engrave('tr', 'ph')}
+<section class="phero${n.img ? ' phero--photo' : ''}">
+  ${n.img ? `<div class="phero__bg" aria-hidden="true"><img src="../${n.img}" alt="" fetchpriority="high" decoding="async"></div>` : engrave('tr', 'ph')}
   <div class="wrap wrap--narrow">
     <nav class="crumbs" aria-label="Хлебные крошки"><a href="../index.html">Главная</a> / <a href="../news.html">Новости</a> / <span>${esc(n.dateDisp)}</span></nav>
     <div class="article__meta"><time datetime="${n.dateIso}">${esc(n.dateDisp)}</time><span>·</span><span class="cl">${esc(n.cluster)}</span></div>
@@ -975,10 +1019,9 @@ function buildNews() {
 
 <section class="sec">
   <div class="wrap wrap--narrow">
-    ${n.img ? `<div class="article__hero reveal"><img src="../${n.img}" alt="${esc(n.title)}" width="1200" height="514" decoding="async"></div>` : ''}
     ${videoBlock}
     <article class="prose reveal">
-      ${n.body.map(p => `<p>${rich(p)}</p>`).join('')}
+      ${renderBody(n.body)}
     </article>
     ${n.links.length ? `<div class="srcs">
       <h4>Источники и упоминания</h4>
@@ -1029,7 +1072,7 @@ function buildContacts() {
     <nav class="crumbs" aria-label="Хлебные крошки"><a href="index.html">Главная</a> / <span>Контакты</span></nav>
     ${kick('Свяжитесь с нами')}
     <h1 class="h1">Обсудим безопасность вашего бизнеса</h1>
-    <p class="lead">Позвоните или напишите — проведём конфиденциальную консультацию и предложим решение под вашу задачу.</p>
+    <p class="lead">Проведём конфиденциальную консультацию и предложим решение под вашу задачу.</p>
   </div>
 </section>
 

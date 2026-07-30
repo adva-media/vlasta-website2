@@ -246,8 +246,23 @@ h1,h2,h3,h4{font-family:var(--ui);color:var(--ink);line-height:1.14;letter-spaci
 
 /* the opening statement, set large and quiet */
 .intro{max-width:min(100%,940px);font-size:clamp(19px,2.3vw,30px);font-weight:300;
-  line-height:1.42;letter-spacing:-.015em;color:#fff;text-wrap:pretty}
-.glasszone .intro{color:rgba(255,255,255,.92)}
+  line-height:1.42;letter-spacing:-.015em;color:var(--ink);text-wrap:pretty}
+
+/* This section is white, but the stat tiles still show the tower. Each tile
+   paints the photo with background-attachment:fixed, so the crop is taken
+   from the viewport and shifts as you scroll — the glass reads as a window. */
+.glasszone #intro{background:var(--paper)}
+.glasszone #intro .intro{color:var(--ink)}
+#intro .stat{
+  background-image:linear-gradient(rgba(23,38,66,.62),rgba(17,25,43,.72)),url("../img/hero-tower.jpg");
+  background-attachment:fixed,fixed;
+  background-size:cover,cover;
+  background-position:center,center;
+  border-color:rgba(255,255,255,.16);
+}
+#intro .stat:hover{background-image:linear-gradient(rgba(23,38,66,.5),rgba(17,25,43,.6)),url("../img/hero-tower.jpg")}
+/* iOS ignores fixed attachment; a static crop still looks intentional */
+@supports (-webkit-touch-callout:none){#intro .stat{background-attachment:scroll,scroll}}
 
 /* eyebrow pill */
 .pill{display:inline-flex;align-items:center;gap:9px;padding:7px 15px;border-radius:999px;
@@ -293,10 +308,13 @@ h1,h2,h3,h4{font-family:var(--ui);color:var(--ink);line-height:1.14;letter-spaci
   -webkit-backdrop-filter:blur(18px) saturate(1.5);backdrop-filter:blur(18px) saturate(1.5);
   transition:var(--t)}
 .stat:hover{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.32);transform:translateY(-3px)}
-.stat__n{font-size:clamp(30px,3.3vw,44px);font-weight:700;letter-spacing:-.035em;line-height:1;
+.stat__n{display:flex;align-items:baseline;gap:5px;
+  font-size:clamp(30px,3.3vw,44px);font-weight:700;letter-spacing:-.035em;line-height:1;
   color:#fff;font-variant-numeric:tabular-nums}
-.stat__n .u{font-size:.36em;font-weight:600;color:var(--mist);letter-spacing:0;margin-left:3px}
-.stat__l{margin-top:11px;font-size:13px;color:rgba(255,255,255,.68);line-height:1.45}
+/* units sit on the baseline beside the figure, never as a dropped subscript */
+.stat__n .u{font-size:.4em;font-weight:600;color:var(--mist);letter-spacing:.01em;
+  white-space:nowrap;line-height:1}
+.stat__l{margin-top:13px;font-size:13px;color:rgba(255,255,255,.68);line-height:1.45}
 
 /* ---------------------------------------------------------------- cards */
 /* paper card — for white/alt backgrounds where real glass would read as mud */
@@ -453,8 +471,13 @@ h1,h2,h3,h4{font-family:var(--ui);color:var(--ink);line-height:1.14;letter-spaci
 .sec--alt .tl__dot{background:var(--paper-alt)}
 
 /* ---------------------------------------------------------- associations */
-.assoc-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
-.assoc{padding:20px 18px 22px;text-align:center;align-items:center;cursor:pointer}
+.assoc-rail{display:flex;gap:16px;overflow-x:auto;padding:4px 0 20px;
+  scroll-snap-type:x proximity;scrollbar-width:thin;scrollbar-color:var(--mist) transparent}
+.assoc-rail::-webkit-scrollbar{height:5px}
+.assoc-rail::-webkit-scrollbar-thumb{background:var(--mist);border-radius:99px}
+.assoc-rail::-webkit-scrollbar-track{background:transparent}
+.assoc{flex:0 0 208px;scroll-snap-align:start;padding:20px 18px 22px;text-align:center;
+  align-items:center;cursor:pointer}
 .assoc__logo{width:100%;height:74px;border-radius:12px;background:#fff;border:1px solid var(--line-soft);
   display:grid;place-items:center;padding:12px 14px;overflow:hidden;transition:var(--t)}
 .assoc__logo img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;
@@ -527,11 +550,29 @@ html.is-locked,html.is-locked body{overflow:hidden}
 .case{overflow:hidden;padding:0}
 .case__img{aspect-ratio:16/10;overflow:hidden;background:var(--paper-tint);position:relative}
 .case__img img{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease)}
+/* The source photos vary wildly in colour. Grading them down and laying a
+   navy wash on top pulls a very mixed set into one family. Done with a filter
+   plus a normal-blend overlay rather than mix-blend-mode, which some engines
+   drop when the layer is composited. */
+.case__img img,.ncard__img img{filter:saturate(.42) contrast(1.04) brightness(.9)}
+.case__img::after,.ncard__img::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(52,67,97,.46),rgba(17,25,43,.58));
+  transition:opacity .5s var(--ease)}
+.case:hover .case__img::after,.ncard:hover .ncard__img::after{opacity:.72}
+.case:hover .case__img img,.ncard:hover .ncard__img img{filter:saturate(.6) contrast(1.04) brightness(.96)}
 .case:hover .case__img img{transform:scale(1.045)}
 .case__b{padding:26px 26px 28px;display:flex;flex-direction:column;flex:1}
 .case__cat{font-size:11px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--accent)}
 .case__b h3{font-size:19px;margin-top:13px;line-height:1.32}
+/* the win goes above the description — that is what a prospect scans for */
+.case__win{display:inline-block;align-self:flex-start;margin-top:14px;padding:6px 13px;
+  border-radius:999px;font-size:12.5px;font-weight:700;letter-spacing:.01em;
+  color:var(--accent);background:rgba(52,67,97,.09);border:1px solid rgba(52,67,97,.18)}
 .case__b p{margin-top:12px;font-size:14.5px;line-height:1.6;color:var(--body);flex:1}
+.case__more{font-size:13px}
+.case-outcome{margin-top:22px;padding:18px 22px;border-radius:var(--r-md);
+  background:var(--paper-alt);border-left:3px solid var(--accent);
+  font-size:16px;line-height:1.6;color:var(--ink)}
 .case__f{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:22px}
 .case__m{font-size:11.5px;font-weight:700;letter-spacing:.04em;color:var(--accent);
   border:1px solid var(--line);border-radius:999px;padding:6px 13px;background:var(--paper-alt)}
@@ -666,7 +707,7 @@ html.is-locked,html.is-locked body{overflow:hidden}
 .letter__th{aspect-ratio:3/4;border-radius:var(--r-md);overflow:hidden;background:#fff;
   border:1px solid var(--line);box-shadow:var(--sh-sm);transition:var(--t)}
 .letter:hover .letter__th{box-shadow:var(--sh-md);border-color:var(--mist)}
-.letter__th img{width:100%;height:100%;object-fit:contain;object-position:center top}
+.letter__th img{width:100%;height:100%;object-fit:cover;object-position:center top}
 .letter__n{display:block;margin-top:11px;font-size:13.5px;font-weight:600;color:var(--ink)}
 
 .lightbox{position:fixed;inset:0;z-index:400;display:grid;place-items:center;padding:24px;
@@ -739,6 +780,11 @@ html.is-locked,html.is-locked body{overflow:hidden}
 .ft h4{font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
   color:rgba(255,255,255,.46);margin-bottom:18px}
 .ft__ls{display:grid;gap:11px}
+.ft__ls--dot li{position:relative;padding-left:16px;line-height:1.5}
+.ft__ls--dot li::before{content:"";position:absolute;left:0;top:9px;width:5px;height:5px;
+  border-radius:50%;background:var(--steel)}
+.ft__ls--dot a{display:inline}
+.ft__ls--dot a:hover{transform:none;color:#fff}
 .ft__ls a,.ft__ls li{font-size:14.5px;color:rgba(255,255,255,.74);transition:var(--t)}
 .ft__ls a{display:inline-block}
 .ft__ls a:hover{color:#fff;transform:translateX(3px)}
@@ -770,6 +816,12 @@ html.is-locked,html.is-locked body{overflow:hidden}
 /* -------------------------------------------------------- interior hero */
 .phero{position:relative;overflow:hidden;background:var(--ink);color:#fff;
   padding-block:clamp(46px,6vw,86px)}
+.phero--photo{padding-block:clamp(66px,9vw,124px)}
+.phero__bg{position:absolute;inset:0;z-index:0}
+.phero__bg img{width:100%;height:100%;object-fit:cover}
+.phero__bg::after{content:"";position:absolute;inset:0;background:
+  linear-gradient(180deg,rgba(17,25,43,.72),rgba(17,25,43,.86)),
+  linear-gradient(90deg,rgba(52,67,97,.5),transparent 70%)}
 .phero .wrap{position:relative;z-index:1}
 .phero h1{color:#fff;max-width:min(100%,780px);margin-top:16px}
 .phero .lead{color:rgba(255,255,255,.74);max-width:62ch;margin-top:18px}
@@ -813,7 +865,6 @@ html.is-locked,html.is-locked body{overflow:hidden}
 
 /* ------------------------------------------------------------ responsive */
 @media (max-width:1180px){
-  .assoc-grid{grid-template-columns:repeat(4,1fr)}
   .clients{grid-template-columns:repeat(5,1fr)}
   .letters{grid-template-columns:repeat(4,1fr)}
 }
@@ -829,7 +880,6 @@ html.is-locked,html.is-locked body{overflow:hidden}
   .nm-chip{display:none}
   .svc-grid,.dir-grid{grid-template-columns:1fr}
   .clients{grid-template-columns:repeat(4,1fr)}
-  .assoc-grid{grid-template-columns:repeat(3,1fr)}
   .geo__bar{grid-template-columns:1fr}
   .stats{grid-template-columns:repeat(2,1fr)}
 }
@@ -837,7 +887,8 @@ html.is-locked,html.is-locked body{overflow:hidden}
   body{font-size:16px}
   .case-grid,.news-grid,.team{grid-template-columns:1fr}
   .clients{grid-template-columns:repeat(3,1fr)}
-  .assoc-grid,.letters{grid-template-columns:repeat(2,1fr)}
+  .letters{grid-template-columns:repeat(2,1fr)}
+  .assoc{flex-basis:170px}
   .values,.appr,.res{grid-template-columns:1fr}
   .case-row{grid-template-columns:40px 1fr}
   .case-row__cat{display:none}
@@ -955,8 +1006,8 @@ section[id]{scroll-margin-top:96px}
 .cmap__tip{
   position:absolute;left:0;top:0;transform:translate(-50%,-140%);
   padding:6px 12px;border-radius:999px;pointer-events:none;white-space:nowrap;
-  font-size:12px;font-weight:600;letter-spacing:.02em;color:var(--ink);
-  background:rgba(255,255,255,.92);border:1px solid rgba(255,255,255,.7);
+  font-size:12px;font-weight:600;letter-spacing:.02em;color:#11192B;
+  background:rgba(255,255,255,.94);border:1px solid rgba(255,255,255,.7);
   -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
   box-shadow:0 8px 22px -10px rgba(4,9,18,.6);z-index:2;
 }
@@ -977,3 +1028,36 @@ section[id]{scroll-margin-top:96px}
 .taglist h4{font-size:12px;letter-spacing:.13em;text-transform:uppercase;
   color:var(--steel);margin-bottom:14px}
 .taglist .tag{border-color:var(--line);color:var(--accent);background:var(--paper-alt)}
+
+/* =========================================================================
+   Cookie notice — anchored low, dismissible, never blocks the page
+   ========================================================================= */
+.cookie{
+  position:fixed;left:50%;bottom:clamp(14px,3vw,26px);transform:translate(-50%,14px);
+  z-index:260;width:min(1080px,calc(100vw - 28px));
+  opacity:0;visibility:hidden;transition:opacity .4s var(--ease),transform .4s var(--ease),visibility .4s;
+}
+.cookie.is-on{opacity:1;visibility:visible;transform:translate(-50%,0)}
+.cookie__c{
+  display:flex;align-items:center;gap:clamp(16px,3vw,34px);flex-wrap:wrap;
+  padding:20px 24px;border-radius:var(--r-lg);
+  background:rgba(255,255,255,.82);border:1px solid rgba(255,255,255,.9);
+  -webkit-backdrop-filter:blur(22px) saturate(1.7);backdrop-filter:blur(22px) saturate(1.7);
+  box-shadow:0 24px 60px -24px rgba(10,18,32,.45);
+}
+.cookie__txt{flex:1 1 340px;min-width:0}
+.cookie__txt h4{font-size:15px;margin-bottom:5px}
+.cookie__txt p{font-size:13.5px;line-height:1.55;color:var(--body)}
+.cookie__txt a{color:var(--accent);text-decoration:underline;text-underline-offset:2px}
+.cookie__btns{display:flex;gap:9px;flex-wrap:wrap;flex:0 0 auto}
+.cookie .btn{padding:11px 18px;font-size:13.5px}
+.btn--ghostline{border-color:var(--line);color:var(--ink);background:rgba(255,255,255,.6)}
+.btn--ghostline:hover{border-color:var(--accent);color:var(--accent);background:#fff}
+[data-theme="dark"] .cookie__c{background:rgba(20,29,48,.9);border-color:rgba(255,255,255,.14)}
+[data-theme="dark"] .btn--ghostline{background:rgba(255,255,255,.06);color:var(--ink)}
+@media (max-width:700px){
+  .cookie__c{padding:18px}
+  .cookie__btns{width:100%}
+  .cookie__btns .btn{flex:1 1 auto;justify-content:center}
+}
+@media (prefers-reduced-motion:reduce){.cookie{transition:opacity .2s linear;transform:translate(-50%,0)}}

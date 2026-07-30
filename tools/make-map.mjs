@@ -52,7 +52,8 @@ function project([lon, lat]) {
   if (L < -20) L += 360;
   const θ = n * (L * D - λ0);
   const r = ρ(lat * D);
-  return [r * Math.sin(θ), ρ0 - r * Math.cos(θ)];
+  // negate the northing: SVG's y axis grows downward, Albers' grows north
+  return [r * Math.sin(θ), r * Math.cos(θ) - ρ0];
 }
 
 /* --------------------------------------------- Douglas–Peucker simplify */

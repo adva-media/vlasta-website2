@@ -217,6 +217,29 @@
     }, { passive: false });
   }
 
+  /* --------------------------------------------------- cookie consent */
+  var ck = $('#cookie');
+  if (ck) {
+    var CK = 'vlasta-cookie';
+    var stored = null;
+    try { stored = localStorage.getItem(CK); } catch (e) {}
+    if (!stored) {
+      ck.hidden = false;
+      // let it settle in after the page has painted, so it doesn't fight the hero
+      setTimeout(function () { ck.classList.add('is-on'); }, 900);
+    }
+    $$('[data-ck]', ck).forEach(function (b) {
+      b.addEventListener('click', function () {
+        var choice = b.getAttribute('data-ck');
+        try { localStorage.setItem(CK, choice); } catch (e) {}
+        ck.classList.remove('is-on');
+        setTimeout(function () { ck.hidden = true; }, 420);
+        // analytics stay off unless the visitor opted in
+        if (choice === 'all') doc.dispatchEvent(new CustomEvent('vlasta:analytics-allowed'));
+      });
+    });
+  }
+
   /* ------------------------------------------- country map name tooltip */
   var cmap = $('.cmap');
   if (cmap) {
