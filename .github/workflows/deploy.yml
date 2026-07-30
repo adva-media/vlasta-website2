@@ -1,0 +1,45 @@
+name: Deploy to adva.media/vlasta
+
+# Deploys the static site to the server over SSH (rsync) on every push to main.
+# You can also run it manually from the Actions tab (workflow_dispatch).
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          PORT="${{ secrets.SSH_PORT }}"
+          ssh-keyscan -p "${PORT:-22}" -H "${{ secrets.SSH_HOST }}" >> ~/.ssh/known_hosts 2>/dev/null
+
+      - name: Deploy with rsync
+        run: |
+          PORT="${{ secrets.SSH_PORT }}"
+          rsync -avz --delete \
+            -e "ssh -i ~/.ssh/deploy_key -p ${PORT:-22}" \
+            --exclude='.git' \
+            --exclude='.github' \
+            --exclude='.gitignore' \
+            --exclude='.claude' \
+            --exclude='assets/live-scrape' \
+            --exclude='*.bak' \
+            --exclude='server.js' \
+            --exclude='README-DEPLOY.txt' \
+            ./ "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.DEPLOY_PATH }}/"
+
+      - name: Done
+        run: echo "Deployed to ${{ secrets.DEPLOY_PATH }} on ${{ secrets.SSH_HOST }}"
