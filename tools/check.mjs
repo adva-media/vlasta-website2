@@ -27,7 +27,7 @@ for (const p of pages) {
   for (const m of html.matchAll(/href="([^"#?][^"]*?)"/g)) {
     const href = m[1];
     if (/^(https?:|mailto:|tel:|#|\/\/)/.test(href)) continue;
-    const target = resolve(href.split('#')[0]);
+    const target = resolve(href.split('#')[0].split('?')[0]);
     checked++;
     if (!fs.existsSync(path.join(ROOT, target))) {
       console.log(`  ✗ LINK  ${p} → ${href}`);
@@ -35,7 +35,7 @@ for (const p of pages) {
     }
   }
   // assets: img/src, css, js, video
-  for (const m of html.matchAll(/(?:src|href)="([^"]+\.(?:png|jpe?g|webp|svg|css|js|mp4|ico))"/gi)) {
+  for (const m of html.matchAll(/(?:src|href)="([^"]+\.(?:png|jpe?g|webp|svg|css|js|mp4|ico))(?:\?[^"]*)?"/gi)) {
     const src = m[1];
     if (/^(https?:|\/\/|data:)/.test(src)) continue;
     const target = resolve(src);

@@ -12,9 +12,16 @@
 
 import fs from 'fs';
 import path from 'path';
+import crypto from 'crypto';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
 const rd = p => JSON.parse(fs.readFileSync(path.join(ROOT, p), 'utf8'));
+
+/* Content-hash query on CSS/JS. The host serves assets with max-age=604800,
+   so without this a returning visitor keeps the previous stylesheet. */
+const hash = p => crypto.createHash('sha1')
+  .update(fs.readFileSync(path.join(ROOT, p))).digest('hex').slice(0, 8);
+const V = { css: hash('assets/css/style.css'), js: hash('assets/js/main.js') };
 
 const site = rd('content/site.json');
 const news = rd('content/news.json');
@@ -191,7 +198,7 @@ ${keywords ? `<meta name="keywords" content="${esc(keywords)}">` : ''}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200..800;1,300..600&display=swap">
-<link rel="stylesheet" href="${R('assets/css/style.css')}">
+<link rel="stylesheet" href="${R('assets/css/style.css')}?v=${V.css}">
 <link rel="icon" href="${R('assets/img/logo-dark.svg')}" type="image/svg+xml">
 ${jsonld.map(o => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join('\n')}
 </head>
@@ -298,7 +305,7 @@ function chrome(active, depth = 0) {
   </div>
 </aside>
 <button class="totop" type="button" aria-label="Наверх">${I.up}</button>
-<script src="${R('assets/js/main.js')}" defer></script>
+<script src="${R('assets/js/main.js')}?v=${V.js}" defer></script>
 </body>
 </html>`,
   };
