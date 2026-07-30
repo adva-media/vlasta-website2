@@ -28,6 +28,12 @@ const NEAR = ['Ukraine', 'Moldova', 'Estonia', 'Latvia', 'Lithuania', 'Poland', 
 
 /* Natural Earth's NAME_RU carries some dated Soviet-era forms; use the names
    these states actually go by, and shorten the long official ones. */
+const EN_NAME = {
+  'Russia': 'Russia', 'Belarus': 'Belarus', 'Kyrgyzstan': 'Kyrgyzstan',
+  'Moldova': 'Moldova', 'China': 'China', 'South Korea': 'South Korea',
+  'North Korea': 'North Korea', 'Turkmenistan': 'Turkmenistan',
+};
+
 const RU_NAME = {
   'Российская Федерация': 'Россия',
   'Белоруссия': 'Беларусь',
@@ -105,7 +111,8 @@ for (const f of gj.features) {
   }
   if (!rings.length) continue;
   const nameRu = RU_NAME[f.properties.NAME_RU] || f.properties.NAME_RU || admin;
-  raw.push({ admin, name: nameRu, home: HOME.includes(admin), rings });
+  const nameEn = EN_NAME[admin] || f.properties.NAME_EN || admin;
+  raw.push({ admin, name: nameRu, name_en: nameEn, home: HOME.includes(admin), rings });
 }
 
 /* ------------------------------------------------- fit to a viewBox */
@@ -137,7 +144,7 @@ const countries = raw.map(c => {
     if (pr.length < 3) continue;
     d += 'M' + pr.map(p => `${p[0].toFixed(1)} ${p[1].toFixed(1)}`).join('L') + 'Z';
   }
-  return { admin: c.admin, name: c.name, home: c.home, d };
+  return { admin: c.admin, name: c.name, name_en: c.name_en, home: c.home, d };
 }).filter(c => c.d);
 
 // draw neighbours first so the operating countries sit on top

@@ -23,11 +23,79 @@ const hash = p => crypto.createHash('sha1')
   .update(fs.readFileSync(path.join(ROOT, p))).digest('hex').slice(0, 8);
 const V = { css: hash('assets/css/style.css'), js: hash('assets/js/main.js') };
 
+/* ------------------------------------------------------------- locales
+   RU builds to the site root, EN to /en/. Content lives in content/ and
+   content/en/; anything the EN files don't override falls back to RU. */
+const LOCALE = (process.argv[2] || 'ru').toLowerCase();
+const EN = LOCALE === 'en';
+const PREFIX = EN ? 'en/' : '';          // where pages are written
+const UP = EN ? 1 : 0;                   // extra ../ for assets from /en/
+
 const site = rd('content/site.json');
-const news = rd('content/news.json');
-const cases = rd('content/cases.json');
+const news = rd(EN ? 'content/en/news.json' : 'content/news.json');
+const cases = rd(EN ? 'content/en/cases.json' : 'content/cases.json');
 const O = site.org;
 const BASE = O.domain;
+
+/* UI strings. Content strings live in the JSON; these are the chrome. */
+const T = {
+  ru: {
+    nav: [['index.html','Главная'],['services.html','Услуги'],['about.html','О компании'],
+          ['cases.html','Кейсы'],['news.html','Новости'],['contacts.html','Контакты']],
+    contact:'Связаться', menu:'Меню', more:'Подробнее', readOn:'Читать',
+    allServices:'Все услуги', allCases:'Все кейсы', allNews:'Все новости',
+    caseStudy:'Разбор кейса', home:'Главная',
+    nav_services:'Направления', nav_contacts:'Контакты', navigation:'Навигация',
+    themeLabel:'Переключить тёмную тему', openMenu:'Открыть меню', closeMenu:'Закрыть меню',
+    toTop:'Наверх', crumbs:'Хлебные крошки', mainNav:'Основная навигация',
+    rights:'Все права защищены.', privacy:'Политика конфиденциальности',
+    footerAbout:`Обеспечиваем экономическую безопасность бизнеса и защиту брендов от контрафакта с ${O.founded} года — на передовых технологиях и высоких моральных ценностях.`,
+    ctaKicker:'Начнём сотрудничество', ctaTitle:'Обсудим, как защитить ваш бизнес',
+    ctaText:'Проведём конфиденциальную консультацию, оценим риски и предложим решение под вашу задачу.',
+    cookieTitle:'Файлы cookie',
+    cookieText:'Мы используем cookie, чтобы сайт работал корректно и чтобы понимать, какие материалы вам полезны. Аналитику можно отключить — на работу сайта это не повлияет.',
+    cookieMore:'Подробнее', ckReject:'Отклонить всё', ckNeeded:'Только необходимые', ckAll:'Принять всё',
+    scrollHint:'листайте', sources:'Источники и упоминания', topics:'Темы кейса',
+    newer:'Новее', earlier:'Ранее', related:'По теме', showMore:'Показать ещё',
+    shown:(a,b)=>`Показано ${a} из ${b} материалов`, all:'Все',
+    emptyNews:'По выбранной теме материалов пока нет.', emptyCases:'По выбранной категории кейсов пока нет.',
+    direction:'Направление', region:'Регион', outcome:'Результат', format:'Формат',
+    projectWork:'Проектная работа', regionValue:'Россия · СНГ · ЕАЭС',
+    phone:'Телефон', email:'Электронная почта', address:'Адрес', hours:'Часы работы',
+    callUs:'Позвонить', writeUs:'Написать письмо',
+    weekdays:'Понедельник – Пятница', otherCases:'Другие кейсы', otherNews:'Другие материалы',
+  },
+  en: {
+    nav: [['index.html','Home'],['services.html','Services'],['about.html','About'],
+          ['cases.html','Cases'],['news.html','News'],['contacts.html','Contact']],
+    contact:'Get in touch', menu:'Menu', more:'Learn more', readOn:'Read',
+    allServices:'All services', allCases:'All cases', allNews:'All news',
+    caseStudy:'Read the case', home:'Home',
+    nav_services:'Practice areas', nav_contacts:'Contact', navigation:'Navigation',
+    themeLabel:'Toggle dark theme', openMenu:'Open menu', closeMenu:'Close menu',
+    toTop:'Back to top', crumbs:'Breadcrumb', mainNav:'Main navigation',
+    rights:'All rights reserved.', privacy:'Privacy policy',
+    footerAbout:`Protecting brands from counterfeiting and securing business operations since ${O.founded} — on advanced technology and high ethical standards.`,
+    ctaKicker:'Start a conversation', ctaTitle:'Let us discuss protecting your business',
+    ctaText:'We will hold a confidential consultation, assess the risks and propose a solution for your situation.',
+    cookieTitle:'Cookies',
+    cookieText:'We use cookies so the site works properly and so we can see which material is useful to you. Analytics can be switched off — the site will work either way.',
+    cookieMore:'Learn more', ckReject:'Reject all', ckNeeded:'Necessary only', ckAll:'Accept all',
+    scrollHint:'scroll', sources:'Sources and mentions', topics:'Case topics',
+    newer:'Newer', earlier:'Earlier', related:'Related', showMore:'Show more',
+    shown:(a,b)=>`Showing ${a} of ${b} articles`, all:'All',
+    emptyNews:'Nothing published under this topic yet.', emptyCases:'No cases in this category yet.',
+    direction:'Practice', region:'Region', outcome:'Outcome', format:'Format',
+    projectWork:'Project engagement', regionValue:'Russia · CIS · EAEU',
+    phone:'Phone', email:'Email', address:'Address', hours:'Office hours',
+    callUs:'Call us', writeUs:'Send an email',
+    weekdays:'Monday – Friday', otherCases:'Other cases', otherNews:'More articles',
+  },
+}[LOCALE];
+
+/* content-side helper: pick an _en field when building English */
+const t = (obj, key) => (EN && obj[key + '_en'] != null ? obj[key + '_en'] : obj[key]);
+const tt = t;   // alias, used where a loop variable would shadow `t`
 const BUILT = new Date().toISOString().slice(0, 10);
 
 /* ------------------------------------------------------------------ utils */
@@ -55,13 +123,152 @@ function renderBody(body) {
   }
   return out + (open ? '</ul>' : '');
 }
-const rel = (depth, p) => (depth ? '../'.repeat(depth) : '') + p;
+// assets live at the site root; from /en/ pages that is one level further up
+const rel = (depth, p) => '../'.repeat(depth + UP) + p;
 
 function write(rp, html) {
-  const abs = path.join(ROOT, rp);
+  const abs = path.join(ROOT, PREFIX + rp);
   fs.mkdirSync(path.dirname(abs), { recursive: true });
   fs.writeFileSync(abs, html.replace(/\n{3,}/g, '\n\n'), 'utf8');
 }
+
+
+/* Page-level marketing copy. Kept beside the templates rather than in the
+   content JSON because it is chrome, not data the client edits. */
+const C = {
+  ru: {
+    homeTitle:`${O.name} — защита брендов и экономическая безопасность бизнеса`,
+    homeDesc:`«${O.name}» с ${O.founded} года защищает товарные знаки от контрафакта и обеспечивает экономическую безопасность бизнеса в России, СНГ и странах ЕАЭС: ТРОИС, рейды, проверки контрагентов, сопровождение в суде.`,
+    homeKw:'защита бренда, борьба с контрафактом, ТРОИС, экономическая безопасность бизнеса, проверка контрагентов, бизнес-разведка, Власта-Консалтинг',
+    heroPill:`С ${O.founded} года · Москва · Россия и ЕАЭС`,
+    heroTitle:'Безопасность бизнеса<br>в надёжных руках',
+    heroScroll:'Пролистать к описанию',
+    intro:'Защищаем бренды от контрафакта и обеспечиваем экономическую безопасность компаний в России, СНГ и странах ЕАЭС — опираясь на передовые технологии и высокие моральные ценности.',
+    svcKicker:'Услуги', svcTitle:'Наши направления',
+    svcDesc:'Единая методология — от анализа рисков до сопровождения «под ключ» в суде. Каждое направление работает самостоятельно и усиливает остальные.',
+    apprKicker:'Наш подход', apprTitle:'От анализа рисков до устойчивого результата',
+    resKicker:'Наша практика', resTitle:'Результаты, измеримые в цифрах',
+    resDesc:'Показатели программы защиты брендов от контрафакта и недобросовестной конкуренции — реальный эффект для правообладателей.',
+    casesKicker:'Кейсы', casesTitle:'Как мы решаем задачи клиентов',
+    histKicker:'История компании', histTitle:'Путь, отмеченный международным признанием',
+    histHint:'От московского старта до международной практики',
+    newsKicker:'Новости', newsTitle:'Компания в публичном пространстве',
+    marquee:'Нам доверяют ведущие российские и международные бренды',
+    svcPageTitle:'Услуги: защита бренда, ТРОИС, проверки контрагентов, бизнес-разведка — Власта-Консалтинг',
+    svcPageDesc:'Восемь направлений в четырёх блоках: разведка и анализ, безопасность бизнеса, защита бренда и ИС, консалтинг. Регистрация в ТРОИС, рейды с полицией и таможней, комплаенс, сопровождение в суде.',
+    svcPageKw:'защита интеллектуальной собственности, ТРОИС, бизнес-разведка, проверка контрагентов, комплаенс KYC AML, физическая безопасность, юридический консалтинг',
+    svcH1:'Услуги по защите бренда и безопасности бизнеса',
+    svcLead:'Единая методология: анализ рисков, предупреждение угроз и сопровождение клиента вплоть до защиты интересов в суде — в России, СНГ и странах ЕАЭС.',
+    svcNav:'Блоки услуг',
+    aboutTitle:'О компании Власта-Консалтинг — эксперты по защите брендов с 2006 года',
+    aboutDesc:'История, команда и партнёрства «Власта-Консалтинг»: 20 лет на рынке, членство в WAD, INTA, ASIS, AEB и «Антиконтрафакт», защита интересов международных корпораций в России и ЕАЭС.',
+    aboutKw:'Власта-Консалтинг о компании, WAD, INTA, ASIS, история компании, команда, ассоциации безопасности',
+    aboutKicker:'О нас', aboutH1:`Эксперты по защите брендов и безопасности бизнеса с ${O.founded} года`,
+    aboutLead:'Мы помогаем компаниям расти спокойно — анализируем риски, предвидим неблагоприятные сценарии и выстраиваем системы защиты, которые работают на опережение.',
+    whoKicker:'Кто мы', whoTitle:'Надёжный партнёр в вопросах экономической безопасности',
+    whoDesc:'Основанная в 2006 году, компания занимает лидирующее место в сфере обеспечения безопасности бизнеса и защиты интеллектуальной собственности в России.',
+    teamKicker:'Руководство', teamTitle:'Команда, которая отвечает за результат',
+    assocKicker:'Партнёрство', assocTitle:'Ассоциации и профессиональные сообщества',
+    assocDesc:'Мы состоим в ведущих российских и международных объединениях. Нажмите на карточку, чтобы узнать об участии в каждой ассоциации.',
+    assocNav:'Ассоциации — прокрутите по горизонтали',
+    clientsKicker:'Клиенты', clientsTitle:'Нам доверяют ведущие бренды',
+    clientsNote:'и ещё <b>более 80 брендов</b> под нашей защитой',
+    lettersKicker:'Отзывы', lettersTitle:'Благодарственные письма',
+    lettersDesc:'Нажмите на письмо, чтобы открыть его целиком.',
+    letterAlt:'Благодарственное письмо', letterDialog:'Благодарственное письмо',
+    casesPageTitle:'Кейсы: борьба с контрафактом, расследования, due diligence — Власта-Консалтинг',
+    casesPageDesc:`${cases.length} проектов из практики: блокировка каналов дистрибуции контрафакта, работа по ЕАЭС, рейды на производствах, расследования хищений, проверка контрагентов и сопровождение в суде.`,
+    casesPageKw:'кейсы борьба с контрафактом, антиконтрафактный рейд, ЕАЭС контрафакт, due diligence, корпоративное расследование, ТРОИС кейс',
+    casesKick:'Из практики', casesH1:'Кейсы: контрафакт, расследования и защита активов',
+    casesLead:'Реальные проекты по защите товарных знаков, антиконтрафактным программам, проверкам контрагентов и внутренним расследованиям. Детали обезличены в целях конфиденциальности клиентов.',
+    caseFilter:'Фильтр по категориям', caseSuffix:'— кейс «Власта-Консалтинг»',
+    newsPageTitle:'Новости: борьба с контрафактом в России и ЕАЭС — Власта-Консалтинг',
+    newsPageDesc:`${news.length} материалов: антиконтрафактные операции и изъятия, инициативы на площадках ЕЭК и ФТС, участие в международных форумах по защите интеллектуальной собственности.`,
+    newsPageKw:'новости контрафакт, изъятие контрафакта, ЕАЭС, ФТС, ТРОИС, конференции по защите брендов',
+    newsKick:'Хроника', newsH1:'Новости борьбы с контрафактом и защиты брендов',
+    newsLead:'Антиконтрафактные операции и изъятия, инициативы на площадках ЕЭК и ФТС, участие в международных форумах по защите интеллектуальной собственности.',
+    newsFilter:'Фильтр по темам', newsCollection:'Новости Власта-Консалтинг',
+    contactsTitle:'Контакты — Власта-Консалтинг, Москва',
+    contactsDesc:`Свяжитесь с «${O.name}»: ${O.address}. Телефон ${O.phone}, e-mail ${O.email}. Конфиденциальная консультация по защите бренда и безопасности бизнеса.`,
+    contactsKw:'Власта-Консалтинг контакты, консультация по защите бренда, безопасность бизнеса Москва',
+    contactsKick:'Свяжитесь с нами', contactsH1:'Обсудим безопасность вашего бизнеса',
+    contactsLead:'Проведём конфиденциальную консультацию и предложим решение под вашу задачу.',
+    mapTitle:'Офис «Власта-Консалтинг» на карте: Москва, ул. Усачёва, 13',
+    privacyTitle:'Политика конфиденциальности — Власта-Консалтинг',
+    privacyDesc:'Политика обработки персональных данных ООО «Власта-Консалтинг»: какие данные мы собираем, цели и правовые основания обработки, сроки хранения и ваши права.',
+    privacyKick:'Правовая информация', privacyH1:'Политика конфиденциальности',
+    privacyEdition:'Редакция от',
+    geoMapLabel:'Карта: Россия, страны СНГ и ЕАЭС',
+    tlNav:'Хронология компании — прокрутите по горизонтали',
+    videoTitle:'Видео к материалу',
+  },
+  en: {
+    homeTitle:'Vlasta Consulting — brand protection and business security',
+    homeDesc:`Since ${O.founded}, Vlasta Consulting has protected trademarks from counterfeiting and secured business operations across Russia, the CIS and the EAEU: customs registers, raids, counterparty screening and litigation support.`,
+    homeKw:'brand protection, anti-counterfeiting, customs register, business security, counterparty screening, business intelligence, Vlasta Consulting',
+    heroPill:`Since ${O.founded} · Moscow · Russia and the EAEU`,
+    heroTitle:'Business security<br>in trusted hands',
+    heroScroll:'Scroll to the introduction',
+    intro:'We protect brands from counterfeiting and secure the operations of companies across Russia, the CIS and the EAEU — on advanced technology and high ethical standards.',
+    svcKicker:'Services', svcTitle:'Our practice areas',
+    svcDesc:'One methodology — from risk analysis through to representation in court. Each area stands on its own and reinforces the others.',
+    apprKicker:'Our approach', apprTitle:'From risk analysis to a durable result',
+    resKicker:'Our record', resTitle:'Results you can measure',
+    resDesc:'Figures from our brand protection and anti-counterfeiting programmes — the real effect for rights holders.',
+    casesKicker:'Cases', casesTitle:'How we solve client problems',
+    histKicker:'Company history', histTitle:'A record marked by international recognition',
+    histHint:'From a Moscow start to an international practice',
+    newsKicker:'News', newsTitle:'The company in the public eye',
+    marquee:'Trusted by leading Russian and international brands',
+    svcPageTitle:'Services: brand protection, customs registers, screening, intelligence — Vlasta Consulting',
+    svcPageDesc:'Eight directions across four areas: intelligence and analysis, business security, brand and IP protection, consulting. Customs register filings, raids with police and customs, compliance and litigation support.',
+    svcPageKw:'intellectual property protection, customs register, business intelligence, counterparty screening, KYC AML compliance, physical security, legal consulting',
+    svcH1:'Brand protection and business security services',
+    svcLead:'One methodology: risk analysis, threat prevention and support all the way to representing your interests in court — across Russia, the CIS and the EAEU.',
+    svcNav:'Service areas',
+    aboutTitle:'About Vlasta Consulting — brand protection experts since 2006',
+    aboutDesc:'History, team and partnerships of Vlasta Consulting: 20 years in the market, membership of WAD, INTA, ASIS, AEB and AntiCounterfeit, representing international corporations across Russia and the EAEU.',
+    aboutKw:'Vlasta Consulting about, WAD, INTA, ASIS, company history, team, security associations',
+    aboutKicker:'About us', aboutH1:`Brand protection and business security experts since ${O.founded}`,
+    aboutLead:'We help companies grow without surprises — analysing risk, anticipating adverse scenarios and building protection that works ahead of the threat.',
+    whoKicker:'Who we are', whoTitle:'A dependable partner in business security',
+    whoDesc:'Founded in 2006, the company holds a leading position in business security and intellectual property protection in Russia.',
+    teamKicker:'Leadership', teamTitle:'The team accountable for the result',
+    assocKicker:'Partnerships', assocTitle:'Associations and professional bodies',
+    assocDesc:'We belong to leading Russian and international bodies. Select a card to read about our involvement in each.',
+    assocNav:'Associations — scroll horizontally',
+    clientsKicker:'Clients', clientsTitle:'Trusted by leading brands',
+    clientsNote:'and <b>over 80 more brands</b> under our protection',
+    lettersKicker:'References', lettersTitle:'Letters of appreciation',
+    lettersDesc:'Select a letter to read it in full.',
+    letterAlt:'Letter of appreciation', letterDialog:'Letter of appreciation',
+    casesPageTitle:'Cases: anti-counterfeiting, investigations, due diligence — Vlasta Consulting',
+    casesPageDesc:`${cases.length} engagements from practice: shutting down counterfeit distribution channels, EAEU programmes, raids on production sites, theft investigations, counterparty screening and litigation support.`,
+    casesPageKw:'anti-counterfeiting cases, counterfeit raid, EAEU counterfeit, due diligence, corporate investigation, customs register case',
+    casesKick:'From practice', casesH1:'Cases: counterfeiting, investigations and asset protection',
+    casesLead:'Real engagements in trademark protection, anti-counterfeiting programmes, counterparty screening and internal investigations. Details are anonymised to protect client confidentiality.',
+    caseFilter:'Filter by category', caseSuffix:'— a Vlasta Consulting case',
+    newsPageTitle:'News: anti-counterfeiting across Russia and the EAEU — Vlasta Consulting',
+    newsPageDesc:`${news.length} articles: anti-counterfeiting operations and seizures, initiatives at the EEC and the Federal Customs Service, and participation in international IP forums.`,
+    newsPageKw:'counterfeit news, counterfeit seizure, EAEU, customs, customs register, brand protection conferences',
+    newsKick:'Chronicle', newsH1:'News on anti-counterfeiting and brand protection',
+    newsLead:'Anti-counterfeiting operations and seizures, initiatives at the EEC and the Federal Customs Service, and participation in international IP forums.',
+    newsFilter:'Filter by topic', newsCollection:'Vlasta Consulting news',
+    contactsTitle:'Contact — Vlasta Consulting, Moscow',
+    contactsDesc:`Get in touch with Vlasta Consulting: ${O.address}. Phone ${O.phone}, email ${O.email}. Confidential consultation on brand protection and business security.`,
+    contactsKw:'Vlasta Consulting contact, brand protection consultation, business security Moscow',
+    contactsKick:'Get in touch', contactsH1:'Let us discuss your business security',
+    contactsLead:'We will hold a confidential consultation and propose a solution for your situation.',
+    mapTitle:'Vlasta Consulting office on the map: Usacheva 13, Moscow',
+    privacyTitle:'Privacy policy — Vlasta Consulting',
+    privacyDesc:'Personal data processing policy of Vlasta Consulting LLC: what we collect, the purposes and legal basis for processing, retention periods and your rights.',
+    privacyKick:'Legal', privacyH1:'Privacy policy',
+    privacyEdition:'Revised',
+    geoMapLabel:'Map: Russia, the CIS and the EAEU',
+    tlNav:'Company timeline — scroll horizontally',
+    videoTitle:'Video for this article',
+  },
+}[LOCALE];
 
 /* ------------------------------------------------------------------ icons */
 const I = {
@@ -107,10 +314,10 @@ const engrave = (pos = 'tr', id = 'g1') =>
 function countryMap() {
   const m = rd('content/geo-map.json');
   const paths = m.countries.map(c =>
-    `<path class="cm__c${c.home ? ' cm__c--home' : ''}" d="${c.d}" tabindex="${c.home ? 0 : -1}" role="img" aria-label="${esc(c.name)}" data-name="${esc(c.name)}"><title>${esc(c.name)}</title></path>`
+    `<path class="cm__c${c.home ? ' cm__c--home' : ''}" d="${c.d}" tabindex="${c.home ? 0 : -1}" role="img" aria-label="${esc(t(c,'name'))}" data-name="${esc(t(c,'name'))}"><title>${esc(t(c,'name'))}</title></path>`
   ).join('');
   return `<div class="cmap">
-  <svg viewBox="0 0 ${m.width} ${m.height}" role="group" aria-label="Карта: Россия, страны СНГ и ЕАЭС">
+  <svg viewBox="0 0 ${m.width} ${m.height}" role="group" aria-label="${C.geoMapLabel}">
     <defs><radialGradient id="cmFade" cx="50%" cy="50%" r="62%">
       <stop offset="72%" stop-color="#fff"/><stop offset="100%" stop-color="#000"/>
     </radialGradient>
@@ -194,20 +401,15 @@ function netmap(uid = 'a') {
 }
 
 /* ------------------------------------------------------------------ chrome */
-const NAV = [
-  ['index.html', 'Главная'],
-  ['services.html', 'Услуги'],
-  ['about.html', 'О компании'],
-  ['cases.html', 'Кейсы'],
-  ['news.html', 'Новости'],
-  ['contacts.html', 'Контакты'],
-];
+const NAV = T.nav;
 
-function head({ title, desc, canonical, keywords, image, depth = 0, jsonld = [], robots }) {
+function head({ title, desc, canonical, keywords, image, depth = 0, jsonld = [], robots, page = '' }) {
   const R = p => rel(depth, p);
+  const altRu = `${BASE}/${page}`;
+  const altEn = `${BASE}/en/${page}`;
   const img = `${BASE}/${image || 'assets/img/og-default.jpg'}`;
   return `<!DOCTYPE html>
-<html lang="ru" data-theme="light">
+<html lang="${EN ? 'en' : 'ru'}" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -216,11 +418,13 @@ function head({ title, desc, canonical, keywords, image, depth = 0, jsonld = [],
 ${keywords ? `<meta name="keywords" content="${esc(keywords)}">` : ''}
 <meta name="robots" content="${robots || 'index,follow,max-image-preview:large'}">
 <link rel="canonical" href="${canonical}">
-<link rel="alternate" hreflang="ru" href="${canonical}">
-<link rel="alternate" hreflang="x-default" href="${canonical}">
+<link rel="alternate" hreflang="ru" href="${altRu}">
+<link rel="alternate" hreflang="en" href="${altEn}">
+<link rel="alternate" hreflang="x-default" href="${altRu}">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="${esc(O.name)}">
-<meta property="og:locale" content="ru_RU">
+<meta property="og:locale" content="${EN ? 'en_US' : 'ru_RU'}">
+<meta property="og:locale:alternate" content="${EN ? 'ru_RU' : 'en_US'}">
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(desc)}">
 <meta property="og:url" content="${canonical}">
@@ -258,11 +462,16 @@ const crumbLd = items => ({
 
 function chrome(active, depth = 0) {
   const R = p => rel(depth, p);
+  /* the switch always points at the same page in the other language, resolved
+     from this page's depth and from whichever locale tree we are in */
+  const toRoot = '../'.repeat(depth + UP);
+  const ruHref = toRoot + active;
+  const enHref = toRoot + 'en/' + active;
   const links = NAV.map(([h, t]) =>
     `<a href="${R(h)}"${h === active ? ' class="is-on" aria-current="page"' : ''}>${t}</a>`).join('');
   const mlinks = NAV.map(([h, t]) =>
     `<a class="mnav__l${h === active ? ' is-on' : ''}" href="${R(h)}"${h === active ? ' aria-current="page"' : ''}>${t}</a>`).join('');
-  const tt = `<button class="tt" type="button" aria-label="Переключить тёмную тему" aria-pressed="false">${I.moon}${I.sun}</button>`;
+  const tt = `<button class="tt" type="button" aria-label="${T.themeLabel}" aria-pressed="false">${I.moon}${I.sun}</button>`;
   const brand = (light) => `<a class="brand" href="${R('index.html')}" aria-label="${esc(O.name)} — на главную">
       <img class="brand__mark" src="${R(light ? 'assets/img/logo-light.svg' : 'assets/img/logo-dark.svg')}" alt="" width="38" height="44">
       <span><span class="brand__name">${esc(O.name.toUpperCase())}</span><span class="brand__sub">${esc(O.tagline)}</span></span>
@@ -274,10 +483,10 @@ function chrome(active, depth = 0) {
     <div class="topbar__l">
       <a class="tb" href="tel:${O.phoneHref}">${I.phone}${esc(O.phone)}</a>
       <a class="tb" href="mailto:${O.email}">${I.mail}${esc(O.email)}</a>
-      <span class="tb">${I.clock}${esc(O.hours)}</span>
+      <span class="tb">${I.clock}${esc(t(O,'hours'))}</span>
     </div>
     <div class="topbar__r">
-      <div class="lang"><a href="${R(active)}" class="is-on" aria-current="true" hreflang="ru">RU</a><span class="lang__soon" aria-disabled="true" title="Английская версия готовится">EN</span></div>
+      <div class="lang"><a href="${ruHref}"${EN ? '' : ' class="is-on" aria-current="true"'} hreflang="ru">RU</a><a href="${enHref}"${EN ? ' class="is-on" aria-current="true"' : ''} hreflang="en">EN</a></div>
       ${tt}
     </div>
   </div>
@@ -285,10 +494,10 @@ function chrome(active, depth = 0) {
 <header class="hdr">
   <div class="wrap">
     ${brand(false)}
-    <nav class="nav" aria-label="Основная навигация">${links}</nav>
+    <nav class="nav" aria-label="${T.mainNav}">${links}</nav>
     <div class="hdr__cta">
-      <a href="${R('contacts.html')}" class="btn btn--primary">Связаться</a>
-      <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="mnav"><span></span><span></span><span></span></button>
+      <a href="${R('contacts.html')}" class="btn btn--primary">${T.contact}</a>
+      <button class="burger" type="button" aria-label="${T.openMenu}" aria-expanded="false" aria-controls="mnav"><span></span><span></span><span></span></button>
     </div>
   </div>
 </header>`,
@@ -298,41 +507,41 @@ function chrome(active, depth = 0) {
     <div class="ft__top">
       <div class="ft__about">
         ${brand(true)}
-        <p>Обеспечиваем экономическую безопасность бизнеса и защиту брендов от контрафакта с ${O.founded} года — на передовых технологиях и высоких моральных ценностях.</p>
+        <p>${T.footerAbout}</p>
       </div>
       <div>
-        <h4>Навигация</h4>
+        <h4>${T.navigation}</h4>
         <div class="ft__ls">${NAV.map(([h, t]) => `<a href="${R(h)}">${t}</a>`).join('')}</div>
       </div>
       <div>
-        <h4>Направления</h4>
-        <div class="ft__ls">${site.services.map(s => `<a href="${R('services.html')}#${s.id}">${esc(s.title)}</a>`).join('')}</div>
+        <h4>${T.nav_services}</h4>
+        <div class="ft__ls">${site.services.map(s => `<a href="${R('services.html')}#${s.id}">${esc(t(s,'title'))}</a>`).join('')}</div>
       </div>
       <div>
-        <h4>Контакты</h4>
+        <h4>${T.nav_contacts}</h4>
         <ul class="ft__ls ft__ls--dot">
           <li><a href="tel:${O.phoneHref}">${esc(O.phone)}</a></li>
           <li><a href="mailto:${O.email}">${esc(O.email)}</a></li>
-          <li>${esc(O.address)}</li>
-          <li>${esc(O.hours)}</li>
+          <li>${esc(t(O,'address'))}</li>
+          <li>${esc(t(O,'hours'))}</li>
         </ul>
       </div>
     </div>
     <div class="ft__bot">
-      <span>© <span id="yr">${new Date().getFullYear()}</span> ${esc(O.legal)}. Все права защищены.</span>
-      <a href="${R('privacy.html')}">Политика конфиденциальности</a>
+      <span>© <span id="yr">${new Date().getFullYear()}</span> ${esc(O.legal)}. ${T.rights}</span>
+      <a href="${R('privacy.html')}">${T.privacy}</a>
     </div>
   </div>
 </footer>
 <div class="overlay"></div>
-<aside class="mnav" id="mnav" aria-label="Мобильное меню" aria-hidden="true">
+<aside class="mnav" id="mnav" aria-label="${T.menu}" aria-hidden="true">
   <div class="mnav__h">
-    <span class="brand__name" style="color:#fff">Меню</span>
-    <button class="mnav__x" type="button" aria-label="Закрыть меню">&times;</button>
+    <span class="brand__name" style="color:#fff">${T.menu}</span>
+    <button class="mnav__x" type="button" aria-label="${T.closeMenu}">&times;</button>
   </div>
   <nav>${mlinks}</nav>
   <div class="mnav__extra">
-    <div class="lang"><a href="${R(active)}" class="is-on">RU</a><span class="lang__soon" aria-disabled="true" title="Английская версия готовится">EN</span></div>
+    <div class="lang"><a href="${ruHref}"${EN ? '' : ' class="is-on"'} hreflang="ru">RU</a><a href="${enHref}"${EN ? ' class="is-on"' : ''} hreflang="en">EN</a></div>
     ${tt}
   </div>
   <div class="mnav__f">
@@ -343,17 +552,17 @@ function chrome(active, depth = 0) {
 <div class="cookie" id="cookie" role="dialog" aria-labelledby="ckT" aria-describedby="ckD" hidden>
   <div class="cookie__c">
     <div class="cookie__txt">
-      <h4 id="ckT">Файлы cookie</h4>
-      <p id="ckD">Мы используем cookie, чтобы сайт работал корректно и чтобы понимать, какие материалы вам полезны. Аналитику можно отключить — на работу сайта это не повлияет. <a href="${R('privacy.html')}">Подробнее</a></p>
+      <h4 id="ckT">${T.cookieTitle}</h4>
+      <p id="ckD">${T.cookieText} <a href="${R('privacy.html')}">${T.cookieMore}</a></p>
     </div>
     <div class="cookie__btns">
-      <button class="btn btn--ghostline" type="button" data-ck="reject">Отклонить всё</button>
-      <button class="btn btn--ghostline" type="button" data-ck="necessary">Только необходимые</button>
-      <button class="btn btn--primary" type="button" data-ck="all">Принять всё</button>
+      <button class="btn btn--ghostline" type="button" data-ck="reject">${T.ckReject}</button>
+      <button class="btn btn--ghostline" type="button" data-ck="necessary">${T.ckNeeded}</button>
+      <button class="btn btn--primary" type="button" data-ck="all">${T.ckAll}</button>
     </div>
   </div>
 </div>
-<button class="totop" type="button" aria-label="Наверх">${I.up}</button>
+<button class="totop" type="button" aria-label="${T.toTop}">${I.up}</button>
 <script src="${R('assets/js/main.js')}?v=${V.js}" defer></script>
 </body>
 </html>`,
@@ -373,11 +582,11 @@ function shead({ k, h, d, extra, mod = 'split', tag = 'h2' }) {
 const ctaBand = (depth = 0) => `<section class="sec">
   <div class="wrap">
     <div class="cta reveal">
-      ${engrave('tr', 'cta')}
+      <div class="cta__mark" aria-hidden="true"><img src="${rel(depth, 'assets/img/logo-light.svg')}" alt="" loading="lazy" decoding="async"></div>
       <div class="cta__in">
-        <span class="pill"><span class="pill__d"></span>Начнём сотрудничество</span>
-        <h2 class="h2">Обсудим, как защитить ваш бизнес</h2>
-        <p>Проведём конфиденциальную консультацию, оценим риски и предложим решение под вашу задачу.</p>
+        <span class="pill"><span class="pill__d"></span>${T.ctaKicker}</span>
+        <h2 class="h2">${T.ctaTitle}</h2>
+        <p>${T.ctaText}</p>
         <div class="cta__btns">
           <a href="tel:${O.phoneHref}" class="btn btn--light">${esc(O.phone)} ${I.arrow}</a>
           <a href="mailto:${O.email}" class="btn btn--onDark">${esc(O.email)}</a>
@@ -388,33 +597,33 @@ const ctaBand = (depth = 0) => `<section class="sec">
 </section>`;
 
 const clientsGrid = () => site.clients.map(c =>
-  `<div class="client"><img src="${c.l}" alt="${esc(c.n)}" loading="lazy" decoding="async"></div>`).join('');
+  `<div class="client"><img src="${rel(0, c.l)}" alt="${esc(c.n)}" loading="lazy" decoding="async"></div>`).join('');
 
 const marquee = () => {
   const row = site.clients.map(c =>
-    `<span class="mq__i"><img src="${c.l}" alt="${esc(c.n)}" loading="lazy" decoding="async"></span>`).join('');
+    `<span class="mq__i"><img src="${rel(0, c.l)}" alt="${esc(c.n)}" loading="lazy" decoding="async"></span>`).join('');
   return `<section class="mq" aria-label="Клиенты">
-  <div class="mq__l">Нам доверяют ведущие российские и международные бренды</div>
+  <div class="mq__l">${C.marquee}</div>
   <div class="mq__vp"><div class="mq__tr">${row}${row}</div></div>
 </section>`;
 };
 
 const timeline = () => `<div class="tl">
-      <div class="tl__rail" tabindex="0" role="group" aria-label="Хронология компании — прокрутите по горизонтали">
-        ${site.timeline.map(t => `<div class="tl__i${t.highlight ? ' tl__i--hi' : ''}">
-          <div class="tl__yr">${esc(t.year)}</div>
+      <div class="tl__rail" tabindex="0" role="group" aria-label="${C.tlNav}">
+        ${site.timeline.map(x => `<div class="tl__i${x.highlight ? ' tl__i--hi' : ''}">
+          <div class="tl__yr">${esc(x.year)}</div>
           <div class="tl__axis"><span class="tl__dot"></span></div>
-          <div class="tl__card"><h3>${esc(t.title)}</h3><p>${esc(t.text)}</p></div>
+          <div class="tl__card"><h3>${esc(tt(x,'title'))}</h3><p>${esc(tt(x,'text'))}</p></div>
         </div>`).join('')}
       </div>
     </div>`;
 
-const assocGrid = () => `<div class="assoc-rail" tabindex="0" role="group" aria-label="Ассоциации — прокрутите по горизонтали">
+const assocGrid = () => `<div class="assoc-rail" tabindex="0" role="group" aria-label="${C.assocNav}">
       ${site.associations.map((a, i) => `<button class="card glass assoc reveal" type="button" data-assoc="${i}" aria-haspopup="dialog">
-        <span class="assoc__logo"><img src="${a.logo}" alt="${esc(a.abbr)}" loading="lazy" decoding="async"></span>
-        <h3>${esc(a.name)}</h3>
-        <span class="assoc__meta">${esc(a.meta)}</span>
-        <span class="assoc__more">Подробнее ${I.arrow}</span>
+        <span class="assoc__logo"><img src="${rel(0, a.logo)}" alt="${esc(a.abbr)}" loading="lazy" decoding="async"></span>
+        <h3>${esc(t(a,'name'))}</h3>
+        <span class="assoc__meta">${esc(t(a,'meta'))}</span>
+        <span class="assoc__more">${T.more} ${I.arrow}</span>
       </button>`).join('')}
     </div>
     <div class="modal" id="assocModal" role="dialog" aria-modal="true" aria-labelledby="amTitle" hidden>
@@ -428,14 +637,14 @@ const assocGrid = () => `<div class="assoc-rail" tabindex="0" role="group" aria-
         <a class="modal__link" id="amLink" href="#" target="_blank" rel="noopener noreferrer"><span></span> ${I.ext}</a>
       </div>
     </div>
-    <script id="assocData" type="application/json">${JSON.stringify(site.associations.map(a => ({ logo: a.logo, name: a.name, meta: a.meta, desc: a.desc, url: a.url, site: a.site })))}</script>`;
+    <script id="assocData" type="application/json">${JSON.stringify(site.associations.map(a => ({ logo: a.logo, name: t(a,'name'), meta: t(a,'meta'), desc: t(a,'desc'), url: a.url, site: a.site })))}</script>`;
 
 const newsCard = (n, depth = 0, d = 0) => `<a class="card ncard reveal" href="${rel(depth, `news/${n.slug}.html`)}"${d ? ` data-d="${d}"` : ''}>
         ${n.img ? `<div class="ncard__img"><img src="${rel(depth, n.img)}" alt="${esc(n.title)}" loading="lazy" decoding="async">${n.video ? `<span class="ncard__play" aria-hidden="true">${I.play}</span>` : ''}</div>` : ''}
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="${n.dateIso}">${esc(n.dateDisp)}</time><span class="dot"></span><span class="cl">${esc(n.cluster)}</span></div>
           <h3>${esc(n.title)}</h3>
-          <span class="ncard__more arrow-link">Читать ${I.arrow}</span>
+          <span class="ncard__more arrow-link">${T.readOn} ${I.arrow}</span>
         </div>
       </a>`;
 
@@ -447,7 +656,7 @@ const caseCard = (c, depth = 0, d = 0) => `<a class="card case reveal" href="${r
           ${c.metric ? `<span class="case__win">${esc(c.metric)}</span>` : ''}
           <p>${esc(c.outcome || c.intro)}</p>
           <div class="case__f">
-            <span class="case__more arrow-link">Разбор кейса</span>
+            <span class="case__more arrow-link">${T.caseStudy}</span>
             <span class="case__go" aria-hidden="true">${I.arrow}</span>
           </div>
         </div>
@@ -463,10 +672,10 @@ function buildHome() {
 
   const html = j(
     head({
-      title: `${O.name} — защита брендов и экономическая безопасность бизнеса`,
-      desc: `«${O.name}» с ${O.founded} года защищает товарные знаки от контрафакта и обеспечивает экономическую безопасность бизнеса в России, СНГ и странах ЕАЭС: ТРОИС, рейды, проверки контрагентов, сопровождение в суде.`,
-      keywords: 'защита бренда, борьба с контрафактом, ТРОИС, экономическая безопасность бизнеса, проверка контрагентов, бизнес-разведка, Власта-Консалтинг',
-      canonical: `${BASE}/`,
+      title: C.homeTitle,
+      desc: C.homeDesc,
+      keywords: C.homeKw,
+      canonical: EN ? `${BASE}/en/` : `${BASE}/`, page: '',
       jsonld: [orgLd, {
         '@context': 'https://schema.org', '@type': 'WebSite', name: O.name, url: `${BASE}/`,
         inLanguage: 'ru-RU',
@@ -479,14 +688,14 @@ function buildHome() {
 <!-- the tower photo is a fixed layer: sections in the glass zone below let it
      show through, so scrolling shifts what sits behind the frosted tiles -->
 <div class="skyline" aria-hidden="true">
-  <img src="assets/img/hero-tower.jpg" alt="" fetchpriority="high" decoding="async">
+  <img src="${rel(0, 'assets/img/hero-tower.jpg')}" alt="" fetchpriority="high" decoding="async">
 </div>
 
 <div class="glasszone">
 <section class="hero">
   <div class="wrap hero__inner">
-    <h1 class="hero__t rise">Безопасность бизнеса<br>в надёжных руках</h1>
-    <a class="scrollcue rise" data-d="2" href="#intro" aria-label="Пролистать к описанию">
+    <h1 class="hero__t rise">${C.heroTitle}</h1>
+    <a class="scrollcue rise" data-d="2" href="#intro" aria-label="${C.heroScroll}">
       <span class="scrollcue__l"></span>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
     </a>
@@ -495,11 +704,11 @@ function buildHome() {
 
 <section class="sec" id="intro">
   <div class="wrap">
-    <p class="intro reveal">Защищаем бренды от контрафакта и обеспечиваем экономическую безопасность компаний в России, СНГ и странах ЕАЭС — опираясь на передовые технологии и высокие моральные ценности.</p>
+    <p class="intro reveal">${C.intro}</p>
     <div class="stats reveal" data-d="1">
       ${site.stats.map(s => `<div class="stat">
-        <div class="stat__n">${esc(s.n)}${s.suffix ? `<span class="u">${esc(s.suffix)}</span>` : ''}${s.unit ? `<span class="u">${esc(s.unit)}</span>` : ''}</div>
-        <div class="stat__l">${esc(s.label)}</div>
+        <div class="stat__n">${esc(s.n)}${s.suffix ? `<span class="u">${esc(s.suffix)}</span>` : ''}${t(s,'unit') ? `<span class="u">${esc(t(s,'unit'))}</span>` : ''}</div>
+        <div class="stat__l">${esc(t(s,'label'))}</div>
       </div>`).join('')}
     </div>
   </div>
@@ -508,17 +717,17 @@ function buildHome() {
 <section class="sec" id="services">
   <div class="wrap">
     ${shead({
-      k: 'Услуги', h: 'Наши направления',
-      d: 'Единая методология — от анализа рисков до сопровождения «под ключ» в суде. Каждое направление работает самостоятельно и усиливает остальные.',
-      extra: `<a href="services.html" class="seeall"><span class="seeall__l">Все услуги</span><span class="seeall__r">${I.arrow}</span></a>`,
+      k: C.svcKicker, h: C.svcTitle,
+      d: C.svcDesc,
+      extra: `<a href="services.html" class="seeall"><span class="seeall__l">${T.allServices}</span><span class="seeall__r">${I.arrow}</span></a>`,
     })}
     <div class="svc-grid">
       ${site.services.map((s, i) => `<a class="card glass svc reveal" href="services.html#${s.id}"${i ? ` data-d="${i}"` : ''}>
         <div class="svc__top"><span class="ico">${I[s.icon]}</span><span class="svc__blk">${esc(s.num)}</span></div>
-        <h3 class="h3">${esc(s.title)}</h3>
-        <p class="svc__tag">${esc(s.tagline)}</p>
-        <ul class="svc__hl">${s.highlights.map(h => `<li>${esc(h)}</li>`).join('')}</ul>
-        <span class="svc__more arrow-link">Подробнее ${I.arrow}</span>
+        <h3 class="h3">${esc(t(s,'title'))}</h3>
+        <p class="svc__tag">${esc(t(s,'tagline'))}</p>
+        <ul class="svc__hl">${t(s,'highlights').map(h => `<li>${esc(h)}</li>`).join('')}</ul>
+        <span class="svc__more arrow-link">${T.more} ${I.arrow}</span>
       </a>`).join('')}
     </div>
   </div>
@@ -530,11 +739,11 @@ ${marquee()}
 <section class="sec sec--alt" id="approach">
   ${engrave('bl', 'appr')}
   <div class="wrap">
-    ${shead({ k: 'Наш подход', h: 'От анализа рисков до устойчивого результата', mod: 'split' })}
+    ${shead({ k: C.apprKicker, h: C.apprTitle, mod: 'split' })}
     <div class="appr">
       ${site.approach.map((a, i) => `<div class="card appr__c${i === 1 ? ' appr__c--hi' : ''} reveal"${i ? ` data-d="${i}"` : ''}>
         <div class="appr__top"><span class="ico">${I[a.icon]}</span><span class="appr__n">0${a.n}</span></div>
-        <h3>${esc(a.title)}</h3><p>${esc(a.text)}</p>
+        <h3>${esc(t(a,'title'))}</h3><p>${esc(t(a,'text'))}</p>
       </div>`).join('')}
     </div>
   </div>
@@ -544,8 +753,8 @@ ${marquee()}
   ${engrave('tr', 'res')}
   <div class="wrap">
     ${shead({
-      k: 'Наша практика', h: 'Результаты, измеримые в цифрах',
-      d: 'Показатели программы защиты брендов от контрафакта и недобросовестной конкуренции — реальный эффект для правообладателей.',
+      k: C.resKicker, h: C.resTitle,
+      d: C.resDesc,
     })}
     <div class="res">
       ${site.results.map((r, i) => {
@@ -553,9 +762,9 @@ ${marquee()}
         return `<div class="card glass res__c reveal"${i ? ` data-d="${i}"` : ''}>
         <div class="gauge" style="--off:${off}">
           <svg viewBox="0 0 120 120" aria-hidden="true"><circle class="gauge__tr" cx="60" cy="60" r="52"/><circle class="gauge__fl" cx="60" cy="60" r="52"/></svg>
-          <div class="gauge__v">${esc(r.value)}${r.unit ? `<small>${esc(r.unit)}</small>` : ''}</div>
+          <div class="gauge__v">${esc(r.value)}${t(r,'unit') ? `<small>${esc(t(r,'unit'))}</small>` : ''}</div>
         </div>
-        <p class="res__l">${esc(r.label)}</p>
+        <p class="res__l">${esc(t(r,'label'))}</p>
       </div>`;
       }).join('')}
     </div>
@@ -566,11 +775,11 @@ ${marquee()}
   ${engrave('bl', 'geo')}
   <div class="wrap geo">
     <div class="reveal">
-      ${kick(site.geography.kicker)}
-      <h2 class="h2" style="margin-top:15px">${esc(site.geography.title)}</h2>
-      <p class="lead" style="margin-top:18px">${esc(site.geography.lead)}</p>
-      <ul class="geo__list">${site.geography.regions.map(r => `<li><span class="geo__d"></span>${esc(r)}</li>`).join('')}</ul>
-      <div class="geo__bar">${site.geography.bar.map(b => `<div><b>${esc(b.n)}</b><span>${esc(b.label)}</span></div>`).join('')}</div>
+      ${kick(t(site.geography,'kicker'))}
+      <h2 class="h2" style="margin-top:15px">${esc(t(site.geography,'title'))}</h2>
+      <p class="lead" style="margin-top:18px">${esc(t(site.geography,'lead'))}</p>
+      <ul class="geo__list">${t(site.geography,'regions').map(r => `<li><span class="geo__d"></span>${esc(r)}</li>`).join('')}</ul>
+      <div class="geo__bar">${t(site.geography,'bar').map(b => `<div><b>${esc(b.n)}</b><span>${esc(b.label)}</span></div>`).join('')}</div>
     </div>
     <div class="reveal" data-d="1">${countryMap()}</div>
   </div>
@@ -579,8 +788,8 @@ ${marquee()}
 <section class="sec" id="cases">
   <div class="wrap">
     ${shead({
-      k: 'Кейсы', h: 'Как мы решаем задачи клиентов',
-      extra: `<a href="cases.html" class="seeall"><span class="seeall__l">Все кейсы</span><span class="seeall__r">${I.arrow}</span></a>`,
+      k: C.casesKicker, h: C.casesTitle,
+      extra: `<a href="cases.html" class="seeall"><span class="seeall__l">${T.allCases}</span><span class="seeall__r">${I.arrow}</span></a>`,
     })}
     <div class="case-grid">${featCases.map((x, i) => caseCard(x, 0, i)).join('')}</div>
   </div>
@@ -590,8 +799,8 @@ ${marquee()}
   ${engrave('bl', 'tlh')}
   <div class="wrap">
     ${shead({
-      k: 'История компании', h: 'Путь, отмеченный международным признанием',
-      extra: `<p class="tl__hint">От московского старта до международной практики ${I.drag} листайте</p>`,
+      k: C.histKicker, h: C.histTitle,
+      extra: `<p class="tl__hint">${C.histHint} ${I.drag} ${T.scrollHint}</p>`,
     })}
     ${timeline()}
   </div>
@@ -600,8 +809,8 @@ ${marquee()}
 <section class="sec" id="news">
   <div class="wrap">
     ${shead({
-      k: 'Новости', h: 'Компания в публичном пространстве',
-      extra: `<a href="news.html" class="seeall"><span class="seeall__l">Все новости</span><span class="seeall__r">${I.arrow}</span></a>`,
+      k: C.newsKicker, h: C.newsTitle,
+      extra: `<a href="news.html" class="seeall"><span class="seeall__l">${T.allNews}</span><span class="seeall__r">${I.arrow}</span></a>`,
     })}
     <div class="news-grid">${featNews.map((n, i) => newsCard(n, 0, i)).join('')}</div>
   </div>
@@ -618,10 +827,10 @@ function buildServices() {
   const c = chrome('services.html', 0);
   const html = j(
     head({
-      title: 'Услуги: защита бренда, ТРОИС, проверки контрагентов, бизнес-разведка — Власта-Консалтинг',
-      desc: 'Восемь направлений в четырёх блоках: разведка и анализ, безопасность бизнеса, защита бренда и ИС, консалтинг. Регистрация в ТРОИС, рейды с полицией и таможней, комплаенс, сопровождение в суде.',
-      keywords: 'защита интеллектуальной собственности, ТРОИС, бизнес-разведка, проверка контрагентов, комплаенс KYC AML, физическая безопасность, юридический консалтинг',
-      canonical: `${BASE}/services.html`,
+      title: C.svcPageTitle,
+      desc: C.svcPageDesc,
+      keywords: C.svcPageKw,
+      canonical: EN ? `${BASE}/en/services.html` : `${BASE}/services.html`, page: 'services.html',
       jsonld: [orgLd, crumbLd([['Главная', ''], ['Услуги', 'services.html']]), {
         '@context': 'https://schema.org', '@type': 'ItemList',
         itemListElement: site.services.map((s, i) => ({
@@ -635,17 +844,17 @@ function buildServices() {
 <section class="phero">
   ${engrave('tr', 'ph')}
   <div class="wrap">
-    <nav class="crumbs" aria-label="Хлебные крошки"><a href="index.html">Главная</a> / <span>Услуги</span></nav>
-    ${kick('Направления работы')}
-    <h1 class="h1">Услуги по защите бренда и безопасности бизнеса</h1>
-    <p class="lead">Единая методология: анализ рисков, предупреждение угроз и сопровождение клиента вплоть до защиты интересов в суде — в России, СНГ и странах ЕАЭС.</p>
+    <nav class="crumbs" aria-label="${T.crumbs}"><a href="index.html">${T.home}</a> / <span>Услуги</span></nav>
+    ${kick(C.svcKicker)}
+    <h1 class="h1">${C.svcH1}</h1>
+    <p class="lead">${C.svcLead}</p>
   </div>
 </section>
 
 <section class="sec sec--tight sec--alt">
   <div class="wrap">
-    <nav class="chips" aria-label="Блоки услуг">
-      ${site.services.map(s => `<a class="chip" href="#${s.id}"><b>${esc(s.num)}</b>${esc(s.title)}</a>`).join('')}
+    <nav class="chips" aria-label="${C.svcNav}">
+      ${site.services.map(s => `<a class="chip" href="#${s.id}"><b>${esc(s.num)}</b>${esc(t(s,'title'))}</a>`).join('')}
     </nav>
   </div>
 </section>
@@ -655,11 +864,11 @@ function buildServices() {
     ${site.services.map(s => `<article class="svc-detail reveal" id="${s.id}">
       <div class="svc-detail__head">
         <span class="svc-detail__num">${esc(s.num)}</span>
-        <h2 class="h2">${esc(s.title)}</h2>
+        <h2 class="h2">${esc(t(s,'title'))}</h2>
       </div>
-      <p class="lead" style="max-width:70ch">${esc(s.intro)}</p>
+      <p class="lead" style="max-width:70ch">${esc(t(s,'intro'))}</p>
       <div class="dir-grid">
-        ${s.directions.map(d => `<div class="card dir">
+        ${t(s,'directions').map(d => `<div class="card dir">
           <h4>${esc(d.title)}</h4>
           <p>${esc(d.text)}</p>
         </div>`).join('')}
@@ -679,10 +888,10 @@ function buildAbout() {
   const c = chrome('about.html', 0);
   const html = j(
     head({
-      title: 'О компании Власта-Консалтинг — эксперты по защите брендов с 2006 года',
-      desc: 'История, команда и партнёрства «Власта-Консалтинг»: 20 лет на рынке, членство в WAD, INTA, ASIS, AEB и «Антиконтрафакт», защита интересов международных корпораций в России и ЕАЭС.',
-      keywords: 'Власта-Консалтинг о компании, WAD, INTA, ASIS, история компании, команда, ассоциации безопасности',
-      canonical: `${BASE}/about.html`,
+      title: C.aboutTitle,
+      desc: C.aboutDesc,
+      keywords: C.aboutKw,
+      canonical: EN ? `${BASE}/en/about.html` : `${BASE}/about.html`, page: 'about.html',
       jsonld: [orgLd, crumbLd([['Главная', ''], ['О компании', 'about.html']])],
     }),
     c.header,
@@ -690,19 +899,18 @@ function buildAbout() {
 <section class="phero">
   ${engrave('tr', 'ph')}
   <div class="wrap">
-    <nav class="crumbs" aria-label="Хлебные крошки"><a href="index.html">Главная</a> / <span>О компании</span></nav>
-    ${kick('О нас')}
-    <h1 class="h1">Эксперты по защите брендов и безопасности бизнеса с ${O.founded} года</h1>
-    <p class="lead">Мы помогаем компаниям расти спокойно — анализируем риски, предвидим неблагоприятные сценарии и выстраиваем системы защиты, которые работают на опережение.</p>
+    <nav class="crumbs" aria-label="${T.crumbs}"><a href="index.html">${T.home}</a> / <span>О компании</span></nav>
+    ${kick(C.aboutKicker)}
+    <h1 class="h1">${C.aboutH1}</h1>
+    <p class="lead">${C.aboutLead}</p>
   </div>
 </section>
 
 <section class="sec">
   <div class="wrap">
-    ${shead({ k: 'Кто мы', h: 'Надёжный партнёр в вопросах экономической безопасности',
-      d: 'Основанная в 2006 году, компания занимает лидирующее место в сфере обеспечения безопасности бизнеса и защиты интеллектуальной собственности в России.' })}
+    ${shead({ k: C.whoKicker, h: C.whoTitle, d: C.whoDesc })}
     <div class="values reveal">
-      ${site.values.map(v => `<div class="value"><span class="value__n">${esc(v.num)}</span><h3>${esc(v.title)}</h3><p>${esc(v.text)}</p></div>`).join('')}
+      ${site.values.map(v => `<div class="value"><span class="value__n">${esc(v.num)}</span><h3>${esc(t(v,'title'))}</h3><p>${esc(t(v,'text'))}</p></div>`).join('')}
     </div>
   </div>
 </section>
@@ -711,8 +919,8 @@ function buildAbout() {
   ${engrave('bl', 'tl')}
   <div class="wrap">
     ${shead({
-      k: 'История компании', h: 'Путь, отмеченный международным признанием',
-      extra: `<p class="tl__hint">От московского старта до международной практики ${I.drag} листайте</p>`,
+      k: C.histKicker, h: C.histTitle,
+      extra: `<p class="tl__hint">${C.histHint} ${I.drag} ${T.scrollHint}</p>`,
     })}
     ${timeline()}
   </div>
@@ -720,13 +928,13 @@ function buildAbout() {
 
 <section class="sec" id="team">
   <div class="wrap">
-    ${shead({ k: 'Руководство', h: 'Команда, которая отвечает за результат', mod: 'center' })}
+    ${shead({ k: C.teamKicker, h: C.teamTitle, mod: 'center' })}
     <div class="team">
-      ${site.team.map((t, i) => `<div class="card person reveal"${i ? ` data-d="${i}"` : ''}>
-        <div class="person__ph"><img src="${t.img}" alt="${esc(t.name)} — ${esc(t.role)}" loading="lazy" decoding="async"></div>
-        <h3>${esc(t.name)}</h3>
-        <div class="person__role">${esc(t.role)}</div>
-        <p>${esc(t.note)}</p>
+      ${site.team.map((m, i) => `<div class="card person reveal"${i ? ` data-d="${i}"` : ''}>
+        <div class="person__ph"><img src="${rel(0, m.img)}" alt="${esc(tt(m,'name'))} — ${esc(tt(m,'role'))}" loading="lazy" decoding="async"></div>
+        <h3>${esc(tt(m,'name'))}</h3>
+        <div class="person__role">${esc(tt(m,'role'))}</div>
+        <p>${esc(tt(m,'note'))}</p>
       </div>`).join('')}
     </div>
   </div>
@@ -736,8 +944,8 @@ function buildAbout() {
   ${engrave('tr', 'as')}
   <div class="wrap">
     ${shead({
-      k: 'Партнёрство', h: 'Ассоциации и профессиональные сообщества',
-      d: 'Мы состоим в ведущих российских и международных объединениях. Нажмите на карточку, чтобы узнать об участии в каждой ассоциации.',
+      k: C.assocKicker, h: C.assocTitle,
+      d: C.assocDesc,
     })}
     ${assocGrid()}
   </div>
@@ -745,22 +953,22 @@ function buildAbout() {
 
 <section class="sec" id="clients">
   <div class="wrap">
-    ${shead({ k: 'Клиенты', h: 'Нам доверяют ведущие бренды', mod: 'center' })}
+    ${shead({ k: C.clientsKicker, h: C.clientsTitle, mod: 'center' })}
     <div class="clients reveal">${clientsGrid()}</div>
-    <p class="clients-note">и ещё <b>более 80 брендов</b> под нашей защитой</p>
+    <p class="clients-note">${C.clientsNote}</p>
   </div>
 </section>
 
 <section class="sec sec--alt" id="letters">
   <div class="wrap">
-    ${shead({ k: 'Отзывы', h: 'Благодарственные письма', d: 'Нажмите на письмо, чтобы открыть его целиком.' })}
+    ${shead({ k: C.lettersKicker, h: C.lettersTitle, d: C.lettersDesc })}
     <div class="letters">
       ${site.letters.map((l, i) => `<button class="letter reveal" type="button" data-letter${i ? ` data-d="${i}"` : ''}>
-        <span class="letter__th"><img src="${l.img}" alt="Благодарственное письмо — ${esc(l.name)}" loading="lazy" decoding="async"></span>
+        <span class="letter__th"><img src="${rel(0, l.img)}" alt="${C.letterAlt} — ${esc(l.name)}" decoding="async"></span>
         <span class="letter__n">${esc(l.name)}</span>
       </button>`).join('')}
     </div>
-    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Благодарственное письмо" hidden>
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="${C.letterDialog}" hidden>
       <div class="lightbox__p">
         <div class="lightbox__h">
           <span class="lightbox__t"></span>
@@ -784,10 +992,10 @@ function buildCases() {
   const cats = [...new Set(cases.map(x => x.category))];
   const html = j(
     head({
-      title: 'Кейсы: борьба с контрафактом, расследования, due diligence — Власта-Консалтинг',
-      desc: `${cases.length} проектов из практики: блокировка каналов дистрибуции контрафакта, работа по ЕАЭС, рейды на производствах, расследования хищений, проверка контрагентов и сопровождение в суде.`,
-      keywords: 'кейсы борьба с контрафактом, антиконтрафактный рейд, ЕАЭС контрафакт, due diligence, корпоративное расследование, ТРОИС кейс',
-      canonical: `${BASE}/cases.html`,
+      title: C.casesPageTitle,
+      desc: C.casesPageDesc,
+      keywords: C.casesPageKw,
+      canonical: EN ? `${BASE}/en/cases.html` : `${BASE}/cases.html`, page: 'cases.html',
       jsonld: [orgLd, crumbLd([['Главная', ''], ['Кейсы', 'cases.html']]), {
         '@context': 'https://schema.org', '@type': 'ItemList',
         numberOfItems: cases.length,
@@ -799,17 +1007,17 @@ function buildCases() {
 <section class="phero">
   ${engrave('tr', 'ph')}
   <div class="wrap">
-    <nav class="crumbs" aria-label="Хлебные крошки"><a href="index.html">Главная</a> / <span>Кейсы</span></nav>
-    ${kick('Из практики')}
-    <h1 class="h1">Кейсы: контрафакт, расследования и защита активов</h1>
-    <p class="lead">Реальные проекты по защите товарных знаков, антиконтрафактным программам, проверкам контрагентов и внутренним расследованиям. Детали обезличены в целях конфиденциальности клиентов.</p>
+    <nav class="crumbs" aria-label="${T.crumbs}"><a href="index.html">${T.home}</a> / <span>Кейсы</span></nav>
+    ${kick(C.casesKick)}
+    <h1 class="h1">${C.casesH1}</h1>
+    <p class="lead">${C.casesLead}</p>
   </div>
 </section>
 
 <section class="sec sec--tight sec--alt">
   <div class="wrap">
-    <nav class="chips" aria-label="Фильтр по категориям">
-      <button class="chip is-on" type="button" data-filter="all">Все <b>${cases.length}</b></button>
+    <nav class="chips" aria-label="${C.caseFilter}">
+      <button class="chip is-on" type="button" data-filter="all">${T.all} <b>${cases.length}</b></button>
       ${cats.map(cat => `<button class="chip" type="button" data-filter="${esc(cat)}">${esc(cat)} <b>${cases.filter(x => x.category === cat).length}</b></button>`).join('')}
     </nav>
   </div>
@@ -819,20 +1027,20 @@ function buildCases() {
   <div class="wrap">
     <div class="case-grid" id="caseGrid">
       ${cases.map((x, i) => `<a class="card case reveal" href="cases/${x.slug}.html" data-cat="${esc(x.category)}"${i % 3 ? ` data-d="${i % 3}"` : ''}>
-        ${x.img ? `<div class="case__img"><img src="${x.img}" alt="${esc(x.title)}" loading="lazy" decoding="async"></div>` : ''}
+        ${x.img ? `<div class="case__img"><img src="${rel(0, x.img)}" alt="${esc(x.title)}" loading="lazy" decoding="async"></div>` : ''}
         <div class="case__b">
           <span class="case__cat">${esc(x.category)}</span>
           <h2 class="h3">${esc(x.title)}</h2>
           ${x.metric ? `<span class="case__win">${esc(x.metric)}</span>` : ''}
           <p>${esc(x.outcome || x.intro)}</p>
           <div class="case__f">
-            <span class="case__more arrow-link">Разбор кейса</span>
+            <span class="case__more arrow-link">${T.caseStudy}</span>
             <span class="case__go" aria-hidden="true">${I.arrow}</span>
           </div>
         </div>
       </a>`).join('')}
     </div>
-    <p class="empty" id="caseEmpty" hidden>По выбранной категории кейсов пока нет.</p>
+    <p class="empty" id="caseEmpty" hidden>${T.emptyCases}</p>
   </div>
 </section>
 
@@ -848,10 +1056,10 @@ ${ctaBand(0)}
     const desc = x.intro.length > 300 ? x.intro.slice(0, 297) + '…' : x.intro;
     const page = j(
       head({
-        title: `${x.title} — кейс «Власта-Консалтинг»`,
+        title: `${x.title} ${C.caseSuffix}`,
         desc,
         keywords: x.tags.join(', '),
-        canonical: `${BASE}/cases/${x.slug}.html`,
+        canonical: EN ? `${BASE}/en/cases/${x.slug}.html` : `${BASE}/cases/${x.slug}.html`, page: `cases/${x.slug}.html`,
         image: x.img || undefined,
         depth: 1,
         jsonld: [orgLd, crumbLd([['Главная', ''], ['Кейсы', 'cases.html'], [x.title, `cases/${x.slug}.html`]]), {
@@ -870,14 +1078,14 @@ ${ctaBand(0)}
   ${engrave('tr', 'ch')}
   <span class="case-hero__n" aria-hidden="true">${String(x.n).padStart(2, '0')}</span>
   <div class="wrap">
-    <nav class="crumbs" aria-label="Хлебные крошки"><a href="../index.html">Главная</a> / <a href="../cases.html">Кейсы</a> / <span>${esc(x.title)}</span></nav>
+    <nav class="crumbs" aria-label="${T.crumbs}"><a href="../index.html">${T.home}</a> / <a href="../cases.html">Кейсы</a> / <span>${esc(x.title)}</span></nav>
     ${kick(x.category)}
     <h1 class="h1">${esc(x.title)}</h1>
     <p class="lead">${esc(x.intro)}</p>
     <div class="facts facts--hero">
-      <div class="fact"><span>Направление</span><strong>${esc(x.category)}</strong></div>
-      <div class="fact"><span>Регион</span><strong>Россия · СНГ · ЕАЭС</strong></div>
-      <div class="fact"><span>${x.metric ? 'Результат' : 'Формат'}</span><strong>${esc(x.metric || 'Проектная работа')}</strong></div>
+      <div class="fact"><span>${T.direction}</span><strong>${esc(x.category)}</strong></div>
+      <div class="fact"><span>${T.region}</span><strong>${T.regionValue}</strong></div>
+      <div class="fact"><span>${x.metric ? T.outcome : T.format}</span><strong>${esc(x.metric || T.projectWork)}</strong></div>
     </div>
     ${x.outcome ? `<p class="case-outcome">${esc(x.outcome)}</p>` : ''}
   </div>
@@ -885,16 +1093,16 @@ ${ctaBand(0)}
 
 <section class="sec">
   <div class="wrap wrap--narrow">
-    ${x.img ? `<div class="article__hero reveal"><img src="../${x.img}" alt="${esc(x.title)}" loading="lazy" decoding="async"></div>` : ''}
+    ${x.img ? `<div class="article__hero reveal"><img src="${rel(1, x.img)}" alt="${esc(x.title)}" loading="lazy" decoding="async"></div>` : ''}
     <div class="prose reveal">
       ${x.sections.map((s, i) => `<h2><span class="step">${String(i + 1).padStart(2, '0')}</span>${esc(s.h)}</h2>
       ${s.p.map(p => `<p>${esc(p)}</p>`).join('')}`).join('')}
     </div>
     <div class="taglist">
-      <h4>Темы кейса</h4>
+      <h4>${T.topics}</h4>
       <div class="tags">${x.tags.map(t => `<span class="tag">${esc(t)}</span>`).join('')}</div>
     </div>
-    <nav class="pager" aria-label="Другие кейсы">
+    <nav class="pager" aria-label="${T.otherCases}">
       ${prev ? `<a class="arrow-link" href="${prev.slug}.html" style="transform:scaleX(1)">${I.arrow} ${esc(prev.title)}</a>` : '<span></span>'}
       ${next ? `<a class="arrow-link" href="${next.slug}.html">${esc(next.title)} ${I.arrow}</a>` : '<span></span>'}
     </nav>
@@ -916,14 +1124,14 @@ function buildNews() {
 
   const html = j(
     head({
-      title: 'Новости: борьба с контрафактом в России и ЕАЭС — Власта-Консалтинг',
-      desc: `${news.length} материалов: антиконтрафактные операции и изъятия, инициативы на площадках ЕЭК и ФТС, участие в международных форумах по защите интеллектуальной собственности.`,
-      keywords: 'новости контрафакт, изъятие контрафакта, ЕАЭС, ФТС, ТРОИС, конференции по защите брендов',
-      canonical: `${BASE}/news.html`,
+      title: C.newsPageTitle,
+      desc: C.newsPageDesc,
+      keywords: C.newsPageKw,
+      canonical: EN ? `${BASE}/en/news.html` : `${BASE}/news.html`, page: 'news.html',
       image: news[0]?.img,
       jsonld: [orgLd, crumbLd([['Главная', ''], ['Новости', 'news.html']]), {
         '@context': 'https://schema.org', '@type': 'CollectionPage',
-        name: 'Новости Власта-Консалтинг', url: `${BASE}/news.html`, inLanguage: 'ru-RU',
+        name: C.newsCollection, url: `${BASE}/${PREFIX}news.html`, inLanguage: 'ru-RU',
         mainEntity: {
           '@type': 'ItemList', numberOfItems: news.length,
           itemListElement: news.slice(0, 30).map((n, i) => ({ '@type': 'ListItem', position: i + 1, name: n.title, url: `${BASE}/news/${n.slug}.html` })),
@@ -935,17 +1143,17 @@ function buildNews() {
 <section class="phero">
   ${engrave('tr', 'ph')}
   <div class="wrap">
-    <nav class="crumbs" aria-label="Хлебные крошки"><a href="index.html">Главная</a> / <span>Новости</span></nav>
-    ${kick('Хроника')}
-    <h1 class="h1">Новости борьбы с контрафактом и защиты брендов</h1>
-    <p class="lead">Антиконтрафактные операции и изъятия, инициативы на площадках ЕЭК и ФТС, участие в международных форумах по защите интеллектуальной собственности.</p>
+    <nav class="crumbs" aria-label="${T.crumbs}"><a href="index.html">${T.home}</a> / <span>Новости</span></nav>
+    ${kick(C.newsKick)}
+    <h1 class="h1">${C.newsH1}</h1>
+    <p class="lead">${C.newsLead}</p>
   </div>
 </section>
 
 <section class="sec sec--tight sec--alt">
   <div class="wrap">
-    <nav class="chips" aria-label="Фильтр по темам">
-      <button class="chip is-on" type="button" data-filter="all">Все <b>${news.length}</b></button>
+    <nav class="chips" aria-label="${C.newsFilter}">
+      <button class="chip is-on" type="button" data-filter="all">${T.all} <b>${news.length}</b></button>
       ${clusters.map(cl => `<button class="chip" type="button" data-filter="${esc(cl)}">${esc(cl)} <b>${news.filter(n => n.cluster === cl).length}</b></button>`).join('')}
     </nav>
   </div>
@@ -953,20 +1161,20 @@ function buildNews() {
 
 <section class="sec">
   <div class="wrap">
-    <p class="count" id="newsCount">Показано ${INITIAL} из ${news.length} материалов</p>
+    <p class="count" id="newsCount">${T.shown(INITIAL, news.length)}</p>
     <div class="news-grid" id="newsGrid" data-initial="${INITIAL}">
       ${news.map((n, i) => `<a class="card ncard reveal" href="news/${n.slug}.html" data-cat="${esc(n.cluster)}"${i >= INITIAL ? ' hidden' : ''}${i % 3 && i < INITIAL ? ` data-d="${i % 3}"` : ''}>
-        ${n.img ? `<div class="ncard__img"><img src="${n.img}" alt="${esc(n.title)}" loading="lazy" decoding="async">${n.video ? `<span class="ncard__play" aria-hidden="true">${I.play}</span>` : ''}</div>` : ''}
+        ${n.img ? `<div class="ncard__img"><img src="${rel(0, n.img)}" alt="${esc(n.title)}" loading="lazy" decoding="async">${n.video ? `<span class="ncard__play" aria-hidden="true">${I.play}</span>` : ''}</div>` : ''}
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="${n.dateIso}">${esc(n.dateDisp)}</time><span class="dot"></span><span class="cl">${esc(n.cluster)}</span></div>
           <h2 class="h3" style="font-size:16.5px">${esc(n.title)}</h2>
-          <span class="ncard__more arrow-link">Читать ${I.arrow}</span>
+          <span class="ncard__more arrow-link">${T.readOn} ${I.arrow}</span>
         </div>
       </a>`).join('')}
     </div>
-    <p class="empty" id="newsEmpty" hidden>По выбранной теме материалов пока нет.</p>
+    <p class="empty" id="newsEmpty" hidden>${T.emptyNews}</p>
     <div class="center" style="text-align:center;margin-top:38px">
-      <button class="btn btn--outline" type="button" id="newsMore">Показать ещё ${I.arrow}</button>
+      <button class="btn btn--outline" type="button" id="newsMore">${T.showMore} ${I.arrow}</button>
     </div>
   </div>
 </section>
@@ -982,7 +1190,7 @@ function buildNews() {
     const videoBlock = n.video
       ? (n.video.type === 'mp4'
         ? `<div class="video"><video controls preload="metadata"><source src="${esc(n.video.src)}" type="video/mp4">Ваш браузер не поддерживает видео.</video></div>`
-        : `<div class="video"><iframe src="${esc(n.video.src)}" title="Видео к материалу: ${esc(n.title)}" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>`)
+        : `<div class="video"><iframe src="${esc(n.video.src)}" title="${C.videoTitle}: ${esc(n.title)}" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>`)
       : '';
 
     const page = j(
@@ -990,7 +1198,7 @@ function buildNews() {
         title: n.metaTitle.length > 65 ? `${n.metaTitle.slice(0, 62)}…` : n.metaTitle,
         desc: n.metaDesc,
         keywords: n.keywords.join(', '),
-        canonical: `${BASE}/news/${n.slug}.html`,
+        canonical: EN ? `${BASE}/en/news/${n.slug}.html` : `${BASE}/news/${n.slug}.html`, page: `news/${n.slug}.html`,
         image: n.img || undefined,
         depth: 1,
         jsonld: [orgLd, crumbLd([['Главная', ''], ['Новости', 'news.html'], [n.title, `news/${n.slug}.html`]]), {
@@ -1009,9 +1217,9 @@ function buildNews() {
       cc.header,
       `<main>
 <section class="phero${n.img ? ' phero--photo' : ''}">
-  ${n.img ? `<div class="phero__bg" aria-hidden="true"><img src="../${n.img}" alt="" fetchpriority="high" decoding="async"></div>` : engrave('tr', 'ph')}
+  ${n.img ? `<div class="phero__bg" aria-hidden="true"><img src="${rel(1, n.img)}" alt="" fetchpriority="high" decoding="async"></div>` : engrave('tr', 'ph')}
   <div class="wrap wrap--narrow">
-    <nav class="crumbs" aria-label="Хлебные крошки"><a href="../index.html">Главная</a> / <a href="../news.html">Новости</a> / <span>${esc(n.dateDisp)}</span></nav>
+    <nav class="crumbs" aria-label="${T.crumbs}"><a href="../index.html">${T.home}</a> / <a href="../news.html">Новости</a> / <span>${esc(n.dateDisp)}</span></nav>
     <div class="article__meta"><time datetime="${n.dateIso}">${esc(n.dateDisp)}</time><span>·</span><span class="cl">${esc(n.cluster)}</span></div>
     <h1 class="h1 rise" style="margin-top:14px">${esc(n.h1)}</h1>
   </div>
@@ -1024,19 +1232,19 @@ function buildNews() {
       ${renderBody(n.body)}
     </article>
     ${n.links.length ? `<div class="srcs">
-      <h4>Источники и упоминания</h4>
+      <h4>${T.sources}</h4>
       <ul>${n.links.map(l => `<li><a href="${esc(l.url)}" target="_blank" rel="noopener noreferrer">${I.ext}${esc(l.text)}</a></li>`).join('')}</ul>
     </div>` : ''}
-    <nav class="pager" aria-label="Другие материалы">
-      ${prev ? `<a class="arrow-link" href="${prev.slug}.html">${I.arrow} Новее</a>` : '<span></span>'}
-      ${next ? `<a class="arrow-link" href="${next.slug}.html">Ранее ${I.arrow}</a>` : '<span></span>'}
+    <nav class="pager" aria-label="${T.otherNews}">
+      ${prev ? `<a class="arrow-link" href="${prev.slug}.html">${I.arrow} ${T.newer}</a>` : '<span></span>'}
+      ${next ? `<a class="arrow-link" href="${next.slug}.html">${T.earlier} ${I.arrow}</a>` : '<span></span>'}
     </nav>
   </div>
 </section>
 
 ${related.length ? `<section class="sec sec--alt">
   <div class="wrap">
-    ${shead({ k: 'По теме', h: esc(n.cluster), mod: 'split' })}
+    ${shead({ k: T.related, h: esc(n.cluster), mod: 'split' })}
     <div class="news-grid">${related.map((r, i) => newsCard(r, 1, i)).join('')}</div>
   </div>
 </section>` : ''}
@@ -1053,10 +1261,10 @@ function buildContacts() {
   const c = chrome('contacts.html', 0);
   const html = j(
     head({
-      title: 'Контакты — Власта-Консалтинг, Москва',
-      desc: `Свяжитесь с «${O.name}»: ${O.address}. Телефон ${O.phone}, e-mail ${O.email}. Конфиденциальная консультация по защите бренда и безопасности бизнеса.`,
-      keywords: 'Власта-Консалтинг контакты, консультация по защите бренда, безопасность бизнеса Москва',
-      canonical: `${BASE}/contacts.html`,
+      title: C.contactsTitle,
+      desc: C.contactsDesc,
+      keywords: C.contactsKw,
+      canonical: EN ? `${BASE}/en/contacts.html` : `${BASE}/contacts.html`, page: 'contacts.html',
       jsonld: [orgLd, crumbLd([['Главная', ''], ['Контакты', 'contacts.html']]), {
         '@context': 'https://schema.org', '@type': 'LocalBusiness',
         name: O.legal, url: `${BASE}/contacts.html`, telephone: O.phoneHref, email: O.email,
@@ -1069,10 +1277,10 @@ function buildContacts() {
 <section class="phero">
   ${engrave('tr', 'ph')}
   <div class="wrap">
-    <nav class="crumbs" aria-label="Хлебные крошки"><a href="index.html">Главная</a> / <span>Контакты</span></nav>
-    ${kick('Свяжитесь с нами')}
-    <h1 class="h1">Обсудим безопасность вашего бизнеса</h1>
-    <p class="lead">Проведём конфиденциальную консультацию и предложим решение под вашу задачу.</p>
+    <nav class="crumbs" aria-label="${T.crumbs}"><a href="index.html">${T.home}</a> / <span>Контакты</span></nav>
+    ${kick(C.contactsKick)}
+    <h1 class="h1">${C.contactsH1}</h1>
+    <p class="lead">${C.contactsLead}</p>
   </div>
 </section>
 
@@ -1080,19 +1288,19 @@ function buildContacts() {
   <div class="wrap contact-grid">
     <div class="reveal">
       <div class="ci">
-        <div class="ci__i"><span class="ci__ico">${I.phone}</span><div><h4>Телефон</h4><a href="tel:${O.phoneHref}">${esc(O.phone)}</a></div></div>
-        <div class="ci__i"><span class="ci__ico">${I.mail}</span><div><h4>Электронная почта</h4><a href="mailto:${O.email}">${esc(O.email)}</a></div></div>
-        <div class="ci__i"><span class="ci__ico">${I.pin}</span><div><h4>Адрес</h4><p>${esc(O.addressZip)}, ${esc(O.addressCity)},<br>${esc(O.addressStreet)}</p></div></div>
-        <div class="ci__i"><span class="ci__ico">${I.clock}</span><div><h4>Часы работы</h4><p>Понедельник – Пятница<br>9:30 – 18:00</p></div></div>
+        <div class="ci__i"><span class="ci__ico">${I.phone}</span><div><h4>${T.phone}</h4><a href="tel:${O.phoneHref}">${esc(O.phone)}</a></div></div>
+        <div class="ci__i"><span class="ci__ico">${I.mail}</span><div><h4>${T.email}</h4><a href="mailto:${O.email}">${esc(O.email)}</a></div></div>
+        <div class="ci__i"><span class="ci__ico">${I.pin}</span><div><h4>${T.address}</h4><p>${esc(t(O,'address'))}</p></div></div>
+        <div class="ci__i"><span class="ci__ico">${I.clock}</span><div><h4>${T.hours}</h4><p>${T.weekdays}<br>9:30 – 18:00</p></div></div>
       </div>
       <div class="ci-actions">
-        <a href="tel:${O.phoneHref}" class="btn btn--primary">Позвонить ${I.arrow}</a>
-        <a href="mailto:${O.email}" class="btn btn--outline">Написать письмо</a>
+        <a href="tel:${O.phoneHref}" class="btn btn--primary">${T.callUs} ${I.arrow}</a>
+        <a href="mailto:${O.email}" class="btn btn--outline">${T.writeUs}</a>
       </div>
     </div>
     <div class="reveal" data-d="1">
       <div class="map-embed map-embed--tall">
-        <iframe title="Офис «Власта-Консалтинг» на карте: Москва, ул. Усачёва, 13" loading="lazy" src="https://yandex.ru/map-widget/v1/?ll=37.566%2C55.728&z=16&text=${encodeURIComponent(O.address)}"></iframe>
+        <iframe title="${C.mapTitle}" loading="lazy" src="https://yandex.ru/map-widget/v1/?ll=37.566%2C55.728&z=16&text=${encodeURIComponent(O.address)}"></iframe>
       </div>
     </div>
   </div>
@@ -1105,7 +1313,18 @@ function buildContacts() {
 /* -------------------------------------------------------------- PRIVACY */
 function buildPrivacy() {
   const c = chrome('contacts.html', 0);
-  const S = [
+  const S = EN ? [
+    ['General', [`This Policy sets out how ${O.legal} (the Company) processes personal data and the measures taken to keep it secure.`, 'By using the site and contacting us by phone or email, you accept the terms of this Policy.']],
+    ['What we process', ['Your name, company, phone number, email address and the content of your enquiry — only as far as you provide it yourself.', 'Technical data: IP address, browser and device type, referral source and on-site activity, in anonymised form, for statistics.']],
+    ['Purposes', ['Responding to your enquiry and providing a consultation.', 'Improving the site and the quality of our services.', 'Meeting the requirements of the law of the Russian Federation.']],
+    ['Legal basis', ['Processing is carried out on the basis of your consent and in accordance with Federal Law No. 152-FZ of 27 July 2006 “On Personal Data”.']],
+    ['Disclosure to third parties', ['The Company does not sell or pass personal data to third parties, except where the law expressly requires it or where it is necessary to act on your enquiry.']],
+    ['Retention', ['Personal data is kept no longer than the purposes of processing require, or until you withdraw your consent.']],
+    ['Cookies', ['The site uses cookies so the interface works correctly and to collect anonymised statistics. You can disable cookies in your browser settings.']],
+    ['Your rights', ['You may request information about the processing of your data, ask for it to be corrected, blocked or deleted, and withdraw your consent to processing.', `To exercise these rights, write to ${O.email}.`]],
+    ['Contact', [`${O.legal}, ${O.address}. Phone: ${O.phone}. Email: ${O.email}.`]],
+  ] : [
+
     ['Общие положения', [`Настоящая Политика определяет порядок обработки персональных данных ${O.legal} (далее — Компания) и меры по обеспечению их безопасности.`, 'Используя сайт и обращаясь к нам по телефону или электронной почте, вы соглашаетесь с условиями настоящей Политики.']],
     ['Какие данные мы обрабатываем', ['Имя, название компании, телефон, адрес электронной почты и содержание обращения — в объёме, который вы сообщаете нам сами.', 'Технические данные: IP-адрес, тип браузера и устройства, источник перехода, действия на сайте — в обезличенном виде для статистики.']],
     ['Цели обработки', ['Ответ на ваше обращение и проведение консультации.', 'Улучшение работы сайта и качества услуг.', 'Исполнение требований законодательства Российской Федерации.']],
@@ -1118,9 +1337,9 @@ function buildPrivacy() {
   ];
   const html = j(
     head({
-      title: 'Политика конфиденциальности — Власта-Консалтинг',
-      desc: 'Политика обработки персональных данных ООО «Власта-Консалтинг»: какие данные мы собираем, цели и правовые основания обработки, сроки хранения и ваши права.',
-      canonical: `${BASE}/privacy.html`,
+      title: C.privacyTitle,
+      desc: C.privacyDesc,
+      canonical: EN ? `${BASE}/en/privacy.html` : `${BASE}/privacy.html`, page: 'privacy.html',
       robots: 'index,follow',
       jsonld: [orgLd, crumbLd([['Главная', ''], ['Политика конфиденциальности', 'privacy.html']])],
     }),
@@ -1129,9 +1348,9 @@ function buildPrivacy() {
 <section class="phero">
   ${engrave('tr', 'ph')}
   <div class="wrap">
-    <nav class="crumbs" aria-label="Хлебные крошки"><a href="index.html">Главная</a> / <span>Политика конфиденциальности</span></nav>
-    ${kick('Правовая информация')}
-    <h1 class="h1">Политика конфиденциальности</h1>
+    <nav class="crumbs" aria-label="${T.crumbs}"><a href="index.html">${T.home}</a> / <span>Политика конфиденциальности</span></nav>
+    ${kick(C.privacyKick)}
+    <h1 class="h1">${C.privacyH1}</h1>
   </div>
 </section>
 <section class="sec">
@@ -1139,7 +1358,7 @@ function buildPrivacy() {
     <div class="prose">
       ${S.map((s, i) => `<h2><span class="step">${String(i + 1).padStart(2, '0')}</span>${esc(s[0])}</h2>
       ${s[1].map(p => `<p>${esc(p)}</p>`).join('')}`).join('')}
-      <p class="muted" style="margin-top:34px;padding-top:20px;border-top:1px solid var(--line);font-size:14px">Редакция от ${BUILT}.</p>
+      <p class="muted" style="margin-top:34px;padding-top:20px;border-top:1px solid var(--line);font-size:14px">${C.privacyEdition} ${BUILT}.</p>
     </div>
   </div>
 </section>
@@ -1150,16 +1369,17 @@ function buildPrivacy() {
 
 /* ------------------------------------------------------- sitemap + robots */
 function buildSitemap() {
+  const pre = PREFIX;   // '' for RU, 'en/' for EN
   const urls = [
-    { u: '', p: '1.0', f: 'weekly' },
-    { u: 'services.html', p: '0.9', f: 'monthly' },
-    { u: 'about.html', p: '0.8', f: 'monthly' },
-    { u: 'cases.html', p: '0.9', f: 'weekly' },
-    { u: 'news.html', p: '0.9', f: 'daily' },
-    { u: 'contacts.html', p: '0.7', f: 'yearly' },
-    { u: 'privacy.html', p: '0.2', f: 'yearly' },
-    ...cases.map(c => ({ u: `cases/${c.slug}.html`, p: '0.7', f: 'monthly' })),
-    ...news.map(n => ({ u: `news/${n.slug}.html`, p: '0.6', f: 'monthly', d: n.dateIso, img: n.img })),
+    { u: pre, p: EN ? '0.9' : '1.0', f: 'weekly' },
+    { u: pre + 'services.html', p: '0.9', f: 'monthly' },
+    { u: pre + 'about.html', p: '0.8', f: 'monthly' },
+    { u: pre + 'cases.html', p: '0.9', f: 'weekly' },
+    { u: pre + 'news.html', p: '0.9', f: 'daily' },
+    { u: pre + 'contacts.html', p: '0.7', f: 'yearly' },
+    { u: pre + 'privacy.html', p: '0.2', f: 'yearly' },
+    ...cases.map(c => ({ u: pre + `cases/${c.slug}.html`, p: '0.7', f: 'monthly' })),
+    ...news.map(n => ({ u: pre + `news/${n.slug}.html`, p: '0.6', f: 'monthly', d: n.dateIso, img: n.img })),
   ];
   const body = urls.map(x => `  <url>
     <loc>${BASE}/${x.u}</loc>
@@ -1168,22 +1388,29 @@ function buildSitemap() {
     <priority>${x.p}</priority>${x.img ? `
     <image:image><image:loc>${BASE}/${x.img}</image:loc></image:image>` : ''}
   </url>`).join('\n');
-  write('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>
+  // each locale drops its fragment; the RU pass stitches them together
+  fs.mkdirSync(path.join(ROOT, '.build'), { recursive: true });
+  fs.writeFileSync(path.join(ROOT, `.build/sitemap-${LOCALE}.xml`), body, 'utf8');
+  const frags = ['ru', 'en']
+    .map(l => path.join(ROOT, `.build/sitemap-${l}.xml`))
+    .filter(f => fs.existsSync(f))
+    .map(f => fs.readFileSync(f, 'utf8'));
+  fs.writeFileSync(path.join(ROOT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-${body}
+${frags.join('\n')}
 </urlset>
-`);
-  write('robots.txt', `User-agent: *
+`, 'utf8');
+  if (!EN) fs.writeFileSync(path.join(ROOT, 'robots.txt'), `User-agent: *
 Allow: /
 Disallow: /_boss-preview/
 
 Sitemap: ${BASE}/sitemap.xml
-`);
+`, 'utf8');
   return urls.length;
 }
 
 /* ------------------------------------------------------------------- run */
-console.log('Власта-Консалтинг — сборка сайта\n');
+console.log(`Власта-Консалтинг — сборка (${LOCALE.toUpperCase()})\n`);
 buildHome();      console.log('  ✓ index.html');
 buildServices();  console.log('  ✓ services.html');
 buildAbout();     console.log('  ✓ about.html');

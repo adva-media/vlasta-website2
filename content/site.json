@@ -12,27 +12,36 @@
     "addressStreet": "ул. Усачёва, д. 13, помещение 4н",
     "addressCity": "Москва",
     "addressZip": "119048",
-    "domain": "https://vlasta-s.com"
+    "domain": "https://vlasta-s.com",
+    "hours_en": "Mon–Fri 9:30–18:00",
+    "address_en": "Usacheva 13, office 4n, Moscow 119048, Russia",
+    "addressStreet_en": "Usacheva 13, office 4n",
+    "addressCity_en": "Moscow"
   },
   "stats": [
     {
       "n": "2006",
-      "label": "Год основания компании"
+      "label": "Год основания компании",
+      "label_en": "Year the company was founded"
     },
     {
       "n": "20",
       "suffix": "+",
-      "label": "Лет на рынке безопасности"
+      "label": "Лет на рынке безопасности",
+      "label_en": "Years in business security"
     },
     {
       "n": "80",
       "suffix": "+",
-      "label": "Брендов под защитой"
+      "label": "Брендов под защитой",
+      "label_en": "Brands under protection"
     },
     {
       "n": "4,5",
       "unit": "млрд ₽",
-      "label": "Предотвращённого ущерба в год"
+      "label": "Предотвращённого ущерба в год",
+      "label_en": "Damage prevented per year",
+      "unit_en": "bn ₽"
     }
   ],
   "results": [
@@ -40,24 +49,29 @@
       "value": "95",
       "unit": "%",
       "pct": 95,
-      "label": "снижение количества жалоб потребителей на горячую линию"
+      "label": "снижение количества жалоб потребителей на горячую линию",
+      "label_en": "reduction in consumer complaints to the hotline"
     },
     {
       "value": "×4,8",
       "pct": 82,
-      "label": "предотвращённого ущерба на каждый вложенный рубль"
+      "label": "предотвращённого ущерба на каждый вложенный рубль",
+      "label_en": "damage prevented for every rouble invested"
     },
     {
       "value": "60",
       "unit": "%",
       "pct": 60,
-      "label": "бюджета программы возвращается через компенсации по искам"
+      "label": "бюджета программы возвращается через компенсации по искам",
+      "label_en": "of the programme budget recovered through claims"
     },
     {
       "value": "4",
       "unit": "/ нед",
       "pct": 70,
-      "label": "рейда в неделю с непосредственным участием наших специалистов"
+      "label": "рейда в неделю с непосредственным участием наших специалистов",
+      "label_en": "raids a week with our specialists directly involved",
+      "unit_en": "/ wk"
     }
   ],
   "services": [
@@ -83,6 +97,24 @@
         "Проверка контрагентов и due diligence",
         "Анализ рынка перед выходом",
         "Структурированный анализ и профайлинг"
+      ],
+      "title_en": "Intelligence and analysis",
+      "tagline_en": "Business intelligence, competitive market analysis, independent expertise and deal risk assessment.",
+      "intro_en": "We combine analysis with access to verified sources across Russia, the CIS and the former Eastern Bloc, helping build strategies that reduce risk before you enter a deal or a new market.",
+      "highlights_en": [
+        "Counterparty screening and due diligence",
+        "Market analysis before entry",
+        "Structured analysis and profiling"
+      ],
+      "directions_en": [
+        {
+          "title": "Business intelligence and market analysis",
+          "text": "Risk analysis by region, country and sector before entering new markets, assessment of the competitive environment, sourcing and screening of counterparties, tracing of assets and business connections."
+        },
+        {
+          "title": "Expertise and valuation",
+          "text": "Independent expertise in M&A, assessment of deal and project risk, asset tracing in insolvency, insurance claim investigation and structured analysis of complex situations."
+        }
       ]
     },
     {
@@ -107,6 +139,24 @@
         "Комплаенс KYC / AML, FCPA / UKBA",
         "Корпоративные расследования",
         "Охрана первых лиц и мероприятий"
+      ],
+      "title_en": "Business security",
+      "tagline_en": "Information, economic and physical security: screening, audit, protection of premises and people.",
+      "intro_en": "Twenty years of experience have made us a team clients trust with the protection of their business and their principals. The single point of contact is reinforced by information screening and a full risk assessment of the sites involved.",
+      "highlights_en": [
+        "KYC / AML and FCPA / UKBA compliance",
+        "Corporate investigations",
+        "Close protection and event security"
+      ],
+      "directions_en": [
+        {
+          "title": "Information and economic security",
+          "text": "Background checks on staff and candidates, compliance to KYC / AML and FCPA / UKBA standards, identification of politically exposed persons and sanctions risk, audit of process vulnerabilities, investigation of internal theft and corporate fraud."
+        },
+        {
+          "title": "Physical security",
+          "text": "Close protection for principals and guests, transport security from Meet & Greet through to multi-day details, and security for public and large-scale events. Every engagement has English-speaking coordinators available 24/7."
+        }
       ]
     },
     {
@@ -131,6 +181,24 @@
         "ТРОИС и таможенный контроль",
         "Рейды с полицией и таможней",
         "Online Brand Protection System"
+      ],
+      "title_en": "Brand and IP protection",
+      "tagline_en": "The full cycle of intellectual property protection and action against unfair competition.",
+      "intro_en": "In Russia we were among the very first to design and launch a trademark protection programme, back in 2006. We act on every type of infringement — from identity and confusing similarity through to unfair competition.",
+      "highlights_en": [
+        "Customs registers and border control",
+        "Raids with police and customs",
+        "Online Brand Protection System"
+      ],
+      "directions_en": [
+        {
+          "title": "Intellectual property protection",
+          "text": "Registration and maintenance of trademarks in Russia and abroad, entry into Russian and foreign customs registers, raids with police and customs, independent expert examination of seized goods, supervision of counterfeit destruction, civil claims and recovery of compensation."
+        },
+        {
+          "title": "Action against unfair competition",
+          "text": "Online Brand Protection System: monitoring of search engines, social networks, marketplaces, messengers, app stores and classified-ad boards, digital fingerprint matching, pre-action measures with rapid delisting of listings and links, and action against parallel imports."
+        }
       ]
     },
     {
@@ -155,6 +223,24 @@
         "Взаимодействие с госорганами",
         "Сопровождение в суде",
         "Корпоративные споры и кризисы"
+      ],
+      "title_en": "Consulting",
+      "tagline_en": "Strategic and legal support: engagement with state authorities, litigation, crisis response.",
+      "intro_en": "We support the client from the initial brief through to representation in court, including engagement with state authorities and crisis response in contested situations.",
+      "highlights_en": [
+        "Engagement with state authorities",
+        "Litigation support",
+        "Corporate disputes and crises"
+      ],
+      "directions_en": [
+        {
+          "title": "Strategic consulting",
+          "text": "Building a coherent economic security system for the enterprise, engagement with state and supervisory authorities, analytical support for management decisions, and crisis response."
+        },
+        {
+          "title": "Legal consulting",
+          "text": "Pre-action cease and desist letters, preparation and filing of claims, appeals and enforcement of judgments, resolution of corporate disputes, and action against blackmail, greenmail and manipulation of reporting."
+        }
       ]
     }
   ],
@@ -163,25 +249,33 @@
       "n": "1",
       "title": "Анализ рисков",
       "text": "Изучаем бизнес-процессы, выявляем уязвимости и предвидим неблагоприятные сценарии.",
-      "icon": "search"
+      "icon": "search",
+      "title_en": "Risk analysis",
+      "text_en": "We study the business processes, find the vulnerabilities and anticipate adverse scenarios."
     },
     {
       "n": "2",
       "title": "Стратегия",
       "text": "Разрабатываем индивидуальную систему защиты с учётом отрасли и масштаба компании.",
-      "icon": "layers"
+      "icon": "layers",
+      "title_en": "Strategy",
+      "text_en": "We design a protection system tailored to the sector and the scale of the company."
     },
     {
       "n": "3",
       "title": "Реализация",
       "text": "Внедряем меры, проводим расследования и оперативные мероприятия в правовом поле.",
-      "icon": "check"
+      "icon": "check",
+      "title_en": "Execution",
+      "text_en": "We put measures in place and run investigations and operations within the law."
     },
     {
       "n": "4",
       "title": "Сопровождение",
       "text": "Поддерживаем клиента на всех этапах — вплоть до защиты интересов в суде.",
-      "icon": "shield"
+      "icon": "shield",
+      "title_en": "Ongoing support",
+      "text_en": "We stay with the client at every stage — including representation in court."
     }
   ],
   "timeline": [
@@ -189,42 +283,58 @@
       "year": "2025",
       "title": "Медаль МПА и масштабирование в ЕАЭС",
       "text": "Медаль «Солидарность полиции» от Международной полицейской ассоциации и расширение географии до стран ЕАЭС с комплексными программами защиты брендов.",
-      "highlight": true
+      "highlight": true,
+      "title_en": "IPA medal and EAEU expansion",
+      "text_en": "The “Police Solidarity” medal from the International Police Association, and expansion across the EAEU with full brand protection programmes."
     },
     {
       "year": "2024",
       "title": "Новое направление",
-      "text": "Запущено направление по борьбе с недобросовестной конкуренцией."
+      "text": "Запущено направление по борьбе с недобросовестной конкуренцией.",
+      "title_en": "A new practice area",
+      "text_en": "Launch of a dedicated practice against unfair competition."
     },
     {
       "year": "2022",
       "title": "Преемственность",
-      "text": "Алексей Соломанидин стал самым молодым президентом WAD за всю её историю."
+      "text": "Алексей Соломанидин стал самым молодым президентом WAD за всю её историю.",
+      "title_en": "Succession",
+      "text_en": "Alexey Solomanidin became the youngest president in WAD history."
     },
     {
       "year": "2020",
       "title": "Масштабирование brand protection",
-      "text": "Выход на уровень защиты более 80 брендов и позиции ведущего лидера рынка."
+      "text": "Выход на уровень защиты более 80 брендов и позиции ведущего лидера рынка.",
+      "title_en": "Brand protection at scale",
+      "text_en": "Passing 80 brands under protection and taking a leading position in the market."
     },
     {
       "year": "2015",
       "title": "Медаль В. В. Леонтьева",
-      "text": "Владимир Соломанидин награждён медалью «За достижения в экономике»."
+      "text": "Владимир Соломанидин награждён медалью «За достижения в экономике».",
+      "title_en": "The V. V. Leontief medal",
+      "text_en": "Vladimir Solomanidin awarded the medal “For Achievements in Economics”."
     },
     {
       "year": "2014",
       "title": "Трофей WAD «Детектив года»",
-      "text": "Алексей Соломанидин удостоен профессионального трофея Всемирной ассоциации детективов."
+      "text": "Алексей Соломанидин удостоен профессионального трофея Всемирной ассоциации детективов.",
+      "title_en": "WAD “Detective of the Year” trophy",
+      "text_en": "Alexey Solomanidin received the professional trophy of the World Association of Detectives."
     },
     {
       "year": "2010",
       "title": "Признание на международном уровне",
-      "text": "Владимир Соломанидин избран главой Всемирной ассоциации детективов (WAD, основана в 1925 году)."
+      "text": "Владимир Соломанидин избран главой Всемирной ассоциации детективов (WAD, основана в 1925 году).",
+      "title_en": "International recognition",
+      "text_en": "Vladimir Solomanidin elected head of the World Association of Detectives (WAD, founded 1925)."
     },
     {
       "year": "2006",
       "title": "Основание компании",
-      "text": "Старт деятельности в Москве в сфере обеспечения безопасности бизнеса и защиты брендов."
+      "text": "Старт деятельности в Москве в сфере обеспечения безопасности бизнеса и защиты брендов.",
+      "title_en": "The company is founded",
+      "text_en": "Operations begin in Moscow in business security and brand protection."
     }
   ],
   "geography": {
@@ -254,28 +364,63 @@
         "n": "80+",
         "label": "брендов под защитой"
       }
+    ],
+    "kicker_en": "Geography",
+    "title_en": "Russia, the CIS and the EAEU",
+    "lead_en": "Our core region is Russia and the states of the former USSR. We protect rights holders’ trademarks across the whole of the EAEU and run engagements in neighbouring countries, working through a network of trusted partners.",
+    "regions_en": [
+      "Russia",
+      "Kazakhstan",
+      "Belarus",
+      "Armenia",
+      "Kyrgyzstan",
+      "Uzbekistan",
+      "Azerbaijan",
+      "Georgia"
+    ],
+    "bar_en": [
+      {
+        "n": "8",
+        "label": "countries of presence"
+      },
+      {
+        "n": "5",
+        "label": "EAEU member states"
+      },
+      {
+        "n": "80+",
+        "label": "brands under protection"
+      }
     ]
   },
   "values": [
     {
       "num": "01",
       "title": "Закон",
-      "text": "Действуем строго в правовом поле — соответствие законодательству на каждом этапе работы."
+      "text": "Действуем строго в правовом поле — соответствие законодательству на каждом этапе работы.",
+      "title_en": "Law",
+      "text_en": "We act strictly within the law — compliance at every stage of the work."
     },
     {
       "num": "02",
       "title": "Деловая этика",
-      "text": "Честность и конфиденциальность во взаимоотношениях с клиентами и партнёрами."
+      "text": "Честность и конфиденциальность во взаимоотношениях с клиентами и партнёрами.",
+      "title_en": "Business ethics",
+      "text_en": "Honesty and confidentiality in dealings with clients and partners."
     },
     {
       "num": "03",
       "title": "Результативность",
-      "text": "Эффективность, измеримая для клиента, — главный критерий нашей работы."
+      "text": "Эффективность, измеримая для клиента, — главный критерий нашей работы.",
+      "title_en": "Results",
+      "text_en": "Effectiveness the client can measure is the test we hold ourselves to."
     },
     {
       "num": "04",
       "title": "Международные стандарты",
-      "text": "Качество партнёрства на уровне ведущих мировых практик безопасности."
+      "text": "Качество партнёрства на уровне ведущих мировых практик безопасности.",
+      "title_en": "International standards",
+      "text_en": "Partnership quality at the level of leading global security practice."
     }
   ],
   "team": [
@@ -283,19 +428,28 @@
       "name": "Владимир Соломанидин",
       "role": "Генеральный директор",
       "img": "assets/img/team/VGf.jpg",
-      "note": "Президент WAD (2010). Медаль В. В. Леонтьева «За достижения в экономике»."
+      "note": "Президент WAD (2010). Медаль В. В. Леонтьева «За достижения в экономике».",
+      "name_en": "Vladimir Solomanidin",
+      "role_en": "Chief Executive Officer",
+      "note_en": "President of WAD (2010). Awarded the V. V. Leontief medal “For Achievements in Economics”."
     },
     {
       "name": "Алексей Соломанидин",
       "role": "Исполнительный директор",
       "img": "assets/img/team/AVf.jpg",
-      "note": "Самый молодой президент WAD за всю историю ассоциации. Трофей «Детектив года»."
+      "note": "Самый молодой президент WAD за всю историю ассоциации. Трофей «Детектив года».",
+      "name_en": "Alexey Solomanidin",
+      "role_en": "Executive Director",
+      "note_en": "The youngest president in the history of WAD. Holder of the “Detective of the Year” trophy."
     },
     {
       "name": "Константин Шестера",
       "role": "Операционный директор",
       "img": "assets/img/team/SKf.jpg",
-      "note": "Операционное управление программами защиты брендов и расследований."
+      "note": "Операционное управление программами защиты брендов и расследований.",
+      "name_en": "Konstantin Shestera",
+      "role_en": "Chief Operating Officer",
+      "note_en": "Operational leadership of brand protection programmes and investigations."
     }
   ],
   "associations": [
@@ -306,7 +460,10 @@
       "meta": "1925 · 75+ стран",
       "site": "wad.net",
       "url": "https://www.wad.net/",
-      "desc": "Международная профессиональная ассоциация специалистов в области расследований и безопасности, основана в 1925 году — одна из старейших и крупнейших в своей сфере, объединяет профессионалов более чем из 75 стран. В 2010 году президентом ассоциации был избран генеральный директор компании Владимир Соломанидин, а в 2021 году — исполнительный директор Алексей Соломанидин, удостоенный звания «Детектив года»."
+      "desc": "World Association of Detectives (WAD) — международная профессиональная ассоциация специалистов в области расследований и безопасности, основанная в 1925 году и являющаяся одной из старейших и крупнейших организаций в своей сфере. Она объединяет профессионалов более чем из 75 стран, способствуя развитию международного сотрудничества и высоких этических стандартов.\n\nВ 2010 году Президентом ассоциации WAD был избран Владимир Геннадьевич Соломанидин — генеральный директор компании «Власта-Консалтинг». В 2021 году Президентом WAD стал исполнительный директор компании «Власта-Консалтинг» Алексей Владимирович Соломанидин, который также был удостоен звания «Детектив года» за успешную деятельность по пресечению распространения контрафактной продукции в России.\n\nКомпания Vlasta Consulting принимает активное участие в деятельности ассоциации, участвует в конференциях и профессиональных инициативах, организуемых WAD.",
+      "desc_en": "The World Association of Detectives (WAD) is a global professional association of investigators and security specialists, founded in 1925 and recognized as one of the oldest and largest organizations in its field. It unites professionals from more than 75 countries, promoting international cooperation and high ethical standards.\n\nIn 2010, Vladimir Gennadievich Solomanidin, CEO of Vlasta Consulting, was elected President of WAD. In 2021, Alexey Vladimirovich Solomanidin, Executive Director of Vlasta Consulting, was elected President of WAD and was also awarded the title “Detective of the Year” for his successful efforts in combating the distribution of counterfeit goods in Russia.\n\nVlasta Consulting takes an active part in the association’s activities, regularly participating in conferences and professional initiatives organized by WAD.",
+      "name_en": "World Association of Detectives",
+      "meta_en": "1925 · 75+ countries"
     },
     {
       "logo": "assets/img/assoc/inta.svg",
@@ -315,7 +472,10 @@
       "meta": "1878 · 180+ стран",
       "site": "inta.org",
       "url": "https://www.inta.org/",
-      "desc": "Международная некоммерческая организация, основанная в 1878 году в Нью-Йорке для защиты и развития прав на товарные знаки. Сегодня объединяет более 6 600 организаций из 180+ стран — корпорации, юридические фирмы и специалистов по интеллектуальной собственности. «Власта-Консалтинг» активно участвует в конференциях и инициативах INTA."
+      "desc": "International Trademark Association (INTA) — международная некоммерческая организация, основанная в 1878 году в Нью-Йорке с целью защиты и развития прав на товарные знаки. Сегодня она объединяет более 6 600 организаций из более чем 180 стран, включая корпорации, юридические фирмы и специалистов в области интеллектуальной собственности.\n\nINTA занимается развитием и защитой товарных знаков и смежных прав через законодательную деятельность, образовательные программы и международное сотрудничество. Управление ассоциацией осуществляется Советом директоров, в который входят представители компаний-участников, а также профильными комитетами.\n\nКомпания Vlasta Consulting принимает активное участие в деятельности ассоциации, участвует в конференциях, мероприятиях и профессиональных инициативах, организуемых INTA.",
+      "desc_en": "The International Trademark Association (INTA) is a global non-profit organization founded in 1878 in New York, originally established to protect and promote trademark rights. Today, it brings together more than 6,600 member organizations from over 180 countries, including corporations, law firms, and intellectual property professionals.\n\nINTA focuses on the development and protection of trademarks and related intellectual property through advocacy, education, and international cooperation. The association is governed by a Board of Directors composed of representatives of member organizations, working together with committees and leadership to implement its strategy.\n\nVlasta Consulting takes an active part in the association’s activities, regularly participating in conferences, events, and professional initiatives organized by INTA.",
+      "name_en": "International Trademark Association",
+      "meta_en": "1878 · 180+ countries"
     },
     {
       "logo": "assets/img/assoc/aeb.png",
@@ -324,7 +484,10 @@
       "meta": "1995 · Россия",
       "site": "aebrus.ru",
       "url": "https://aebrus.ru/",
-      "desc": "Независимая некоммерческая организация, основанная в 1995 году в России — одна из ключевых площадок для представления интересов европейских инвесторов и компаний. Объединяет сотни международных, европейских и российских компаний, развивая торговлю, инвестиции и экономическое сотрудничество."
+      "desc": "Ассоциация европейского бизнеса (AEB) — независимая некоммерческая организация, основанная в 1995 году в России и являющаяся одной из ключевых площадок для представления интересов европейских инвесторов и компаний. Ассоциация объединяет сотни международных, европейских и российских компаний и направлена на развитие торговли, инвестиций и экономического сотрудничества между Европой и Россией.\n\nAEB активно занимается взаимодействием с органами власти, развитием деловой среды и отраслевым диалогом через многочисленные комитеты и рабочие группы. Управление осуществляется Советом директоров и Генеральной ассамблеей, в которые входят представители ведущих международных компаний.\n\nКомпания Vlasta Consulting принимает активное участие в деятельности ассоциации, участвует в конференциях, мероприятиях и профессиональных дискуссиях, организуемых AEB.",
+      "desc_en": "The Association of European Businesses (AEB) is an independent non-profit organization founded in 1995 in Russia, serving as a key representative body for European investors and companies operating in the country. The association unites hundreds of international, European, and Russian companies and aims to promote trade, investment, and economic cooperation between Europe and Russia.\n\nAEB is actively engaged in advocacy, regulatory dialogue, and business development through numerous committees and working groups across various industries. The organization is governed by its Board and General Assembly, which include representatives of major international corporations and member companies.\n\nVlasta Consulting takes an active part in the association’s activities, regularly participating in conferences, events, and industry discussions organized by AEB.",
+      "name_en": "Association of European Businesses",
+      "meta_en": "1995 · Russia"
     },
     {
       "logo": "assets/img/assoc/asis.svg",
@@ -333,7 +496,10 @@
       "meta": "1955 · 150+ стран",
       "site": "asisonline.org",
       "url": "https://www.asisonline.org",
-      "desc": "Международная профессиональная ассоциация специалистов в области безопасности, основана в 1955 году в США. Крупнейшая организация в своей сфере — десятки тысяч участников более чем из 150 стран. Развивает индустрию через образование, сертификацию и разработку стандартов."
+      "desc": "ASIS International — международная профессиональная ассоциация специалистов в области безопасности, основанная в 1955 году в США и имеющая штаб-квартиру в Александрии, штат Вирджиния. Это крупнейшая организация в своей сфере, объединяющая десятки тысяч участников более чем из 150 стран, включая представителей государственного и частного секторов.\n\nАссоциация занимается развитием индустрии безопасности через образовательные программы, сертификацию, разработку стандартов и международное сотрудничество. Управление осуществляется Советом директоров и исполнительным руководством, состоящим из опытных представителей отрасли.\n\nКомпания Vlasta Consulting принимает активное участие в деятельности ассоциации, участвует в конференциях, мероприятиях и профессиональных инициативах, организуемых ASIS International.",
+      "desc_en": "ASIS International is a global professional association for security management specialists, founded in 1955 in the United States and headquartered in Alexandria, Virginia. It is the world’s largest organization in this field, uniting tens of thousands of members across more than 150 countries, including professionals from both the public and private sectors.\n\nThe association focuses on advancing the security profession through education, certification programs, standards development, and international cooperation. ASIS is governed by a Board of Directors and executive leadership composed of experienced industry representatives.\n\nVlasta Consulting takes an active part in the association’s activities, regularly participating in conferences, events, and professional initiatives organized by ASIS International.",
+      "name_en": "ASIS International",
+      "meta_en": "1955 · 150+ countries"
     },
     {
       "logo": "assets/img/assoc/abi.svg",
@@ -342,7 +508,10 @@
       "meta": "1985 · Лондон",
       "site": "theabi.org.uk",
       "url": "https://www.theabi.org.uk/",
-      "desc": "Ведущая отраслевая ассоциация страхового сектора и рынка долгосрочных сбережений Великобритании, основана в 1985 году в Лондоне. Объединяет более 300 компаний, продвигает высокие стандарты индустрии и диалог бизнеса с регуляторами."
+      "desc": "Association of British Insurers (ABI) — ведущая отраслевая ассоциация, представляющая страховой сектор и рынок долгосрочных сбережений Великобритании, основанная в 1985 году и расположенная в Лондоне. Она объединяет более 300 компаний, включая крупнейшие страховые и финансовые организации, обеспечивающие основную часть страховых услуг в стране.\n\nABI занимается взаимодействием с государственными органами, развитием отраслевой политики и продвижением высоких стандартов в индустрии, а также способствует диалогу между бизнесом и регуляторами. Управление осуществляется Советом директоров и руководством ассоциации, включая генерального директора и председателя, представляющих ключевых участников рынка.\n\nКомпания Vlasta Consulting принимает активное участие в деятельности ассоциации, участвует в конференциях, мероприятиях и профессиональных обсуждениях, организуемых ABI.",
+      "desc_en": "The Association of British Insurers (ABI) is a leading trade association representing the UK’s insurance and long-term savings industry, founded in 1985 and headquartered in London. It brings together over 300 member companies, including major insurers and financial institutions, accounting for the majority of insurance services in the UK.\n\nThe ABI focuses on advocacy, public policy, and promoting high standards across the industry, while facilitating dialogue between businesses, regulators, and government authorities. The organization is governed by a Board of Directors and senior leadership, including the Director General and Chair, representing key market participants.\n\nVlasta Consulting takes an active part in the association’s activities, regularly participating in conferences, events, and industry discussions organized by the ABI.",
+      "name_en": "Association of British Insurers",
+      "meta_en": "1985 · London"
     },
     {
       "logo": "assets/img/assoc/intellenet.jpg",
@@ -351,7 +520,10 @@
       "meta": "1983 · 70+ стран",
       "site": "intellenet.org",
       "url": "https://www.intellenet.org/",
-      "desc": "Международная профессиональная ассоциация, основана в 1983 году; объединяет частных детективов и специалистов по безопасности более чем из 70 стран. Платформа для сотрудничества и обмена знаниями, действует на основе строгого кодекса этики."
+      "desc": "International Intelligence Network (INTELLENET) — международная профессиональная ассоциация, основанная в 1983 году и объединяющая частных детективов и специалистов по безопасности из более чем 70 стран. Она является платформой для сотрудничества, обмена знаниями и профессионального развития в сфере расследований.\n\nАссоциация управляется Советом директоров и действует на основе строгого кодекса этики. INTELLENET проводит ежегодные конференции, объединяющие специалистов для обучения и нетворкинга.\n\nКомпания Vlasta Consulting принимает активное участие в деятельности ассоциации, участвует в конференциях и профессиональных инициативах, организуемых INTELLENET.",
+      "desc_en": "The International Intelligence Network (INTELLENET) is a global professional association founded in 1983, uniting private investigators and security professionals from more than 70 countries. It provides a platform for cooperation, knowledge sharing, and professional development within the investigative industry.\n\nThe organization is governed by a Board of Directors and operates under a strict code of ethics. INTELLENET holds annual conferences that bring together professionals for training, networking, and industry discussions.\n\nVlasta Consulting takes an active part in the association’s activities, regularly participating in conferences and professional initiatives organized by INTELLENET.",
+      "name_en": "International Intelligence Network",
+      "meta_en": "1983 · 70+ countries"
     },
     {
       "logo": "assets/img/assoc/ipa.png",
@@ -360,7 +532,10 @@
       "meta": "1950 · 100 стран",
       "site": "ipa-international.org",
       "url": "https://ipa-international.org/",
-      "desc": "Крупнейшая в мире независимая полицейская ассоциация, основана в 1950 году в Великобритании. Объединяет более 380 000 членов из около 100 стран под девизом «Служба через дружбу», имеет консультативный статус при ООН, ЮНЕСКО и ОАГ."
+      "desc": "International Police Association (IPA) — крупнейшая в мире независимая полицейская ассоциация, основанная в 1950 году Артуром Тропом в Великобритании. Она объединяет более 380 000 членов из около 100 стран на 6 континентах, включая действующих и бывших сотрудников полиции без различия ранга, пола или национальности.\n\nАссоциация развивает международное сотрудничество, профессиональный обмен и дружбу под девизом «Servo per Amikeco» («Служба через дружбу»). IPA является неправительственной организацией и имеет консультативный статус при таких международных структурах, как ООН, ЮНЕСКО и Организация американских государств. Управление осуществляется Международным исполнительным советом и Международным административным центром при поддержке национальных секций.\n\nКомпания Vlasta Consulting принимает активное участие в деятельности ассоциации, участвует в конференциях, мероприятиях и профессиональных инициативах, организуемых IPA.",
+      "desc_en": "The International Police Association (IPA) is the world’s largest independent police friendship organization, founded in 1950 by Arthur Troop in the United Kingdom. It brings together more than 380,000 members from around 100 countries across 6 continents, including active and retired police officers without distinction of rank, gender, or nationality.\n\nThe association promotes international cooperation, professional exchange, and friendship under its motto “Servo per Amikeco” (“Service Through Friendship”). IPA is a non-governmental organization with consultative status with international bodies such as the United Nations, UNESCO, and the Organization of American States. Its governance structure includes an International Executive Board and an International Administration Centre, supported by national sections worldwide.\n\nVlasta Consulting takes an active part in the association’s activities, regularly participating in conferences, events, and professional initiatives organized by IPA.",
+      "name_en": "International Police Association",
+      "meta_en": "1950 · 100 countries"
     },
     {
       "logo": "assets/img/assoc/anticounterfeit.svg",
@@ -369,7 +544,10 @@
       "meta": "2011 · ЕАЭС",
       "site": "anticounterfeight.org",
       "url": "https://anticounterfeight.org/",
-      "desc": "Некоммерческая организация, основанная в 2011 году в России, борется с контрафактной и фальсифицированной продукцией на пространстве ЕАЭС. Объединяет бизнес, государственные органы и общественные организации, участвует в законодательных инициативах."
+      "desc": "Международная ассоциация «Антиконтрафакт» — некоммерческая организация, основанная в 2011 году в России, деятельность которой направлена на борьбу с контрафактной и фальсифицированной продукцией на пространстве ЕАЭС. Ассоциация объединяет бизнес, государственные органы и общественные организации с целью развития честной конкуренции и защиты прав потребителей и интеллектуальной собственности.\n\nОна активно участвует в законодательных инициативах, просветительской деятельности и реализации масштабных проектов по сокращению теневого рынка. Управление осуществляется президентом и руководящими органами с участием представителей государства и бизнеса.\n\nКомпания Vlasta Consulting принимает активное участие в деятельности ассоциации, участвует в конференциях, мероприятиях и профессиональных инициативах, организуемых ассоциацией.",
+      "desc_en": "The International Association “AntiCounterfeit” is a non-profit organization founded in 2011 in Russia, focused on combating counterfeit and falsified products across the Eurasian Economic Union. The association brings together businesses, government bodies, and public organizations to promote fair market practices and protect consumers and intellectual property rights.\n\nIt is actively engaged in legislative initiatives, public awareness, and large-scale projects aimed at reducing the shadow economy and improving regulatory frameworks. The organization is led by its President and governing bodies, including representatives of government and industry.\n\nVlasta Consulting takes an active part in the association’s activities, regularly participating in conferences, events, and professional initiatives organized by the association.",
+      "name_en": "International Association “AntiCounterfeit”",
+      "meta_en": "2011 · EAEU"
     },
     {
       "logo": "assets/img/assoc/rusbrand.png",
@@ -378,7 +556,10 @@
       "meta": "Россия · FMCG",
       "site": "rusbrand.com",
       "url": "http://rusbrand.com/",
-      "desc": "Российская ассоциация производителей брендированных потребительских товаров — развитие честной конкуренции и сотрудничества FMCG-компаний с ритейлом. В составе — Procter & Gamble, Unilever, Henkel, Mars, Wrigley, Valio и другие."
+      "desc": "RusБренд — российская некоммерческая ассоциация производителей брендированных потребительских товаров, направленная на развитие честной конкуренции, брендов и сотрудничества между FMCG-компаниями и ритейлом. В её состав входят ведущие международные и российские компании, включая Procter & Gamble, Unilever, Henkel, Mars, Wrigley, Valio и «Объединённые кондитеры».\n\nАссоциация способствует развитию отраслевых стандартов, маркетинга и диалога бизнеса с регуляторами. Управление осуществляется общим собранием и выборными органами из числа участников.\n\nКомпания Vlasta Consulting принимает активное участие в деятельности ассоциации, участвует в конференциях, мероприятиях и профессиональных инициативах, организуемых RusBrand.",
+      "desc_en": "RusBrand is a Russian non-profit association of manufacturers of branded consumer goods, focused on promoting fair competition, brand development, and cooperation between FMCG companies and retail networks. It brings together leading international and Russian companies in the consumer goods sector, including Procter & Gamble, Unilever, Henkel, Mars, Wrigley, Valio, and United Confectioners.\n\nThe association supports industry standards, marketing development, and dialogue between business and regulators. It is governed by a General Assembly and elected management bodies representing member companies.\n\nVlasta Consulting takes an active part in the association’s activities, regularly participating in conferences, events, and professional initiatives organized by RusBrand.",
+      "name_en": "RusBrand",
+      "meta_en": "Russia · FMCG"
     },
     {
       "logo": "assets/img/assoc/opora.webp",
@@ -387,7 +568,10 @@
       "meta": "2002 · 87 регионов",
       "site": "opora.ru",
       "url": "https://opora.ru/",
-      "desc": "Общероссийская некоммерческая организация, представляющая интересы малого и среднего бизнеса, основана в 2002 году. Объединяет около 400 000 предпринимателей, работает в 87 регионах и включает более 100 отраслевых объединений."
+      "desc": "«ОПОРА РОССИИ» — общероссийская некоммерческая организация, представляющая интересы малого и среднего бизнеса, основанная в 2002 году. Она является ключевой площадкой для диалога предпринимателей с государственными органами и экспертным сообществом, занимаясь улучшением деловой среды, правовой защитой и доступом к финансированию.\n\nАссоциация объединяет около 400 000 предпринимателей, имеет представительства в 87 регионах России и включает более 100 отраслевых и бизнес-объединений. Управление осуществляется общим собранием и выборными органами, в состав которых входят представители бизнеса и ассоциаций.\n\nКомпания Vlasta Consulting принимает активное участие в деятельности «ОПОРЫ РОССИИ», участвует в конференциях, мероприятиях и профессиональных инициативах, организуемых организацией.",
+      "desc_en": "OPORA Russia is a national non-governmental organization representing small and medium-sized businesses in Russia, founded in 2002. It serves as a key platform for dialogue between entrepreneurs, government authorities, and experts, focusing on improving the business environment, legal protection, and access to financing.\n\nThe association unites around 400,000 entrepreneurs, operates through regional offices in all 87 regions of Russia, and includes more than 100 industry and business associations. OPORA Russia is governed by its General Assembly and elected leadership bodies, which include representatives of member companies and business associations.\n\nVlasta Consulting takes an active part in the association’s activities, regularly participating in conferences, events, and professional initiatives organized by OPORA Russia.",
+      "name_en": "OPORA Russia",
+      "meta_en": "2002 · 87 regions"
     }
   ],
   "clients": [

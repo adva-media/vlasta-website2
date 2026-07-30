@@ -23,8 +23,10 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Build site from content/
-        run: node tools/build.mjs
+      - name: Build site from content/ (RU + EN)
+        run: |
+          node tools/build.mjs ru
+          node tools/build.mjs en
 
       - name: Check links and assets
         run: node tools/check.mjs
@@ -61,6 +63,7 @@ jobs:
             --exclude='_boss-preview' \
             --exclude='vendor' \
             --exclude='content' \
+            --exclude='.build' \
             --exclude='tools' \
             --exclude='assets/live-scrape' \
             --exclude='*.bak' \

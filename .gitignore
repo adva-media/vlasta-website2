@@ -9,3 +9,4 @@ assets/live-scrape/
 _boss-preview/
 /vendor/
 content/ne_110m_admin_0_countries.geojson
+.build/

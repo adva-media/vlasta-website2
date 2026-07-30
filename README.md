@@ -6,8 +6,12 @@
 ```
 content/          ← весь контент (единственное, что нужно править)
   site.json         услуги, подход, история, ассоциации, клиенты, команда
+                    (английский — в полях с суффиксом _en)
   news.json         74 новостных материала
   cases.json        12 кейсов
+  geo-map.json      контуры стран для карты (генерируется make-map.mjs)
+  en/news.json      те же материалы на английском
+  en/cases.json     те же кейсы на английском
 tools/
   build.mjs         генератор: content → HTML + sitemap.xml + robots.txt
   check.mjs         проверка битых ссылок, отсутствующих файлов и alt у картинок
@@ -20,9 +24,14 @@ assets/
 ## Сборка
 
 ```bash
-node tools/build.mjs     # пересобрать все страницы
-node tools/check.mjs     # проверить целостность ссылок и ресурсов
+node tools/build.mjs ru   # русская версия → корень сайта
+node tools/build.mjs en   # английская версия → /en/
+node tools/check.mjs      # проверка ссылок и ресурсов по обеим версиям
 ```
+
+Русский — язык по умолчанию. Английские страницы собираются из
+`content/en/news.json`, `content/en/cases.json` и полей `*_en` в
+`content/site.json`; если английского значения нет, подставляется русское.
 
 Сборка создаёт: `index.html`, `services.html`, `about.html`, `cases.html`,
 `news.html`, `contacts.html`, `privacy.html`, `cases/<slug>.html` (12),
@@ -106,7 +115,7 @@ node server.js           # http://localhost:8099
 После правки:
 
 ```bash
-node tools/build.mjs && node tools/check.mjs
+node tools/build.mjs ru && node tools/build.mjs en && node tools/check.mjs
 git add -A && git commit -m "Новость: краткое описание" && git push
 ```
 
@@ -167,12 +176,8 @@ git add -A && git commit -m "Новость: краткое описание" &&
 
 ## Что осталось
 
-- **Английская версия.** Переключатель RU/EN присутствует, но EN пока
-  неактивен. Для запуска нужен перевод контента: `content/*.json` →
-  `content/en/*.json` плюс EN-ветка в генераторе.
-- **Форма обратной связи** работает только на фронтенде: показывает
-  подтверждение, но никуда не отправляет. Нужно подключить бэкенд или
-  почтовый сервис перед продакшном.
+- **Английские тексты кейсов и новостей** взяты с текущего сайта
+  vlasta-s.com. Три кейса из .docx переведены нами — стоит вычитать.
 - Канонические адреса и sitemap указывают на `https://vlasta-s.com` —
   это сделано намеренно, чтобы staging-копия на `adva.media` не
   конкурировала в поиске с будущим продакшном.
