@@ -35,7 +35,19 @@ jobs:
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
           PORT="${{ secrets.SSH_PORT }}"
-          ssh-keyscan -p "${PORT:-22}" -H "${{ secrets.SSH_HOST }}" >> ~/.ssh/known_hosts 2>/dev/null
+          # ssh-keyscan occasionally returns non-zero on a transient network
+          # blip; with `bash -e` that failed the whole deploy. Retry, and only
+          # give up if we still have no host key after three attempts.
+          for i in 1 2 3; do
+            ssh-keyscan -T 10 -p "${PORT:-22}" -H "${{ secrets.SSH_HOST }}" >> ~/.ssh/known_hosts 2>/dev/null || true
+            if [ -s ~/.ssh/known_hosts ]; then break; fi
+            echo "ssh-keyscan attempt $i produced nothing; retrying…"
+            sleep 5
+          done
+          if [ ! -s ~/.ssh/known_hosts ]; then
+            echo "::error::could not fetch the host key for the deploy target"
+            exit 1
+          fi
 
       - name: Deploy with rsync
         run: |
