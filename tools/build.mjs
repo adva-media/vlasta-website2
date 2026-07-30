@@ -406,7 +406,7 @@ function netmap(uid = 'a') {
 /* ------------------------------------------------------------------ chrome */
 const NAV = T.nav;
 
-function head({ title, desc, canonical, keywords, image, depth = 0, jsonld = [], robots, page = '' }) {
+function head({ title, desc, canonical, keywords, image, depth = 0, jsonld = [], robots, page = '', bodyClass = '' }) {
   const R = p => rel(depth, p);
   const altRu = `${BASE}/${page}`;
   const altEn = `${BASE}/en/${page}`;
@@ -445,7 +445,7 @@ ${keywords ? `<meta name="keywords" content="${esc(keywords)}">` : ''}
 <link rel="icon" href="${R('assets/img/logo-dark.svg')}" type="image/svg+xml">
 ${jsonld.map(o => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join('\n')}
 </head>
-<body>
+<body${bodyClass ? ` class="${bodyClass}"` : ''}>
 <div class="progress" aria-hidden="true"></div>`;
 }
 
@@ -671,7 +671,7 @@ const caseCard = (c, depth = 0, d = 0) => `<a class="card case reveal" href="${r
 /* ---------------------------------------------------------------- HOME */
 function buildHome() {
   const c = chrome('index.html', 0);
-  const featCases = cases.filter(x => [5, 10, 11].includes(x.n)).slice(0, 3);
+  const featCases = cases.filter(x => [5, 10, 11, 2, 12, 7].includes(x.n));
   const featNews = news.slice(0, 3);
 
   const html = j(
@@ -679,7 +679,7 @@ function buildHome() {
       title: C.homeTitle,
       desc: C.homeDesc,
       keywords: C.homeKw,
-      canonical: EN ? `${BASE}/en/` : `${BASE}/`, page: '',
+      canonical: EN ? `${BASE}/en/` : `${BASE}/`, page: '', bodyClass: 'over-hero',
       jsonld: [orgLd, {
         '@context': 'https://schema.org', '@type': 'WebSite', name: O.name, url: `${BASE}/`,
         inLanguage: 'ru-RU',
@@ -773,7 +773,6 @@ ${marquee()}
 </section>
 
 <section class="sec sec--dark" id="geography">
-  ${engrave('bl', 'geo')}
   <div class="wrap geo">
     <div class="reveal">
       ${kick(t(site.geography,'kicker'))}
@@ -792,7 +791,7 @@ ${marquee()}
       k: C.casesKicker, h: C.casesTitle,
       extra: `<a href="cases.html" class="seeall"><span class="seeall__l">${T.allCases}</span><span class="seeall__r">${I.arrow}</span></a>`,
     })}
-    <div class="case-grid">${featCases.map((x, i) => caseCard(x, 0, i)).join('')}</div>
+    <div class="case-rail" tabindex="0" role="group" aria-label="${C.casesTitle}">${featCases.map(x => caseCard(x, 0, 0)).join('')}</div>
   </div>
 </section>
 
@@ -1075,8 +1074,8 @@ ${ctaBand(0)}
       }),
       cc.header,
       `<main>
-<section class="case-hero">
-  ${engrave('tr', 'ch')}
+<section class="case-hero${x.img ? ' phero--photo' : ''}"${x.img ? ` style="background-image:url('${rel(1, x.img)}')"` : ''}>
+  ${x.img ? '' : engrave('tr', 'ch')}
   <span class="case-hero__n" aria-hidden="true">${String(x.n).padStart(2, '0')}</span>
   <div class="wrap">
     <nav class="crumbs" aria-label="${T.crumbs}"><a href="../index.html">${T.home}</a> / <a href="../cases.html">Кейсы</a> / <span>${esc(x.title)}</span></nav>
@@ -1094,7 +1093,6 @@ ${ctaBand(0)}
 
 <section class="sec">
   <div class="wrap wrap--narrow">
-    ${x.img ? `<div class="article__hero reveal"><img src="${rel(1, x.img)}" alt="${esc(x.title)}" loading="lazy" decoding="async"></div>` : ''}
     <div class="prose reveal">
       ${x.sections.map((s, i) => `<h2><span class="step">${String(i + 1).padStart(2, '0')}</span>${esc(s.h)}</h2>
       ${s.p.map(p => `<p>${esc(p)}</p>`).join('')}`).join('')}
@@ -1217,11 +1215,11 @@ function buildNews() {
       }),
       cc.header,
       `<main>
-<section class="phero${n.img ? ' phero--photo' : ''}">
-  ${n.img ? `<div class="phero__bg" aria-hidden="true"><img src="${rel(1, n.img)}" alt="" fetchpriority="high" decoding="async"></div>` : engrave('tr', 'ph')}
+<section class="phero${n.img ? ' phero--photo' : ''}"${n.img ? ` style="background-image:url('${rel(1, n.img)}')"` : ''}>
+  ${n.img ? '' : engrave('tr', 'ph')}
   <div class="wrap wrap--narrow">
-    <nav class="crumbs" aria-label="${T.crumbs}"><a href="../index.html">${T.home}</a> / <a href="../news.html">Новости</a> / <span>${esc(n.dateDisp)}</span></nav>
-    <div class="article__meta"><time datetime="${n.dateIso}">${esc(n.dateDisp)}</time><span>·</span><span class="cl">${esc(n.cluster)}</span></div>
+    <nav class="crumbs" aria-label="${T.crumbs}"><a href="../index.html">${T.home}</a> / <a href="../news.html">${NAV[4][1]}</a> / <span><time datetime="${n.dateIso}">${esc(n.dateDisp)}</time></span></nav>
+    <div class="article__meta"><span class="cl">${esc(n.cluster)}</span></div>
     <h1 class="h1 rise" style="margin-top:14px">${esc(n.h1)}</h1>
   </div>
 </section>

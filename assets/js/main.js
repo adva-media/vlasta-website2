@@ -31,7 +31,8 @@
   var hdr = $('.hdr'), bar = $('.progress'), top = $('.totop');
   function onScroll() {
     var y = window.scrollY || 0;
-    if (hdr) hdr.classList.toggle('is-stuck', y > 8);
+    // over a photo hero the bar only materialises once the page moves
+    if (hdr) hdr.classList.toggle('is-stuck', y > (doc.body.classList.contains('over-hero') ? 40 : 8));
     if (top) top.classList.toggle('is-on', y > 520);
     if (bar) {
       var max = root.scrollHeight - root.clientHeight;
@@ -233,23 +234,28 @@
     $$('.modal.is-open,.lightbox.is-open').forEach(closeDialog);
   });
 
-  /* ------------------------------------- timeline: drag + wheel scroll */
-  var rail = $('.tl__rail');
-  if (rail) {
-    var down = false, sx = 0, sl = 0;
+  /* --------------------------- drag + wheel scrolling for horizontal rails */
+  $$('.tl__rail,.case-rail,.letters-rail,.assoc-rail').forEach(function (rail) {
+    var down = false, moved = false, sx = 0, sl = 0;
     rail.addEventListener('pointerdown', function (e) {
-      down = true; sx = e.clientX; sl = rail.scrollLeft;
+      if (e.pointerType === 'touch') return;   // native touch scrolling is better
+      down = true; moved = false; sx = e.clientX; sl = rail.scrollLeft;
       rail.setPointerCapture(e.pointerId);
-      rail.style.cursor = 'grabbing';
     });
     rail.addEventListener('pointermove', function (e) {
       if (!down) return;
-      rail.scrollLeft = sl - (e.clientX - sx);
+      var dx = e.clientX - sx;
+      if (!moved && Math.abs(dx) > 4) { moved = true; rail.classList.add('is-drag'); }
+      if (moved) rail.scrollLeft = sl - dx;
     });
-    ['pointerup', 'pointercancel'].forEach(function (ev) {
-      rail.addEventListener(ev, function () { down = false; rail.style.cursor = ''; });
+    ['pointerup', 'pointercancel', 'pointerleave'].forEach(function (ev) {
+      rail.addEventListener(ev, function () {
+        down = false;
+        // let the click through only when this was a click, not a drag
+        setTimeout(function () { rail.classList.remove('is-drag'); }, 0);
+      });
     });
-    // vertical wheel → horizontal, but only while the rail can still move
+    // vertical wheel scrolls the rail, but only while it still has room
     rail.addEventListener('wheel', function (e) {
       if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
       var max = rail.scrollWidth - rail.clientWidth;
@@ -257,7 +263,7 @@
       e.preventDefault();
       rail.scrollLeft += e.deltaY;
     }, { passive: false });
-  }
+  });
 
   /* --------------------------------------------------- cookie consent */
   var ck = $('#cookie');

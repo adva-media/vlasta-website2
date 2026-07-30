@@ -130,7 +130,7 @@ for (const c of raw) {
 }
 /* Frame tighter (a ~50% closer crop) and bias the window left of centre, which
    pushes the landmass to the right inside the panel. */
-const ZOOM = 1.5, SHIFT_X = 0.14;
+const ZOOM = 1.12, SHIFT_X = 0.06;
 const cx = (minX + maxX) / 2, cy = (minY + maxY) / 2;
 const halfW = (maxX - minX) / 2 / ZOOM, halfH = (maxY - minY) / 2 / ZOOM;
 const offX = halfW * 2 * SHIFT_X;

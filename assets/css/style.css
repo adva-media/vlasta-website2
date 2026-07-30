@@ -144,14 +144,16 @@ h1,h2,h3,h4{font-family:var(--ui);color:var(--ink);line-height:1.14;letter-spaci
 .btn--light:hover{background:var(--paper-tint)}
 .btn--wide{width:100%}
 /* frosted, same family as the service tiles */
-.btn--glass{background:rgba(255,255,255,.12);color:var(--ink);
-  border-color:rgba(255,255,255,.55);
+.btn--glass{background:linear-gradient(150deg,rgba(52,67,97,.42),rgba(52,67,97,.22));
+  color:#fff;border-color:rgba(255,255,255,.28);
   -webkit-backdrop-filter:blur(18px) saturate(1.6);backdrop-filter:blur(18px) saturate(1.6);
-  box-shadow:0 6px 20px -12px rgba(17,25,43,.4)}
-.btn--glass:hover{background:rgba(255,255,255,.3);border-color:var(--accent);color:var(--accent)}
-[data-theme="dark"] .btn--glass{background:rgba(255,255,255,.09);color:var(--ink);
-  border-color:rgba(255,255,255,.2)}
-[data-theme="dark"] .btn--glass:hover{background:rgba(255,255,255,.16);color:#fff}
+  box-shadow:0 8px 24px -14px rgba(17,25,43,.6)}
+.btn--glass:hover{background:linear-gradient(150deg,rgba(52,67,97,.62),rgba(52,67,97,.38));
+  border-color:rgba(255,255,255,.5);color:#fff}
+/* once the solid bar is in, the button needs to hold up against white */
+.hdr.is-stuck .btn--glass{background:linear-gradient(150deg,rgba(52,67,97,.9),rgba(52,67,97,.72));
+  border-color:transparent}
+.hdr.is-stuck .btn--glass:hover{background:var(--accent-lo)}
 
 .arrow-link{display:inline-flex;align-items:center;gap:9px;font-size:14px;font-weight:600;color:var(--accent)}
 .arrow-link svg{width:15px;height:15px;transition:transform .3s var(--ease)}
@@ -187,6 +189,30 @@ h1,h2,h3,h4{font-family:var(--ui);color:var(--ink);line-height:1.14;letter-spaci
   -webkit-backdrop-filter:blur(18px) saturate(1.5);backdrop-filter:blur(18px) saturate(1.5);
   border-bottom:1px solid var(--line-soft);transition:box-shadow .3s,border-color .3s}
 .hdr.is-stuck{box-shadow:var(--sh-sm);border-bottom-color:var(--line)}
+/* Over a full-bleed photo hero the bar starts invisible and the marks are
+   white; the solid bar fades in as soon as the page moves. */
+body.over-hero .hdr{background-color:transparent;border-bottom-color:transparent;
+  -webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:none;
+  transition:background-color .35s var(--ease),border-color .35s var(--ease),box-shadow .35s var(--ease)}
+body.over-hero .hdr .brand__name{color:#fff}
+body.over-hero .hdr .brand__sub{color:rgba(255,255,255,.72)}
+body.over-hero .hdr .brand__mark{filter:brightness(0) invert(1)}
+body.over-hero .hdr .nav a{color:rgba(255,255,255,.82)}
+body.over-hero .hdr .nav a:hover,body.over-hero .hdr .nav a.is-on{color:#fff}
+bodybody.over-hero .hdr .nav a::after{background:#fff}
+body.over-hero .hdr .burger span{background:#fff}
+body.over-hero .hdr.is-stuck{
+  background-color:rgba(255,255,255,.90);border-bottom-color:var(--line);
+  -webkit-backdrop-filter:blur(18px) saturate(1.5);backdrop-filter:blur(18px) saturate(1.5);
+  box-shadow:var(--sh-sm)}
+body.over-hero .hdr.is-stuck .brand__name{color:var(--ink)}
+body.over-hero .hdr.is-stuck .brand__sub{color:var(--steel)}
+body.over-hero .hdr.is-stuck .brand__mark{filter:none}
+body.over-hero .hdr.is-stuck .nav a{color:var(--body)}
+body.over-hero .hdr.is-stuck .nav a:hover,body.over-hero .hdr.is-stuck .nav a.is-on{color:var(--ink)}
+bodybody.over-hero .hdr.is-stuck .nav a::after{background:var(--accent)}
+body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
+[data-theme="dark"] body.over-hero .hdr.is-stuck{background-color:rgba(14,21,36,.9)}
 .hdr .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;height:74px}
 .brand{display:flex;align-items:center;gap:12px;flex:none}
 .brand__mark{height:44px;width:auto}
@@ -255,37 +281,11 @@ h1,h2,h3,h4{font-family:var(--ui);color:var(--ink);line-height:1.14;letter-spaci
 
 /* the opening statement, set large and quiet */
 .intro{max-width:min(100%,940px);font-size:clamp(19px,2.3vw,30px);font-weight:300;
-  line-height:1.42;letter-spacing:-.015em;color:var(--ink);text-wrap:pretty}
+  line-height:1.42;letter-spacing:-.015em;color:#fff;text-wrap:pretty}
 
-/* This section is white, but the stat tiles still show the tower. Each tile
-   paints the photo with background-attachment:fixed, so the crop is taken
-   from the viewport and shifts as you scroll — the glass reads as a window. */
-.glasszone #intro{background:var(--paper)}
-.glasszone #intro .intro{color:var(--ink)}
-/* The tiles read as frosted glass over the pinned photo, exactly like the
-   service tiles. Hover lifts them; it must not swap the backdrop. */
-#intro .stat{
-  background-image:linear-gradient(rgba(23,38,66,.62),rgba(17,25,43,.72)),url("../img/hero-tower.jpg");
-  background-attachment:fixed,fixed;
-  background-size:cover,cover;
-  background-position:center,center;
-  border-color:rgba(255,255,255,.20);
-  -webkit-backdrop-filter:blur(18px) saturate(1.5);backdrop-filter:blur(18px) saturate(1.5);
-}
-#intro .stat:hover{
-  border-color:rgba(255,255,255,.34);
-  transform:translateY(-3px);
-  box-shadow:0 20px 50px -28px rgba(4,9,18,.7);
-}
-@supports (-webkit-touch-callout:none){#intro .stat{background-attachment:scroll,scroll}}
-
-/* eyebrow pill */
-.pill{display:inline-flex;align-items:center;gap:9px;padding:7px 15px;border-radius:999px;
-  border:1px solid var(--line);background:rgba(255,255,255,.7);
-  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
-  font-size:11.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
-.pill__d{width:6px;height:6px;border-radius:50%;background:var(--accent);flex:none;
-  box-shadow:0 0 0 3px rgba(52,67,97,.14)}
+/* The tiles are plain frosted glass, exactly like the service tiles — the
+   pinned tower photo shows through them rather than being painted per tile. */
+.glasszone #intro .intro{color:rgba(255,255,255,.92)}
 
 /* ------------------------------------------- signature: link-analysis map */
 /* padding reserves clear bands so the floating chips never cover a node */
@@ -440,7 +440,7 @@ h1,h2,h3,h4{font-family:var(--ui);color:var(--ink);line-height:1.14;letter-spaci
 
 /* ------------------------------------------------------------- geography */
 .geo{display:grid;gap:clamp(34px,4vw,60px)}
-@media (min-width:900px){.geo{grid-template-columns:1fr 1fr;align-items:center}}
+@media (min-width:900px){.geo{grid-template-columns:.92fr 1.08fr;align-items:center}}
 .geo__list{display:grid;grid-template-columns:1fr 1fr;gap:11px 24px;margin-top:26px}
 .geo__list li{display:flex;align-items:center;gap:11px;font-size:15px}
 .geo__d{width:6px;height:6px;border-radius:50%;background:var(--mist);flex:none}
@@ -558,7 +558,7 @@ html.is-locked,html.is-locked body{overflow:hidden}
 .mq__vp{-webkit-mask:linear-gradient(90deg,transparent,#000 11%,#000 89%,transparent);
   mask:linear-gradient(90deg,transparent,#000 11%,#000 89%,transparent)}
 .mq__tr{display:flex;width:max-content;gap:22px;animation:mq 46s linear infinite}
-.mq:hover .mq__tr{animation-play-state:paused}
+
 @keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 .mq__i{flex:none;width:142px;height:64px;border-radius:12px;background:#fff;
   border:1px solid var(--line-soft);display:flex;align-items:center;justify-content:center;padding:12px 18px}
@@ -852,12 +852,16 @@ html.is-locked,html.is-locked body{overflow:hidden}
 /* -------------------------------------------------------- interior hero */
 .phero{position:relative;overflow:hidden;background:var(--ink);color:#fff;
   padding-block:clamp(46px,6vw,86px)}
-.phero--photo{padding-block:clamp(66px,9vw,124px)}
-.phero__bg{position:absolute;inset:0;z-index:0}
-.phero__bg img{width:100%;height:100%;object-fit:cover}
-.phero__bg::after{content:"";position:absolute;inset:0;background:
-  linear-gradient(180deg,rgba(17,25,43,.72),rgba(17,25,43,.86)),
-  linear-gradient(90deg,rgba(52,67,97,.5),transparent 70%)}
+/* The photo is attached to the viewport, so it holds still while the heading
+   scrolls over it — the same idea as the homepage hero. */
+.phero--photo{padding-block:clamp(76px,11vw,150px);
+  background-attachment:fixed;background-size:cover;background-position:center;
+  background-repeat:no-repeat}
+.phero--photo::before{content:"";position:absolute;inset:0;z-index:0;background:
+  linear-gradient(180deg,rgba(17,25,43,.74),rgba(17,25,43,.88)),
+  linear-gradient(90deg,rgba(52,67,97,.55),transparent 72%)}
+/* iOS refuses fixed attachment; a clean static crop is the graceful fallback */
+@supports (-webkit-touch-callout:none){.phero--photo{background-attachment:scroll}}
 .phero .wrap{position:relative;z-index:1}
 .phero h1{color:#fff;max-width:min(100%,780px);margin-top:16px}
 .phero .lead{color:rgba(255,255,255,.74);max-width:62ch;margin-top:18px}
@@ -1011,7 +1015,10 @@ section[id]{scroll-margin-top:96px}
 /* =========================================================================
    Country map — Russia and its neighbours (geo-map.json)
    ========================================================================= */
-.cmap{position:relative;width:100%}
+/* let the map run past the container so it feels like part of the section
+   rather than a panel dropped into it */
+.cmap{position:relative;width:100%;margin-right:calc(var(--gutter) * -1)}
+@media (max-width:900px){.cmap{margin-right:0}}
 .cmap svg{width:100%;height:auto;display:block}
 .cm__c{
   fill:rgba(255,255,255,.04);
@@ -1096,3 +1103,52 @@ section[id]{scroll-margin-top:96px}
   .cookie__btns .btn{flex:1 1 auto;justify-content:center}
 }
 @media (prefers-reduced-motion:reduce){.cookie{transition:opacity .2s linear;transform:translate(-50%,0)}}
+
+/* =========================================================================
+   Horizontal case rail (homepage)
+   ========================================================================= */
+.case-rail{
+  display:flex;gap:22px;overflow-x:auto;padding:4px 0 24px;
+  scroll-snap-type:x proximity;
+  scrollbar-width:thin;scrollbar-color:var(--mist) transparent;
+  /* bleed to the gutter so cards are not clipped by the container */
+  margin-inline:calc(var(--gutter) * -1);
+  padding-inline:var(--gutter);
+}
+.case-rail::-webkit-scrollbar{height:5px}
+.case-rail::-webkit-scrollbar-thumb{background:var(--mist);border-radius:99px}
+.case-rail::-webkit-scrollbar-track{background:transparent}
+.case-rail .case{flex:0 0 clamp(280px,31%,392px);scroll-snap-align:start}
+
+/* rails share one grab-scroll behaviour */
+.case-rail,.letters-rail,.assoc-rail,.tl__rail{cursor:grab}
+.case-rail.is-drag,.letters-rail.is-drag,.assoc-rail.is-drag,.tl__rail.is-drag{cursor:grabbing;scroll-snap-type:none}
+.case-rail.is-drag a,.letters-rail.is-drag button{pointer-events:none}
+
+/* =========================================================================
+   Mobile pass over everything added in this round
+   ========================================================================= */
+@media (max-width:920px){
+  /* the pinned photo layers cost too much on phones and iOS ignores them */
+  .skyline{position:absolute;height:100vh}
+  #intro .stat{background-attachment:scroll}
+  .phero--photo{background-attachment:scroll}
+  .cmap{margin-right:0}
+  .hero{min-height:auto;padding-block:clamp(56px,16vh,110px) clamp(44px,9vh,80px)}
+}
+@media (max-width:680px){
+  .case-rail .case{flex-basis:min(84vw,320px)}
+  .assoc{flex-basis:min(62vw,208px)}
+  .letter{flex-basis:min(58vw,200px)}
+  .tl__i{flex-basis:min(72vw,240px)}
+  /* the contact button is the only nav affordance left on small screens */
+  .hdr__cta .btn{display:inline-flex;padding:11px 16px;font-size:13px}
+  .res__n{font-size:clamp(40px,13vw,54px)}
+  .intro{font-size:clamp(18px,5.2vw,24px)}
+  .hero__t{font-size:clamp(30px,8.6vw,46px)}
+  .phero--photo{padding-block:clamp(52px,14vw,84px)}
+  .cta__mark{display:none}
+}
+@media (max-width:420px){
+  .hdr__cta .btn{display:none}
+}
