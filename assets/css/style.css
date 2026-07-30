@@ -283,9 +283,31 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
 .intro{max-width:min(100%,940px);font-size:clamp(19px,2.3vw,30px);font-weight:300;
   line-height:1.42;letter-spacing:-.015em;color:#fff;text-wrap:pretty}
 
-/* The tiles are plain frosted glass, exactly like the service tiles — the
-   pinned tower photo shows through them rather than being painted per tile. */
-.glasszone #intro .intro{color:rgba(255,255,255,.92)}
+/* White section, but each tile is a window onto the same tower photo.
+   background-attachment:fixed anchors the image to the viewport, so the tiles
+   show the part of the photo they physically sit over and the crop shifts as
+   the page scrolls — a real window, not a picture printed on each tile.
+   The framing matches .skyline's object-position so it lines up with the hero. */
+.glasszone #intro{background:var(--paper)}
+.glasszone #intro .intro{color:var(--ink)}
+#intro .stat{
+  background-image:url("../img/hero-tower.jpg");
+  background-attachment:fixed;
+  background-size:cover;
+  background-position:50% 32%;
+  border-color:rgba(255,255,255,.22);
+  position:relative;overflow:hidden;isolation:isolate;
+  -webkit-backdrop-filter:none;backdrop-filter:none;
+}
+/* the tint sits above the photo but below the text, so it never shifts it */
+#intro .stat::before{content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(160deg,rgba(20,33,58,.62),rgba(12,19,33,.76));
+  transition:background .35s var(--ease)}
+#intro .stat:hover{transform:translateY(-3px);border-color:rgba(255,255,255,.4);
+  box-shadow:0 20px 50px -26px rgba(4,9,18,.6)}
+#intro .stat:hover::before{background:linear-gradient(160deg,rgba(20,33,58,.5),rgba(12,19,33,.66))}
+/* iOS ignores fixed attachment — a static crop still reads as intentional */
+@supports (-webkit-touch-callout:none){#intro .stat{background-attachment:scroll}}
 
 /* ------------------------------------------- signature: link-analysis map */
 /* padding reserves clear bands so the floating chips never cover a node */
@@ -1017,8 +1039,15 @@ section[id]{scroll-margin-top:96px}
    ========================================================================= */
 /* let the map run past the container so it feels like part of the section
    rather than a panel dropped into it */
-.cmap{position:relative;width:100%;margin-right:calc(var(--gutter) * -1)}
-@media (max-width:900px){.cmap{margin-right:0}}
+/* The map is not a panel: let it breathe past the column vertically and run
+   to the page edge, fading out only on the left where the copy sits. */
+.cmap{position:relative;width:100%;
+  margin-right:calc(var(--gutter) * -1);
+  margin-block:calc(clamp(20px,4vw,58px) * -1)}
+.cmap svg{overflow:visible}
+@media (max-width:900px){
+  .cmap{margin-right:0;margin-block:0}
+}
 .cmap svg{width:100%;height:auto;display:block}
 .cm__c{
   fill:rgba(255,255,255,.04);
@@ -1129,9 +1158,9 @@ section[id]{scroll-margin-top:96px}
    Mobile pass over everything added in this round
    ========================================================================= */
 @media (max-width:920px){
-  /* the pinned photo layers cost too much on phones and iOS ignores them */
-  .skyline{position:absolute;height:100vh}
-  #intro .stat{background-attachment:scroll}
+  /* position:fixed is fine on phones; it is background-attachment:fixed that
+     iOS refuses, so only those fall back */
+  #intro .stat{background-attachment:scroll;background-position:50% 30%}
   .phero--photo{background-attachment:scroll}
   .cmap{margin-right:0}
   .hero{min-height:auto;padding-block:clamp(56px,16vh,110px) clamp(44px,9vh,80px)}

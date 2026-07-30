@@ -255,14 +255,10 @@
         setTimeout(function () { rail.classList.remove('is-drag'); }, 0);
       });
     });
-    // vertical wheel scrolls the rail, but only while it still has room
-    rail.addEventListener('wheel', function (e) {
-      if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
-      var max = rail.scrollWidth - rail.clientWidth;
-      if ((e.deltaY < 0 && rail.scrollLeft <= 0) || (e.deltaY > 0 && rail.scrollLeft >= max - 1)) return;
-      e.preventDefault();
-      rail.scrollLeft += e.deltaY;
-    }, { passive: false });
+    /* No wheel hijacking. Turning vertical wheel into horizontal scroll meant
+       the page stopped moving whenever the cursor was over a rail, and only
+       resumed once the rail hit its end — which read as the scroll jamming.
+       Trackpad horizontal gestures, dragging and touch all still work. */
   });
 
   /* --------------------------------------------------- cookie consent */

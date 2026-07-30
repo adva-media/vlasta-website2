@@ -45,7 +45,7 @@ const T = {
     contact:'Связаться', menu:'Меню', more:'Подробнее', readOn:'Читать',
     allServices:'Все услуги', allCases:'Все кейсы', allNews:'Все новости',
     caseStudy:'Разбор кейса', home:'Главная',
-    nav_services:'Направления', nav_contacts:'Контакты', navigation:'Навигация',
+    nav_services:'Направления', nav_contacts:'Контакты', contactBtn:'Контакт', navigation:'Навигация',
     themeLabel:'Переключить тёмную тему', openMenu:'Открыть меню', closeMenu:'Закрыть меню',
     toTop:'Наверх', crumbs:'Хлебные крошки', mainNav:'Основная навигация',
     rights:'Все права защищены.', privacy:'Политика конфиденциальности',
@@ -71,7 +71,7 @@ const T = {
     contact:'Get in touch', menu:'Menu', more:'Learn more', readOn:'Read',
     allServices:'All services', allCases:'All cases', allNews:'All news',
     caseStudy:'Read the case', home:'Home',
-    nav_services:'Practice areas', nav_contacts:'Contact', navigation:'Navigation',
+    nav_services:'Practice areas', nav_contacts:'Contact', contactBtn:'Contact', navigation:'Navigation',
     themeLabel:'Toggle dark theme', openMenu:'Open menu', closeMenu:'Close menu',
     toTop:'Back to top', crumbs:'Breadcrumb', mainNav:'Main navigation',
     rights:'All rights reserved.', privacy:'Privacy policy',
@@ -320,11 +320,14 @@ function countryMap() {
     `<path class="cm__c${c.home ? ' cm__c--home' : ''}" d="${c.d}" tabindex="${c.home ? 0 : -1}" role="img" aria-label="${esc(t(c,'name'))}" data-name="${esc(t(c,'name'))}"><title>${esc(t(c,'name'))}</title></path>`
   ).join('');
   return `<div class="cmap">
-  <svg viewBox="0 0 ${m.width} ${m.height}" role="group" aria-label="${C.geoMapLabel}">
-    <defs><radialGradient id="cmFade" cx="50%" cy="50%" r="76%">
-      <stop offset="46%" stop-color="#fff"/><stop offset="86%" stop-color="#fff" stop-opacity=".55"/><stop offset="100%" stop-color="#000"/>
-    </radialGradient>
-    <mask id="cmMask"><rect width="${m.width}" height="${m.height}" fill="url(#cmFade)"/></mask></defs>
+  <svg viewBox="0 0 ${m.width} ${m.height}" preserveAspectRatio="xMidYMid meet" role="group" aria-label="${C.geoMapLabel}">
+    <defs><linearGradient id="cmFade" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#000"/>
+      <stop offset="14%" stop-color="#666"/>
+      <stop offset="34%" stop-color="#fff"/>
+      <stop offset="100%" stop-color="#fff"/>
+    </linearGradient>
+    <mask id="cmMask"><rect x="-20%" y="-40%" width="140%" height="180%" fill="url(#cmFade)"/></mask></defs>
     <g class="cm__g" mask="url(#cmMask)">${paths}</g>
   </svg>
   <span class="cmap__tip" hidden></span>
@@ -500,7 +503,7 @@ function chrome(active, depth = 0) {
     ${brand(false)}
     <nav class="nav" aria-label="${T.mainNav}">${links}</nav>
     <div class="hdr__cta">
-      <a href="${R('contacts.html')}" class="btn btn--glass">${T.nav_contacts}</a>
+      <a href="${R('contacts.html')}" class="btn btn--glass">${T.contactBtn}</a>
       <button class="burger" type="button" aria-label="${T.openMenu}" aria-expanded="false" aria-controls="mnav"><span></span><span></span><span></span></button>
     </div>
   </div>
