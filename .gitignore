@@ -6,3 +6,5 @@ node_modules/
 # Backups & working files (not for production)
 *.bak
 assets/live-scrape/
+_boss-preview/
+/vendor/

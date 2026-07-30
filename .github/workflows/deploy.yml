@@ -1,7 +1,7 @@
 name: Deploy to adva.media/vlasta
 
-# Deploys the static site to the server over SSH (rsync) on every push to main.
-# You can also run it manually from the Actions tab (workflow_dispatch).
+# Rebuilds every page from content/ and rsyncs the result to the server.
+# Runs on every push to main, or manually from the Actions tab.
 on:
   push:
     branches: [main]
@@ -17,6 +17,17 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Build site from content/
+        run: node tools/build.mjs
+
+      - name: Check links and assets
+        run: node tools/check.mjs
 
       - name: Set up SSH
         run: |
@@ -35,11 +46,17 @@ jobs:
             --exclude='.github' \
             --exclude='.gitignore' \
             --exclude='.claude' \
+            --exclude='_boss-preview' \
+            --exclude='vendor' \
+            --exclude='content' \
+            --exclude='tools' \
             --exclude='assets/live-scrape' \
             --exclude='*.bak' \
+            --exclude='*.md' \
             --exclude='server.js' \
-            --exclude='README-DEPLOY.txt' \
             ./ "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.DEPLOY_PATH }}/"
 
-      - name: Done
-        run: echo "Deployed to ${{ secrets.DEPLOY_PATH }} on ${{ secrets.SSH_HOST }}"
+      - name: Summary
+        run: |
+          echo "### Deployed to adva.media/vlasta" >> $GITHUB_STEP_SUMMARY
+          echo "Pages rebuilt from \`content/\` and synced to \`${{ secrets.DEPLOY_PATH }}\`." >> $GITHUB_STEP_SUMMARY

@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /_boss-preview/
 
 Sitemap: https://vlasta-s.com/sitemap.xml
