@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://vlasta-s.com/</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://vlasta-s.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vlasta-s.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vlasta-s.com/"/>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://vlasta-s.com/en/</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://vlasta-s.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vlasta-s.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vlasta-s.com/"/>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://vlasta-s.com/services.html</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://vlasta-s.com/services.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vlasta-s.com/en/services.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vlasta-s.com/services.html"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vlasta-s.com/en/services.html</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://vlasta-s.com/services.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vlasta-s.com/en/services.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vlasta-s.com/services.html"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vlasta-s.com/about.html</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://vlasta-s.com/about.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vlasta-s.com/en/about.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vlasta-s.com/about.html"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vlasta-s.com/en/about.html</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://vlasta-s.com/about.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vlasta-s.com/en/about.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vlasta-s.com/about.html"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vlasta-s.com/cases.html</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://vlasta-s.com/cases.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vlasta-s.com/en/cases.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vlasta-s.com/cases.html"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vlasta-s.com/en/cases.html</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://vlasta-s.com/cases.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vlasta-s.com/en/cases.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vlasta-s.com/cases.html"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vlasta-s.com/news.html</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://vlasta-s.com/news.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vlasta-s.com/en/news.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vlasta-s.com/news.html"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vlasta-s.com/en/news.html</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://vlasta-s.com/news.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vlasta-s.com/en/news.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vlasta-s.com/news.html"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vlasta-s.com/contacts.html</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://vlasta-s.com/contacts.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vlasta-s.com/en/contacts.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vlasta-s.com/contacts.html"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vlasta-s.com/en/contacts.html</loc>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://vlasta-s.com/contacts.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vlasta-s.com/en/contacts.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vlasta-s.com/contacts.html"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+</urlset>

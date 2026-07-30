@@ -1,0 +1,8 @@
+# Local tooling / editor
+.claude/
+.DS_Store
+node_modules/
+
+# Backups & working files (not for production)
+*.bak
+assets/live-scrape/
