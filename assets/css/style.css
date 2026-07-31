@@ -928,6 +928,13 @@ html.is-locked,html.is-locked body{overflow:hidden}
 .js .reveal{opacity:0;transform:translateY(20px);
   transition:opacity .75s var(--ease),transform .75s var(--ease)}
 .js .reveal.is-in{opacity:1;transform:none}
+/* Fade-only variant. Anything wrapping an element that relies on
+   background-attachment:fixed must never carry a transform, even a transient
+   one: a transformed ancestor becomes a containing block and the fixed
+   background falls back to element-relative, so the tiles flash the whole
+   photo for the length of the entrance animation. */
+.js .reveal--fade,.js .reveal--fade.is-in{transform:none}
+.js .reveal--fade{transition:opacity .75s var(--ease)}
 .js .reveal[data-d="1"]{transition-delay:.07s}
 .js .reveal[data-d="2"]{transition-delay:.14s}
 .js .reveal[data-d="3"]{transition-delay:.21s}

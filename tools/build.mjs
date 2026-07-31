@@ -712,7 +712,7 @@ function buildHome() {
 <section class="sec" id="intro">
   <div class="wrap">
     <p class="intro reveal">${C.intro}</p>
-    <div class="stats reveal" data-d="1">
+    <div class="stats reveal reveal--fade" data-d="1">
       ${site.stats.map(s => `<div class="stat">
         <div class="stat__n">${esc(s.n)}${s.suffix ? `<span class="u">${esc(s.suffix)}</span>` : ''}${t(s,'unit') ? `<span class="u">${esc(t(s,'unit'))}</span>` : ''}</div>
         <div class="stat__l">${esc(t(s,'label'))}</div>
