@@ -685,16 +685,36 @@
       "img": "assets/img/thanks/nissan.jpg"
     },
     {
-      "name": "British American Tobacco",
-      "img": "assets/img/thanks/bat.jpg"
-    },
-    {
       "name": "Renault",
       "img": "assets/img/thanks/renault.jpg"
     },
     {
       "name": "TRW",
       "img": "assets/img/thanks/trw.jpg"
+    },
+    {
+      "name": "British American Tobacco",
+      "img": "assets/img/thanks/bat.jpg"
+    },
+    {
+      "name": "BAT Russia",
+      "img": "assets/img/thanks/bat-en.jpg"
+    },
+    {
+      "name": "Rehau",
+      "img": "assets/img/thanks/rehau.jpg"
+    },
+    {
+      "name": "Rasch",
+      "img": "assets/img/thanks/rasch.jpg"
+    },
+    {
+      "name": "Marella",
+      "img": "assets/img/thanks/marella.jpg"
+    },
+    {
+      "name": "Nivea · Beiersdorf",
+      "img": "assets/img/thanks/nivea.jpg"
     }
   ]
 }

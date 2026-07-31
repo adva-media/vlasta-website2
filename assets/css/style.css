@@ -654,7 +654,7 @@ html.is-locked,html.is-locked body{overflow:hidden}
   color:var(--steel);white-space:nowrap}
 
 /* case detail */
-.case-hero{position:relative;overflow:hidden;background:var(--surface-dark);color:#fff;
+.case-hero{position:relative;overflow:hidden;background-color:var(--surface-dark);color:#fff;
   padding-block:clamp(52px,7vw,92px)}
 .case-hero__n{position:absolute;right:2%;bottom:-16%;font-size:clamp(150px,24vw,330px);
   font-weight:700;line-height:1;color:rgba(255,255,255,.045);pointer-events:none;user-select:none;z-index:0}
@@ -896,7 +896,7 @@ html.is-locked,html.is-locked body{overflow:hidden}
 .overlay.is-open{opacity:1;visibility:visible}
 
 /* -------------------------------------------------------- interior hero */
-.phero{position:relative;overflow:hidden;background:var(--surface-dark);color:#fff;
+.phero{position:relative;overflow:hidden;background-color:var(--surface-dark);color:#fff;
   padding-block:clamp(46px,6vw,86px)}
 /* The photo is attached to the viewport, so it holds still while the heading
    scrolls over it — the same idea as the homepage hero. */
@@ -1019,8 +1019,12 @@ html.is-locked,html.is-locked body{overflow:hidden}
 [data-theme="dark"] body{background:var(--paper)}
 [data-theme="dark"] .hdr{background:rgba(14,21,36,.86);border-bottom-color:var(--line)}
 [data-theme="dark"] .topbar,[data-theme="dark"] .ft{background:#0A101C}
-/* the hero sits over the pinned photo in both themes — nothing may paint it */
-[data-theme="dark"] .phero,[data-theme="dark"] .case-hero{background:#0A101C}
+/* the hero sits over the pinned photo in both themes — nothing may paint it.
+   background-color, never the shorthand: the photo arrives as an inline
+   background-image and outranks this rule, but the shorthand would still
+   reset size/position/repeat/attachment, leaving the picture tiled at its
+   natural size from the top-left corner. */
+[data-theme="dark"] .phero,[data-theme="dark"] .case-hero{background-color:#0A101C}
 [data-theme="dark"] .burger span{background:var(--ink)}
 [data-theme="dark"] .tt{color:var(--ink)}
 [data-theme="dark"] .tt .i-moon{display:none}
@@ -1220,9 +1224,14 @@ section[id]{scroll-margin-top:96px}
   -webkit-mask:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);
   mask:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);
 }
-.belt__track{display:flex;width:max-content;gap:18px;padding:6px 0 10px;
+/* The loop shifts by exactly -50%, so each half must be exactly one repeat
+   wide. A flex gap cannot deliver that: n items carry only n-1 gaps, so the
+   seam between the two halves never matches the rhythm inside them. Giving
+   every tile its own trailing margin makes the repeat exactly n*(tile+gap)
+   and the loop seamless for any number of tiles. */
+.belt__track{display:flex;width:max-content;padding:6px 0 10px;
   animation:belt var(--belt-dur,64s) linear infinite}
-.belt__dup{display:flex;gap:18px;margin-left:18px}
+.belt__dup{display:flex}
 @keyframes belt{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 .belt:hover .belt__track,
 .belt:focus-within .belt__track{animation-play-state:paused}
@@ -1232,7 +1241,7 @@ section[id]{scroll-margin-top:96px}
 }
 
 .belt__i{flex:none;cursor:pointer;text-align:left;font:inherit;color:inherit;
-  background:none;border:0;padding:0;transition:transform var(--t)}
+  background:none;border:0;padding:0;margin-right:18px;transition:transform var(--t)}
 .belt__i:hover{transform:translateY(-4px)}
 .belt__i:focus-visible{outline:2px solid var(--accent);outline-offset:4px;border-radius:var(--r-md)}
 
