@@ -303,7 +303,11 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
 #intro .stat::before{content:"";position:absolute;inset:0;z-index:-1;
   background:linear-gradient(160deg,rgba(20,33,58,.62),rgba(12,19,33,.76));
   transition:background .35s var(--ease)}
-#intro .stat:hover{transform:translateY(-3px);border-color:rgba(255,255,255,.4);
+/* No transform on hover: a transform makes the tile a containing block, which
+   drops background-attachment:fixed back to element-relative — the photo then
+   re-fits to the single tile and you see the whole skyscraper in miniature.
+   Border, shadow and the tint carry the hover instead. */
+#intro .stat:hover{border-color:rgba(255,255,255,.44);
   box-shadow:0 20px 50px -26px rgba(4,9,18,.6)}
 #intro .stat:hover::before{background:linear-gradient(160deg,rgba(20,33,58,.5),rgba(12,19,33,.66))}
 /* iOS ignores fixed attachment — a static crop still reads as intentional */
@@ -344,7 +348,7 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
   background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.20);
   -webkit-backdrop-filter:blur(18px) saturate(1.5);backdrop-filter:blur(18px) saturate(1.5);
   transition:var(--t)}
-.stat:hover{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.32);transform:translateY(-3px)}
+.stat:hover{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.32)}
 .stat__n{display:flex;align-items:baseline;gap:5px;
   font-size:clamp(30px,3.3vw,44px);font-weight:700;letter-spacing:-.035em;line-height:1;
   color:#fff;font-variant-numeric:tabular-nums}
