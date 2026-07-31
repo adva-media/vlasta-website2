@@ -166,20 +166,45 @@
   if (moreBtn && newsF) moreBtn.addEventListener('click', function () { newsF.more(12); });
 
   /* ------------------------------------------------- dialog plumbing */
-  var lastFocus = null;
+  /* Which input opened the dialog decides whether focus goes back to the
+     trigger on close. Returning focus is right for the keyboard, but the
+     carousels pause on :focus-within — so parking focus on a tile after a
+     mouse click left the belt stopped for good once the cursor moved away. */
+  var usingKeyboard = false;
+  doc.addEventListener('keydown', function (e) {
+    if (e.key === 'Tab' || e.key === 'Enter' || e.key === ' ') usingKeyboard = true;
+  }, true);
+  doc.addEventListener('pointerdown', function () { usingKeyboard = false; }, true);
+
+  var lastFocus = null, lastFocusByKeyboard = false;
   function openDialog(el) {
     lastFocus = doc.activeElement;
+    lastFocusByKeyboard = usingKeyboard;
     el.hidden = false;
-    requestAnimationFrame(function () { el.classList.add('is-open'); });
     root.classList.add('is-locked');
-    var f = el.querySelector('[data-close],button,a');
+    /* Flush layout so the opening transition still runs from the closed state.
+       A rAF would do the same but does not fire in a backgrounded tab, which
+       would leave the dialog stuck half-open. */
+    void el.offsetWidth;
+    el.classList.add('is-open');
+    /* Second flush: focus() tests focusability against the last computed
+       style, which still says visibility:hidden until the new class is
+       applied — without this the focus silently goes nowhere and Tab walks
+       the page behind the dialog. The backdrop carries data-close too but is
+       a div, so target a real control. */
+    void el.offsetWidth;
+    var f = el.querySelector('button, a[href]');
     if (f) f.focus();
   }
   function closeDialog(el) {
     el.classList.remove('is-open');
     root.classList.remove('is-locked');
     setTimeout(function () { el.hidden = true; }, 320);
-    if (lastFocus) lastFocus.focus();
+    if (lastFocusByKeyboard && lastFocus && doc.contains(lastFocus)) {
+      lastFocus.focus();               // keyboard: hand the trigger back
+    } else if (doc.activeElement && doc.activeElement !== doc.body) {
+      doc.activeElement.blur();        // mouse: never leave focus parked in a belt
+    }
   }
   function wireClose(el) {
     $$('[data-close]', el).forEach(function (b) {
