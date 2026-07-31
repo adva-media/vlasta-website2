@@ -877,8 +877,19 @@ ${marquee()}
       ${kick(t(site.geography,'kicker'))}
       <h2 class="h2" style="margin-top:15px">${esc(t(site.geography,'title'))}</h2>
       <p class="lead" style="margin-top:18px">${esc(t(site.geography,'lead'))}</p>
-      <ul class="geo__list">${t(site.geography,'regions').map(r => `<li><span class="geo__d"></span>${esc(r)}</li>`).join('')}</ul>
-      <div class="geo__bar">${t(site.geography,'bar').map(b => `<div><b>${esc(b.n)}</b><span>${esc(b.label)}</span></div>`).join('')}</div>
+      <div class="geo__bar">${t(site.geography,'bar').map(b => {
+        // "80+" splits into a number the counter can run to and a suffix it keeps
+        const m = String(b.n).match(/^(\D*)(\d[\d.,]*)(.*)$/);
+        const pre = m ? m[1] : '', num = m ? m[2] : '', suf = m ? m[3] : String(b.n);
+        return `<div class="geo__t">
+          <b class="geo__n"${num ? ` data-count="${esc(num.replace(',', '.'))}"` : ''}>${
+            pre ? `<span class="geo__suf">${esc(pre)}</span>` : ''
+          }<span class="geo__v">${esc(num || b.n)}</span>${
+            suf ? `<span class="geo__suf">${esc(suf)}</span>` : ''
+          }</b>
+          <span class="geo__lb">${esc(b.label)}</span>
+        </div>`;
+      }).join('')}</div>
     </div>
     <div class="reveal" data-d="1">${countryMap()}</div>
   </div>

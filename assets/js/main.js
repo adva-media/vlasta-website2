@@ -78,7 +78,7 @@
   }
 
   /* ------------------------------- practice figures count up on first view */
-  var figures = $$('.res__n[data-count]');
+  var figures = $$('[data-count]');
   if (figures.length) {
     var fmt = function (n, dec) {
       // Russian copy uses a comma for the decimal separator
@@ -88,7 +88,7 @@
     var run = function (el) {
       var target = parseFloat(el.getAttribute('data-count'));
       var dec = parseInt(el.getAttribute('data-decimals') || '0', 10);
-      var out = $('.res__v', el);
+      var out = $('.res__v, .geo__v', el);
       if (!out || isNaN(target)) return;
       if (reduce) { out.textContent = fmt(target, dec); return; }
       var start = null, dur = 1400;
@@ -110,7 +110,7 @@
         });
       }, { threshold: 0.4 });
       figures.forEach(function (el) {
-        var out = $('.res__v', el);
+        var out = $('.res__v, .geo__v', el);
         if (out) out.textContent = '0';
         fo.observe(el);
       });
@@ -274,26 +274,33 @@
     // the drawn arc overshoots the first and last milestone by --over, so a
     // milestone's position along the path is not simply its position in the list
     var over = parseFloat(getComputedStyle(body).getPropertyValue('--over')) / 100 || 0;
-    var at = marks.map(function (_, i) {
-      return ((i + .5) / marks.length + over) / (1 + 2 * over);
-    });
-    var seg = len * .14;
+    // where each milestone sits as a fraction of the column
+    var mid = marks.map(function (_, i) { return (i + .5) / marks.length; });
+    var seg = len * .16;
     lit.style.strokeDasharray = seg + ' ' + (len + seg);
     lit.classList.add('is-live');
-    return { lit: lit, body: body, len: len, seg: seg, marks: marks, at: at, last: -1 };
+    return { lit: lit, body: body, len: len, seg: seg, over: over,
+             marks: marks, mid: mid, last: -1 };
   }).filter(Boolean);
 
   function paintRoads() {
     var vh = window.innerHeight || root.clientHeight;
     roads.forEach(function (r) {
       var b = r.body.getBoundingClientRect();
-      // 0 as the column's top edge reaches the bottom of the viewport,
-      // 1 once its bottom edge has cleared the top
-      var p = (vh - b.top) / (vh + b.height);
+      /* Progress is measured against a reading line across the middle of the
+         viewport, not the column's whole entry-to-exit travel. Spreading it
+         over the entry and exit made the light drift out of step with the
+         page: it was only two thirds of the way down by the time the last
+         milestone was read, and finished its run off-screen. Tied to the
+         reading line it stays on whichever milestone is at eye level. */
+      var p = (vh * .5 - b.top) / b.height;
       p = p < 0 ? 0 : p > 1 ? 1 : p;
-      r.lit.style.strokeDashoffset = r.seg - p * (r.len + r.seg);
+      // p is a fraction of the column; the drawn arc also covers the overshoot
+      var g = (p + r.over) / (1 + 2 * r.over);
+      // half a comet length back, so the head sits on the reading line
+      r.lit.style.strokeDashoffset = r.seg / 2 - g * r.len;
       var near = -1, best = .5 / r.marks.length;
-      r.at.forEach(function (a, i) {
+      r.mid.forEach(function (a, i) {
         var d = Math.abs(a - p);
         if (d < best) { best = d; near = i; }
       });
