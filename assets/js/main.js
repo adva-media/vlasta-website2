@@ -260,7 +260,7 @@
   });
 
   /* --------------------------- drag + wheel scrolling for horizontal rails */
-  $$('.tl__rail,.case-rail,.letters-rail,.assoc-rail').forEach(function (rail) {
+  $$('.case-rail,.letters-rail,.assoc-rail').forEach(function (rail) {
     var down = false, moved = false, sx = 0, sl = 0, pid = null;
 
     rail.addEventListener('pointerdown', function (e) {

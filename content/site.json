@@ -302,56 +302,64 @@
       "text": "Медаль «Солидарность полиции» от Международной полицейской ассоциации и расширение географии до стран ЕАЭС с комплексными программами защиты брендов.",
       "highlight": true,
       "title_en": "IPA medal and EAEU expansion",
-      "text_en": "The “Police Solidarity” medal from the International Police Association, and expansion across the EAEU with full brand protection programmes."
+      "text_en": "The “Police Solidarity” medal from the International Police Association, and expansion across the EAEU with full brand protection programmes.",
+      "icon": "growth"
     },
     {
       "year": "2024",
       "title": "Новое направление",
       "text": "Запущено направление по борьбе с недобросовестной конкуренцией.",
       "title_en": "A new practice area",
-      "text_en": "Launch of a dedicated practice against unfair competition."
+      "text_en": "Launch of a dedicated practice against unfair competition.",
+      "icon": "layers"
     },
     {
       "year": "2022",
       "title": "Преемственность",
       "text": "Алексей Соломанидин стал самым молодым президентом WAD за всю её историю.",
       "title_en": "Succession",
-      "text_en": "Alexey Solomanidin became the youngest president in WAD history."
+      "text_en": "Alexey Solomanidin became the youngest president in WAD history.",
+      "icon": "users"
     },
     {
       "year": "2020",
       "title": "Масштабирование brand protection",
       "text": "Выход на уровень защиты более 80 брендов и позиции ведущего лидера рынка.",
       "title_en": "Brand protection at scale",
-      "text_en": "Passing 80 brands under protection and taking a leading position in the market."
+      "text_en": "Passing 80 brands under protection and taking a leading position in the market.",
+      "icon": "brand"
     },
     {
       "year": "2015",
       "title": "Медаль В. В. Леонтьева",
       "text": "Владимир Соломанидин награждён медалью «За достижения в экономике».",
       "title_en": "The V. V. Leontief medal",
-      "text_en": "Vladimir Solomanidin awarded the medal “For Achievements in Economics”."
+      "text_en": "Vladimir Solomanidin awarded the medal “For Achievements in Economics”.",
+      "icon": "medal"
     },
     {
       "year": "2014",
       "title": "Трофей WAD «Детектив года»",
       "text": "Алексей Соломанидин удостоен профессионального трофея Всемирной ассоциации детективов.",
       "title_en": "WAD “Detective of the Year” trophy",
-      "text_en": "Alexey Solomanidin received the professional trophy of the World Association of Detectives."
+      "text_en": "Alexey Solomanidin received the professional trophy of the World Association of Detectives.",
+      "icon": "trophy"
     },
     {
       "year": "2010",
       "title": "Признание на международном уровне",
       "text": "Владимир Соломанидин избран главой Всемирной ассоциации детективов (WAD, основана в 1925 году).",
       "title_en": "International recognition",
-      "text_en": "Vladimir Solomanidin elected head of the World Association of Detectives (WAD, founded 1925)."
+      "text_en": "Vladimir Solomanidin elected head of the World Association of Detectives (WAD, founded 1925).",
+      "icon": "globe"
     },
     {
       "year": "2006",
       "title": "Основание компании",
       "text": "Старт деятельности в Москве в сфере обеспечения безопасности бизнеса и защиты брендов.",
       "title_en": "The company is founded",
-      "text_en": "Operations begin in Moscow in business security and brand protection."
+      "text_en": "Operations begin in Moscow in business security and brand protection.",
+      "icon": "flag"
     }
   ],
   "geography": {

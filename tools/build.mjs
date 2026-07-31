@@ -199,7 +199,6 @@ const C = {
     privacyKick:'Правовая информация', privacyH1:'Политика конфиденциальности',
     privacyEdition:'Редакция от',
     geoMapLabel:'Карта: Россия, страны СНГ и ЕАЭС',
-    tlNav:'Хронология компании — прокрутите по горизонтали',
     videoTitle:'Видео к материалу',
   },
   en: {
@@ -265,13 +264,18 @@ const C = {
     privacyKick:'Legal', privacyH1:'Privacy policy',
     privacyEdition:'Revised',
     geoMapLabel:'Map: Russia, the CIS and the EAEU',
-    tlNav:'Company timeline — scroll horizontally',
     videoTitle:'Video for this article',
   },
 }[LOCALE];
 
 /* ------------------------------------------------------------------ icons */
 const I = {
+  medal: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7.4 2 3.2 5.5M16.6 2l-3.2 5.5"/><circle cx="12" cy="15" r="6.5"/><path d="m12 11.8 1 2 2.2.3-1.6 1.5.4 2.2-2-1-2 1 .4-2.2L8.8 14l2.2-.3z"/></svg>',
+  trophy: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h10v6a5 5 0 0 1-10 0z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/><path d="M12 14v4M9 21h6M10 18h4"/></svg>',
+  globe: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18 14 14 0 0 1 0-18z"/></svg>',
+  flag: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4"/><path d="M5 4h11l-1.6 3.5L16 11H5z"/></svg>',
+  users: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.4"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16.5 5.2a3.4 3.4 0 0 1 0 5.6M18 14.4a6.5 6.5 0 0 1 3.5 5.6"/></svg>',
+  growth: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18"/><path d="M6 20v-5M11 20v-9M16 20v-6M21 20V7"/><path d="m14 4 3.4 1.2L16.2 8.6"/></svg>',
   arrow: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>',
   ext: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>',
   phone: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>',
@@ -615,15 +619,81 @@ const marquee = () => {
 </section>`;
 };
 
-const timeline = () => `<div class="tl">
-      <div class="tl__rail" tabindex="0" role="group" aria-label="${C.tlNav}">
-        ${site.timeline.map(x => `<div class="tl__i${x.highlight ? ' tl__i--hi' : ''}">
-          <div class="tl__yr">${esc(x.year)}</div>
-          <div class="tl__axis"><span class="tl__dot"></span></div>
-          <div class="tl__card"><h3>${esc(tt(x,'title'))}</h3><p>${esc(tt(x,'text'))}</p></div>
-        </div>`).join('')}
+/* ------------------------------------------------------- company roadmap */
+/* The milestones ride a shallow bow instead of sitting in a row of boxes, so
+   the column reads as a route rather than a list. Marker offsets and the drawn
+   arc are both derived from arcX(), which is the only reason they can never
+   drift apart — the SVG is stretched over the same box with
+   preserveAspectRatio="none", so x is a plain percentage of the rail in both.
+   Rows are 1fr, which makes every row exactly as tall as the tallest, so the
+   nth marker really does sit at (n + .5)/count of the way down. */
+const ARC = { x0: 24, amp: 54, over: .10 };            // x in percent of the rail
+const arcX = f => ARC.x0 + ARC.amp * Math.sin(Math.PI * f);
+/* The drawn arc runs past the first and last milestone by ARC.over of the
+   column, so it sweeps into frame from above and leaves below instead of
+   starting and stopping on a marker. The SVG is inset by the same fraction in
+   CSS, so parameter g along the path maps back to list fraction f below. */
+const arcPath = (steps = 72) =>
+  'M' + Array.from({ length: steps + 1 }, (_, i) => {
+    const g = i / steps;
+    const f = g * (1 + 2 * ARC.over) - ARC.over;
+    return `${arcX(f).toFixed(2)},${(g * 1000).toFixed(1)}`;
+  }).join('L');
+
+/* Newest first, so the ramp runs from the deepest brand navy down to mist —
+   the further back in time, the quieter the marker. Dark mode takes the same
+   ramp reversed, because the deep navy end is invisible against a dark band.
+   Both the tone and the glyph colour that reads on it are emitted per item. */
+/* Each ramp starts at its theme's strongest value and eases toward the same
+   mid blue, so the newest milestone always reads loudest while the oldest
+   still stands clear of the band. A ramp that ran all the way to the opposite
+   extreme put one end at ~1:1 against the background in one theme or the
+   other, which is what made a marker vanish. */
+const TONES_L = ['#11192B', '#1D2537', '#26314A', '#2E3B57', '#374764', '#405374', '#4A5E84', '#556A93'];
+const TONES_D = ['#C5CDDA', '#B7C0D0', '#A9B4C8', '#9BA7BF', '#8D9BB6', '#7F8EAD', '#7182A4', '#63769B'];
+const relLum = hex => {
+  const ch = [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16) / 255)
+    .map(c => (c <= .03928 ? c / 12.92 : Math.pow((c + .055) / 1.055, 2.4)));
+  return .2126 * ch[0] + .7152 * ch[1] + .0722 * ch[2];
+};
+/* pick whichever glyph actually wins on this tone rather than guessing a
+   threshold — a fixed cutoff lands on the wrong side around mid grey */
+const ctr = (a, b) => (Math.max(a, b) + .05) / (Math.min(a, b) + .05);
+const glyphOn = hex => {
+  const l = relLum(hex);
+  return ctr(l, 1) >= ctr(l, relLum('#11192B')) ? '#FFFFFF' : '#11192B';
+};
+
+const roadmap = () => {
+  const items = site.timeline;
+  const n = items.length;
+  return `<div class="road">
+      <div class="road__hub reveal reveal--fade">
+        <div class="road__hubIn">
+          ${kick(C.histKicker)}
+          <h2 class="h2">${esc(C.histTitle)}</h2>
+          <p>${esc(C.histHint)}</p>
+        </div>
+      </div>
+      <div class="road__body">
+        <svg class="road__arc" viewBox="0 0 100 1000" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+          <path d="${arcPath()}"/>
+        </svg>
+        <ol class="road__list" style="--n:${n}">
+          ${items.map((x, i) => {
+            const k = Math.round(i * (TONES_L.length - 1) / Math.max(1, n - 1));
+            const tone = TONES_L[k], toneD = TONES_D[k];
+            return `<li class="road__i${x.highlight ? ' road__i--hi' : ''} reveal reveal--fade"
+              style="--x:${arcX((i + .5) / n).toFixed(2)};--xm:${arcX((i + .26) / n).toFixed(2)};--tone:${tone};--fg:${glyphOn(tone)};--tone-d:${toneD};--fg-d:${glyphOn(toneD)}">
+            <span class="road__peg" aria-hidden="true"><span class="road__mark">${I[x.icon] || I.check}</span></span>
+            <b class="road__yr">${esc(x.year)}</b>
+            <div class="road__c"><h3>${esc(tt(x,'title'))}</h3><p>${esc(tt(x,'text'))}</p></div>
+          </li>`;
+          }).join('')}
+        </ol>
       </div>
     </div>`;
+};
 
 /* Associations and letters ride the same continuous belt as the client logos.
    The list is emitted twice so the loop is seamless; the duplicate carries
@@ -826,11 +896,7 @@ ${marquee()}
 <section class="sec sec--alt" id="history">
   ${engrave('bl', 'tlh')}
   <div class="wrap">
-    ${shead({
-      k: C.histKicker, h: C.histTitle,
-      extra: `<p class="tl__hint">${C.histHint} ${I.drag} ${T.scrollHint}</p>`,
-    })}
-    ${timeline()}
+    ${roadmap()}
   </div>
 </section>
 
@@ -987,11 +1053,7 @@ function buildAbout() {
 <section class="sec sec--alt" id="history">
   ${engrave('bl', 'tl')}
   <div class="wrap">
-    ${shead({
-      k: C.histKicker, h: C.histTitle,
-      extra: `<p class="tl__hint">${C.histHint} ${I.drag} ${T.scrollHint}</p>`,
-    })}
-    ${timeline()}
+    ${roadmap()}
   </div>
 </section>
 
