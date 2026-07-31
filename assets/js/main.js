@@ -311,16 +311,31 @@
     });
   }
 
-  if (roads.length) {
+  /* ------------------------------------------- geography panes catch light */
+  /* One value, --sweep, for how far the row has crossed the viewport. The
+     panes read it in CSS and offset it per tile, so the light drifts across
+     them as the page moves rather than looping on its own. */
+  var geoBar = reduce ? null : $('.geo__bar');
+  function paintGeo() {
+    if (!geoBar) return;
+    var b = geoBar.getBoundingClientRect();
+    var vh = window.innerHeight || root.clientHeight;
+    var p = (vh - b.top) / (vh + b.height);
+    p = p < 0 ? 0 : p > 1 ? 1 : p;
+    geoBar.style.setProperty('--sweep', p.toFixed(3));
+  }
+
+  if (roads.length || geoBar) {
     var queued = false;
-    var onRoadScroll = function () {
+    var onPaintScroll = function () {
       if (queued) return;
       queued = true;
-      requestAnimationFrame(function () { queued = false; paintRoads(); });
+      requestAnimationFrame(function () { queued = false; paintRoads(); paintGeo(); });
     };
-    window.addEventListener('scroll', onRoadScroll, { passive: true });
-    window.addEventListener('resize', onRoadScroll);
+    window.addEventListener('scroll', onPaintScroll, { passive: true });
+    window.addEventListener('resize', onPaintScroll);
     paintRoads();
+    paintGeo();
   }
 
   /* --------------------------- drag + wheel scrolling for horizontal rails */

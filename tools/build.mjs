@@ -877,11 +877,11 @@ ${marquee()}
       ${kick(t(site.geography,'kicker'))}
       <h2 class="h2" style="margin-top:15px">${esc(t(site.geography,'title'))}</h2>
       <p class="lead" style="margin-top:18px">${esc(t(site.geography,'lead'))}</p>
-      <div class="geo__bar">${t(site.geography,'bar').map(b => {
+      <div class="geo__bar">${t(site.geography,'bar').map((b, gi) => {
         // "80+" splits into a number the counter can run to and a suffix it keeps
         const m = String(b.n).match(/^(\D*)(\d[\d.,]*)(.*)$/);
         const pre = m ? m[1] : '', num = m ? m[2] : '', suf = m ? m[3] : String(b.n);
-        return `<div class="geo__t">
+        return `<div class="geo__t" style="--i:${gi}">
           <b class="geo__n"${num ? ` data-count="${esc(num.replace(',', '.'))}"` : ''}>${
             pre ? `<span class="geo__suf">${esc(pre)}</span>` : ''
           }<span class="geo__v">${esc(num || b.n)}</span>${
