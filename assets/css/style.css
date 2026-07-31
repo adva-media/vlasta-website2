@@ -204,7 +204,7 @@ body.over-hero .hdr .brand__sub{color:rgba(255,255,255,.72)}
 body.over-hero .hdr .brand__mark{filter:brightness(0) invert(1)}
 body.over-hero .hdr .nav a{color:rgba(255,255,255,.82)}
 body.over-hero .hdr .nav a:hover,body.over-hero .hdr .nav a.is-on{color:#fff}
-bodybody.over-hero .hdr .nav a::after{background:#fff}
+body.over-hero .hdr .nav a::after{background:#fff}
 body.over-hero .hdr .burger span{background:#fff}
 body.over-hero .hdr.is-stuck{
   background-color:rgba(255,255,255,.90);border-bottom-color:var(--line);
@@ -215,9 +215,16 @@ body.over-hero .hdr.is-stuck .brand__sub{color:var(--steel)}
 body.over-hero .hdr.is-stuck .brand__mark{filter:none}
 body.over-hero .hdr.is-stuck .nav a{color:var(--body)}
 body.over-hero .hdr.is-stuck .nav a:hover,body.over-hero .hdr.is-stuck .nav a.is-on{color:var(--ink)}
-bodybody.over-hero .hdr.is-stuck .nav a::after{background:var(--accent)}
+body.over-hero .hdr.is-stuck .nav a::after{background:var(--accent)}
 body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
 [data-theme="dark"] body.over-hero .hdr.is-stuck{background-color:rgba(14,21,36,.9)}
+/* The header mark ships as dark artwork. In night mode the bar is a dark
+   surface in every state — interior pages, the top of a photo hero, and the
+   solid bar once it sticks — so the mark stays inverted throughout. The second
+   selector is needed to outrank the is-stuck rule above, which otherwise puts
+   the dark artwork back over a dark bar and the logo disappears on scroll. */
+[data-theme="dark"] .hdr .brand__mark,
+[data-theme="dark"] body.over-hero .hdr.is-stuck .brand__mark{filter:brightness(0) invert(1)}
 .hdr .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;height:74px}
 .brand{display:flex;align-items:center;gap:12px;flex:none}
 .brand__mark{height:44px;width:auto}
