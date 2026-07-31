@@ -625,15 +625,40 @@ const timeline = () => `<div class="tl">
       </div>
     </div>`;
 
-const assocGrid = () => `<div class="assoc-rail" tabindex="0" role="group" aria-label="${C.assocNav}">
-      ${site.associations.map((a, i) => `<button class="card glass assoc reveal" type="button" data-assoc="${i}" aria-haspopup="dialog">
-        <span class="assoc__logo"><img src="${rel(0, a.logo)}" alt="${esc(a.abbr)}" loading="lazy" decoding="async"></span>
-        <h3>${esc(t(a,'name'))}</h3>
-        <span class="assoc__meta">${esc(t(a,'meta'))}</span>
-        <span class="assoc__more">${T.more} ${I.arrow}</span>
-      </button>`).join('')}
+/* Associations and letters ride the same continuous belt as the client logos.
+   The list is emitted twice so the loop is seamless; the duplicate carries
+   aria-hidden so screen readers hear each association once. Unlike the client
+   strip these tiles are interactive, so the belt pauses on hover — otherwise
+   the target slides out from under the cursor. */
+function belt(items, cls, label) {
+  const row = h => items.map(h).join('');
+  return `<div class="belt ${cls}" role="group" aria-label="${esc(label)}">
+  <div class="belt__vp">
+    <div class="belt__track">
+      ${row(i => i(false))}<span class="belt__dup" aria-hidden="true">${row(i => i(true))}</span>
     </div>
-    <div class="modal" id="assocModal" role="dialog" aria-modal="true" aria-labelledby="amTitle" hidden>
+  </div>
+</div>`;
+}
+
+const assocMarquee = () => belt(
+  site.associations.map((a, i) => dup =>
+    `<button class="belt__i assoc" type="button" data-assoc="${i}" aria-haspopup="dialog"${dup ? ' tabindex="-1"' : ''}>
+      <span class="assoc__logo"><img src="${rel(0, a.logo)}" alt="${dup ? '' : esc(a.abbr)}" decoding="async"></span>
+      <span class="assoc__n">${esc(t(a, 'name'))}</span>
+      <span class="assoc__meta">${esc(t(a, 'meta'))}</span>
+    </button>`),
+  'belt--assoc', C.assocTitle);
+
+const lettersMarquee = () => belt(
+  site.letters.map(l => dup =>
+    `<button class="belt__i letter" type="button" data-letter${dup ? ' tabindex="-1"' : ''}>
+      <span class="letter__th"><img src="${rel(0, l.img)}" alt="${dup ? '' : C.letterAlt + ' — ' + esc(l.name)}" decoding="async"></span>
+      <span class="letter__n">${esc(l.name)}</span>
+    </button>`),
+  'belt--letters', C.lettersTitle);
+
+const assocModal = () => `<div class="modal" id="assocModal" role="dialog" aria-modal="true" aria-labelledby="amTitle" hidden>
       <div class="modal__bd" data-close></div>
       <div class="modal__c">
         <button class="modal__x" type="button" aria-label="Закрыть" data-close>${I.x}</button>
@@ -909,6 +934,47 @@ function buildAbout() {
   </div>
 </section>
 
+<section class="sec" id="team">
+  <div class="wrap">
+    ${shead({ k: C.teamKicker, h: C.teamTitle, mod: 'center' })}
+    <div class="team">
+      ${site.team.map((m, i) => `<figure class="person reveal"${i ? ` data-d="${i}"` : ''}>
+        <div class="person__ph"><img src="${rel(0, m.img)}" alt="${esc(tt(m,'name'))} — ${esc(tt(m,'role'))}" decoding="async"></div>
+        <figcaption class="person__c">
+          <h3>${esc(tt(m,'name'))}</h3>
+          <div class="person__role">${esc(tt(m,'role'))}</div>
+          <p>${esc(tt(m,'note'))}</p>
+        </figcaption>
+      </figure>`).join('')}
+    </div>
+  </div>
+</section>
+
+<section class="sec sec--alt" id="associations">
+  ${engrave('tr', 'as')}
+  <div class="wrap">
+    ${shead({ k: C.assocKicker, h: C.assocTitle, d: C.assocDesc })}
+  </div>
+  ${assocMarquee()}
+  ${assocModal()}
+</section>
+
+<section class="sec" id="letters">
+  <div class="wrap">
+    ${shead({ k: C.lettersKicker, h: C.lettersTitle, d: C.lettersDesc })}
+  </div>
+  ${lettersMarquee()}
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="${C.letterDialog}" hidden>
+    <div class="lightbox__p">
+      <div class="lightbox__h">
+        <span class="lightbox__t"></span>
+        <button class="lightbox__x" type="button" aria-label="Закрыть" data-close>${I.x}</button>
+      </div>
+      <div class="lightbox__b"><img src="" alt=""></div>
+    </div>
+  </div>
+</section>
+
 <section class="sec">
   <div class="wrap">
     ${shead({ k: C.whoKicker, h: C.whoTitle, d: C.whoDesc })}
@@ -929,57 +995,11 @@ function buildAbout() {
   </div>
 </section>
 
-<section class="sec" id="team">
-  <div class="wrap">
-    ${shead({ k: C.teamKicker, h: C.teamTitle, mod: 'center' })}
-    <div class="team">
-      ${site.team.map((m, i) => `<div class="card person reveal"${i ? ` data-d="${i}"` : ''}>
-        <div class="person__ph"><img src="${rel(0, m.img)}" alt="${esc(tt(m,'name'))} — ${esc(tt(m,'role'))}" loading="lazy" decoding="async"></div>
-        <h3>${esc(tt(m,'name'))}</h3>
-        <div class="person__role">${esc(tt(m,'role'))}</div>
-        <p>${esc(tt(m,'note'))}</p>
-      </div>`).join('')}
-    </div>
-  </div>
-</section>
-
-<section class="sec sec--alt" id="associations">
-  ${engrave('tr', 'as')}
-  <div class="wrap">
-    ${shead({
-      k: C.assocKicker, h: C.assocTitle,
-      d: C.assocDesc,
-    })}
-    ${assocGrid()}
-  </div>
-</section>
-
-<section class="sec" id="clients">
+<section class="sec sec--alt" id="clients">
   <div class="wrap">
     ${shead({ k: C.clientsKicker, h: C.clientsTitle, mod: 'center' })}
     <div class="clients reveal">${clientsGrid()}</div>
     <p class="clients-note">${C.clientsNote}</p>
-  </div>
-</section>
-
-<section class="sec sec--alt" id="letters">
-  <div class="wrap">
-    ${shead({ k: C.lettersKicker, h: C.lettersTitle, d: C.lettersDesc })}
-    <div class="letters-rail reveal" tabindex="0" role="group" aria-label="${C.lettersTitle}">
-      ${site.letters.map(l => `<button class="letter" type="button" data-letter>
-        <span class="letter__th"><img src="${rel(0, l.img)}" alt="${C.letterAlt} — ${esc(l.name)}" decoding="async"></span>
-        <span class="letter__n">${esc(l.name)}</span>
-      </button>`).join('')}
-    </div>
-    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="${C.letterDialog}" hidden>
-      <div class="lightbox__p">
-        <div class="lightbox__h">
-          <span class="lightbox__t"></span>
-          <button class="lightbox__x" type="button" aria-label="Закрыть" data-close>${I.x}</button>
-        </div>
-        <div class="lightbox__b"><img src="" alt=""></div>
-      </div>
-    </div>
   </div>
 </section>
 
