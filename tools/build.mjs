@@ -992,7 +992,6 @@ ${ctaBand(0)}
 /* ---------------------------------------------------------------- CASES */
 function buildCases() {
   const c = chrome('cases.html', 0);
-  const cats = [...new Set(cases.map(x => x.category))];
   const html = j(
     head({
       title: C.casesPageTitle,
@@ -1014,15 +1013,6 @@ function buildCases() {
     ${kick(C.casesKick)}
     <h1 class="h1">${C.casesH1}</h1>
     <p class="lead">${C.casesLead}</p>
-  </div>
-</section>
-
-<section class="sec sec--tight sec--alt">
-  <div class="wrap">
-    <nav class="chips" aria-label="${C.caseFilter}">
-      <button class="chip is-on" type="button" data-filter="all">${T.all} <b>${cases.length}</b></button>
-      ${cats.map(cat => `<button class="chip" type="button" data-filter="${esc(cat)}">${esc(cat)} <b>${cases.filter(x => x.category === cat).length}</b></button>`).join('')}
-    </nav>
   </div>
 </section>
 
@@ -1121,7 +1111,6 @@ ${ctaBand(1)}
 /* ----------------------------------------------------------------- NEWS */
 function buildNews() {
   const c = chrome('news.html', 0);
-  const clusters = [...new Set(news.map(n => n.cluster))];
   const INITIAL = 12;
 
   const html = j(
@@ -1149,15 +1138,6 @@ function buildNews() {
     ${kick(C.newsKick)}
     <h1 class="h1">${C.newsH1}</h1>
     <p class="lead">${C.newsLead}</p>
-  </div>
-</section>
-
-<section class="sec sec--tight sec--alt">
-  <div class="wrap">
-    <nav class="chips" aria-label="${C.newsFilter}">
-      <button class="chip is-on" type="button" data-filter="all">${T.all} <b>${news.length}</b></button>
-      ${clusters.map(cl => `<button class="chip" type="button" data-filter="${esc(cl)}">${esc(cl)} <b>${news.filter(n => n.cluster === cl).length}</b></button>`).join('')}
-    </nav>
   </div>
 </section>
 
