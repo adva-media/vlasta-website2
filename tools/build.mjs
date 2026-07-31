@@ -604,11 +604,11 @@ const ctaBand = (depth = 0) => `<section class="sec">
 </section>`;
 
 const clientsGrid = () => site.clients.map(c =>
-  `<div class="client"><img src="${rel(0, c.l)}" alt="${esc(c.n)}" loading="lazy" decoding="async"></div>`).join('');
+  `<div class="client"><img src="${rel(0, c.l)}" alt="${esc(c.n)}" loading="lazy" decoding="async"${c.scale ? ` style="--logo-scale:${c.scale}"` : ''}></div>`).join('');
 
 const marquee = () => {
   const row = site.clients.map(c =>
-    `<span class="mq__i"><img src="${rel(0, c.l)}" alt="${esc(c.n)}" loading="lazy" decoding="async"></span>`).join('');
+    `<span class="mq__i"><img src="${rel(0, c.l)}" alt="${esc(c.n)}" loading="lazy" decoding="async"${c.scale ? ` style="--logo-scale:${c.scale}"` : ''}></span>`).join('');
   return `<section class="mq" aria-label="Клиенты">
   <div class="mq__l">${C.marquee}</div>
   <div class="mq__vp"><div class="mq__tr">${row}${row}</div></div>

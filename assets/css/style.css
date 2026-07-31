@@ -566,12 +566,14 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
 html.is-locked,html.is-locked body{overflow:hidden}
 
 /* -------------------------------------------------------------- clients */
-.clients{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;
+.clients{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;
   background:var(--line);border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden}
 .client{background:#fff;min-height:98px;display:flex;align-items:center;justify-content:center;
   padding:20px 22px;transition:background var(--t)}
-.client img{max-width:100%;max-height:42px;width:auto;height:auto;object-fit:contain;
-  filter:grayscale(1);opacity:.66;transition:var(--t)}
+.client img{max-width:82%;max-height:52px;width:auto;height:auto;object-fit:contain;
+  filter:grayscale(1);opacity:.66;transition:var(--t);
+  /* some files carry a lot of built-in padding — see `scale` in site.json */
+  transform:scale(var(--logo-scale,1))}
 .client:hover{background:var(--paper-alt)}
 .client:hover img{filter:none;opacity:1}
 .clients-note{text-align:center;margin-top:22px;font-size:15px;color:var(--steel)}
@@ -588,8 +590,9 @@ html.is-locked,html.is-locked body{overflow:hidden}
 @keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 .mq__i{flex:none;width:142px;height:64px;border-radius:12px;background:#fff;
   border:1px solid var(--line-soft);display:flex;align-items:center;justify-content:center;padding:12px 18px}
-.mq__i img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;
-  filter:grayscale(1);opacity:.62;transition:var(--t)}
+.mq__i img{max-width:84%;max-height:86%;width:auto;height:auto;object-fit:contain;
+  filter:grayscale(1);opacity:.62;transition:var(--t);
+  transform:scale(var(--logo-scale,1))}
 .mq__i:hover img{filter:none;opacity:1}
 
 /* ---------------------------------------------------------------- cases */
@@ -931,8 +934,7 @@ html.is-locked,html.is-locked body{overflow:hidden}
 
 /* ------------------------------------------------------------ responsive */
 @media (max-width:1180px){
-  .clients{grid-template-columns:repeat(5,1fr)}
-  .letters{grid-template-columns:repeat(4,1fr)}
+  .clients{grid-template-columns:repeat(4,1fr)}
 }
 @media (max-width:1080px){
   .appr,.res{grid-template-columns:repeat(2,1fr)}
@@ -952,7 +954,7 @@ html.is-locked,html.is-locked body{overflow:hidden}
 @media (max-width:680px){
   body{font-size:16px}
   .case-grid,.news-grid,.team{grid-template-columns:1fr}
-  .clients{grid-template-columns:repeat(3,1fr)}
+  .clients{grid-template-columns:repeat(2,1fr)}
   .letters{grid-template-columns:repeat(2,1fr)}
   .assoc{flex-basis:170px}
   .values,.appr,.res{grid-template-columns:1fr}

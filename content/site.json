@@ -602,7 +602,8 @@
     },
     {
       "n": "Mazda",
-      "l": "assets/img/clients/mazda.webp"
+      "l": "assets/img/clients/mazda.webp",
+      "scale": 1.3
     },
     {
       "n": "Nestlé",
@@ -670,7 +671,8 @@
     },
     {
       "n": "SPLAT",
-      "l": "assets/img/clients/splat.png"
+      "l": "assets/img/clients/splat.png",
+      "scale": 1.12
     }
   ],
   "letters": [
