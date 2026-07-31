@@ -503,20 +503,48 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
    tools/build.mjs) and the arc is stretched over the identical box with
    preserveAspectRatio="none", so --x is a plain percentage of the rail in both
    and the two can never disagree. */
-.road{display:grid;align-items:stretch;gap:clamp(28px,4.4vw,60px);
-  grid-template-columns:minmax(0,.72fr) minmax(0,1.28fr)}
+/* The photo is pinned to the viewport, so the stairwell holds still while the
+   milestones travel over it. Longhands only: the shorthand would reset
+   size/position/repeat and leave the picture tiled at natural size. */
+#history{
+  background-color:var(--surface-dark);
+  background-image:linear-gradient(rgba(233,238,245,.70),rgba(226,233,242,.78)),
+    url("../img/roadmap-bg.jpg");
+  background-attachment:fixed,fixed;
+  background-size:cover,cover;
+  background-position:center,center;
+  background-repeat:no-repeat,no-repeat;
+}
+[data-theme="dark"] #history{
+  background-image:linear-gradient(rgba(11,17,29,.84),rgba(13,20,34,.89)),
+    url("../img/roadmap-bg.jpg");
+}
+/* iOS refuses fixed attachment; a static crop is the graceful fallback */
+@supports (-webkit-touch-callout:none){#history{background-attachment:scroll,scroll}}
+/* the engraving would fight the photograph */
+#history .engrave{display:none}
+
+.road{display:grid;align-items:stretch;gap:clamp(20px,2.8vw,36px);
+  grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);
+  padding:clamp(18px,2.5vw,32px);border-radius:var(--r-lg);
+  background:var(--glass);border:1px solid var(--glass-line);
+  -webkit-backdrop-filter:blur(22px) saturate(1.6);backdrop-filter:blur(22px) saturate(1.6);
+  box-shadow:var(--sh-lg)}
 
 /* The hub carries the section heading, so this block has no .shead of its own.
    It is a third the height of the milestone column, so it sticks and rides
    alongside instead of leaving the left side empty. */
 .road__hub{position:sticky;top:clamp(96px,16vh,150px);align-self:start;
-  justify-self:center;width:min(100%,392px);aspect-ratio:1;
+  justify-self:center;width:min(100%,460px);aspect-ratio:1;
   border-radius:50%;display:grid;place-items:center;text-align:center;
-  padding:clamp(28px,4vw,56px);background:var(--paper);box-shadow:var(--sh-lg)}
-.road__hubIn{max-width:26ch}
+  background:var(--paper);box-shadow:var(--sh-lg)}
+/* A circle only really offers its inscribed square, ~70.7% of the diameter.
+   Sizing the text to the padding box instead let long Russian headings run
+   into the curve, which read as the block being off centre. */
+.road__hubIn{width:62%}
 .road__hub .kick{justify-content:center}
-.road__hub .h2{margin-top:12px;font-size:clamp(23px,2.7vw,36px)}
-.road__hub p{margin-top:14px;font-size:15px;line-height:1.6;color:var(--body)}
+.road__hub .h2{margin-top:11px;font-size:clamp(21px,2.35vw,31px)}
+.road__hub p{margin-top:13px;font-size:14.5px;line-height:1.55;color:var(--body)}
 
 .road__body{position:relative;--rail:clamp(88px,12.5vw,176px);--over:10%}
 /* inset matches ARC.over in tools/build.mjs so the curve overshoots the list */
@@ -524,7 +552,23 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
   height:calc(100% + var(--over) * 2);pointer-events:none}
 /* the viewBox is stretched hard on y, so the stroke has to opt out of scaling
    or it renders as a hairline at the ends and a slab in the middle */
-.road__arc path{fill:none;stroke:var(--mist);stroke-width:1.5;vector-effect:non-scaling-stroke}
+.road__arc path{fill:none;vector-effect:non-scaling-stroke}
+.road__arcBase{stroke:var(--mist);stroke-width:1.5}
+/* A light runs the length of the route as the section passes. It stays hidden
+   until main.js has measured the path and set a dash pattern, otherwise the
+   whole arc would paint solid accent for anyone without JS. */
+.road__arcLit{stroke:var(--accent);stroke-width:2.6;stroke-linecap:round;opacity:0;
+  filter:drop-shadow(0 0 5px rgba(52,67,97,.5))}
+.road__arcLit.is-live{opacity:1;animation:roadPulse 2.8s ease-in-out infinite}
+[data-theme="dark"] .road__arcLit{stroke:var(--accent-hi);
+  filter:drop-shadow(0 0 7px rgba(165,182,210,.55))}
+@keyframes roadPulse{0%,100%{opacity:.5}50%{opacity:1}}
+/* the marker the light is passing lifts, the way a country lights up on the map */
+.road__i.is-lit .road__mark{box-shadow:0 0 0 5px rgba(52,67,97,.16),0 0 24px 3px rgba(52,67,97,.32),
+  0 14px 28px -14px rgba(17,25,43,.66)}
+[data-theme="dark"] .road__i.is-lit .road__mark{
+  box-shadow:0 0 0 5px rgba(165,182,210,.18),0 0 26px 4px rgba(165,182,210,.34)}
+@media (prefers-reduced-motion:reduce){.road__arcLit{display:none}}
 
 /* 1fr rows make every row as tall as the tallest, which is what lets the nth
    marker sit exactly (n + .5)/count of the way down the arc */
@@ -570,6 +614,10 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
      same curve sampled at (i + .26)/n. */
   .road__mark{--mk:34px;top:26%;left:calc(var(--xm) * 1%)}
   .road__c p{font-size:13.5px}
+  /* the circle shrinks faster than the heading does, so the text has to give
+     back some height or it crowds the curve */
+  .road__hub .h2{font-size:20px}
+  .road__hub p{font-size:13.5px;margin-top:11px}
 }
 
 /* ---------------------------------------------------------- associations */

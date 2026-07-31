@@ -259,6 +259,63 @@
     $$('.modal.is-open,.lightbox.is-open').forEach(closeDialog);
   });
 
+  /* ------------------------------------------------- roadmap arc light */
+  /* A light travels the milestone arc as the section scrolls past. The roadmap
+     reads newest first, so moving down the page moves the light back through
+     the years. The marker it is passing lights up, echoing the country
+     outlines on the geography map. */
+  var roads = $$('.road').map(function (road) {
+    var lit = $('.road__arcLit', road), body = $('.road__body', road);
+    if (!lit || !body || reduce || typeof lit.getTotalLength !== 'function') return null;
+    var len = 0;
+    try { len = lit.getTotalLength(); } catch (e) { return null; }
+    if (!len) return null;
+    var marks = $$('.road__i', road);
+    // the drawn arc overshoots the first and last milestone by --over, so a
+    // milestone's position along the path is not simply its position in the list
+    var over = parseFloat(getComputedStyle(body).getPropertyValue('--over')) / 100 || 0;
+    var at = marks.map(function (_, i) {
+      return ((i + .5) / marks.length + over) / (1 + 2 * over);
+    });
+    var seg = len * .14;
+    lit.style.strokeDasharray = seg + ' ' + (len + seg);
+    lit.classList.add('is-live');
+    return { lit: lit, body: body, len: len, seg: seg, marks: marks, at: at, last: -1 };
+  }).filter(Boolean);
+
+  function paintRoads() {
+    var vh = window.innerHeight || root.clientHeight;
+    roads.forEach(function (r) {
+      var b = r.body.getBoundingClientRect();
+      // 0 as the column's top edge reaches the bottom of the viewport,
+      // 1 once its bottom edge has cleared the top
+      var p = (vh - b.top) / (vh + b.height);
+      p = p < 0 ? 0 : p > 1 ? 1 : p;
+      r.lit.style.strokeDashoffset = r.seg - p * (r.len + r.seg);
+      var near = -1, best = .5 / r.marks.length;
+      r.at.forEach(function (a, i) {
+        var d = Math.abs(a - p);
+        if (d < best) { best = d; near = i; }
+      });
+      if (near !== r.last) {
+        r.marks.forEach(function (m, i) { m.classList.toggle('is-lit', i === near); });
+        r.last = near;
+      }
+    });
+  }
+
+  if (roads.length) {
+    var queued = false;
+    var onRoadScroll = function () {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(function () { queued = false; paintRoads(); });
+    };
+    window.addEventListener('scroll', onRoadScroll, { passive: true });
+    window.addEventListener('resize', onRoadScroll);
+    paintRoads();
+  }
+
   /* --------------------------- drag + wheel scrolling for horizontal rails */
   $$('.case-rail,.letters-rail,.assoc-rail').forEach(function (rail) {
     var down = false, moved = false, sx = 0, sl = 0, pid = null;

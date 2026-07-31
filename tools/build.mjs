@@ -677,7 +677,8 @@ const roadmap = () => {
       </div>
       <div class="road__body">
         <svg class="road__arc" viewBox="0 0 100 1000" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-          <path d="${arcPath()}"/>
+          <path class="road__arcBase" d="${arcPath()}"/>
+          <path class="road__arcLit" d="${arcPath()}"/>
         </svg>
         <ol class="road__list" style="--n:${n}">
           ${items.map((x, i) => {
