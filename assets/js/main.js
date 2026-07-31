@@ -236,29 +236,49 @@
 
   /* --------------------------- drag + wheel scrolling for horizontal rails */
   $$('.tl__rail,.case-rail,.letters-rail,.assoc-rail').forEach(function (rail) {
-    var down = false, moved = false, sx = 0, sl = 0;
+    var down = false, moved = false, sx = 0, sl = 0, pid = null;
+
     rail.addEventListener('pointerdown', function (e) {
       if (e.pointerType === 'touch') return;   // native touch scrolling is better
-      down = true; moved = false; sx = e.clientX; sl = rail.scrollLeft;
-      rail.setPointerCapture(e.pointerId);
+      if (e.button !== 0) return;
+      down = true; moved = false; sx = e.clientX; sl = rail.scrollLeft; pid = e.pointerId;
+      /* Deliberately NOT capturing here. Capturing on pointerdown sends the
+         following pointerup to the rail instead of the card, so the browser
+         never raises a click on the link and the cards stop working. Capture
+         only once a real drag is under way. */
     });
+
     rail.addEventListener('pointermove', function (e) {
       if (!down) return;
       var dx = e.clientX - sx;
-      if (!moved && Math.abs(dx) > 4) { moved = true; rail.classList.add('is-drag'); }
-      if (moved) rail.scrollLeft = sl - dx;
+      if (!moved) {
+        if (Math.abs(dx) <= 4) return;         // still a click, leave it alone
+        moved = true;
+        rail.classList.add('is-drag');
+        try { rail.setPointerCapture(pid); } catch (err) {}
+      }
+      rail.scrollLeft = sl - dx;
     });
+
+    function end() {
+      if (moved) { try { rail.releasePointerCapture(pid); } catch (err) {} }
+      down = false; pid = null;
+      rail.classList.remove('is-drag');
+    }
     ['pointerup', 'pointercancel', 'pointerleave'].forEach(function (ev) {
-      rail.addEventListener(ev, function () {
-        down = false;
-        // let the click through only when this was a click, not a drag
-        setTimeout(function () { rail.classList.remove('is-drag'); }, 0);
-      });
+      rail.addEventListener(ev, end);
     });
+
+    // swallow the click that ends a drag, so dragging never opens a card
+    rail.addEventListener('click', function (e) {
+      if (!moved) return;
+      e.preventDefault(); e.stopPropagation();
+      moved = false;
+    }, true);
+
     /* No wheel hijacking. Turning vertical wheel into horizontal scroll meant
        the page stopped moving whenever the cursor was over a rail, and only
-       resumed once the rail hit its end — which read as the scroll jamming.
-       Trackpad horizontal gestures, dragging and touch all still work. */
+       resumed once the rail hit its end — which read as the scroll jamming. */
   });
 
   /* --------------------------------------------------- cookie consent */
