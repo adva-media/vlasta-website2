@@ -157,7 +157,7 @@
    "геотеги",
    "police raid"
   ],
-  "img": "assets/img/cases/5.jpg",
+  "img": "assets/img/cases/rassledovanie-onlayn-oflayn.jpg",
   "sections": [
    {
     "h": "Ситуация",
@@ -296,7 +296,7 @@
    "отмывание средств",
    "судебное разбирательство"
   ],
-  "img": "assets/img/cases/9.jpg",
+  "img": "assets/img/cases/podderzhka-v-sude.jpg",
   "sections": [
    {
     "h": "Ситуация",
@@ -342,7 +342,7 @@
    "сценарный анализ",
    "интервью источников"
   ],
-  "img": "assets/img/cases/10.jpg",
+  "img": "assets/img/cases/strukturirovannyy-analiz.jpg",
   "sections": [
    {
     "h": "Ситуация",
@@ -430,7 +430,7 @@
    "рейдовые мероприятия",
    "уголовные дела"
   ],
-  "img": "assets/img/cases/blokirovka-kanalov.svg",
+  "img": "assets/img/cases/blokirovka-kanalov.jpg",
   "sections": [
    {
     "h": "Ситуация",
@@ -479,7 +479,7 @@
    "Казахстан",
    "уголовное дело"
   ],
-  "img": "assets/img/cases/rabota-eaes.svg",
+  "img": "assets/img/cases/rabota-eaes.jpg",
   "sections": [
    {
     "h": "Ситуация",
@@ -528,7 +528,7 @@
    "дистрибуция",
    "аналитика SKU"
   ],
-  "img": "assets/img/cases/kanaly-postavok.svg",
+  "img": "assets/img/cases/kanaly-postavok.jpg",
   "sections": [
    {
     "h": "Ситуация",

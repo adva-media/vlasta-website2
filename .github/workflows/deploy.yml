@@ -1,7 +1,15 @@
-name: Deploy to adva.media/vlasta
+name: Deploy to adva.media/website
 
 # Rebuilds every page from content/ and rsyncs the result to the server.
 # Runs on every push to main, or manually from the Actions tab.
+#
+# Required repository secrets:
+#   SSH_HOST, SSH_USER, SSH_PRIVATE_KEY, DEPLOY_PATH
+# Optional:
+#   SSH_PORT (default 22)
+#
+# DEPLOY_PATH should be the absolute server directory served at
+# https://adva.media/website/ (e.g. /var/www/adva.media/website).
 on:
   push:
     branches: [main]
@@ -32,28 +40,50 @@ jobs:
         run: node tools/check.mjs
 
       - name: Set up SSH
+        env:
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_PORT: ${{ secrets.SSH_PORT }}
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         run: |
+          # Trim whitespace / invisible chars that break ssh-keyscan when
+          # secrets were pasted from a rich-text source (seen 2026-08-03).
+          trim() {
+            python3 -c 'import sys; s=sys.stdin.read(); print("".join(s.split()).translate({0x00a0:None,0x2009:None,0x200b:None,0xfeff:None}), end="")' <<<"$1"
+          }
+          HOST="$(trim "$SSH_HOST")"
+          PORT="$(trim "${SSH_PORT:-22}")"
+          : "${HOST:?SSH_HOST secret is empty}"
           mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy_key
+          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
-          PORT="${{ secrets.SSH_PORT }}"
           # ssh-keyscan occasionally returns non-zero on a transient network
           # blip; with `bash -e` that failed the whole deploy. Retry, and only
           # give up if we still have no host key after three attempts.
           for i in 1 2 3; do
-            ssh-keyscan -T 10 -p "${PORT:-22}" -H "${{ secrets.SSH_HOST }}" >> ~/.ssh/known_hosts 2>/dev/null || true
+            ssh-keyscan -T 10 -p "${PORT:-22}" -H "$HOST" >> ~/.ssh/known_hosts 2>/dev/null || true
             if [ -s ~/.ssh/known_hosts ]; then break; fi
             echo "ssh-keyscan attempt $i produced nothing; retrying…"
             sleep 5
           done
           if [ ! -s ~/.ssh/known_hosts ]; then
-            echo "::error::could not fetch the host key for the deploy target"
+            echo "::error::could not fetch the host key for the deploy target (check SSH_HOST / SSH_PORT secrets)"
             exit 1
           fi
+          echo "HOST=$HOST" >> "$GITHUB_ENV"
+          echo "PORT=${PORT:-22}" >> "$GITHUB_ENV"
 
       - name: Deploy with rsync
+        env:
+          SSH_USER: ${{ secrets.SSH_USER }}
+          DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
         run: |
-          PORT="${{ secrets.SSH_PORT }}"
+          trim() {
+            python3 -c 'import sys; s=sys.stdin.read(); print("".join(s.split()).translate({0x00a0:None,0x2009:None,0x200b:None,0xfeff:None}), end="")' <<<"$1"
+          }
+          USER="$(trim "$SSH_USER")"
+          DEST="$(trim "$DEPLOY_PATH")"
+          : "${USER:?SSH_USER secret is empty}"
+          : "${DEST:?DEPLOY_PATH secret is empty}"
           rsync -avz --delete \
             -e "ssh -i ~/.ssh/deploy_key -p ${PORT:-22}" \
             --exclude='.git' \
@@ -69,9 +99,12 @@ jobs:
             --exclude='*.bak' \
             --exclude='*.md' \
             --exclude='server.js' \
-            ./ "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.DEPLOY_PATH }}/"
+            --exclude='.cta_*' \
+            --exclude='.DS_Store' \
+            ./ "${USER}@${HOST}:${DEST}/"
 
       - name: Summary
         run: |
-          echo "### Deployed to adva.media/vlasta" >> $GITHUB_STEP_SUMMARY
+          echo "### Deployed to adva.media/website" >> $GITHUB_STEP_SUMMARY
           echo "Pages rebuilt from \`content/\` and synced to \`${{ secrets.DEPLOY_PATH }}\`." >> $GITHUB_STEP_SUMMARY
+          echo "Preview: https://adva.media/website/" >> $GITHUB_STEP_SUMMARY

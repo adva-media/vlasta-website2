@@ -49,8 +49,8 @@
       "value": "95",
       "unit": "%",
       "pct": 95,
-      "label": "снижение количества жалоб потребителей на горячую линию",
-      "label_en": "reduction in consumer complaints to the hotline",
+      "label": "<b>Снижение количества жалоб</b> потребителей на горячую линию",
+      "label_en": "<b>Reduction in consumer complaints</b> to the hotline",
       "count": 95,
       "unit_en": "%",
       "icon": "trendDown",
@@ -59,8 +59,8 @@
     {
       "value": "4,8",
       "pct": 82,
-      "label": "предотвращённого ущерба на каждый вложенный рубль",
-      "label_en": "damage prevented for every rouble invested",
+      "label": "<b>Предотвращённого ущерба</b> на каждый вложенный рубль",
+      "label_en": "<b>Damage prevented</b> for every rouble invested",
       "count": 4.8,
       "decimals": 1,
       "unit": "",
@@ -72,8 +72,8 @@
       "value": "60",
       "unit": "%",
       "pct": 60,
-      "label": "бюджета программы возвращается через компенсации по искам",
-      "label_en": "of the programme budget recovered through claims",
+      "label": "<b>Бюджета программы возвращается</b> через компенсации по искам",
+      "label_en": "<b>Of the programme budget recovered</b> through claims",
       "count": 60,
       "unit_en": "%",
       "icon": "scales",
@@ -83,8 +83,8 @@
       "value": "4",
       "unit": "/ нед",
       "pct": 70,
-      "label": "рейда в неделю с непосредственным участием наших специалистов",
-      "label_en": "raids a week with our specialists directly involved",
+      "label": "<b>Рейда в неделю</b> с непосредственным участием наших специалистов",
+      "label_en": "<b>Raids a week</b> with our specialists directly involved",
       "unit_en": "/ wk",
       "count": 4,
       "icon": "raid",
@@ -93,172 +93,814 @@
   ],
   "services": [
     {
-      "id": "intelligence",
-      "block": "Блок I",
-      "num": "01",
-      "title": "Разведка и анализ",
-      "tagline": "Бизнес-разведка, конкурентный анализ рынка, независимая экспертиза и оценка рисков сделок.",
-      "icon": "search",
-      "intro": "Мы объединяем аналитику и доступ к проверенным источникам в России, СНГ и странах бывшего Восточного блока, помогая выстраивать стратегии, минимизирующие риски до входа в сделку или на новый рынок.",
+      "id": "brand",
+      "block": "Блок III",
+      "num": "1",
+      "img": "assets/img/services/zashita-brenda.jpg",
+      "title": "Защита бренда и ИС",
+      "tagline": "Полный цикл защиты <b>интеллектуальной собственности</b> и противодействие <b>недобросовестной конкуренции</b>.",
+      "icon": "brand",
+      "intro": "В России мы были практически первыми, кто разработал и запустил в 2006 году программу защиты товарных знаков. Работаем по всем видам нарушений — от тождества и сходства до недобросовестной конкуренции.",
       "directions": [
         {
-          "title": "Бизнес-разведка и анализ рынка",
-          "text": "Анализ рисков региона, страны и отрасли перед выходом на новые рынки, оценка конкурентной среды, поиск и проверка контрагентов, отслеживание активов и деловых связей."
+          "icon": "cert",
+          "title": "Регистрация товарных знаков",
+          "title_en": "Trademark registration",
+          "text": "Товарный знак — визитная карточка и актив бизнеса. Прежде чем его использовать, нужно обеспечить правовую охрану: мы ведём знак от проверки обозначения до свидетельства и дальше — в России и за рубежом.",
+          "text_en": "A trademark is both the face of a business and an asset on its balance sheet. Before it can be used it needs legal protection: we take a mark from the initial clearance search through to the certificate and beyond, in Russia and abroad.",
+          "bullets": [
+            "Проверка обозначения и подача заявки",
+            "Делопроизводство до получения свидетельства",
+            "Продление, изменения, зарубежная регистрация",
+            "Лицензии и договоры с третьими лицами"
+          ],
+          "bullets_en": [
+            "Clearance search and filing",
+            "Prosecution through to the certificate",
+            "Renewals, amendments, foreign registration",
+            "Licensing and third-party agreements"
+          ]
         },
         {
-          "title": "Экспертиза и оценка",
-          "text": "Независимая экспертиза при сделках M&A, оценка рисков сделок и проектов, выявление активов при банкротстве, расследование страховых случаев и структурированный анализ сложных ситуаций."
+          "icon": "shield",
+          "title": "Комплексная защита знака",
+          "title_en": "Full-scope trademark defence",
+          "text": "Защита работает, когда она планомерна и охватывает все виды нарушений сразу. Комплексное использование доступных инструментов даёт максимально возможный уровень охраны знака.",
+          "text_en": "Defence works when it is systematic and covers every type of infringement at once. Using the full set of instruments together is what produces the highest level of protection a mark can have.",
+          "bullets": [
+            "Тождество и сходство до степени смешения",
+            "Недобросовестная конкуренция",
+            "Онлайн и офлайн в одном контуре",
+            "Мониторинг рецидивов после пресечения"
+          ],
+          "bullets_en": [
+            "Identity and confusing similarity",
+            "Unfair competition",
+            "Online and offline run as one loop",
+            "Monitoring for repeat offences afterwards"
+          ]
+        },
+        {
+          "icon": "laptop",
+          "title": "Online Brand Protection System",
+          "title_en": "Online Brand Protection System",
+          "text": "Собственное веб-приложение находит нарушающий контент любого типа и ведёт досудебную работу с администраторами ресурсов, хостинг-провайдерами и регистраторами доменных имён.",
+          "text_en": "Our own web application finds infringing content of any kind and handles the pre-action work with site administrators, hosting providers and domain registrars.",
+          "bullets": [
+            "Поиск по цифровому отпечатку (hash comparison)",
+            "Связка с внутренней системой VCC: адреса точек для рейдов",
+            "Анализ администраторов и аффилированных ресурсов",
+            "Автоматический контроль повторных нарушений"
+          ],
+          "bullets_en": [
+            "Digital fingerprint matching (hash comparison)",
+            "Linked to our VCC system: physical addresses for raids",
+            "Profiling of administrators and affiliated resources",
+            "Automatic re-infringement monitoring"
+          ]
+        },
+        {
+          "icon": "board",
+          "title": "Досудебные меры в сети",
+          "title_en": "Pre-action measures online",
+          "text": "Большинство нарушений в интернете снимается без суда — если действовать быстро и по всем адресам сразу.",
+          "text_en": "Most online infringement comes down without litigation, provided you move quickly and address every party at once.",
+          "bullets": [
+            "Отбор подозрительных ссылок командой аналитиков",
+            "Жалобы администратору, регистратору и хостинг-провайдеру",
+            "Take down tools для быстрой блокировки на популярных платформах",
+            "Блокировка рекламы и результатов поиска"
+          ],
+          "bullets_en": [
+            "Suspicious links pre-selected by our analysts",
+            "Complaints to the administrator, registrar and host",
+            "Take-down tools for rapid delisting on major platforms",
+            "Blocking of advertising and search results"
+          ]
+        },
+        {
+          "icon": "raid",
+          "title": "Офлайн-защита бренда",
+          "title_en": "Offline brand protection",
+          "text": "Онлайн-след ведёт к физическому адресу. Дальше — контрольная закупка, проверка и рейд вместе с правоохранительными органами.",
+          "text_en": "An online trail leads to a physical address. From there it is a test purchase, an inspection and a raid alongside law enforcement.",
+          "bullets": [
+            "Тестовая (контрольная) закупка и проверка товара на подделку",
+            "Установление фактического адреса цели",
+            "Проверочные мероприятия с сотрудниками полиции",
+            "Сопровождение дела в суде и контроль уничтожения"
+          ],
+          "bullets_en": [
+            "Test purchase and examination of the goods offered",
+            "Establishing the real address behind the offer",
+            "Inspections carried out with police officers",
+            "Case support in court and supervision of destruction"
+          ]
+        },
+        {
+          "icon": "scales",
+          "title": "Гражданские иски",
+          "title_en": "Civil claims",
+          "text": "Когда правообладатель намерен действовать, минуя правоохранительные органы, гражданский иск часто оказывается самым результативным путём — и хорошо дополняет административные и уголовные меры.",
+          "text_en": "Where a rights holder would rather act without involving law enforcement, a civil claim is often the most effective route — and it complements administrative and criminal measures well.",
+          "bullets": [
+            "Взыскание убытков и компенсаций с нарушителя",
+            "Изъятие и уничтожение контрафакта за счёт нарушителя",
+            "Прекращение охраны чужих знаков, мешающих работе",
+            "Запрет на использование знака или объекта авторских прав"
+          ],
+          "bullets_en": [
+            "Recovery of damages and statutory compensation",
+            "Seizure and destruction of counterfeit at the infringer’s cost",
+            "Cancellation of third-party marks that block your business",
+            "Injunctions against use of a mark or copyrighted work"
+          ]
         }
       ],
       "highlights": [
-        "Проверка контрагентов и due diligence",
-        "Анализ рынка перед выходом",
-        "Структурированный анализ и профайлинг"
+        { "t": "<b>Регистрация</b> товарных знаков", "to": "cert" },
+        { "t": "<b>ТРОИС</b> и таможенный контроль", "to": "raid" },
+        { "t": "<b>Рейды</b> с полицией и таможней", "to": "raid" },
+        { "t": "<b>Online Brand Protection System</b>", "to": "laptop" }
       ],
-      "title_en": "Intelligence and analysis",
-      "tagline_en": "Business intelligence, competitive market analysis, independent expertise and deal risk assessment.",
-      "intro_en": "We combine analysis with access to verified sources across Russia, the CIS and the former Eastern Bloc, helping build strategies that reduce risk before you enter a deal or a new market.",
+      "title_en": "Brand and IP protection",
+      "tagline_en": "The full cycle of <b>intellectual property</b> protection and action against <b>unfair competition</b>.",
+      "intro_en": "In Russia we were among the very first to design and launch a trademark protection programme, back in 2006. We act on every type of infringement — from identity and confusing similarity through to unfair competition.",
       "highlights_en": [
-        "Counterparty screening and due diligence",
-        "Market analysis before entry",
-        "Structured analysis and profiling"
+        { "t": "<b>Trademark</b> registration", "to": "cert" },
+        { "t": "<b>Customs registers</b> and border control", "to": "raid" },
+        { "t": "<b>Raids</b> with police and customs", "to": "raid" },
+        { "t": "<b>Online Brand Protection System</b>", "to": "laptop" }
       ],
-      "directions_en": [
+      "channels": {
+        "title": "Мониторинг ведётся по шести типам ресурсов",
+        "title_en": "Monitoring runs across six types of resource",
+        "items": [
+          {
+            "icon": "search",
+            "h": "Поисковые машины",
+            "h_en": "Search engines",
+            "p": "Google, Яндекс",
+            "p_en": "Google, Yandex"
+          },
+          {
+            "icon": "users",
+            "h": "Социальные сети",
+            "h_en": "Social networks",
+            "p": "VK, Facebook, X",
+            "p_en": "VK, Facebook, X"
+          },
+          {
+            "icon": "board",
+            "h": "Онлайн-объявления",
+            "h_en": "Classified ads",
+            "p": "Avito, Tiu, Youla",
+            "p_en": "Avito, Tiu, Youla"
+          },
+          {
+            "icon": "chat",
+            "h": "Группы в мессенджерах",
+            "h_en": "Messenger groups",
+            "p": "Telegram, Viber",
+            "p_en": "Telegram, Viber"
+          },
+          {
+            "icon": "app",
+            "h": "App markets",
+            "h_en": "App markets",
+            "p": "App Store, Google Play",
+            "p_en": "App Store, Google Play"
+          },
+          {
+            "icon": "dark",
+            "h": "Darknet",
+            "h_en": "Darknet",
+            "p": "поисковики и сервисы",
+            "p_en": "search engines and services"
+          }
+        ]
+      },
+      "flows": [
         {
-          "title": "Business intelligence and market analysis",
-          "text": "Risk analysis by region, country and sector before entering new markets, assessment of the competitive environment, sourcing and screening of counterparties, tracing of assets and business connections."
+          "icon": "raid",
+          "title": "Рейды с полицией",
+          "title_en": "Raids with the police",
+          "note": "Рейды на производствах, в торговых точках и на складах — один из самых действенных инструментов программы. Взаимодействие с правоохранительными органами выстроено на всех этапах: от обнаружения нарушения до уничтожения контрафакта.",
+          "note_en": "Raids on production sites, retail outlets and warehouses are among the most effective instruments in the programme. Our work with law enforcement is set up at every stage, from spotting the infringement to destroying the goods.",
+          "steps": [
+            {
+              "h": "Мониторинг и сбор информации",
+              "h_en": "Monitoring and intelligence",
+              "p": "Собственное расследование до обращения в полицию: кто нарушает, где магазины и склады, какими маршрутами идёт контрафакт.",
+              "p_en": "Our own investigation before any application to the police: who is infringing, where the shops and warehouses are, and how the goods move."
+            },
+            {
+              "h": "Организация и участие в рейде",
+              "h_en": "Organising and joining the raid",
+              "p": "Наши специалисты работают в рейде вместе с полицией и дают экспертную поддержку, чтобы подделка была изъята, а нарушитель привлечён к ответственности.",
+              "p_en": "Our specialists work the raid alongside the police and provide expert support, so the fakes are seized and the infringer is held to account."
+            },
+            {
+              "h": "Независимая экспертиза изъятого",
+              "h_en": "Independent examination of seized goods",
+              "p": "Подбор экспертной организации и товароведческие исследования: подтверждаем контрафактность и факт нарушения прав.",
+              "p_en": "Selecting the expert body and running the examinations that establish the goods are counterfeit and the rights were infringed."
+            },
+            {
+              "h": "Юридическая поддержка",
+              "h_en": "Legal support",
+              "p": "Ведение уголовных и административных дел, возбуждённых по итогам рейда, чтобы нарушители не ушли от ответственности.",
+              "p_en": "Conducting the criminal and administrative cases opened after the raid, so that the infringers do not slip away from liability."
+            },
+            {
+              "h": "Уничтожение контрафакта",
+              "h_en": "Destruction of the counterfeit",
+              "p": "Сопровождение процедуры уничтожения после решения суда: подделка не должна вернуться на рынок.",
+              "p_en": "Supervising destruction once the court has ruled: the fakes must not find their way back onto the market."
+            },
+            {
+              "h": "Мониторинг после рейдов",
+              "h_en": "Post-raid monitoring",
+              "p": "Регулярные проверки выявляют рецидивы и не дают возобновить производство или продажу.",
+              "p_en": "Regular checks catch repeat offences and stop production or sales from starting up again."
+            }
+          ]
         },
         {
-          "title": "Expertise and valuation",
-          "text": "Independent expertise in M&A, assessment of deal and project risk, asset tracing in insolvency, insurance claim investigation and structured analysis of complex situations."
+          "icon": "customs",
+          "title": "Таможня и ТРОИС",
+          "title_en": "Customs and the IP register",
+          "note": "Взаимодействие с Федеральной таможенной службой России и таможенными органами других стран останавливает контрафакт до того, как он попадёт на рынок.",
+          "note_en": "Working with the Russian Federal Customs Service and with customs authorities abroad stops counterfeit goods before they ever reach the market.",
+          "steps": [
+            {
+              "h": "Стратегия защиты",
+              "h_en": "Protection strategy",
+              "p": "Сначала выясняем основные маршруты и способы поставки контрафакта в страну, затем выстраиваем последовательность действий.",
+              "p_en": "First we establish the main routes and methods by which counterfeit enters the country, then we set the order of action."
+            },
+            {
+              "h": "Внесение в ТРОИС",
+              "h_en": "Entry into the Russian customs register",
+              "p": "Регистрация знаков и объектов авторских прав в таможенном реестре РФ. Мы внесли в ТРОИС десятки объектов.",
+              "p_en": "Registering marks and copyrighted works in the Russian customs register. We have entered dozens of objects into it."
+            },
+            {
+              "h": "Зарубежные таможенные реестры",
+              "h_en": "Foreign customs registers",
+              "p": "Если контрафакт заходит через Беларусь или Казахстан, знак вносится в национальные реестры этих стран ЕАЭС.",
+              "p_en": "If the goods come in through Belarus or Kazakhstan, the mark is entered into the national registers of those EAEU states."
+            },
+            {
+              "h": "Представление интересов правообладателя",
+              "h_en": "Acting for the rights holder",
+              "p": "Реакция на сигналы таможни, ответы на запросы, предоставление документов и поддержка административных дел в суде.",
+              "p_en": "Responding to customs alerts and enquiries, supplying documents, and supporting the administrative cases in court."
+            },
+            {
+              "h": "Семинары и тренинги для таможни",
+              "h_en": "Customs seminars and training",
+              "p": "Обновление информации о признаках контрафактности, обучающие семинары, юридические консультации, совместные проекты.",
+              "p_en": "Keeping officers current on the signs of counterfeiting, running training seminars, giving legal guidance, joint projects."
+            },
+            {
+              "h": "Контроль после выпуска товаров",
+              "h_en": "Post-clearance control",
+              "p": "Таможня вправе проводить проверки и внутри Таможенного союза: обеспечиваем экспертную и юридическую поддержку таких рейдов.",
+              "p_en": "Customs may also act on goods already inside the Customs Union: we provide the expert and legal support for those raids."
+            },
+            {
+              "h": "Борьба с параллельным импортом",
+              "h_en": "Action against parallel imports",
+              "p": "Ввоз оригинального товара без разрешения правообладателя останавливается реестром и иском о компенсации.",
+              "p_en": "Original goods imported without the brand owner’s consent are stopped by the register and a claim for compensation."
+            }
+          ]
+        },
+        {
+          "icon": "scales",
+          "title": "Судебная защита",
+          "title_en": "Litigation",
+          "note": "Юристы компании ведут дела в арбитражных судах и судах общей юрисдикции — от первой инстанции до исполнительного производства.",
+          "note_en": "Our lawyers run cases in the commercial courts and the courts of general jurisdiction, from first instance through to enforcement.",
+          "steps": [
+            {
+              "h": "Предварительная консультация",
+              "h_en": "Initial consultation",
+              "p": "Разбор конфликта и выбор стратегии — досудебной или судебной — с оценкой большей части рисков ещё на этапе планирования.",
+              "p_en": "Reading the conflict and choosing the strategy, pre-action or litigation, with most of the risks weighed at the planning stage."
+            },
+            {
+              "h": "C&D письма",
+              "h_en": "Cease and desist letters",
+              "p": "Предупредительное письмо с требованием прекратить нарушение — самый быстрый и дешёвый способ закрыть конфликт.",
+              "p_en": "A warning letter demanding the infringement stops is the quickest and cheapest way to close a dispute."
+            },
+            {
+              "h": "Подготовка и подача иска",
+              "h_en": "Preparing and filing the claim",
+              "p": "Сбор и анализ доказательств, подготовка искового заявления, ведение дела вплоть до решения суда.",
+              "p_en": "Gathering and analysing evidence, drafting the statement of claim and running the case through to judgment."
+            },
+            {
+              "h": "Обжалование",
+              "h_en": "Appeals",
+              "p": "Представление интересов правообладателя при обжаловании решений в вышестоящих инстанциях.",
+              "p_en": "Acting for the rights holder when decisions are appealed to the higher courts."
+            },
+            {
+              "h": "Исполнение решения",
+              "h_en": "Enforcement",
+              "p": "Сопровождение исполнительного производства: и выплата компенсации, и остальные требования.",
+              "p_en": "Supporting enforcement proceedings, both for payment of compensation and for the remaining relief."
+            }
+          ]
         }
       ]
     },
     {
       "id": "security",
       "block": "Блок II",
-      "num": "02",
+      "num": "2",
+      "img": "assets/img/services/biznes-bezopasnost.jpg",
       "title": "Безопасность бизнеса",
-      "tagline": "Информационная, экономическая и физическая безопасность: проверки, аудит, охрана объектов и людей.",
+      "tagline": "Информационная, экономическая и физическая безопасность: <b>проверки</b>, <b>аудит</b>, охрана объектов и людей.",
       "icon": "shield",
       "intro": "Двадцать лет опыта сделали из нас команду, которой клиенты доверяют защиту бизнеса и первых лиц. Подход «одного окна» усилен информационной проверкой и комплексной оценкой рисков объектов.",
       "directions": [
         {
-          "title": "Информационная и экономическая безопасность",
-          "text": "Проверка персонала и кандидатов (background check), комплаенс по стандартам KYC / AML и FCPA / UKBA, выявление PEP и санкционных рисков, аудит уязвимостей бизнес-процессов, расследование внутренних хищений и корпоративного мошенничества."
+          "icon": "check",
+          "title": "Комплаенс и проверка контрагентов",
+          "title_en": "Compliance and counterparty screening",
+          "text": "Мы знаем, с какими рисками сталкиваются иностранные компании в России, СНГ и Восточной Европе, и готовим проверки по американским и европейским стандартам.",
+          "text_en": "We know the risks foreign companies meet in Russia, the CIS and Eastern Europe, and we prepare screening to American and European standards.",
+          "bullets": [
+            "Соответствие принципам KYC / AML",
+            "Комплексные проверки по FCPA / UKBA",
+            "Выявление политически значимых лиц (PEP)",
+            "Оценка санкционных рисков"
+          ],
+          "bullets_en": [
+            "KYC / AML conformity",
+            "Full due diligence to FCPA / UKBA",
+            "Identification of politically exposed persons",
+            "Sanctions risk assessment"
+          ]
         },
         {
-          "title": "Физическая безопасность",
-          "text": "Персональная охрана первых лиц и гостей, транспортная безопасность от формата Meet & Greet до многодневного сопровождения, безопасность публичных и массовых мероприятий. По каждому проекту — англоговорящие координаторы на связи 24/7."
+          "icon": "users",
+          "title": "Проверка бэкграунда",
+          "title_en": "Background screening",
+          "text": "Каким бы безупречным ни было резюме, новые отношения могут нести существенный риск. Проверка закрывает конфликты интересов, преступные связи и скрытые эпизоды биографии.",
+          "text_en": "However spotless a CV looks, a new relationship can still carry real risk. Screening closes off conflicts of interest, criminal ties and hidden episodes in a history.",
+          "bullets": [
+            "Репутационная информация в открытых источниках",
+            "Регистрационные данные и деловые связи",
+            "Розыскные базы и санкционные списки",
+            "Реестры регулирующих органов и судебные реестры",
+            "Оперативные запросы и интервью"
+          ],
+          "bullets_en": [
+            "Reputational material in open sources",
+            "Registration data and business connections",
+            "Wanted-persons databases and sanctions lists",
+            "Regulator registers and court records",
+            "Source enquiries and interviews"
+          ]
+        },
+        {
+          "icon": "laptop",
+          "title": "Онлайн-система проверки соискателя",
+          "title_en": "Online candidate screening system",
+          "text": "Веб-приложение обрабатывает анкету автоматически и соотносит кандидата с уровнем риска — без отдельной кадровой службы безопасности и без месяцев ожидания решения.",
+          "text_en": "A web application processes the questionnaire automatically and places the candidate on a risk level, with no separate in-house vetting team and no months of waiting.",
+          "bullets": [
+            "Кандидат заполняет анкету сам, по персональному токену",
+            "Первичные данные формируются системой автоматически",
+            "Углублённый анализ — на стороне наших специалистов",
+            "Итог: уровень риска и отчёт по кандидату"
+          ],
+          "bullets_en": [
+            "The candidate fills in the form himself, using a personal token",
+            "The system compiles the primary data automatically",
+            "The deeper analysis sits with our specialists",
+            "The result: a risk level and a report on the candidate"
+          ]
+        },
+        {
+          "icon": "search",
+          "title": "Корпоративные расследования",
+          "title_en": "Corporate investigations",
+          "text": "Подозрения в мошенничестве, растрате или сговоре редко удаётся разобрать внутри компании. Раскрытые нами схемы возвращали клиентам упущенную прибыль, исчисляемую миллиардами рублей.",
+          "text_en": "Suspicions of fraud, embezzlement or collusion are rarely something a company can unpick from the inside. The schemes we have uncovered had cost clients profit measured in billions of roubles.",
+          "bullets": [
+            "Расследование случаев мошенничества",
+            "Выявление незаконного присвоения активов",
+            "Нарушения деловой этики",
+            "Проверки в сделках слияния и поглощения"
+          ],
+          "bullets_en": [
+            "Investigation of fraud",
+            "Detection of asset misappropriation",
+            "Breaches of business ethics",
+            "Due diligence in mergers and acquisitions"
+          ]
+        },
+        {
+          "icon": "scales",
+          "title": "Корпоративные споры",
+          "title_en": "Corporate disputes",
+          "text": "Угрозы корпоративному управлению приходят и снаружи, и изнутри — особенно там, где недобросовестные участники рынка привыкли действовать в обход закона и деловой этики.",
+          "text_en": "Threats to corporate governance come from outside and from within, particularly where unscrupulous players are used to working around the law and business ethics.",
+          "bullets": [
+            "Противодействие шантажу и вымогательству",
+            "Пресечение кампаний клеветнического характера",
+            "Меры предосторожности против гринмейла",
+            "Противодействие манипуляциям с отчётностью"
+          ],
+          "bullets_en": [
+            "Countering blackmail and extortion",
+            "Shutting down defamation campaigns",
+            "Precautions against greenmail",
+            "Countering manipulation of financial reporting"
+          ]
+        },
+        {
+          "icon": "shield",
+          "title": "Личная охрана",
+          "title_en": "Close protection",
+          "text": "Телохранители с аналитическим складом ума, знанием английского и представительской внешностью. Вооружённая или невооружённая охрана — по профилю риска.",
+          "text_en": "Bodyguards with an analytical turn of mind, English, and an appearance that draws no attention. Armed or unarmed, according to the risk profile.",
+          "bullets": [
+            "Охрана первых лиц и гостей компании",
+            "Состав группы определяется профилем риска",
+            "Англоговорящие координаторы на связи 24/7"
+          ],
+          "bullets_en": [
+            "Protection for principals and company guests",
+            "The detail is sized to the risk profile",
+            "English-speaking coordinators on call 24/7"
+          ]
+        },
+        {
+          "icon": "car",
+          "title": "Транспортная безопасность",
+          "title_en": "Transport security",
+          "text": "От формата Meet & Greet до многодневного сопровождения. Под проект подбирается класс автомобиля и уровень подготовки водителя.",
+          "text_en": "From Meet & Greet through to details running several days. The class of vehicle and the driver’s training are matched to the assignment.",
+          "bullets": [
+            "Премиальный седан для гостя, внедорожники сопровождения",
+            "Бизнес-шаттл Mercedes-Benz V-class для групп",
+            "Бронированные автомобили и водители с навыками экстремального вождения"
+          ],
+          "bullets_en": [
+            "A premium saloon for the principal, escort SUVs alongside",
+            "A Mercedes-Benz V-class shuttle for groups",
+            "Armoured vehicles and drivers trained in evasive driving"
+          ]
+        },
+        {
+          "icon": "event",
+          "title": "Безопасность мероприятий",
+          "title_en": "Event security",
+          "text": "Для мероприятий, которые освещаются в СМИ, даже мелкий инцидент несёт репутационный риск для организаторов. Здесь работает «бесшовный» контур безопасности.",
+          "text_en": "At events covered by the press, even a minor incident is a reputational risk for the organisers. This is where a seamless security perimeter earns its place.",
+          "bullets": [
+            "Скрининг списков участников мероприятия",
+            "Оценка помещений, пути эвакуации, действия в нештатных ситуациях",
+            "Логистика поездок, пропуска, координация подрядчиков",
+            "Безопасность в местах проживания, включая гостиницы"
+          ],
+          "bullets_en": [
+            "Screening of the guest and participant lists",
+            "Venue assessment, evacuation routes, response to incidents",
+            "Travel logistics, passes, coordination of contractors",
+            "Security at places of residence, hotels included"
+          ]
+        },
+        {
+          "icon": "layers",
+          "title": "Комплексная система безопасности",
+          "title_en": "An integrated security system",
+          "text": "Чем выше компания в своём развитии, тем дороже обходится каждый инцидент. Эффективнее не реагировать на возникшие риски, а построить систему, которая их предупреждает.",
+          "text_en": "The further a company has come, the more each incident costs it. Building a system that anticipates risk beats reacting to it after the fact.",
+          "bullets": [
+            "Внешние риски: хищение продукции и интеллектуальной собственности",
+            "Внутренние риски: махинации, шантаж руководства, угрозы персоналу",
+            "Аудит уязвимостей бизнес-процессов"
+          ],
+          "bullets_en": [
+            "External risk: theft of product and of intellectual property",
+            "Internal risk: financial schemes, blackmail of management, threats to staff",
+            "Audit of vulnerabilities in business processes"
+          ]
         }
       ],
       "highlights": [
-        "Комплаенс KYC / AML, FCPA / UKBA",
-        "Корпоративные расследования",
-        "Охрана первых лиц и мероприятий"
+        { "t": "Комплаенс <b>KYC / AML</b>, <b>FCPA / UKBA</b>", "to": "check" },
+        { "t": "<b>Корпоративные расследования</b>", "to": "search" },
+        { "t": "<b>Охрана</b> первых лиц и мероприятий", "to": "shield" }
       ],
       "title_en": "Business security",
-      "tagline_en": "Information, economic and physical security: screening, audit, protection of premises and people.",
+      "tagline_en": "Information, economic and physical security: <b>screening</b>, <b>audit</b>, protection of premises and people.",
       "intro_en": "Twenty years of experience have made us a team clients trust with the protection of their business and their principals. The single point of contact is reinforced by information screening and a full risk assessment of the sites involved.",
       "highlights_en": [
-        "KYC / AML and FCPA / UKBA compliance",
-        "Corporate investigations",
-        "Close protection and event security"
+        { "t": "<b>KYC / AML</b> and <b>FCPA / UKBA</b> compliance", "to": "check" },
+        { "t": "<b>Corporate investigations</b>", "to": "search" },
+        { "t": "<b>Close protection</b> and event security", "to": "shield" }
       ],
-      "directions_en": [
+      "flows": [
         {
-          "title": "Information and economic security",
-          "text": "Background checks on staff and candidates, compliance to KYC / AML and FCPA / UKBA standards, identification of politically exposed persons and sanctions risk, audit of process vulnerabilities, investigation of internal theft and corporate fraud."
-        },
-        {
-          "title": "Physical security",
-          "text": "Close protection for principals and guests, transport security from Meet & Greet through to multi-day details, and security for public and large-scale events. Every engagement has English-speaking coordinators available 24/7."
+          "icon": "laptop",
+          "title": "Как устроена проверка соискателя",
+          "title_en": "How candidate screening works",
+          "note": "Обычно решение по кандидату затягивается на месяцы: кадры оценивают профессиональные качества, служба безопасности проверяет достоверность сведений, и каждый этап стоит денег. Наша система сокращает и сроки, и расходы, оставаясь в рамках правовых норм.",
+          "note_en": "A decision on a candidate usually drags on for months: HR weighs the professional side, the security team checks whether the information holds up, and every stage costs money. Our system cuts both the time and the cost, and stays within the law.",
+          "steps": [
+            {
+              "h": "Создание токена",
+              "h_en": "Token created",
+              "p": "Клиент заводит кандидата в системе и получает персональную ссылку на анкету.",
+              "p_en": "The client enters the candidate in the system and receives a personal link to the questionnaire."
+            },
+            {
+              "h": "Заполнение анкеты",
+              "h_en": "The candidate fills it in",
+              "p": "Кандидат вносит данные сам; наша техническая поддержка помогает ему на всём протяжении заполнения.",
+              "p_en": "The candidate enters the data himself, with our technical support on hand throughout."
+            },
+            {
+              "h": "Автоматическая обработка",
+              "h_en": "Automatic processing",
+              "p": "Система перерабатывает анкету и формирует первичные данные для передачи специалистам.",
+              "p_en": "The system processes the form and compiles the primary data for the specialists."
+            },
+            {
+              "h": "Углублённый анализ",
+              "h_en": "In-depth analysis",
+              "p": "Проверка достоверности сведений, деловых связей и фактов биографии, при необходимости — дополнение данных.",
+              "p_en": "Verification of the information, the business connections and the personal history, with further data added where needed."
+            },
+            {
+              "h": "Отчёт и уровень риска",
+              "h_en": "Report and risk level",
+              "p": "Кандидат соотносится с одним из уровней риска для компании, клиент получает готовый отчёт.",
+              "p_en": "The candidate is placed on one of the risk levels for the company and the client receives the finished report."
+            }
+          ]
         }
       ]
     },
     {
-      "id": "brand",
-      "block": "Блок III",
-      "num": "03",
-      "title": "Защита бренда и ИС",
-      "tagline": "Полный цикл защиты интеллектуальной собственности и противодействие недобросовестной конкуренции.",
-      "icon": "brand",
-      "intro": "В России мы были практически первыми, кто разработал и запустил в 2006 году программу защиты товарных знаков. Работаем по всем видам нарушений — от тождества и сходства до недобросовестной конкуренции.",
+      "id": "intelligence",
+      "block": "Блок I",
+      "num": "3",
+      "img": "assets/img/services/strukturirovaniy-analiz.jpg",
+      "title": "Разведка и анализ",
+      "tagline": "<b>Бизнес-разведка</b>, конкурентный анализ рынка, независимая экспертиза и <b>оценка рисков</b> сделок.",
+      "icon": "search",
+      "intro": "Мы объединяем аналитику и доступ к проверенным источникам в России, СНГ и странах бывшего Восточного блока, помогая выстраивать стратегии, минимизирующие риски до входа в сделку или на новый рынок.",
       "directions": [
         {
-          "title": "Защита интеллектуальной собственности",
-          "text": "Регистрация и сопровождение товарных знаков в России и за рубежом, внесение в ТРОИС и зарубежные таможенные реестры, рейды с полицией и таможней, независимая экспертиза изъятого, контроль уничтожения контрафакта, гражданские иски и взыскание компенсаций."
+          "icon": "globe",
+          "title": "Анализ рисков региона и страны",
+          "title_en": "Country and regional risk analysis",
+          "text": "У каждой территории свой набор обстоятельств, который заметно влияет на бизнес-процессы. Их стоит оценить до входа, а не после.",
+          "text_en": "Every territory carries its own set of circumstances that bear on how business is done. They are worth assessing before entry rather than after.",
+          "bullets": [
+            "Национальные и религиозные особенности среды",
+            "Политические риски и их влияние на деловой климат",
+            "Уровень преступности в регионе и в отрасли",
+            "Уровень коррупции и легальные методы работы с госструктурами",
+            "Террористическая угроза в регионе"
+          ],
+          "bullets_en": [
+            "National and religious character of the environment",
+            "Political risk and its effect on the business climate",
+            "Crime levels in the region and in the sector",
+            "Corruption levels and the lawful ways of dealing with state bodies",
+            "The terrorist threat in the region"
+          ]
         },
         {
-          "title": "Противодействие недобросовестной конкуренции",
-          "text": "Online Brand Protection System: мониторинг поисковиков, соцсетей, маркетплейсов, мессенджеров, app-маркетов и досок объявлений, поиск по цифровому отпечатку, досудебные меры с быстрой блокировкой карточек и ссылок, борьба с параллельным импортом."
+          "icon": "growth",
+          "title": "Анализ рынка и отрасли",
+          "title_en": "Market and sector analysis",
+          "text": "Выход в новую индустрию требует полной картины: динамика рынка, расстановка сил между игроками, их сильные и слабые стороны. Глубина анализа задаётся ожидаемым объёмом операций — от общего обзора до узкой задачи.",
+          "text_en": "Entering a new industry calls for the whole picture: market dynamics, the balance of power between the players, where each is strong and weak. The depth is set by the scale of operations planned, from a broad survey to one narrow question.",
+          "bullets": [],
+          "bullets_en": []
+        },
+        {
+          "icon": "radar",
+          "title": "Мониторинг угроз",
+          "title_en": "Threat monitoring",
+          "text": "Безопасность операций зависит от того, насколько чист информационный поток. Его искажают и скрытые стороны, ищущие слабые места, и недобросовестные сотрудники.",
+          "text_en": "The safety of an operation depends on how clean its information flow is. That flow is distorted both by hidden parties probing for weak points and by staff acting in bad faith.",
+          "bullets": [
+            "Сбор из открытых источников и контент-анализ",
+            "Репутационные запросы и интервью",
+            "Меры по минимизации выявленных рисков"
+          ],
+          "bullets_en": [
+            "Open-source collection and content analysis",
+            "Reputational enquiries and interviews",
+            "Measures to reduce the risks identified"
+          ]
+        },
+        {
+          "icon": "coins",
+          "title": "Отслеживание активов и поиск людей",
+          "title_en": "Asset tracing and locating people",
+          "text": "Поиск частных лиц и их активов по России, СНГ и Восточной Европе: анализ открытых данных плюс полевые расследования на местах.",
+          "text_en": "Finding individuals and their assets across Russia, the CIS and Eastern Europe: open-data analysis backed by field enquiries on the ground.",
+          "bullets": [
+            "Выявление финансовых и материальных активов",
+            "Поиск жертв мошенничества, наследников, членов семьи",
+            "Корпоративные активы и скрытые деловые связи при банкротстве",
+            "Обоснование позиции в суде и взыскание задолженности"
+          ],
+          "bullets_en": [
+            "Identification of financial and physical assets",
+            "Locating fraud victims, heirs and family members",
+            "Corporate assets and hidden connections in insolvency",
+            "Building the case in court and recovering debt"
+          ]
+        },
+        {
+          "icon": "legal",
+          "title": "Расследование страховых случаев",
+          "title_en": "Insurance claim investigation",
+          "text": "По данным Ассоциации европейских следователей, примерно каждое десятое обращение по страховому случаю оказывается мошенническим.",
+          "text_en": "According to the Association of European Investigators, roughly one insurance claim in ten turns out to be fraudulent.",
+          "bullets": [
+            "Оценка обращений по страховым случаям",
+            "Проверка подлинности представленных документов",
+            "Полевые расследования на месте"
+          ],
+          "bullets_en": [
+            "Assessment of the claims submitted",
+            "Verification of the documents provided",
+            "Field investigation at the scene"
+          ]
+        },
+        {
+          "icon": "layers",
+          "title": "Структурированный анализ",
+          "title_en": "Structured analysis",
+          "text": "Набор инструментов для случаев, где простые подходы не дают результата: большие массивы данных, запутанные связи, конфликтующие версии.",
+          "text_en": "A toolkit for the cases where simpler approaches produce nothing: large volumes of data, tangled connections, competing versions of events.",
+          "bullets": [
+            "Декомпозиция и визуализация данных",
+            "Схематический анализ",
+            "Изучение и анализ документов",
+            "Анализ угроз и рисков",
+            "Разработка и проверка гипотез",
+            "Аналитическое управление конфликтами"
+          ],
+          "bullets_en": [
+            "Data decomposition and visualisation",
+            "Link and schematic analysis",
+            "Document review and analysis",
+            "Threat and risk analysis",
+            "Building and testing hypotheses",
+            "Analytical conflict management"
+          ]
         }
       ],
       "highlights": [
-        "ТРОИС и таможенный контроль",
-        "Рейды с полицией и таможней",
-        "Online Brand Protection System"
+        { "t": "Проверка контрагентов и <b>due diligence</b>", "to": "security/check" },
+        { "t": "<b>Анализ рынка</b> перед выходом", "to": "growth" },
+        { "t": "<b>Структурированный анализ</b> и профайлинг", "to": "layers" }
       ],
-      "title_en": "Brand and IP protection",
-      "tagline_en": "The full cycle of intellectual property protection and action against unfair competition.",
-      "intro_en": "In Russia we were among the very first to design and launch a trademark protection programme, back in 2006. We act on every type of infringement — from identity and confusing similarity through to unfair competition.",
+      "title_en": "Intelligence and analysis",
+      "tagline_en": "<b>Business intelligence</b>, competitive market analysis, independent expertise and <b>deal risk</b> assessment.",
+      "intro_en": "We combine analysis with access to verified sources across Russia, the CIS and the former Eastern Bloc, helping build strategies that reduce risk before you enter a deal or a new market.",
       "highlights_en": [
-        "Customs registers and border control",
-        "Raids with police and customs",
-        "Online Brand Protection System"
-      ],
-      "directions_en": [
-        {
-          "title": "Intellectual property protection",
-          "text": "Registration and maintenance of trademarks in Russia and abroad, entry into Russian and foreign customs registers, raids with police and customs, independent expert examination of seized goods, supervision of counterfeit destruction, civil claims and recovery of compensation."
-        },
-        {
-          "title": "Action against unfair competition",
-          "text": "Online Brand Protection System: monitoring of search engines, social networks, marketplaces, messengers, app stores and classified-ad boards, digital fingerprint matching, pre-action measures with rapid delisting of listings and links, and action against parallel imports."
-        }
+        { "t": "Counterparty screening and <b>due diligence</b>", "to": "security/check" },
+        { "t": "<b>Market analysis</b> before entry", "to": "growth" },
+        { "t": "<b>Structured analysis</b> and profiling", "to": "layers" }
       ]
     },
     {
       "id": "consulting",
       "block": "Блок IV",
-      "num": "04",
+      "num": "4",
+      "img": "assets/img/services/konsalting.jpg",
       "title": "Консалтинг",
-      "tagline": "Стратегическое и юридическое сопровождение: взаимодействие с госорганами, суды, кризисное реагирование.",
+      "tagline": "Стратегическое и юридическое сопровождение: взаимодействие с <b>госорганами</b>, <b>суды</b>, кризисное реагирование.",
       "icon": "scales",
       "intro": "Сопровождаем клиента от постановки задачи до защиты интересов в суде, включая взаимодействие с государственными органами и кризисное реагирование в спорных ситуациях.",
       "directions": [
         {
+          "icon": "coord",
           "title": "Стратегический консалтинг",
-          "text": "Построение целостной системы экономической безопасности предприятия, взаимодействие с государственными и контролирующими органами, аналитическая поддержка управленческих решений, кризисное реагирование."
+          "title_en": "Strategic consulting",
+          "text": "Построение целостной системы экономической безопасности предприятия и аналитическая поддержка решений, которые принимаются наверху.",
+          "text_en": "Building a coherent economic security system for the enterprise, and analytical support for the decisions taken at the top.",
+          "bullets": [
+            "Система экономической безопасности предприятия",
+            "Взаимодействие с государственными и контролирующими органами",
+            "Аналитическая поддержка управленческих решений",
+            "Кризисное реагирование"
+          ],
+          "bullets_en": [
+            "An economic security system for the enterprise",
+            "Dealings with state and supervisory authorities",
+            "Analytical support for management decisions",
+            "Crisis response"
+          ]
         },
         {
+          "icon": "legal",
           "title": "Юридический консалтинг",
-          "text": "Досудебные C&D-письма, подготовка и подача исков, обжалование и исполнение судебных решений, разрешение корпоративных споров, противодействие шантажу, гринмейлу и манипуляциям с отчётностью."
+          "title_en": "Legal consulting",
+          "text": "Сопровождение от досудебного письма до исполнения решения, включая корпоративные конфликты и защиту от недобросовестных приёмов.",
+          "text_en": "Support from the first pre-action letter through to enforcement, corporate conflicts and defence against bad-faith tactics included.",
+          "bullets": [
+            "Досудебные C&D-письма и переговоры",
+            "Подготовка и подача исков",
+            "Обжалование и исполнение судебных решений",
+            "Корпоративные споры, гринмейл, манипуляции с отчётностью"
+          ],
+          "bullets_en": [
+            "Pre-action C&D letters and negotiation",
+            "Preparing and filing claims",
+            "Appeals and enforcement of judgments",
+            "Corporate disputes, greenmail, reporting manipulation"
+          ]
         }
       ],
       "highlights": [
-        "Взаимодействие с госорганами",
-        "Сопровождение в суде",
-        "Корпоративные споры и кризисы"
+        { "t": "Взаимодействие с <b>госорганами</b>", "to": "coord" },
+        { "t": "<b>Сопровождение в суде</b>", "to": "legal" },
+        { "t": "<b>Корпоративные споры</b> и кризисы", "to": "legal" }
       ],
       "title_en": "Consulting",
-      "tagline_en": "Strategic and legal support: engagement with state authorities, litigation, crisis response.",
+      "tagline_en": "Strategic and legal support: engagement with <b>state authorities</b>, <b>litigation</b>, crisis response.",
       "intro_en": "We support the client from the initial brief through to representation in court, including engagement with state authorities and crisis response in contested situations.",
       "highlights_en": [
-        "Engagement with state authorities",
-        "Litigation support",
-        "Corporate disputes and crises"
-      ],
-      "directions_en": [
-        {
-          "title": "Strategic consulting",
-          "text": "Building a coherent economic security system for the enterprise, engagement with state and supervisory authorities, analytical support for management decisions, and crisis response."
-        },
-        {
-          "title": "Legal consulting",
-          "text": "Pre-action cease and desist letters, preparation and filing of claims, appeals and enforcement of judgments, resolution of corporate disputes, and action against blackmail, greenmail and manipulation of reporting."
-        }
+        { "t": "Engagement with <b>state authorities</b>", "to": "coord" },
+        { "t": "<b>Litigation support</b>", "to": "legal" },
+        { "t": "<b>Corporate disputes</b> and crises", "to": "legal" }
       ]
+    }
+  ],
+  "departments": [
+    {
+      "icon": "search",
+      "x": 0.16,
+      "y": 0.24,
+      "short": "Аналитика",
+      "title": "Аналитический отдел",
+      "text": "Аналитический отдел осуществляет сбор, проверку и обработку информации, а также проводит комплексный анализ деятельности компаний, отдельных лиц и рынков. Мы выявляем потенциальные риски и нарушения, формируя объективные и структурированные материалы, которые могут быть использованы для принятия управленческих и правовых решений.",
+      "title_en": "Analytics department",
+      "short_en": "Analytics",
+      "text_en": "The analytics department collects, verifies and processes information, and conducts comprehensive analysis of companies, individuals and markets. We identify potential risks and violations, producing objective structured materials for management and legal decisions."
+    },
+    {
+      "icon": "legal",
+      "x": 0.84,
+      "y": 0.2,
+      "short": "Право",
+      "title": "Юридический отдел",
+      "text": "Юридический отдел обеспечивает правовую поддержку проектов на всех этапах. Специалисты отдела осуществляют консультирование, участвуют в судебных процессах, а также разрабатывают правовые стратегии, направленные на защиту интересов клиента.",
+      "title_en": "Legal department",
+      "short_en": "Legal",
+      "text_en": "The legal department provides legal support at every stage of a project — advisory work, litigation, and legal strategies designed to protect the client's interests."
+    },
+    {
+      "icon": "ops",
+      "x": 0.5,
+      "y": 0.5,
+      "short": "Операции",
+      "title": "Оперативный отдел",
+      "text": "Оперативный отдел представлен специалистами, работающими в Москве, Московской области, а также в регионах России и странах СНГ. Подразделение выполняет выездные задачи, участвуют в проверках и рейдовых мероприятиях, обеспечивая получение фактической информации и оперативное реагирование в рамках реализуемых проектов.",
+      "title_en": "Operations department",
+      "short_en": "Operations",
+      "text_en": "The operations department covers Moscow, the Moscow region, Russia's regions and the CIS. The team handles field assignments, inspections and raids, delivering factual intelligence and rapid response within each project."
+    },
+    {
+      "icon": "coord",
+      "x": 0.18,
+      "y": 0.78,
+      "short": "Координация",
+      "title": "Отдел координации проектов",
+      "text": "Отдел координации проектов обеспечивает организацию и контроль всех этапов работы. Менеджеры сопровождают проекты, координируют взаимодействие между подразделениями, контролируют сроки и качество выполнения задач, а также обеспечивают прозрачность процессов для клиента.",
+      "title_en": "Project coordination",
+      "short_en": "Coordination",
+      "text_en": "The project coordination department organises and monitors every stage of work — managing timelines, quality and cross-department communication, and keeping processes transparent for the client."
+    },
+    {
+      "icon": "laptop",
+      "x": 0.82,
+      "y": 0.76,
+      "short": "IT / Online",
+      "title": "IT / Онлайн-отдел",
+      "text": "IT и онлайн-отдел занимается реализацией задач в цифровой среде. Включает работу с маркетплейсами, проведение онлайн-проверок, мониторинг и анализ интернет-активности, а также выполнение проектов в рамках удалённого взаимодействия и контрактной работы.",
+      "title_en": "IT / Online department",
+      "short_en": "IT / Online",
+      "text_en": "The IT and online department handles digital assignments — marketplaces, online checks, monitoring and analysis of internet activity, and remote or contract-based project delivery."
     }
   ],
   "approach": [
@@ -299,18 +941,18 @@
     {
       "year": "2025",
       "title": "Медаль МПА и масштабирование в ЕАЭС",
-      "text": "Медаль «Солидарность полиции» от Международной полицейской ассоциации и расширение географии до стран ЕАЭС с комплексными программами защиты брендов.",
+      "text": "Генеральный директор Владимир Соломанидин награжден Всероссийской полицейской ассоциацией МПА медалью «Солидарность Полиции». География деятельности расширена до стран Евразийского экономического союза с запуском комплексных программ защиты брендов на новых рынках.",
       "highlight": true,
       "title_en": "IPA medal and EAEU expansion",
-      "text_en": "The “Police Solidarity” medal from the International Police Association, and expansion across the EAEU with full brand protection programmes.",
+      "text_en": "CEO Vladimir Solomanidin was awarded the “Police Solidarity” medal by the All-Russian Police Association (IPA). Operations expanded across the Eurasian Economic Union with full brand protection programmes on new markets.",
       "icon": "growth"
     },
     {
       "year": "2024",
       "title": "Новое направление",
-      "text": "Запущено направление по борьбе с недобросовестной конкуренцией.",
+      "text": "Запущено направление по борьбе с недобросовестной конкуренцией, расширившее спектр услуг для клиентов.",
       "title_en": "A new practice area",
-      "text_en": "Launch of a dedicated practice against unfair competition.",
+      "text_en": "Launch of a practice against unfair competition, broadening the range of services for clients.",
       "icon": "layers"
     },
     {
@@ -324,33 +966,33 @@
     {
       "year": "2020",
       "title": "Масштабирование brand protection",
-      "text": "Выход на уровень защиты более 80 брендов и позиции ведущего лидера рынка.",
+      "text": "Компания вышла на уровень защиты более 80 брендов, укрепив позиции ведущего лидера на рынке.",
       "title_en": "Brand protection at scale",
-      "text_en": "Passing 80 brands under protection and taking a leading position in the market.",
+      "text_en": "The company passed 80 brands under protection, consolidating its position as a market leader.",
       "icon": "brand"
     },
     {
       "year": "2015",
-      "title": "Медаль В. В. Леонтьева",
+      "title": "Медаль В.В. Леонтьева",
       "text": "Владимир Соломанидин награждён медалью «За достижения в экономике».",
-      "title_en": "The V. V. Leontief medal",
+      "title_en": "The V.V. Leontief medal",
       "text_en": "Vladimir Solomanidin awarded the medal “For Achievements in Economics”.",
       "icon": "medal"
     },
     {
       "year": "2014",
-      "title": "Трофей WAD «Детектив года»",
-      "text": "Алексей Соломанидин удостоен профессионального трофея Всемирной ассоциации детективов.",
-      "title_en": "WAD “Detective of the Year” trophy",
-      "text_en": "Alexey Solomanidin received the professional trophy of the World Association of Detectives.",
+      "title": "Награда имени Нормана Дж. Слоуна",
+      "text": "Памятная награда вручена Ассоциацией Детективов Владимиру Соломанидину за долгую и безупречную службу в сфере расследований и обеспечения безопасности",
+      "title_en": "The Norman J. Sloan Award",
+      "text_en": "A commemorative award presented by the Association of Detectives to Vladimir Solomanidin for long and distinguished service in investigations and security.",
       "icon": "trophy"
     },
     {
       "year": "2010",
       "title": "Признание на международном уровне",
-      "text": "Владимир Соломанидин избран главой Всемирной ассоциации детективов (WAD, основана в 1925 году).",
+      "text": "Генеральный директор Владимир Соломанидин избран главой Всемирной ассоциации детективов (WAD, основана в 1925 году).",
       "title_en": "International recognition",
-      "text_en": "Vladimir Solomanidin elected head of the World Association of Detectives (WAD, founded 1925).",
+      "text_en": "CEO Vladimir Solomanidin elected head of the World Association of Detectives (WAD, founded 1925).",
       "icon": "globe"
     },
     {
@@ -359,7 +1001,7 @@
       "text": "Старт деятельности в Москве в сфере обеспечения безопасности бизнеса и защиты брендов.",
       "title_en": "The company is founded",
       "text_en": "Operations begin in Moscow in business security and brand protection.",
-      "icon": "flag"
+      "mark": "logo"
     }
   ],
   "geography": {

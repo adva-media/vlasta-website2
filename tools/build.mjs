@@ -45,7 +45,8 @@ const T = {
     contact:'Связаться', menu:'Меню', more:'Подробнее', readOn:'Читать',
     allServices:'Все услуги', allCases:'Все кейсы', allNews:'Все новости',
     caseStudy:'Разбор кейса', home:'Главная',
-    nav_services:'Направления', nav_contacts:'Контакты', contactBtn:'Контакт', navigation:'Навигация',
+    nav_services:'Услуги', nav_contacts:'Контакты', nav_cases:'Кейсы', contactBtn:'Контакт', navigation:'Навигация',
+    documents:'Документы', info:'Информация', telFax:'Тел./факс',
     themeLabel:'Переключить тёмную тему', openMenu:'Открыть меню', closeMenu:'Закрыть меню',
     toTop:'Наверх', crumbs:'Хлебные крошки', mainNav:'Основная навигация',
     rights:'Все права защищены.', privacy:'Политика конфиденциальности',
@@ -71,7 +72,8 @@ const T = {
     contact:'Get in touch', menu:'Menu', more:'Learn more', readOn:'Read',
     allServices:'All services', allCases:'All cases', allNews:'All news',
     caseStudy:'Read the case', home:'Home',
-    nav_services:'Practice areas', nav_contacts:'Contact', contactBtn:'Contact', navigation:'Navigation',
+    nav_services:'Services', nav_contacts:'Contact', nav_cases:'Cases', contactBtn:'Contact', navigation:'Navigation',
+    documents:'Documents', info:'Information', telFax:'Tel./fax',
     themeLabel:'Toggle dark theme', openMenu:'Open menu', closeMenu:'Close menu',
     toTop:'Back to top', crumbs:'Breadcrumb', mainNav:'Main navigation',
     rights:'All rights reserved.', privacy:'Privacy policy',
@@ -105,7 +107,19 @@ const esc = s => String(s ?? '')
 const rich = s => String(s ?? '')
   .replace(/&(?!(amp|lt|gt|quot|#\d+|nbsp);)/g, '&amp;')
   .replace(/<(?!\/?(a|b|strong|i|em|u)\b)/gi, '&lt;');
+const plain = s => String(s ?? '').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
 const j = (...c) => c.filter(Boolean).join('\n');
+
+/* Homepage service bullets → services.html#svc-icon (or svc/icon cross-link). */
+const hlHref = (svcId, h) => {
+  if (!h || typeof h === 'string' || !h.to) return `services.html#${svcId}`;
+  if (String(h.to).includes('/')) {
+    const [sid, icon] = String(h.to).split('/');
+    return `services.html#${sid}-${icon}`;
+  }
+  return `services.html#${svcId}-${h.to}`;
+};
+const hlText = (h) => (typeof h === 'string' ? h : (h.t || h.html || ''));
 
 /* Body entries starting with "• " are list items; consecutive ones become
    one <ul> so enumerations break onto their own lines. */
@@ -146,11 +160,12 @@ const C = {
     intro:'Защищаем бренды от контрафакта и обеспечиваем экономическую безопасность компаний в России, СНГ и странах ЕАЭС — опираясь на передовые технологии и высокие моральные ценности.',
     svcKicker:'Услуги', svcTitle:'Наши направления',
     svcDesc:'Единая методология — от анализа рисков до сопровождения «под ключ» в суде. Каждое направление работает самостоятельно и усиливает остальные.',
-    apprKicker:'Наш подход', apprTitle:'От анализа рисков до устойчивого результата',
-    resKicker:'Наша практика', resTitle:'Результаты, измеримые в цифрах',
-    resDesc:'Показатели программы защиты брендов от контрафакта и недобросовестной конкуренции — реальный эффект для правообладателей.',
+    apprKicker:'Подход и практика', apprTitle:'Все отделы — одна система',
+    apprDesc:'Профильные отделы работают в одном контуре — от аналитики и полевых мероприятий до права и цифровой среды.',
+    apprDesc2:'Координация между ними обеспечивает правообладателям измеримый эффект наших программ защиты брендов.',
     casesKicker:'Кейсы', casesTitle:'Как мы решаем задачи клиентов',
-    histKicker:'История компании', histTitle:'Путь, отмеченный международным признанием',
+    histKicker:'История компании',
+    histTitle:'<span class="h2__line">Путь, отмеченный</span><span class="h2__line">международным признанием</span>',
     histHint:'От московского старта до международной практики',
     newsKicker:'Новости', newsTitle:'Компания в публичном пространстве',
     marquee:'Нам доверяют ведущие российские и международные бренды',
@@ -211,11 +226,12 @@ const C = {
     intro:'We protect brands from counterfeiting and secure the operations of companies across Russia, the CIS and the EAEU — on advanced technology and high ethical standards.',
     svcKicker:'Services', svcTitle:'Our practice areas',
     svcDesc:'One methodology — from risk analysis through to representation in court. Each area stands on its own and reinforces the others.',
-    apprKicker:'Our approach', apprTitle:'From risk analysis to a durable result',
-    resKicker:'Our record', resTitle:'Results you can measure',
-    resDesc:'Figures from our brand protection and anti-counterfeiting programmes — the real effect for rights holders.',
+    apprKicker:'Approach and record', apprTitle:'All departments — one system',
+    apprDesc:'Our departments work as a single loop — from analytics and field operations to legal and online work.',
+    apprDesc2:'Coordinating them delivers a measurable effect for rights holders across our brand protection programmes.',
     casesKicker:'Cases', casesTitle:'How we solve client problems',
-    histKicker:'Company history', histTitle:'A record marked by international recognition',
+    histKicker:'Company history',
+    histTitle:'<span class="h2__line">A record marked by</span><span class="h2__line">international recognition</span>',
     histHint:'From a Moscow start to an international practice',
     newsKicker:'News', newsTitle:'The company in the public eye',
     marquee:'Trusted by leading Russian and international brands',
@@ -297,6 +313,19 @@ const I = {
   coins: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6.5" rx="7.5" ry="3.2"/><path d="M4.5 6.5v5c0 1.8 3.4 3.2 7.5 3.2s7.5-1.4 7.5-3.2v-5"/><path d="M4.5 11.5v5c0 1.8 3.4 3.2 7.5 3.2s7.5-1.4 7.5-3.2v-5"/></svg>',
   raid: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 3v5.2c0 4.6-3.1 7.8-7.5 9.3-4.4-1.5-7.5-4.7-7.5-9.3V6z"/><path d="M12 8.4v4.2M12 15.4h.01"/></svg>',
   drag: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M15 7l5 5-5 5"/></svg>',
+  legal: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16v12H4z"/><path d="M8 10h8M8 14h5"/></svg>',
+  ops: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18"/><path d="M12 3v18"/><path d="M5 5l14 14M19 5 5 19"/></svg>',
+  coord: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M3 12h18"/><circle cx="12" cy="12" r="6"/></svg>',
+  laptop: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16v10H4z"/><path d="M8 11h8M8 15h5"/></svg>',
+  cert: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13V5H4v11h8"/><path d="M8 9h8M8 12.5h4"/><circle cx="17" cy="18" r="3"/><path d="m15.3 20.3-.5 2.7 2.2-1.2 2.2 1.2-.5-2.7"/></svg>',
+  customs: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V7"/><circle cx="4" cy="4.5" r="1.6"/><path d="M6.6 9.2 21 6.6v4.2L6.6 13.4z"/><path d="M3 20h18"/></svg>',
+  board: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9.5 9v11"/></svg>',
+  chat: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 11.6a7.5 7.5 0 0 1-7.5 7.4H8.4L4 22v-4.4a7.5 7.5 0 0 1 9-11.4 7.5 7.5 0 0 1 7.5 5.4z"/><path d="M9 12h.01M12.5 12h.01M16 12h.01"/></svg>',
+  app: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2.6"/><path d="M10.5 18.6h3"/><path d="M9.6 8.4h4.8M9.6 12h4.8"/></svg>',
+  dark: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m3 3 18 18"/><path d="M10.6 5.2A9.7 9.7 0 0 1 12 5c5 0 9 5 9 7 0 .9-.9 2.5-2.5 3.9M6.4 7.6C4.2 9 3 11.1 3 12c0 2 4 7 9 7 1.4 0 2.7-.3 3.8-.9"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg>',
+  car: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 15.4h18M4.8 15.4v2.3M19.2 15.4v2.3"/><path d="m4.9 15.4 1.5-6.6a2 2 0 0 1 2-1.5h7.2a2 2 0 0 1 2 1.5l1.5 6.6"/><circle cx="8" cy="15.4" r="1.5"/><circle cx="16" cy="15.4" r="1.5"/></svg>',
+  event: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/><circle cx="12" cy="15.4" r="2.1"/></svg>',
+  radar: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1.8"/><path d="m12 12 5.6-5.6"/><path d="M15.9 8.1a5.5 5.5 0 1 1-7.8 0"/><path d="M19.1 4.9a10 10 0 1 1-14.2 0"/></svg>',
 };
 
 /* -------------------------------------------------- guilloche (signature) */
@@ -443,7 +472,7 @@ ${keywords ? `<meta name="keywords" content="${esc(keywords)}">` : ''}
 <meta name="twitter:title" content="${esc(title)}">
 <meta name="twitter:description" content="${esc(desc)}">
 <meta name="twitter:image" content="${img}">
-<meta name="theme-color" content="#11192B">
+<meta name="theme-color" content="#141428">
 <script>(function(){var r=document.documentElement;r.classList.add('js');try{var t=localStorage.getItem('vlasta-theme');if(!t)t=matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';r.setAttribute('data-theme',t)}catch(e){}})();</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -483,10 +512,18 @@ function chrome(active, depth = 0) {
   const mlinks = mnavItems.map(([h, t]) =>
     `<a class="mnav__l${h === active ? ' is-on' : ''}" href="${R(h)}"${h === active ? ' aria-current="page"' : ''}>${t}</a>`).join('');
   const tt = `<button class="tt" type="button" aria-label="${T.themeLabel}" aria-pressed="false">${I.moon}${I.sun}</button>`;
-  const brand = (light) => `<a class="brand" href="${R('index.html')}" aria-label="${esc(O.name)} — на главную">
-      <img class="brand__mark" src="${R(light ? 'assets/img/logo-light.svg' : 'assets/img/logo-dark.svg')}" alt="" width="38" height="44">
-      <span><span class="brand__name">${esc(O.name.toUpperCase())}</span><span class="brand__sub">${esc(O.tagline)}</span></span>
+  const lang = `<div class="lang"><a href="${ruHref}"${EN ? '' : ' class="is-on" aria-current="true"'} hreflang="ru">RU</a><a href="${enHref}"${EN ? ' class="is-on" aria-current="true"' : ''} hreflang="en">EN</a></div>`;
+  /* Wordmark stacks without the hyphen so the mark can sit larger beside it. */
+  const brandLines = EN ? ['VLASTA', 'CONSULTING'] : ['ВЛАСТА', 'КОНСАЛТИНГ'];
+  const brand = (light, mod = '') => `<a class="brand${mod ? ` ${mod}` : ''}" href="${R('index.html')}" aria-label="${esc(O.name)} — на главную">
+      <img class="brand__mark" src="${R(light ? 'assets/img/logo-light.svg' : 'assets/img/logo-dark.svg')}" alt="" width="48" height="56">
+      <span class="brand__txt">
+        <span class="brand__name">${brandLines.map(l => `<span class="brand__line">${esc(l)}</span>`).join('')}</span>
+        ${mod === 'brand--ft' ? '' : `<span class="brand__sub">${esc(O.tagline)}</span>`}
+      </span>
     </a>`;
+  const ftH = (label) => `<h4 class="ft__h">${esc(label)}</h4>`;
+  const ftCases = cases.slice(0, 9);
 
   return {
     header: `<div class="topbar">
@@ -497,7 +534,7 @@ function chrome(active, depth = 0) {
       <span class="tb">${I.clock}${esc(t(O,'hours'))}</span>
     </div>
     <div class="topbar__r">
-      <div class="lang"><a href="${ruHref}"${EN ? '' : ' class="is-on" aria-current="true"'} hreflang="ru">RU</a><a href="${enHref}"${EN ? ' class="is-on" aria-current="true"' : ''} hreflang="en">EN</a></div>
+      ${lang}
       ${tt}
     </div>
   </div>
@@ -507,7 +544,13 @@ function chrome(active, depth = 0) {
     ${brand(false)}
     <nav class="nav" aria-label="${T.mainNav}">${links}</nav>
     <div class="hdr__cta">
-      <a href="${R('contacts.html')}" class="btn btn--glass">${T.contactBtn}</a>
+      <div class="hdr__contact">
+        <div class="hdr__tools">
+          ${lang}
+          ${tt}
+        </div>
+        <a href="${R('contacts.html')}" class="btn btn--glass">${T.contactBtn}</a>
+      </div>
       <button class="burger" type="button" aria-label="${T.openMenu}" aria-expanded="false" aria-controls="mnav"><span></span><span></span><span></span></button>
     </div>
   </div>
@@ -517,30 +560,33 @@ function chrome(active, depth = 0) {
   <div class="wrap">
     <div class="ft__top">
       <div class="ft__about">
-        ${brand(true)}
+        ${brand(true, 'brand--ft')}
         <p>${T.footerAbout}</p>
       </div>
-      <div>
-        <h4>${T.navigation}</h4>
-        <div class="ft__ls">${NAV.map(([h, t]) => `<a href="${R(h)}">${t}</a>`).join('')}</div>
-      </div>
-      <div>
-        <h4>${T.nav_services}</h4>
+      <div class="ft__col">
+        ${ftH(T.nav_services)}
         <div class="ft__ls">${site.services.map(s => `<a href="${R('services.html')}#${s.id}">${esc(t(s,'title'))}</a>`).join('')}</div>
+        ${ftH(T.documents)}
+        <div class="ft__ls"><a href="${R('privacy.html')}">${T.privacy}</a></div>
       </div>
-      <div>
-        <h4>${T.nav_contacts}</h4>
-        <ul class="ft__ls ft__ls--dot">
-          <li><a href="tel:${O.phoneHref}">${esc(O.phone)}</a></li>
-          <li><a href="mailto:${O.email}">${esc(O.email)}</a></li>
-          <li>${esc(t(O,'address'))}</li>
-          <li>${esc(t(O,'hours'))}</li>
-        </ul>
+      <div class="ft__col">
+        ${ftH(T.nav_cases)}
+        <div class="ft__ls">${ftCases.map(c => `<a href="${R(`cases/${c.slug}.html`)}">${esc(t(c,'title'))}</a>`).join('')}</div>
+      </div>
+      <div class="ft__col">
+        ${ftH(T.info)}
+        <dl class="ft__info">
+          <div><dt>${T.hours}</dt><dd>${esc(t(O,'hours'))}</dd></div>
+          <div><dt>${T.address}</dt><dd>${esc(t(O,'address'))}</dd></div>
+          <div><dt>${T.telFax}</dt><dd><a href="tel:${O.phoneHref}">${esc(O.phone)}</a></dd></div>
+          <div><dt>${T.email}</dt><dd><a href="mailto:${O.email}">${esc(O.email)}</a></dd></div>
+        </dl>
       </div>
     </div>
-    <div class="ft__bot">
-      <span>© <span id="yr">${new Date().getFullYear()}</span> ${esc(O.legal)}. ${T.rights}</span>
-      <a href="${R('privacy.html')}">${T.privacy}</a>
+  </div>
+  <div class="ft__bot">
+    <div class="wrap">
+      <span>${T.rights} © ${esc(O.legal)}, <span id="yr">${new Date().getFullYear()}</span></span>
     </div>
   </div>
 </footer>
@@ -552,7 +598,7 @@ function chrome(active, depth = 0) {
   </div>
   <nav>${mlinks}</nav>
   <div class="mnav__extra">
-    <div class="lang"><a href="${ruHref}"${EN ? '' : ' class="is-on"'} hreflang="ru">RU</a><a href="${enHref}"${EN ? ' class="is-on"' : ''} hreflang="en">EN</a></div>
+    ${lang}
     ${tt}
   </div>
   <div class="mnav__f">
@@ -583,25 +629,38 @@ function chrome(active, depth = 0) {
 /* ------------------------------------------------------------ components */
 const kick = t => `<span class="kick">${esc(t)}</span>`;
 
-function shead({ k, h, d, extra, mod = 'split', tag = 'h2' }) {
-  return `<div class="shead shead--${mod} reveal">
-      <div class="shead__t">${kick(k)}<${tag} class="h2">${esc(h)}</${tag}></div>
-      ${d ? `<p class="shead__d lead">${esc(d)}</p>` : ''}${extra || ''}
+function shead({ k, h, d, extra, mod = 'split', tag = 'h2', richH = false }) {
+  return `<div class="shead shead--${mod}${extra ? ' shead--cta' : ''} reveal">
+      <div class="shead__t">${kick(k)}<${tag} class="h2">${richH ? h : esc(h)}</${tag}></div>
+      ${d ? `<p class="shead__d lead">${esc(d)}</p>` : ''}
+      ${extra ? `<div class="shead__x">${extra}</div>` : ''}
     </div>`;
 }
 
-const ctaBand = (depth = 0) => `<section class="sec">
+const seeall = (href, label) =>
+  `<a href="${href}" class="seeall"><span class="seeall__l">${label}</span><span class="seeall__r">${I.arrow}</span></a>`;
+
+/* Contact close — fabric glyph field + title fade (see main.js). */
+const ctaBand = (depth = 0) => `<section class="sec sec--cta">
+  <canvas class="cta__field" aria-hidden="true"></canvas>
+  <div class="cta__blur" aria-hidden="true"></div>
   <div class="wrap">
-    <div class="cta reveal">
-      <div class="cta__mark" aria-hidden="true"><img src="${rel(depth, 'assets/img/logo-mark.svg')}" alt="" loading="lazy" decoding="async"></div>
-      <div class="cta__in">
-        <span class="pill"><span class="pill__d"></span>${T.ctaKicker}</span>
-        <h2 class="h2">${T.ctaTitle}</h2>
-        <p>${T.ctaText}</p>
-        <div class="cta__btns">
-          <a href="tel:${O.phoneHref}" class="btn btn--light">${esc(O.phone)} ${I.arrow}</a>
-          <a href="mailto:${O.email}" class="btn btn--onDark">${esc(O.email)}</a>
-        </div>
+    <div class="cta" data-cta>
+      <div class="cta__copy">
+        <h2 class="cta__title">${esc(T.ctaKicker)}</h2>
+        <p class="cta__sub">${esc(T.ctaTitle)}</p>
+        <p class="cta__lead">${esc(T.ctaText)}</p>
+      </div>
+      <div class="cta__aside">
+        <a class="cta__fact" href="tel:${O.phoneHref}">
+          <span class="cta__lbl">${T.phone}</span>
+          <span class="cta__val">${esc(O.phone)}</span>
+        </a>
+        <a class="cta__fact" href="mailto:${O.email}">
+          <span class="cta__lbl">${T.email}</span>
+          <span class="cta__val">${esc(O.email)}</span>
+        </a>
+        <a class="cta__go" href="${rel(depth, 'contacts.html')}">${T.contactBtn} ${I.arrow}</a>
       </div>
     </div>
   </div>
@@ -619,79 +678,143 @@ const marquee = () => {
 </section>`;
 };
 
+/* The five departments sit on a V: two arms descending to a single vertex, which
+   echoes the V of the wordmark. --x is the column (hex widths from the centre
+   line), --y the step down; CSS turns the pair into a translate. */
+const HEX_V = [
+  { x: -2, y: 0 },
+  { x: -1, y: 1 },
+  { x: 0, y: 2 },
+  { x: 1, y: 1 },
+  { x: 2, y: 0 },
+];
+
+/* Pointy-top hex with gently rounded corners. Frost pane uses the same mask
+   path + the KPI card glass recipe (white 10% + blur 20px). */
+const HEX_D = 'M100.3 8 159.2 42Q173 50 173 66V134Q173 150 159.2 158L100.3 192Q86.5 200 72.7 192L13.8 158Q0 150 0 134V66Q0 50 13.8 42L72.7 8Q86.5 0 100.3 8Z';
+const HEX_PLATE = `<span class="appr-hex__frost" aria-hidden="true"></span>
+<svg class="appr-hex__plate" viewBox="0 0 173 200" aria-hidden="true" focusable="false">
+  <path class="appr-hex__body" d="${HEX_D}" fill="none"/>
+</svg>`;
+
+const approachHex = () => {
+  const label = EN ? 'Our practice areas' : 'Наши направления работы';
+  const cells = site.departments.map((d, i) => {
+    const { x, y } = HEX_V[i] || { x: 0, y: 2 };
+    return `<button type="button" class="appr-hex__cell" data-i="${i}" style="--x:${x};--y:${y}" aria-expanded="false" aria-controls="apprHexPanel">
+      <span class="appr-hex__shape">
+        ${HEX_PLATE}
+        <span class="appr-hex__in">
+          <span class="ico appr-hex__ico">${I[d.icon] || I.search}</span>
+          <span class="appr-hex__lb">${esc(t(d, 'short'))}</span>
+        </span>
+      </span>
+    </button>`;
+  }).join('');
+  const panels = site.departments.map((d, i) =>
+    `<article class="appr-hex__panel glass" data-i="${i}" hidden>
+      <h3 class="h3">${esc(t(d, 'title'))}</h3>
+      <p>${esc(t(d, 'text'))}</p>
+    </article>`).join('');
+  const kpis = site.results.map((r, i) => `<div class="card glass res__c reveal"${i ? ` data-d="${i}"` : ''}>
+        <div class="res__head">
+          <span class="res__ico">${I[r.icon] || I.shield}</span>
+          <div class="res__n" data-count="${esc(r.count)}"${r.decimals ? ` data-decimals="${r.decimals}"` : ''}>
+            <span class="res__pre">${esc(r.prefix || '')}</span><span class="res__v">${esc(r.value)}</span><span class="res__u">${esc(t(r, 'unit') || '')}</span>
+          </div>
+        </div>
+        <p class="res__l">${rich(t(r, 'label'))}</p>
+      </div>`).join('');
+  return `<div class="appr-hex reveal" id="apprHex" aria-label="${label}">
+  <div class="appr-hex__copy">
+    ${kick(C.apprKicker)}
+    <h2 class="h2">${C.apprTitle}</h2>
+    <p class="lead appr-hex__lead">${esc(C.apprDesc)}</p>
+    ${C.apprDesc2 ? `<p class="lead appr-hex__lead">${esc(C.apprDesc2)}</p>` : ''}
+  </div>
+  <div class="appr-hex__stage">
+    <div class="appr-hex__pop" id="apprHexPanel">${panels}</div>
+    <div class="appr-hex__grid">${cells}</div>
+  </div>
+  <div class="appr-hex__mob">${site.departments.map((d, i) =>
+    `<details class="appr-hex__acc glass"${i ? ` data-d="${i}"` : ''}>
+      <summary><span class="ico">${I[d.icon] || I.search}</span><span>${esc(t(d, 'title'))}</span></summary>
+      <p>${esc(t(d, 'text'))}</p>
+    </details>`).join('')}</div>
+  <div class="appr-hex__kpi res">${kpis}</div>
+</div>`;
+};
+
 /* ------------------------------------------------------- company roadmap */
-/* The milestones ride a shallow bow instead of sitting in a row of boxes, so
-   the column reads as a route rather than a list. Marker offsets and the drawn
-   arc are both derived from arcX(), which is the only reason they can never
-   drift apart — the SVG is stretched over the same box with
-   preserveAspectRatio="none", so x is a plain percentage of the rail in both.
-   Rows are 1fr, which makes every row exactly as tall as the tallest, so the
-   nth marker really does sit at (n + .5)/count of the way down. */
-const ARC = { x0: 24, amp: 54, over: .10 };            // x in percent of the rail
-const arcX = f => ARC.x0 + ARC.amp * Math.sin(Math.PI * f);
-/* The drawn arc runs past the first and last milestone by ARC.over of the
-   column, so it sweeps into frame from above and leaves below instead of
-   starting and stopping on a marker. The SVG is inset by the same fraction in
-   CSS, so parameter g along the path maps back to list fraction f below. */
-const arcPath = (steps = 72) =>
+/* Horizontal story arc: milestones ride a shallow bow left→right (oldest→newest).
+   Marker --yh and the SVG path share arcYH(), so marks sit on the stroke. */
+const ARC_H = { y0: 76, amp: 30 }; // y% of the rail; amp lifts the mid of the bow
+const arcYH = f => {
+  const t = Math.min(1, Math.max(0, f));
+  return ARC_H.y0 - ARC_H.amp * Math.sin(Math.PI * t);
+};
+const arcPathH = (steps = 96) =>
   'M' + Array.from({ length: steps + 1 }, (_, i) => {
     const g = i / steps;
-    const f = g * (1 + 2 * ARC.over) - ARC.over;
-    return `${arcX(f).toFixed(2)},${(g * 1000).toFixed(1)}`;
+    return `${(g * 1000).toFixed(1)},${arcYH(g).toFixed(2)}`;
   }).join('L');
 
-/* Newest first, so the ramp runs from the deepest brand navy down to mist —
-   the further back in time, the quieter the marker. Dark mode takes the same
-   ramp reversed, because the deep navy end is invisible against a dark band.
-   Both the tone and the glyph colour that reads on it are emitted per item. */
-/* Each ramp starts at its theme's strongest value and eases toward the same
-   mid blue, so the newest milestone always reads loudest while the oldest
-   still stands clear of the band. A ramp that ran all the way to the opposite
-   extreme put one end at ~1:1 against the background in one theme or the
-   other, which is what made a marker vanish. */
-const TONES_L = ['#11192B', '#1D2537', '#26314A', '#2E3B57', '#374764', '#405374', '#4A5E84', '#556A93'];
-const TONES_D = ['#C5CDDA', '#B7C0D0', '#A9B4C8', '#9BA7BF', '#8D9BB6', '#7F8EAD', '#7182A4', '#63769B'];
+/* Newest end of the ramp is deepest; oldest is quieter. */
+const TONES_L = ['#141428', '#1E1E38', '#282844', '#343454', '#404068', '#4C4C7A', '#535D86', '#646E96'];
+const TONES_D = ['#C6C8DA', '#B8BAD0', '#AAACC6', '#9C9EBC', '#8E90B2', '#8082A8', '#72749E', '#646694'];
 const relLum = hex => {
   const ch = [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16) / 255)
     .map(c => (c <= .03928 ? c / 12.92 : Math.pow((c + .055) / 1.055, 2.4)));
   return .2126 * ch[0] + .7152 * ch[1] + .0722 * ch[2];
 };
-/* pick whichever glyph actually wins on this tone rather than guessing a
-   threshold — a fixed cutoff lands on the wrong side around mid grey */
 const ctr = (a, b) => (Math.max(a, b) + .05) / (Math.min(a, b) + .05);
 const glyphOn = hex => {
   const l = relLum(hex);
-  return ctr(l, 1) >= ctr(l, relLum('#11192B')) ? '#FFFFFF' : '#11192B';
+  return ctr(l, 1) >= ctr(l, relLum('#141428')) ? '#FFFFFF' : '#141428';
 };
 
 const roadmap = () => {
-  const items = site.timeline;
+  /* Story reads left→right: founding to present. Source JSON is newest-first. */
+  const items = [...site.timeline].reverse();
   const n = items.length;
+  const d = arcPathH();
+  const gid = 'roadGrad';
   return `<div class="road">
-      <div class="road__hub reveal reveal--fade">
-        <div class="road__hubIn">
-          ${kick(C.histKicker)}
-          <h2 class="h2">${esc(C.histTitle)}</h2>
-          <p>${esc(C.histHint)}</p>
+      <div class="road__body" tabindex="0" role="region" aria-label="${esc(C.histTitle.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim())}">
+        <div class="road__htrack">
+          <svg class="road__arcH" viewBox="0 0 1000 100" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+            <defs>
+              <linearGradient id="${gid}" x1="0" y1="0" x2="1000" y2="0" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#8A90B8"/>
+                <stop offset="55%" stop-color="#535D86"/>
+                <stop offset="100%" stop-color="#141428"/>
+              </linearGradient>
+            </defs>
+            <path class="road__arcGlow" d="${d}"/>
+            <path class="road__arcBase" d="${d}"/>
+            <path class="road__arcDone" d="${d}"/>
+            <circle class="road__arcTip" cx="0" cy="${ARC_H.y0}" r="3.2"/>
+          </svg>
+          <ol class="road__list" style="--n:${n}">
+            ${items.map((x, i) => {
+              const k = Math.round((n - 1 - i) * (TONES_L.length - 1) / Math.max(1, n - 1));
+              const tone = TONES_L[k], toneD = TONES_D[k];
+              const mid = (i + .5) / n;
+              return `<li class="road__i${x.highlight ? ' road__i--hi' : ''} reveal reveal--fade"
+                style="--yh:${arcYH(mid).toFixed(2)};--tone:${tone};--fg:${glyphOn(tone)};--tone-d:${toneD};--fg-d:${glyphOn(toneD)}">
+              <span class="road__peg">
+                <b class="road__yr">${esc(x.year)}</b>
+                <span class="road__mark" aria-hidden="true">${
+                  x.mark === 'logo'
+                    ? `<img class="road__logo" src="${rel(0, 'assets/img/logo-mark.svg')}" alt="" decoding="async">`
+                    : (I[x.icon] || I.check)
+                }</span>
+              </span>
+              <div class="road__c"><h3>${esc(tt(x,'title'))}</h3><p>${esc(tt(x,'text'))}</p></div>
+            </li>`;
+            }).join('')}
+          </ol>
         </div>
-      </div>
-      <div class="road__body">
-        <svg class="road__arc" viewBox="0 0 100 1000" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-          <path class="road__arcBase" d="${arcPath()}"/>
-          <path class="road__arcLit" d="${arcPath()}"/>
-        </svg>
-        <ol class="road__list" style="--n:${n}">
-          ${items.map((x, i) => {
-            const k = Math.round(i * (TONES_L.length - 1) / Math.max(1, n - 1));
-            const tone = TONES_L[k], toneD = TONES_D[k];
-            return `<li class="road__i${x.highlight ? ' road__i--hi' : ''} reveal reveal--fade"
-              style="--x:${arcX((i + .5) / n).toFixed(2)};--xm:${arcX((i + .26) / n).toFixed(2)};--tone:${tone};--fg:${glyphOn(tone)};--tone-d:${toneD};--fg-d:${glyphOn(toneD)}">
-            <span class="road__peg" aria-hidden="true"><span class="road__mark">${I[x.icon] || I.check}</span></span>
-            <b class="road__yr">${esc(x.year)}</b>
-            <div class="road__c"><h3>${esc(tt(x,'title'))}</h3><p>${esc(tt(x,'text'))}</p></div>
-          </li>`;
-          }).join('')}
-        </ol>
       </div>
     </div>`;
 };
@@ -742,8 +865,8 @@ const assocModal = () => `<div class="modal" id="assocModal" role="dialog" aria-
     </div>
     <script id="assocData" type="application/json">${JSON.stringify(site.associations.map(a => ({ logo: a.logo, name: t(a,'name'), meta: t(a,'meta'), desc: t(a,'desc'), url: a.url, site: a.site })))}</script>`;
 
-const newsCard = (n, depth = 0, d = 0) => `<a class="card ncard reveal" href="${rel(depth, `news/${n.slug}.html`)}"${d ? ` data-d="${d}"` : ''}>
-        ${n.img ? `<div class="ncard__img"><img src="${rel(depth, n.img)}" alt="${esc(n.title)}" loading="lazy" decoding="async">${n.video ? `<span class="ncard__play" aria-hidden="true">${I.play}</span>` : ''}</div>` : ''}
+const newsCard = (n, depth = 0, d = 0, { eager = false } = {}) => `<a class="card ncard reveal" href="${rel(depth, `news/${n.slug}.html`)}"${d ? ` data-d="${d}"` : ''}>
+        ${n.img ? `<div class="ncard__img"><img src="${rel(depth, n.img)}" alt="${esc(n.title)}" loading="${eager ? 'eager' : 'lazy'}" decoding="async">${n.video ? `<span class="ncard__play" aria-hidden="true">${I.play}</span>` : ''}</div>` : ''}
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="${n.dateIso}">${esc(n.dateDisp)}</time><span class="dot"></span><span class="cl">${esc(n.cluster)}</span></div>
           <h3>${esc(n.title)}</h3>
@@ -770,8 +893,13 @@ const caseCard = (c, depth = 0, d = 0) => `<a class="card case reveal" href="${r
 /* ---------------------------------------------------------------- HOME */
 function buildHome() {
   const c = chrome('index.html', 0);
-  const featCases = cases.filter(x => [5, 10, 11, 2, 12, 7].includes(x.n));
-  const featNews = news.slice(0, 3);
+  /* The rail carries the whole catalogue so it can be swiped end to end; the six
+     strongest lead and the rest follow. Photos past the first screen only load
+     when they are scrolled to. */
+  const railLead = [5, 10, 11, 2, 12, 7];
+  const railCases = cases.filter(x => railLead.includes(x.n))
+    .concat(cases.filter(x => !railLead.includes(x.n)));
+  /* Full catalogue in a swipe rail; images past the first screen stay lazy. */
 
   const html = j(
     head({
@@ -822,16 +950,24 @@ function buildHome() {
     ${shead({
       k: C.svcKicker, h: C.svcTitle,
       d: C.svcDesc,
-      extra: `<a href="services.html" class="seeall"><span class="seeall__l">${T.allServices}</span><span class="seeall__r">${I.arrow}</span></a>`,
+      extra: seeall('services.html', T.allServices),
     })}
-    <div class="svc-grid">
-      ${site.services.map((s, i) => `<a class="card glass svc reveal" href="services.html#${s.id}"${i ? ` data-d="${i}"` : ''}>
-        <div class="svc__top"><span class="ico">${I[s.icon]}</span><span class="svc__blk">${esc(s.num)}</span></div>
-        <h3 class="h3">${esc(t(s,'title'))}</h3>
-        <p class="svc__tag">${esc(t(s,'tagline'))}</p>
-        <ul class="svc__hl">${t(s,'highlights').map(h => `<li>${esc(h)}</li>`).join('')}</ul>
-        <span class="svc__more arrow-link">${T.more} ${I.arrow}</span>
-      </a>`).join('')}
+    <div class="svc-grid" role="list" aria-label="${esc(C.svcTitle)}">
+      ${site.services.map((s, i) => `<article class="card glass svc reveal"${i ? ` data-d="${i}"` : ''} role="listitem">
+        <span class="svc__n" aria-hidden="true">${esc(s.num)}</span>
+        <div class="svc__main">
+          <div class="svc__top">
+            <span class="ico">${I[s.icon]}</span>
+            <div class="svc__head">
+              <h3 class="h3">${esc(t(s,'title'))}</h3>
+            </div>
+          </div>
+          <p class="svc__tag">${esc(plain(t(s,'tagline')))}</p>
+          <a class="svc__more arrow-link" href="services.html#${s.id}"><span class="svc__more-l">${T.more}</span> ${I.arrow}</a>
+        </div>
+        <ul class="svc__hl">${(t(s,'highlights') || []).map(h =>
+          `<li><a href="${hlHref(s.id, h)}">${rich(hlText(h))}</a></li>`).join('')}</ul>
+      </article>`).join('')}
     </div>
   </div>
 </section>
@@ -839,35 +975,21 @@ function buildHome() {
 
 ${marquee()}
 
-<section class="sec sec--alt" id="approach">
-  ${engrave('bl', 'appr')}
+<div class="glasszone">
+<section class="sec" id="approach">
   <div class="wrap">
-    ${shead({ k: C.apprKicker, h: C.apprTitle, mod: 'split' })}
-    <div class="appr">
-      ${site.approach.map((a, i) => `<div class="card appr__c${i === 1 ? ' appr__c--hi' : ''} reveal"${i ? ` data-d="${i}"` : ''}>
-        <div class="appr__top"><span class="ico">${I[a.icon]}</span><span class="appr__n">0${a.n}</span></div>
-        <h3>${esc(t(a,'title'))}</h3><p>${esc(t(a,'text'))}</p>
-      </div>`).join('')}
-    </div>
+    ${approachHex()}
   </div>
 </section>
+</div><!-- /glasszone -->
 
-<section class="sec sec--ink" id="results">
-  ${engrave('tr', 'res')}
+<section class="sec" id="cases">
   <div class="wrap">
     ${shead({
-      k: C.resKicker, h: C.resTitle,
-      d: C.resDesc,
+      k: C.casesKicker, h: C.casesTitle,
+      extra: seeall('cases.html', T.allCases),
     })}
-    <div class="res">
-      ${site.results.map((r, i) => `<div class="card glass res__c reveal"${i ? ` data-d="${i}"` : ''}>
-        <span class="res__ico">${I[r.icon] || I.shield}</span>
-        <div class="res__n" data-count="${esc(r.count)}"${r.decimals ? ` data-decimals="${r.decimals}"` : ''}>
-          <span class="res__pre">${esc(r.prefix || '')}</span><span class="res__v">${esc(r.value)}</span><span class="res__u">${esc(t(r, 'unit') || '')}</span>
-        </div>
-        <p class="res__l">${esc(t(r, 'label'))}</p>
-      </div>`).join('')}
-    </div>
+    <div class="case-rail" tabindex="0" role="group" aria-label="${C.casesTitle}">${railCases.map(x => caseCard(x, 0, 0)).join('')}</div>
   </div>
 </section>
 
@@ -895,30 +1017,23 @@ ${marquee()}
   </div>
 </section>
 
-<section class="sec" id="cases">
-  <div class="wrap">
-    ${shead({
-      k: C.casesKicker, h: C.casesTitle,
-      extra: `<a href="cases.html" class="seeall"><span class="seeall__l">${T.allCases}</span><span class="seeall__r">${I.arrow}</span></a>`,
-    })}
-    <div class="case-rail" tabindex="0" role="group" aria-label="${C.casesTitle}">${featCases.map(x => caseCard(x, 0, 0)).join('')}</div>
-  </div>
-</section>
-
 <section class="sec sec--alt" id="history">
   ${engrave('bl', 'tlh')}
   <div class="wrap">
-    ${roadmap()}
+    ${shead({ k: C.histKicker, h: C.histTitle, richH: true })}
   </div>
+  ${roadmap()}
 </section>
 
 <section class="sec" id="news">
   <div class="wrap">
     ${shead({
       k: C.newsKicker, h: C.newsTitle,
-      extra: `<a href="news.html" class="seeall"><span class="seeall__l">${T.allNews}</span><span class="seeall__r">${I.arrow}</span></a>`,
+      extra: seeall('news.html', T.allNews),
     })}
-    <div class="news-grid">${featNews.map((n, i) => newsCard(n, 0, i)).join('')}</div>
+    <div class="news-rail" tabindex="0" role="group" aria-label="${esc(C.newsTitle)}">${
+      news.map((n, i) => newsCard(n, 0, 0, { eager: i < 3 })).join('')
+    }</div>
   </div>
 </section>
 
@@ -929,6 +1044,51 @@ ${ctaBand(0)}
 }
 
 /* ------------------------------------------------------------- SERVICES */
+/* --------------------------------------------------- service detail parts */
+/* Where the material is a procedure rather than a description it is set as a
+   numbered run of steps, and where it is a set of watched channels, as an icon
+   grid. Direction cards and process strips fold shut so the page is not a wall
+   of offerings on arrival — the plus marks that each block opens. */
+const dirCard = (x, i, svcId) => `<details class="fold" id="${svcId}-${x.icon}"${i === 0 ? ' open' : ''}>
+        <summary class="fold__sum">
+          <span class="ico ico--sm">${I[x.icon] || I.check}</span>
+          <span class="fold__t">${esc(tt(x, 'title'))}</span>
+          <span class="fold__plus" aria-hidden="true"></span>
+        </summary>
+        <div class="fold__body">
+          <p>${esc(tt(x, 'text'))}</p>
+          ${(tt(x, 'bullets') || []).length ? `<ul class="dir__l">${tt(x, 'bullets').map(b => `<li>${esc(b)}</li>`).join('')}</ul>` : ''}
+        </div>
+      </details>`;
+
+const chanGrid = (c) => `<div class="chan">
+        <h3 class="chan__t">${esc(tt(c, 'title'))}</h3>
+        <div class="chan__g">
+          ${c.items.map(x => `<div class="chan__c">
+            <span class="chan__i">${I[x.icon] || I.search}</span>
+            <b>${esc(tt(x, 'h'))}</b><span>${esc(tt(x, 'p'))}</span>
+          </div>`).join('')}
+        </div>
+      </div>`;
+
+const flowBlock = (f) => `<details class="fold fold--flow">
+        <summary class="fold__sum">
+          <span class="ico ico--sm">${I[f.icon] || I.layers}</span>
+          <span class="fold__t">${esc(tt(f, 'title'))}</span>
+          <span class="fold__plus" aria-hidden="true"></span>
+        </summary>
+        <div class="fold__body">
+          ${f.note ? `<p class="flow__note">${esc(tt(f, 'note'))}</p>` : ''}
+          <ol class="flow__l">
+            ${f.steps.map((s, i) => `<li class="flow__s">
+              <span class="flow__n">${String(i + 1).padStart(2, '0')}</span>
+              <h4>${esc(tt(s, 'h'))}</h4>
+              <p>${esc(tt(s, 'p'))}</p>
+            </li>`).join('')}
+          </ol>
+        </div>
+      </details>`;
+
 function buildServices() {
   const c = chrome('services.html', 0);
   const html = j(
@@ -972,13 +1132,17 @@ function buildServices() {
         <span class="svc-detail__num">${esc(s.num)}</span>
         <h2 class="h2">${esc(t(s,'title'))}</h2>
       </div>
-      <p class="lead" style="max-width:70ch">${esc(t(s,'intro'))}</p>
-      <div class="dir-grid">
-        ${t(s,'directions').map(d => `<div class="card dir">
-          <h4>${esc(d.title)}</h4>
-          <p>${esc(d.text)}</p>
-        </div>`).join('')}
+      <figure class="svc-detail__hero">
+        <div class="ncard__img">
+          <img src="${rel(0, s.img)}" alt="" loading="lazy" decoding="async">
+        </div>
+        <figcaption class="svc-detail__intro">${esc(t(s,'intro'))}</figcaption>
+      </figure>
+      <div class="fold-list">
+        ${s.directions.map((d, i) => dirCard(d, i, s.id)).join('')}
       </div>
+      ${s.channels ? chanGrid(s.channels) : ''}
+      ${(s.flows || []).length ? `<div class="fold-list fold-list--flows">${s.flows.map(flowBlock).join('')}</div>` : ''}
     </article>`).join('')}
   </div>
 </section>
@@ -1065,8 +1229,9 @@ function buildAbout() {
 <section class="sec sec--alt" id="history">
   ${engrave('bl', 'tl')}
   <div class="wrap">
-    ${roadmap()}
+    ${shead({ k: C.histKicker, h: C.histTitle, richH: true })}
   </div>
+  ${roadmap()}
 </section>
 
 <section class="sec sec--alt" id="clients">
