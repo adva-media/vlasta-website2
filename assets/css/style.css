@@ -56,12 +56,20 @@
 /* ---------------------------------------------------------------- reset */
 *,*::before,*::after{box-sizing:border-box}
 *{margin:0}
-html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+html{
+  -webkit-text-size-adjust:100%;scroll-behavior:smooth;
+  /* clip (not hidden): stops sideways document growth without creating a
+     scroll container that would break position:sticky on .hdr. */
+  overflow-x:clip;max-width:100%;
+}
 body{
   font-family:var(--ui);font-size:17px;line-height:1.65;font-weight:400;
   color:var(--body);background:var(--paper);
   -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
-  overflow-x:hidden;
+  overflow-x:clip;max-width:100%;
+}
+@supports not (overflow-x:clip){
+  html,body{overflow-x:hidden}
 }
 img,svg,video{display:block;max-width:100%}
 a{color:inherit;text-decoration:none}
@@ -128,11 +136,17 @@ h1,h2,h3,h4{font-family:var(--ui);color:var(--ink);line-height:1.14;letter-spaci
 @media (min-width:900px){
   .shead--split{grid-template-columns:1.1fr .9fr;align-items:end}
   .shead--split .shead__d{justify-self:end}
-  /* Title left, CTA top-right — the “see all” reads as the section action. */
-  .shead--split.shead--cta{grid-template-columns:minmax(0,1fr) auto;align-items:center;column-gap:28px;row-gap:18px}
-  .shead--split.shead--cta .shead__t{grid-column:1;grid-row:1;max-width:min(100%,640px)}
-  .shead--split.shead--cta .shead__x{grid-column:2;grid-row:1;justify-self:end;align-self:center}
-  .shead--split.shead--cta .shead__d{grid-column:1/-1;grid-row:2;justify-self:start;max-width:min(100%,560px)}
+  /* Kick above; h2 + see-all share a row (button on the title’s first line); lead below. */
+  .shead--split.shead--cta{grid-template-columns:minmax(0,1fr) auto;align-items:start;column-gap:28px;row-gap:0}
+  .shead--split.shead--cta .shead__t{display:contents}
+  .shead--split.shead--cta .kick{grid-column:1;grid-row:1}
+  .shead--split.shead--cta .h2{grid-column:1;grid-row:2;max-width:min(100%,640px)}
+  .shead--split.shead--cta .shead__x{
+    grid-column:2;grid-row:2;justify-self:end;align-self:start;
+    /* Match .h2 offset below .kick, then center the pill on the first line. */
+    margin-top:15px;display:flex;align-items:center;
+    font-size:clamp(26px,3.3vw,42px);line-height:1.14;height:1lh}
+  .shead--split.shead--cta .shead__d{grid-column:1/-1;grid-row:3;justify-self:start;max-width:min(100%,560px);margin-top:18px}
 }
 .shead--center{text-align:center;justify-items:center}
 .shead--center .shead__t{max-width:min(100%,660px)}
@@ -811,7 +825,7 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
    Staircase photo lives on ::before with a light blur; wash on ::after;
    children stay sharp above both layers. */
 #history{
-  padding-block:clamp(40px,5vw,72px);
+  padding-block:clamp(36px,4.5vw,64px) clamp(28px,3.5vw,48px);
   overflow:hidden;
   background-color:var(--surface-dark);
   background-image:none;
@@ -843,11 +857,11 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
 }
 
 /* Free full-bleed rail — no card chrome; edge fades ease off at the ends. */
-.road{position:relative;margin-top:0;padding:0;border:0;
+.road{--yh0:78;--tile:clamp(200px,24vw,248px);position:relative;margin-top:0;padding:0;border:0;
   background:none;box-shadow:none;border-radius:0;
   -webkit-backdrop-filter:none;backdrop-filter:none}
-.road__body{--rail:clamp(140px,16vw,184px);--mk:clamp(50px,6.2vw,64px);
-  --chip-room:clamp(28px,3.5vw,44px);
+.road__body{--rail:clamp(128px,14.5vw,168px);--mk:clamp(48px,5.8vw,60px);
+  --chip-room:clamp(26px,3.2vw,40px);
   --fade:clamp(36px,7vw,80px);--fade-l:var(--fade);--fade-r:var(--fade);
   /* End clearance must live in scrollable content (not the scroller padding). */
   --road-inset:max(var(--gutter), calc(var(--fade) + 24px));
@@ -861,9 +875,8 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
     transparent 0, #000 var(--fade-l), #000 calc(100% - var(--fade-r)), transparent)}
 .road__body.is-drag{cursor:grabbing}
 .road__body::-webkit-scrollbar{display:none;width:0;height:0}
-.road__htrack{display:inline-block;min-width:100%;position:relative;
-  /* Extra top room so year chips at the bow peak are not clipped.
-     Inline inset is scrollable content so the last tile clears the right fade. */
+.road__htrack{display:inline-flex;align-items:flex-start;min-width:100%;position:relative;
+  /* Top room for year chips on the rising end; ahead spacer continues the trail. */
   padding:calc(var(--rail) + var(--chip-room)) var(--road-inset) 0}
 .road__arcH{display:block;position:absolute;left:var(--road-inset);right:var(--road-inset);
   top:var(--chip-room);height:var(--rail);
@@ -881,14 +894,16 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
 @keyframes roadPulse{0%,100%{opacity:.55}50%{opacity:1}}
 @media (prefers-reduced-motion:reduce){.road__arcTip{display:none}}
 
-.road__list{display:flex;align-items:stretch;width:max-content;gap:0;
+.road__list{display:flex;align-items:flex-start;width:max-content;gap:0;flex:0 0 auto;
   margin:0;padding:0;list-style:none;position:relative;z-index:1}
-.road__i{display:flex;flex-direction:column;flex:0 0 clamp(200px,24vw,248px);
-  position:relative;padding:18px 22px 10px 0}
+/* Extra path after the last year — tip keeps traveling into open time. */
+.road__ahead{flex:0 0 calc(var(--tile) * 1.75);align-self:stretch;pointer-events:none}
+.road__i{display:flex;flex-direction:column;flex:0 0 var(--tile);
+  position:relative;padding:14px 22px 2px 0}
 .road__peg{position:absolute;left:0;right:22px;
-  /* padding-top includes chip-room, so -rail lands on the lowered arc. */
+  /* padding-top includes chip-room, so -rail lands on the trail. */
   top:calc(var(--rail) * -1);height:var(--rail);pointer-events:none}
-/* Year chip sits just above its mark on the bow. */
+/* Year chip sits just above its mark on the trail. */
 .road__yr{position:absolute;left:50%;top:calc(var(--yh) * 1%);
   transform:translate(-50%,calc(-100% - var(--mk) * .62));
   font-size:clamp(17px,1.85vw,22px);font-weight:800;letter-spacing:.04em;line-height:1;
@@ -922,7 +937,9 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
 @keyframes roadRing{0%{transform:scale(1);opacity:.85}100%{transform:scale(1.45);opacity:0}}
 @media (prefers-reduced-motion:reduce){.road__i.is-lit .road__mark::after{animation:none}}
 
-.road__c{margin-top:4px;min-width:0;padding:14px 14px 15px;border-radius:14px;
+.road__c{min-width:0;padding:14px 14px 15px;border-radius:14px;
+  /* Climb with the rising trail — keep a steady gap under each mark. */
+  margin-top:calc(4px + (var(--yh) - var(--yh0)) * var(--rail) / 100);
   background:rgba(255,255,255,.78);border:1px solid rgba(255,255,255,.8);
   -webkit-backdrop-filter:blur(18px) saturate(1.45);backdrop-filter:blur(18px) saturate(1.45);
   box-shadow:0 12px 32px -18px rgba(20,20,40,.4);
@@ -937,8 +954,9 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
 .road__c p{margin-top:7px;font-size:13.5px;line-height:1.55;color:var(--body)}
 
 @media (max-width:640px){
-  .road__body{--rail:124px;--mk:44px;--chip-room:26px;--fade:clamp(20px,10vw,40px)}
-  .road__i{flex-basis:min(72vw,260px);padding:14px 16px 6px 0}
+  .road{--tile:min(72vw,260px)}
+  .road__body{--rail:114px;--mk:44px;--chip-room:24px;--fade:clamp(20px,10vw,40px)}
+  .road__i{padding:12px 16px 0 0}
   .road__peg{right:16px}
   .road__yr{font-size:15px;padding:4px 10px}
   .road__c{padding:12px}
@@ -1239,8 +1257,10 @@ html.is-locked,html.is-locked body{overflow:hidden}
 }
 .cta__field{
   position:absolute;z-index:0;
-  /* Expanded by JS; fallback inset covers bleed before script runs. */
-  inset:-100px -52px -120px;
+  /* Vertical bleed under neighbors only. Horizontal bleed (old -52px inset /
+     JS left:-bleedX) grew document scrollWidth and shifted the whole mobile
+     layout left with a white strip on the right. */
+  inset:-100px 0 -120px;
   width:auto;height:auto;
   pointer-events:none;
   display:block;

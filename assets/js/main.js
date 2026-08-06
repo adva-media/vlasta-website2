@@ -135,7 +135,9 @@
       var h = 0;
       var sw = 0;
       var sh = 0;
-      var bleedX = 48;
+      /* Horizontal layout bleed expands document width on mobile — keep 0.
+         Vertical bleed still paints the mesh under neighboring sections. */
+      var bleedX = 0;
       var bleedY = 100;
       var minDist = 48;
       var raf = 0;
@@ -358,15 +360,15 @@
         /* offset* = full border box incl. padding — matches absolute inset:0 frost. */
         sw = Math.max(1, sec.offsetWidth || Math.round(sec.getBoundingClientRect().width));
         sh = Math.max(1, sec.offsetHeight || Math.round(sec.getBoundingClientRect().height));
-        bleedX = Math.max(44, Math.min(78, Math.round(sw * 0.055)));
+        bleedX = 0;
         bleedY = Math.max(88, Math.min(168, Math.round(sh * 0.72)));
-        w = sw + bleedX * 2;
+        w = sw;
         h = sh + bleedY * 2;
         dpr = Math.min(window.devicePixelRatio || 1, 2);
         canvas.width = Math.round(w * dpr);
         canvas.height = Math.round(h * dpr);
         canvas.style.top = -bleedY + 'px';
-        canvas.style.left = -bleedX + 'px';
+        canvas.style.left = '0';
         canvas.style.right = 'auto';
         canvas.style.bottom = 'auto';
         canvas.style.width = w + 'px';
@@ -950,13 +952,14 @@
 
   /* ------------------------------------------------- roadmap arc light */
   /* Progress trail uses getTotalLength() dashes. The tip is a circle placed
-     with getPointAtLength — a dashed “comet” path wraps and draws a second
-     glow at the opposite end of the arc. */
+     with getPointAtLength along the rising path (including the ahead stretch
+     past the last year). */
   var roads = $$('.road').map(function (road) {
     var body = $('.road__body', road);
     if (!body || reduce) return null;
     var doneEl = $('.road__arcH .road__arcDone', road);
     var tipEl = $('.road__arcH .road__arcTip', road);
+    var svg = $('.road__arcH', road);
     var marks = $$('.road__i', road);
     var list = $('.road__list', road);
     if (!marks.length || !list || !doneEl || typeof doneEl.getTotalLength !== 'function') return null;
@@ -967,11 +970,24 @@
     doneEl.style.strokeDashoffset = String(len);
     doneEl.classList.add('is-live');
     if (tipEl) tipEl.classList.add('is-live');
-    var mid = marks.map(function (_, i) { return (i + .5) / marks.length; });
     body.addEventListener('scroll', function () { paintRoads(); }, { passive: true });
-    return { body: body, list: list, done: doneEl, tip: tipEl, len: len,
-             marks: marks, mid: mid, last: -1 };
+    return { body: body, list: list, svg: svg, done: doneEl, tip: tipEl, len: len,
+             marks: marks, last: -1 };
   }).filter(Boolean);
+
+  function roadMarkMids(r) {
+    var svg = r.svg;
+    if (!svg) {
+      return r.marks.map(function (_, i) { return (i + .5) / r.marks.length; });
+    }
+    var sr = svg.getBoundingClientRect();
+    var w = sr.width || 1;
+    return r.marks.map(function (m) {
+      var mr = m.getBoundingClientRect();
+      var x = (mr.left + mr.width * .5 - sr.left) / w;
+      return x < 0 ? 0 : x > 1 ? 1 : x;
+    });
+  }
 
   /* Soft edge fades only on the overflowing side — start/end stay fully readable. */
   function roadEdgeFade(body) {
@@ -980,13 +996,12 @@
     var sl = body.scrollLeft;
     var atStart = sl <= 3;
     var atEnd = max <= 3 || sl >= max - 3;
-    /* scrollWidth can overstate max scrollLeft when padding was on the scroller;
-       fall back to whether the last tile is fully inside the rail. */
+    /* Prefer the ahead tip of the trail; fall back to the last milestone. */
     if (!atEnd) {
-      var last = body.querySelector('.road__i:last-child');
-      if (last) {
+      var endEl = body.querySelector('.road__ahead') || body.querySelector('.road__i:last-child');
+      if (endEl) {
         var br = body.getBoundingClientRect();
-        atEnd = last.getBoundingClientRect().right <= br.right - 2;
+        atEnd = endEl.getBoundingClientRect().right <= br.right - 2;
       }
     }
     if (atStart) body.style.setProperty('--fade-l', '0px');
@@ -1006,22 +1021,12 @@
   });
 
   function roadProgress(r) {
-    var body = r.body, list = r.list;
-    if (!list) return 0;
-    var last = list.lastElementChild;
-    var br = body.getBoundingClientRect();
-    /* Hard end: last milestone card is fully inside the rail (past the fade). */
-    if (last && last.getBoundingClientRect().right <= br.right - 2) return 1;
-
-    var maxList = list.scrollWidth - body.clientWidth;
+    var body = r.body;
+    /* Include the ahead stretch past the last year so the tip keeps moving. */
     var maxBody = body.scrollWidth - body.clientWidth;
-    if (maxList <= 1 && maxBody <= 1) return 1;
-    /* Smaller positive range — inflated scrollWidth was capping p at ~0.5. */
-    var max = maxList > 1 && maxBody > 1 ? Math.min(maxList, maxBody)
-      : (maxList > 1 ? maxList : maxBody);
-    if (max <= 1) return 1;
-    if (body.scrollLeft >= max - 2) return 1;
-    var p = body.scrollLeft / max;
+    if (maxBody <= 1) return 1;
+    if (body.scrollLeft >= maxBody - 2) return 1;
+    var p = body.scrollLeft / maxBody;
     return p < 0 ? 0 : p > 1 ? 1 : p;
   }
 
@@ -1042,8 +1047,9 @@
         r.tip.setAttribute('cy', pt.y);
       }
       roadEdgeFade(r.body);
+      var mids = roadMarkMids(r);
       var near = -1, best = .55 / r.marks.length;
-      r.mid.forEach(function (a, i) {
+      mids.forEach(function (a, i) {
         var d = Math.abs(a - p);
         if (d < best) { best = d; near = i; }
       });
