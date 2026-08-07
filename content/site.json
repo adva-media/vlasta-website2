@@ -225,18 +225,18 @@
         }
       ],
       "highlights": [
-        { "t": "<b>Регистрация</b> товарных знаков", "to": "cert" },
-        { "t": "<b>ТРОИС</b> и таможенный контроль", "to": "raid" },
-        { "t": "<b>Рейды</b> с полицией и таможней", "to": "raid" },
+        { "t": "<b>Регистрация товарных знаков</b>", "to": "cert" },
+        { "t": "<b>ТРОИС и таможенный контроль</b>", "to": "raid" },
+        { "t": "<b>Рейды с полицией и таможней</b>", "to": "raid" },
         { "t": "<b>Online Brand Protection System</b>", "to": "laptop" }
       ],
       "title_en": "Brand and IP protection",
       "tagline_en": "The full cycle of <b>intellectual property</b> protection and action against <b>unfair competition</b>.",
       "intro_en": "In Russia we were among the very first to design and launch a trademark protection programme, back in 2006. We act on every type of infringement — from identity and confusing similarity through to unfair competition.",
       "highlights_en": [
-        { "t": "<b>Trademark</b> registration", "to": "cert" },
-        { "t": "<b>Customs registers</b> and border control", "to": "raid" },
-        { "t": "<b>Raids</b> with police and customs", "to": "raid" },
+        { "t": "<b>Trademark registration</b>", "to": "cert" },
+        { "t": "<b>Customs registers and border control</b>", "to": "raid" },
+        { "t": "<b>Raids with police and customs</b>", "to": "raid" },
         { "t": "<b>Online Brand Protection System</b>", "to": "laptop" }
       ],
       "channels": {

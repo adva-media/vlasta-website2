@@ -1085,21 +1085,21 @@
     }
   }
 
-  /* -------------------- intro KPI watermark: subtle vertical parallax */
+  /* -------------------- intro watermark: subtle vertical parallax */
   (function () {
-    var row = $('.stats');
-    var mark = row && $('.stats__mark', row);
-    if (!row || !mark || reduce) return;
+    var sec = $('#intro');
+    var mark = sec && $('.intro__mark', sec);
+    if (!sec || !mark || reduce) return;
     var pending = false;
     function frame() {
       pending = false;
-      var rect = row.getBoundingClientRect();
+      var rect = sec.getBoundingClientRect();
       var vh = window.innerHeight || 1;
-      // 0 when row center is mid-viewport; drifts ±~18px as it scrolls past
+      // 0 when section center is mid-viewport; drifts ±~18px as it scrolls past
       var mid = rect.top + rect.height * 0.5;
       var t = (mid - vh * 0.5) / vh;
       var py = Math.max(-18, Math.min(18, t * -28));
-      row.style.setProperty('--stats-py', py.toFixed(2) + 'px');
+      sec.style.setProperty('--intro-py', py.toFixed(2) + 'px');
     }
     function onMove() {
       if (pending) return;

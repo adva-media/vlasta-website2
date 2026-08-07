@@ -432,12 +432,28 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
 .intro{max-width:min(100%,940px);font-size:clamp(19px,2.3vw,30px);font-weight:300;
   line-height:1.42;letter-spacing:-.015em;color:#fff;text-wrap:pretty}
 
-/* Intro sits on solid paper — KPIs are plain ink figures, not glass tiles */
+/* Intro sits on solid paper — KPIs are plain ink figures, not glass tiles.
+   Watermark spans the whole white band (not just the KPI row). */
+#intro{position:relative;overflow:hidden}
+.intro__mark{position:absolute;z-index:0;pointer-events:none;user-select:none;
+  right:-6%;top:52%;width:min(72%,820px);height:auto;
+  /* ~2–3% ink on paper — reads as watermark, not a logo tile */
+  opacity:.028;filter:grayscale(1);
+  transform:translate3d(0,calc(-50% + var(--intro-py,0px)),0);
+  will-change:transform}
+#intro > .wrap{position:relative;z-index:1}
 .glasszone #intro{background:var(--paper)}
 .glasszone #intro .intro{color:var(--ink)}
 .glasszone #intro .stat__n{color:var(--ink)}
 .glasszone #intro .stat__n .u{color:var(--accent)}
 .glasszone #intro .stat__l{color:var(--steel)}
+[data-theme="dark"] .intro__mark{opacity:.045;filter:grayscale(1) brightness(1.6)}
+@media (max-width:680px){
+  .intro__mark{width:min(88%,420px);right:-14%;opacity:.022}
+}
+@media (prefers-reduced-motion:reduce){
+  .intro__mark{transform:translate3d(0,-50%,0);will-change:auto}
+}
 
 /* ------------------------------------------- signature: link-analysis map */
 /* padding reserves clear bands so the floating chips never cover a node */
@@ -468,17 +484,11 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
 @keyframes nm-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
 
 /* ------------------------------------------------------------ stats bar */
-/* Flat figures on paper — no glass tiles. Logo watermark sits behind the
-   right half and drifts slightly on scroll (see main.js). */
+/* Flat figures on paper — no glass tiles. Watermark lives on #intro. */
 .stats{position:relative;display:grid;grid-template-columns:repeat(4,1fr);
   gap:clamp(18px,2.4vw,28px);margin-top:clamp(38px,5vw,60px);
-  padding:clamp(8px,1.2vw,14px) 0;overflow:hidden;isolation:isolate}
-.stats__mark{position:absolute;z-index:0;pointer-events:none;user-select:none;
-  right:-4%;top:50%;width:min(62%,520px);height:auto;
-  opacity:.07;filter:grayscale(1) brightness(1.05);
-  transform:translate3d(0,calc(-50% + var(--stats-py,0px)),0);
-  will-change:transform}
-.stat{position:relative;z-index:1;padding:4px 0 2px;
+  padding:clamp(8px,1.2vw,14px) 0}
+.stat{position:relative;padding:4px 0 2px;
   background:none;border:none;border-radius:0;
   -webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:none}
 .stat__n{display:flex;align-items:baseline;gap:6px;
@@ -494,13 +504,8 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
 .js .stat--appear .stat__n{opacity:0;transform:translateY(14px);
   transition:opacity .85s var(--ease),transform .85s var(--ease);transition-delay:.08s}
 .js .stats.is-in .stat--appear .stat__n{opacity:1;transform:none}
-[data-theme="dark"] .stats__mark{opacity:.1;filter:grayscale(1) brightness(1.35)}
-@media (max-width:680px){
-  .stats__mark{width:min(78%,360px);right:-10%;opacity:.055}
-}
 @media (prefers-reduced-motion:reduce){
   .js .stat--appear .stat__n{opacity:1;transform:none;transition:none}
-  .stats__mark{transform:translate3d(0,-50%,0);will-change:auto}
 }
 
 /* ---------------------------------------------------------------- cards */
@@ -914,7 +919,7 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
    Staircase photo lives on ::before with a light blur; wash on ::after;
    children stay sharp above both layers. */
 #history{
-  padding-block:clamp(36px,4.5vw,64px) clamp(28px,3.5vw,48px);
+  padding-block:clamp(18px,2.2vw,32px) clamp(14px,1.8vw,24px);
   overflow:hidden;
   background-color:var(--surface-dark);
   background-image:none;
@@ -938,7 +943,7 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
 @supports (-webkit-touch-callout:none){#history::before{background-attachment:scroll}}
 #history > *{position:relative;z-index:1}
 #history .engrave{display:none}
-#history .shead{margin-bottom:clamp(16px,2.2vw,28px)}
+#history .shead{margin-bottom:clamp(8px,1.2vw,16px)}
 #history .shead__t{max-width:min(100%,720px)}
 #history .shead .h2 .h2__line{display:block}
 @media (min-width:560px){
@@ -949,8 +954,8 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
 .road{--yh0:78;--ahead:.45;--tile:clamp(200px,24vw,248px);position:relative;margin-top:0;padding:0;border:0;
   background:none;box-shadow:none;border-radius:0;
   -webkit-backdrop-filter:none;backdrop-filter:none}
-.road__body{--rail:clamp(128px,14.5vw,168px);--mk:clamp(48px,5.8vw,60px);
-  --chip-room:clamp(26px,3.2vw,40px);
+.road__body{--rail:clamp(108px,12vw,140px);--mk:clamp(44px,5.2vw,54px);
+  --chip-room:clamp(16px,2.2vw,26px);
   --fade:clamp(36px,7vw,80px);--fade-l:var(--fade);--fade-r:var(--fade);
   /* End clearance must live in scrollable content (not the scroller padding). */
   --road-inset:max(var(--gutter), calc(var(--fade) + 24px));
@@ -993,16 +998,16 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
    --ahead must match ROAD_AHEAD in tools/build.mjs. */
 .road__ahead{flex:0 0 calc(var(--tile) * var(--ahead));align-self:stretch;pointer-events:none}
 .road__i{display:flex;flex-direction:column;flex:0 0 var(--tile);
-  position:relative;padding:14px 22px 2px 0}
+  position:relative;padding:8px 22px 0 0}
 .road__peg{position:absolute;left:0;right:22px;
   /* padding-top includes chip-room, so -rail lands on the trail. */
   top:calc(var(--rail) * -1);height:var(--rail);pointer-events:none}
 /* Year chip sits just above its mark on the trail. */
 .road__yr{position:absolute;left:50%;top:calc(var(--yh) * 1%);
-  transform:translate(-50%,calc(-100% - var(--mk) * .62));
-  font-size:clamp(17px,1.85vw,22px);font-weight:800;letter-spacing:.04em;line-height:1;
+  transform:translate(-50%,calc(-100% - var(--mk) * .55));
+  font-size:clamp(16px,1.7vw,20px);font-weight:800;letter-spacing:.04em;line-height:1;
   color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap;
-  padding:5px 11px;border-radius:999px;background:rgba(255,255,255,.88);
+  padding:4px 10px;border-radius:999px;background:rgba(255,255,255,.88);
   border:1px solid rgba(20,20,40,.08);box-shadow:0 6px 16px -10px rgba(20,20,40,.35);
   transition:color .35s,background .35s,box-shadow .35s,transform .35s}
 [data-theme="dark"] .road__yr{background:rgba(20,20,40,.78);border-color:rgba(255,255,255,.12);color:#fff}
@@ -1019,7 +1024,7 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
   box-shadow:0 12px 28px -12px rgba(0,0,0,.55),0 0 0 3px rgba(255,255,255,.12)}
 .road__i--hi .road__yr{color:var(--accent)}
 .road__i:hover .road__mark{transform:translate(-50%,-50%) scale(1.08)}
-.road__i:hover .road__yr{transform:translate(-50%,calc(-100% - var(--mk) * .72))}
+.road__i:hover .road__yr{transform:translate(-50%,calc(-100% - var(--mk) * .65))}
 .road__i.is-lit .road__mark{box-shadow:0 0 0 5px rgba(83,93,134,.2),0 0 28px 4px rgba(83,93,134,.4),
   0 14px 28px -12px rgba(20,20,40,.55);transform:translate(-50%,-50%) scale(1.08)}
 .road__i.is-lit .road__mark::after{opacity:1;transform:scale(1.12);
@@ -1031,7 +1036,7 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
 @keyframes roadRing{0%{transform:scale(1);opacity:.85}100%{transform:scale(1.45);opacity:0}}
 @media (prefers-reduced-motion:reduce){.road__i.is-lit .road__mark::after{animation:none}}
 
-.road__c{min-width:0;padding:14px 14px 15px;border-radius:14px;margin-top:4px;
+.road__c{min-width:0;padding:11px 12px 12px;border-radius:12px;margin-top:2px;
   /* Climb with the rising trail via transform only — never shift the mark/peg. */
   --lift:calc((var(--yh) - var(--yh0)) * var(--rail) / 100);
   transform:translateY(var(--lift));
@@ -1045,17 +1050,17 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
   border-color:rgba(83,93,134,.2);transform:translateY(calc(var(--lift) - 2px))}
 [data-theme="dark"] .road__i:hover .road__c,
 [data-theme="dark"] .road__i.is-lit .road__c{background:rgba(28,28,52,.88);border-color:rgba(255,255,255,.2)}
-.road__c h3{font-size:clamp(14.5px,1.35vw,17px);line-height:1.3}
-.road__c p{margin-top:7px;font-size:13.5px;line-height:1.55;color:var(--body)}
+.road__c h3{font-size:clamp(14px,1.3vw,16px);line-height:1.28}
+.road__c p{margin-top:5px;font-size:13px;line-height:1.48;color:var(--body)}
 
 @media (max-width:640px){
   .road{--tile:min(72vw,260px)}
-  .road__body{--rail:114px;--mk:44px;--chip-room:24px;--fade:clamp(20px,10vw,40px)}
-  .road__i{padding:12px 16px 0 0}
+  .road__body{--rail:96px;--mk:40px;--chip-room:14px;--fade:clamp(20px,10vw,40px)}
+  .road__i{padding:6px 16px 0 0}
   .road__peg{right:16px}
-  .road__yr{font-size:15px;padding:4px 10px}
-  .road__c{padding:12px}
-  .road__c p{font-size:13px}
+  .road__yr{font-size:14px;padding:3px 9px}
+  .road__c{padding:10px 11px}
+  .road__c p{font-size:12.5px}
 }
 
 /* ---------------------------------------------------------- associations */
@@ -1768,7 +1773,6 @@ html.is-locked,html.is-locked body{overflow:hidden}
   .road__arcTip{display:none}
   .road__i.is-lit .road__mark::after{animation:none}
   .js .stat--appear .stat__n{opacity:1;transform:none;transition:none}
-  .stats__mark{transform:translate3d(0,-50%,0);will-change:auto}
   .js .cta:not(.is-in) .cta__title,
   .js .cta:not(.is-in) .cta__sub,
   .js .cta:not(.is-in) .cta__lead,

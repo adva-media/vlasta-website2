@@ -1029,10 +1029,10 @@ function buildHome() {
 </section>
 
 <section class="sec" id="intro">
+  <img class="intro__mark" src="${rel(0, 'assets/img/logo-dark.svg')}" alt="" aria-hidden="true" decoding="async">
   <div class="wrap">
     <p class="intro reveal">${C.intro}</p>
     <div class="stats reveal reveal--fade" data-d="1">
-      <img class="stats__mark" src="${rel(0, 'assets/img/logo-dark.svg')}" alt="" aria-hidden="true" decoding="async">
       ${site.stats.map(s => {
         const suffix = t(s, 'suffix');
         const unit = t(s, 'unit');
