@@ -682,35 +682,25 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
 #approach{background:transparent}
 .appr-hex{display:grid;gap:clamp(22px,3vw,36px)}
 /* Plain white plate: copy + hex V + KPI footer row. */
-.appr-hex__shell{position:relative;display:grid;gap:clamp(22px,3vw,36px);align-items:center;
+.appr-hex__shell{position:relative;display:grid;gap:clamp(22px,3vw,36px);align-items:start;
   padding:clamp(22px,3vw,36px) clamp(22px,3.2vw,40px);
   border-radius:var(--r-lg);overflow:hidden;color:var(--ink);
   background:var(--paper);border:1px solid var(--line);box-shadow:var(--sh-sm)}
-.appr-hex__copy{position:relative;z-index:1;padding-top:clamp(4px,1vw,10px)}
+.appr-hex__copy{position:relative;z-index:1;padding-top:clamp(4px,1vw,10px);
+  align-self:start;transition:opacity .28s var(--ease)}
+.appr-hex__copy.is-swap{opacity:.35}
 .appr-hex__shell .kick,.glasszone .appr-hex__shell .kick{color:#6B6E86}
 .appr-hex__shell .h2,.glasszone .appr-hex__shell .h2,
 .appr-hex__shell h2,.glasszone .appr-hex__shell h2{color:var(--ink)}
-.appr-hex__copy .h2{margin-top:15px;max-width:19ch}
+.appr-hex__copy .h2{margin-top:15px;max-width:28ch}
 .appr-hex__lead,.glasszone .appr-hex__shell .lead,.glasszone .appr-hex__shell p.lead{
   margin-top:18px;max-width:44ch;font-weight:400;color:var(--body)}
-.appr-hex__lead + .appr-hex__lead{margin-top:12px}
-.appr-hex__stage{display:none;position:relative;z-index:1;justify-self:end;width:100%;max-width:680px;
-  overflow:visible;
+.appr-hex__stage{display:none;position:relative;z-index:1;justify-self:end;align-self:start;
+  width:100%;max-width:680px;overflow:visible;
   --hex-w:min(10.8vw,128px);--hex-h:calc(var(--hex-w) * 1.1547);
-  --big-w:min(36vw,292px);--big-h:calc(var(--big-w) * 1.1547);
   /* Dense 3–2–1 pack: same-row neighbours at Δx=2; offset rows at Δx=1. */
   --xs:calc(var(--hex-w) * .55);--ys:calc(var(--hex-w) * .93);
-  /* Dock math: apothem (flat) / circumradius (vertex) + satellite half + hug. */
-  --hug:8px;
-  --d-flat:calc(var(--big-w) * .5 + var(--hex-w) * .5 + var(--hug));
-  --d-vert:calc(var(--big-w) * .57735 + var(--hex-w) * .57735 + var(--hug));
-  /* Hub sits low enough that NW/NE flats clear the stage top when docked. */
-  --hub-y:1;--open:0;
-  /* Idle 3–2–1 spans y=0…2 (Ops tip); x reaches ±2 on the top row. */
-  --grid-h-idle:calc(var(--ys) * 2 + var(--hex-h));
-  --grid-h-open:calc(var(--ys) * var(--hub-y) + var(--big-h) * .5 + var(--d-flat) * .8660254 + var(--hex-h) * .5 + 8px)}
-/* Hover: satellites ease onto the big-hex perimeter; hub fades/scales in. */
-.appr-hex.is-open .appr-hex__stage{--open:1}
+  --grid-h:calc(var(--ys) * 2 + var(--hex-h))}
 /* Full-tile fabric under copy/hexes/KPIs. Shell overflow clips overscan canvas edges. */
 .appr-hex__mesh{display:block;position:absolute;inset:0;z-index:0;overflow:hidden;
   pointer-events:none;border-radius:inherit}
@@ -724,46 +714,16 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
     rgba(255,255,255,.12) 68%,
     transparent 100%);
   -webkit-backdrop-filter:blur(1.5px);backdrop-filter:blur(1.5px)}
-.appr-hex__mob{display:grid;gap:10px}
-/* Big explanation hex — same pointy-top plate as satellites; title + body inside. */
-.appr-hex__pop{position:absolute;left:50%;top:calc(var(--ys) * var(--hub-y));z-index:5;
-  width:var(--big-w);height:var(--big-h);transform:translate(-50%,0);
-  opacity:0;visibility:hidden;pointer-events:none;
-  transition:opacity .45s var(--ease),visibility .45s,top .55s var(--ease)}
-.appr-hex.is-open .appr-hex__pop{opacity:1;visibility:visible}
-.appr-hex__hub{position:relative;width:100%;height:100%;
-  transform:scale(.9);opacity:0;
-  transition:transform .55s var(--ease),opacity .45s var(--ease)}
-.appr-hex.is-open .appr-hex__hub{transform:none;opacity:1}
-.appr-hex__hub > .appr-hex__frost{background:linear-gradient(160deg,#FFFFFF 0%,#F2F3F8 100%);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 14px 32px -18px rgba(20,20,40,.28)}
-.appr-hex__hub .appr-hex__body{stroke:rgba(83,93,134,.38);stroke-width:1.4}
-/* Clip copy to the plate so wider middle inset cannot bleed past hex flats. */
-.appr-hex__hub-in{position:absolute;inset:0;z-index:1;
-  clip-path:polygon(50% 0%,100% 33%,100% 67%,50% 100%,0% 67%,0% 33%);
-  -webkit-clip-path:polygon(50% 0%,100% 33%,100% 67%,50% 100%,0% 67%,0% 33%)}
-/* Vertical inset keeps the box in the flat mid-band; sides use most of flat width. */
-.appr-hex__panel{position:absolute;inset:14% 6% 13%;display:flex;flex-direction:column;justify-content:center;
-  text-align:left;opacity:0;visibility:hidden;transform:translateY(8px) scale(.97);pointer-events:none;
-  transition:opacity .45s var(--ease),transform .5s var(--ease),visibility .45s}
-.appr-hex__panel.is-on{opacity:1;visibility:visible;transform:none;pointer-events:auto}
-.appr-hex__panel h3{font-size:13px;line-height:1.22;color:var(--ink);margin:0;font-weight:700}
-.appr-hex__panel p{margin-top:5px;font-size:10.5px;line-height:1.4;color:var(--body)}
 
-/* Idle V uses --x/--y; open ring uses --sx/--sy/--d (dock from hub). */
-.appr-hex__grid{position:relative;z-index:1;width:100%;
-  height:calc(var(--grid-h-idle) * (1 - var(--open)) + var(--grid-h-open) * var(--open));
-  transition:height .55s var(--ease)}
-.appr-hex__cell{--x:0;--y:0;--sx:0;--sy:1;--d:var(--d-flat);position:absolute;left:50%;top:0;z-index:1;
+/* Idle V uses --x/--y only — hover swaps left copy, hexes stay put. */
+.appr-hex__grid{position:relative;z-index:1;width:100%;height:var(--grid-h)}
+.appr-hex__cell{--x:0;--y:0;position:absolute;left:50%;top:0;z-index:1;
   width:var(--hex-w);height:var(--hex-h);
   margin:0;padding:0;border:none;background:transparent;cursor:pointer;color:inherit;
-  /* Docked top-left: hub centre + d·(sx,sy) − half satellite. */
-  --ox:calc(var(--d) * var(--sx));
-  --oy:calc(var(--ys) * var(--hub-y) + var(--big-h) * .5 + var(--d) * var(--sy) - var(--hex-h) * .5);
-  --tx:calc(var(--xs) * var(--x) * (1 - var(--open)) + var(--ox) * var(--open));
-  --ty:calc(var(--ys) * var(--y) * (1 - var(--open)) + var(--oy) * var(--open));
+  --tx:calc(var(--xs) * var(--x));
+  --ty:calc(var(--ys) * var(--y));
   transform:translate(calc(-50% + var(--tx)),var(--ty));
-  transition:transform .55s var(--ease),opacity .45s var(--ease)}
+  transition:transform .35s var(--ease),opacity .35s var(--ease)}
 /* Indigo hexes on the white plate — readable icons/labels (beats .glasszone .ico). */
 .appr-hex__shape{position:relative;display:grid;place-items:center;width:100%;height:100%;color:var(--ink)}
 .appr-hex__frost{position:absolute;inset:0;pointer-events:none;
@@ -784,9 +744,8 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
 .appr-hex__ico svg{width:18px;height:18px;stroke-width:1.5}
 .appr-hex__lb{font-size:12.5px;font-weight:700;letter-spacing:.02em;line-height:1.2;text-align:center;
   color:var(--ink)}
-/* Lift only while idle; docked active hex stays flush on the hub edge. */
 .appr-hex__cell.is-active,.appr-hex__cell:focus-visible{z-index:8;
-  transform:translate(calc(-50% + var(--tx)),calc(var(--ty) - (1 - var(--open)) * 8px))}
+  transform:translate(calc(-50% + var(--tx)),calc(var(--ty) - 8px))}
 .appr-hex__cell.is-active .appr-hex__frost,.appr-hex__cell:focus-visible .appr-hex__frost{
   background:linear-gradient(160deg,#646E96 0%,#535D86 100%);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 12px 28px -16px rgba(20,20,40,.4)}
@@ -797,59 +756,51 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
 .glasszone .appr-hex__shell .appr-hex__cell.is-active .appr-hex__ico,
 .glasszone .appr-hex__shell .appr-hex__cell:focus-visible .appr-hex__ico{
   background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.32);color:#fff}
-/* Soften idle arms — keep them readable so they frame the centre hub. */
-.appr-hex.is-open .appr-hex__cell{z-index:6}
 .appr-hex.is-dim .appr-hex__cell:not(.is-active){
   opacity:.55;
   transform:translate(calc(-50% + var(--tx)),var(--ty))}
-.appr-hex__acc{padding:0;overflow:hidden;border-radius:var(--r-md);
-  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);
-  -webkit-backdrop-filter:blur(18px) saturate(1.55);backdrop-filter:blur(18px) saturate(1.55)}
-.appr-hex__acc summary{display:flex;align-items:center;gap:12px;padding:16px 18px;cursor:pointer;list-style:none;color:#fff;font-weight:600;font-size:15px}
-.appr-hex__acc summary::-webkit-details-marker{display:none}
-.appr-hex__acc summary .ico{width:40px;height:40px;border-radius:12px;flex:none}
-.appr-hex__acc p{padding:0 18px 18px;font-size:13.5px;line-height:1.58;color:rgba(255,255,255,.78)}
 /* KPI footer inside the white plate — full width, above mesh, no card chrome at rest. */
 .appr-hex__kpi{position:relative;z-index:1;grid-column:1/-1;align-self:stretch;
   margin:0;gap:6px}
 .appr-hex__kpi .res__c{
-  padding:14px 16px 12px;border:0;outline:0;border-radius:10px;
+  padding:14px 16px 12px;border:0;outline:0;border-radius:0;
   background:transparent;box-shadow:none;transform:none;
-  transition:background .25s var(--ease)}
+  transition:none;pointer-events:none;cursor:default}
 .appr-hex__kpi .res__c:hover,.appr-hex__kpi .res__c:focus-within{
-  background:#ebebef;border:0;outline:0;box-shadow:none;transform:none}
-/* Glyph only — no button chrome; cell hover chip stays on .res__c. */
+  background:transparent;border:0;outline:0;box-shadow:none;transform:none}
+.appr-hex__kpi .res__head{align-items:center;gap:14px}
+/* Icon matches the figure block height — centred beside the number. */
 .appr-hex__kpi .res__ico,.glasszone .appr-hex__shell .appr-hex__kpi .res__ico{
-  background:transparent;border:0;box-shadow:none;border-radius:0;color:var(--accent)}
+  width:clamp(40px,4.2vw,52px);height:clamp(40px,4.2vw,52px);border-radius:0;
+  background:transparent;border:0;box-shadow:none;color:var(--accent);
+  display:grid;place-items:center;flex:none}
+.appr-hex__kpi .res__ico svg{width:72%;height:72%;stroke-width:1.45}
 .appr-hex__kpi .res__c:hover .res__ico,.appr-hex__kpi .res__c:focus-within .res__ico,
 .glasszone .appr-hex__shell .appr-hex__kpi .res__c:hover .res__ico,
 .glasszone .appr-hex__shell .appr-hex__kpi .res__c:focus-within .res__ico{
   background:transparent;border:0;box-shadow:none;color:var(--accent)}
-.appr-hex__kpi .res__n{color:var(--ink)}
-.appr-hex__kpi .res__pre,.appr-hex__kpi .res__u{color:var(--accent)}
+.appr-hex__kpi .res__n{color:var(--ink);font-size:clamp(36px,3.8vw,48px);
+  align-items:center;gap:4px;line-height:1}
+.appr-hex__kpi .res__pre,.appr-hex__kpi .res__u{color:var(--accent);
+  font-size:.52em;font-weight:600;line-height:1;align-self:center;margin:0}
+.appr-hex__kpi .res__u{margin-left:2px}
 .appr-hex__kpi .res__l,.glasszone .appr-hex__shell .appr-hex__kpi .res__l,
 .glasszone .appr-hex__shell .appr-hex__kpi p.res__l{color:var(--body);font-size:16px;line-height:1.45}
 .appr-hex__kpi .res__l b,.appr-hex__kpi .res__l strong,
 .glasszone .appr-hex__shell .appr-hex__kpi .res__l b,
 .glasszone .appr-hex__shell .appr-hex__kpi .res__l strong{color:var(--ink);font-weight:700}
-.appr-hex__kpi .res__n{font-size:clamp(36px,3.8vw,48px)}
 [data-theme="dark"] .appr-hex__kpi .res__c:hover,
-[data-theme="dark"] .appr-hex__kpi .res__c:focus-within{background:#2a2a44}
+[data-theme="dark"] .appr-hex__kpi .res__c:focus-within{background:transparent}
 [data-theme="dark"] .appr-hex__kpi .res__ico,
 [data-theme="dark"] .glasszone .appr-hex__shell .appr-hex__kpi .res__ico{
   background:transparent;border:0;box-shadow:none;color:var(--mist)}
 [data-theme="dark"] .appr-hex__kpi .res__c:hover .res__ico,
 [data-theme="dark"] .appr-hex__kpi .res__c:focus-within .res__ico{
-  background:transparent;border:0;box-shadow:none;color:#fff}
-[data-theme="dark"] .appr-hex__hub > .appr-hex__frost{
-  background:linear-gradient(160deg,#1E1E38 0%,#18182E 100%);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 14px 32px -18px rgba(0,0,0,.45)}
-[data-theme="dark"] .appr-hex__hub .appr-hex__body{stroke:rgba(198,200,218,.28)}
+  background:transparent;border:0;box-shadow:none;color:var(--mist)}
 @media (min-width:900px){
   .appr-hex__shell{grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);
     column-gap:clamp(32px,5vw,64px);row-gap:clamp(24px,3vw,36px)}
   .appr-hex__stage{display:block}
-  .appr-hex__mob{display:none}
   .appr-hex__kpi{gap:8px}
   .appr-hex__blur{background:linear-gradient(90deg,
     var(--paper) 0%,
@@ -858,30 +809,12 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
     rgba(255,255,255,.08) 78%,
     transparent 100%)}
 }
-/* Mobile: keep idle V; hex-shaped explanation appears under the cluster. */
 @media (max-width:899px){
-  .appr-hex.is-open .appr-hex__stage{--open:0}
-  .appr-hex__stage{display:flex;flex-direction:column;align-items:center;justify-self:stretch;max-width:none;
+  .appr-hex__stage{display:block;justify-self:stretch;max-width:none;
     --hex-w:clamp(78px,23vw,112px);--hex-h:calc(var(--hex-w) * 1.1547);
-    --big-w:min(82vw,300px);--big-h:calc(var(--big-w) * 1.1547);
     --xs:calc(var(--hex-w) * .55);--ys:calc(var(--hex-w) * .93);
-    --hub-y:0;--grid-h-idle:calc(var(--ys) * 2 + var(--hex-h));--grid-h-open:var(--grid-h-idle)}
-  .appr-hex__mob{display:none}
-  .appr-hex__grid{order:1;width:100%}
-  .appr-hex__pop{order:2;position:relative;left:auto;top:auto;width:var(--big-w);height:0;
-    transform:none;margin:0 auto;opacity:0;overflow:hidden;
-    transition:height .55s var(--ease),opacity .4s var(--ease),margin-top .45s var(--ease);
-    pointer-events:none}
-  .appr-hex.is-open .appr-hex__pop{height:var(--big-h);opacity:1;margin-top:16px}
-  .appr-hex.is-open .appr-hex__panel.is-on{pointer-events:auto}
-  .appr-hex__hub{transform:translateY(12px) scale(.94)}
-  .appr-hex.is-open .appr-hex__hub{transform:none}
-  .appr-hex__panel{transform:translateY(14px) scale(.96);
-    transition:opacity .5s var(--ease),transform .55s var(--ease),visibility .5s}
-  .appr-hex__panel.is-on{transform:none}
-  .appr-hex__panel{inset:13% 7% 12%}
-  .appr-hex__panel h3{font-size:13.5px}
-  .appr-hex__panel p{font-size:11px;line-height:1.38}
+    --grid-h:calc(var(--ys) * 2 + var(--hex-h))}
+  .appr-hex__grid{width:100%}
   .appr-hex__cell.is-active{z-index:8;
     transform:translate(calc(-50% + var(--tx)),calc(var(--ty) - 10px))}
   .appr-hex__ico{width:34px;height:34px;border-radius:10px}
@@ -890,15 +823,15 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
   .appr-hex__in{gap:7px}
   .appr-hex__kpi.res{grid-template-columns:repeat(2,1fr);gap:4px}
   .appr-hex__kpi .res__c{padding:12px 12px 10px}
-  .appr-hex__kpi .res__ico{width:30px;height:30px;border-radius:0}
-  .appr-hex__kpi .res__ico svg{width:16px;height:16px}
+  .appr-hex__kpi .res__ico{width:clamp(32px,8.5vw,42px);height:clamp(32px,8.5vw,42px)}
   .appr-hex__kpi .res__n{font-size:clamp(28px,7.5vw,36px)}
-  .appr-hex__kpi .res__head{gap:10px}
+  .appr-hex__kpi .res__head{gap:12px}
   .appr-hex__kpi .res__l{margin-top:8px;font-size:13.5px;line-height:1.4;
     display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 }
 @media (prefers-reduced-motion:reduce){
-  .appr-hex__cell,.appr-hex__panel,.appr-hex__pop,.appr-hex__hub,.appr-hex__grid{transition-duration:.01ms!important}
+  .appr-hex__cell,.appr-hex__copy{transition-duration:.01ms!important}
+  .appr-hex__copy.is-swap{opacity:1}
   .appr-hex.is-dim .appr-hex__cell:not(.is-active){opacity:.55;
     transform:translate(calc(-50% + var(--tx)),var(--ty))}
 }
@@ -1803,20 +1736,25 @@ html.is-locked,html.is-locked body{overflow:hidden}
 [data-theme="dark"] .btn--light{background:var(--accent);color:#0C0C1C}
 [data-theme="dark"] .geo__bar b{color:#fff}
 
-/* --------------------------------------------------------- reduced motion */
+/* --------------------------------------------------------- reduced motion
+   Soften entrance/scroll motion only. Do NOT nuke ambient loops (logo marquee,
+   association/letter belts) — Windows "Animation effects: Off" (common on
+   corporate PCs) maps to this query and would otherwise freeze the homepage. */
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
-  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;
-    transition-duration:.01ms!important}
-  .reveal{opacity:1;transform:none}
+  .reveal{opacity:1;transform:none;transition:none}
   .seeall__r svg{animation:none!important}
-  .mq__band{animation:none!important}
-  .mq__vp{overflow-x:auto;-webkit-mask:none;mask:none;cursor:auto}
+  .scrollcue__l,.scrollcue svg{animation:none}
+  .rise{animation:none}
+  .road__arcTip{display:none}
+  .road__i.is-lit .road__mark::after{animation:none}
+  .js .stat--appear .stat__n{opacity:1;transform:none;transition:none}
+  .stats__mark{transform:translate3d(0,-50%,0);will-change:auto}
   .js .cta:not(.is-in) .cta__title,
   .js .cta:not(.is-in) .cta__sub,
   .js .cta:not(.is-in) .cta__lead,
-  .js .cta:not(.is-in) .cta__aside{opacity:1;transform:none}
-  }
+  .js .cta:not(.is-in) .cta__aside{opacity:1;transform:none;transition:none}
+}
 
 /* ---------------------------------------------------------------- print */
 @media print{
@@ -2004,10 +1942,6 @@ section[id]{scroll-margin-top:96px}
 @keyframes belt{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 .belt:hover .belt__track,
 .belt:focus-within .belt__track{animation-play-state:paused}
-@media (prefers-reduced-motion:reduce){
-  .belt__track{animation:none}
-  .belt__vp{overflow-x:auto;-webkit-mask:none;mask:none}
-}
 
 .belt__i{flex:none;cursor:pointer;text-align:left;font:inherit;color:inherit;
   background:none;border:0;padding:0;margin-right:18px;transition:transform var(--t)}

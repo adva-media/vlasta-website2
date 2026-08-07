@@ -28,7 +28,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200..800;1,300..600&display=swap">
-<link rel="stylesheet" href="../assets/css/style.css?v=9cc3b262">
+<link rel="stylesheet" href="../assets/css/style.css?v=293781e9">
 <link rel="icon" href="../assets/img/logo-dark.svg" type="image/svg+xml">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Власта-Консалтинг","alternateName":"Vlasta Consulting","url":"https://vlasta-s.com/","logo":"https://vlasta-s.com/assets/img/logo-dark.svg","foundingDate":"2006","telephone":"+74951233336","email":"info@vlasta-s.com","address":{"@type":"PostalAddress","streetAddress":"ул. Усачёва, д. 13, помещение 4н","addressLocality":"Москва","postalCode":"119048","addressCountry":"RU"},"areaServed":["RU","BY","KZ","UZ","KG","AM","GE"],"contactPoint":{"@type":"ContactPoint","telephone":"+74951233336","contactType":"customer service","availableLanguage":["Russian","English"]}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Власта-Консалтинг","url":"https://vlasta-s.com/","inLanguage":"ru-RU","potentialAction":{"@type":"SearchAction","target":"https://vlasta-s.com/news.html?q={q}","query-input":"required name=q"}}</script>
@@ -196,41 +196,13 @@
     <canvas class="appr-hex__field"></canvas>
     <div class="appr-hex__blur"></div>
   </div>
-  <div class="appr-hex__copy">
+  <div class="appr-hex__copy" id="apprHexCopy">
     <span class="kick">Approach and record</span>
-    <h2 class="h2">All departments — one system</h2>
-    <p class="lead appr-hex__lead">Our departments work as a single loop — from analytics and field operations to legal and online work. Coordinating them delivers a measurable effect for rights holders across our brand protection programmes.</p>
-    
+    <h2 class="h2" id="apprHexTitle">All departments — one system</h2>
+    <p class="lead appr-hex__lead" id="apprHexLead">Our departments work as a single loop — from analytics and field operations to legal and online work. Coordinating them delivers a measurable effect for rights holders across our brand protection programmes.</p>
   </div>
   <div class="appr-hex__stage">
-    <div class="appr-hex__pop" id="apprHexPanel">
-      <div class="appr-hex__hub">
-        <span class="appr-hex__frost" aria-hidden="true"></span>
-<svg class="appr-hex__plate" viewBox="0 0 173 200" aria-hidden="true" focusable="false">
-  <path class="appr-hex__body" d="M100.3 8 159.2 42Q173 50 173 66V134Q173 150 159.2 158L100.3 192Q86.5 200 72.7 192L13.8 158Q0 150 0 134V66Q0 50 13.8 42L72.7 8Q86.5 0 100.3 8Z" fill="none"/>
-</svg>
-        <div class="appr-hex__hub-in"><article class="appr-hex__panel" data-i="0" hidden>
-      <h3 class="h3">Analytics department</h3>
-      <p>The analytics department collects, verifies and processes information, and conducts comprehensive analysis of companies, individuals and markets. We identify potential risks and violations, producing objective structured materials for management and legal decisions.</p>
-    </article><article class="appr-hex__panel" data-i="1" hidden>
-      <h3 class="h3">Legal department</h3>
-      <p>The legal department provides legal support at every stage of a project — advisory work, litigation, and legal strategies designed to protect the client's interests.</p>
-    </article><article class="appr-hex__panel" data-i="2" hidden>
-      <h3 class="h3">Operations department</h3>
-      <p>The operations department coordinates raids and seizures with law enforcement across Moscow, Russia's regions and the CIS. The team delivers rapid response, support during enforcement actions and documented outcomes within anti-counterfeit projects.</p>
-    </article><article class="appr-hex__panel" data-i="3" hidden>
-      <h3 class="h3">Project coordination</h3>
-      <p>The project coordination department organises and monitors every stage of work — managing timelines, quality and cross-department communication, and keeping processes transparent for the client.</p>
-    </article><article class="appr-hex__panel" data-i="4" hidden>
-      <h3 class="h3">IT / Online department</h3>
-      <p>The IT and online department handles digital assignments — marketplaces, online checks, monitoring and analysis of internet activity, and remote or contract-based project delivery.</p>
-    </article><article class="appr-hex__panel" data-i="5" hidden>
-      <h3 class="h3">Offline department</h3>
-      <p>The offline and field department works in physical channels — test purchases, retail and wholesale monitoring, warehouse and outlet checks. Specialists gather on-the-ground evidence across Russia and the EAEU, complementing digital checks and enforcement operations.</p>
-    </article></div>
-      </div>
-    </div>
-    <div class="appr-hex__grid"><button type="button" class="appr-hex__cell" data-i="0" style="--x:-2;--y:0;--sx:-0.5;--sy:-0.8660254;--d:var(--d-flat)" aria-expanded="false" aria-controls="apprHexPanel">
+    <div class="appr-hex__grid"><button type="button" class="appr-hex__cell" data-i="0" style="--x:-2;--y:0" aria-pressed="false">
       <span class="appr-hex__shape">
         <span class="appr-hex__frost" aria-hidden="true"></span>
 <svg class="appr-hex__plate" viewBox="0 0 173 200" aria-hidden="true" focusable="false">
@@ -241,7 +213,7 @@
           <span class="appr-hex__lb">Analytics</span>
         </span>
       </span>
-    </button><button type="button" class="appr-hex__cell" data-i="1" style="--x:-1;--y:1;--sx:-1;--sy:0;--d:var(--d-flat)" aria-expanded="false" aria-controls="apprHexPanel">
+    </button><button type="button" class="appr-hex__cell" data-i="1" style="--x:-1;--y:1" aria-pressed="false">
       <span class="appr-hex__shape">
         <span class="appr-hex__frost" aria-hidden="true"></span>
 <svg class="appr-hex__plate" viewBox="0 0 173 200" aria-hidden="true" focusable="false">
@@ -252,7 +224,7 @@
           <span class="appr-hex__lb">Legal</span>
         </span>
       </span>
-    </button><button type="button" class="appr-hex__cell" data-i="2" style="--x:0;--y:2;--sx:-0.5;--sy:0.8660254;--d:var(--d-flat)" aria-expanded="false" aria-controls="apprHexPanel">
+    </button><button type="button" class="appr-hex__cell" data-i="2" style="--x:0;--y:2" aria-pressed="false">
       <span class="appr-hex__shape">
         <span class="appr-hex__frost" aria-hidden="true"></span>
 <svg class="appr-hex__plate" viewBox="0 0 173 200" aria-hidden="true" focusable="false">
@@ -263,7 +235,7 @@
           <span class="appr-hex__lb">Operations</span>
         </span>
       </span>
-    </button><button type="button" class="appr-hex__cell" data-i="3" style="--x:1;--y:1;--sx:0.5;--sy:0.8660254;--d:var(--d-flat)" aria-expanded="false" aria-controls="apprHexPanel">
+    </button><button type="button" class="appr-hex__cell" data-i="3" style="--x:1;--y:1" aria-pressed="false">
       <span class="appr-hex__shape">
         <span class="appr-hex__frost" aria-hidden="true"></span>
 <svg class="appr-hex__plate" viewBox="0 0 173 200" aria-hidden="true" focusable="false">
@@ -274,7 +246,7 @@
           <span class="appr-hex__lb">Coordination</span>
         </span>
       </span>
-    </button><button type="button" class="appr-hex__cell" data-i="4" style="--x:2;--y:0;--sx:1;--sy:0;--d:var(--d-flat)" aria-expanded="false" aria-controls="apprHexPanel">
+    </button><button type="button" class="appr-hex__cell" data-i="4" style="--x:2;--y:0" aria-pressed="false">
       <span class="appr-hex__shape">
         <span class="appr-hex__frost" aria-hidden="true"></span>
 <svg class="appr-hex__plate" viewBox="0 0 173 200" aria-hidden="true" focusable="false">
@@ -285,7 +257,7 @@
           <span class="appr-hex__lb">IT / Online</span>
         </span>
       </span>
-    </button><button type="button" class="appr-hex__cell" data-i="5" style="--x:0;--y:0;--sx:0.5;--sy:-0.8660254;--d:var(--d-flat)" aria-expanded="false" aria-controls="apprHexPanel">
+    </button><button type="button" class="appr-hex__cell" data-i="5" style="--x:0;--y:0" aria-pressed="false">
       <span class="appr-hex__shape">
         <span class="appr-hex__frost" aria-hidden="true"></span>
 <svg class="appr-hex__plate" viewBox="0 0 173 200" aria-hidden="true" focusable="false">
@@ -298,25 +270,6 @@
       </span>
     </button></div>
   </div>
-  <div class="appr-hex__mob"><details class="appr-hex__acc glass">
-      <summary><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></span><span>Analytics department</span></summary>
-      <p>The analytics department collects, verifies and processes information, and conducts comprehensive analysis of companies, individuals and markets. We identify potential risks and violations, producing objective structured materials for management and legal decisions.</p>
-    </details><details class="appr-hex__acc glass" data-d="1">
-      <summary><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16v12H4z"/><path d="M8 10h8M8 14h5"/></svg></span><span>Legal department</span></summary>
-      <p>The legal department provides legal support at every stage of a project — advisory work, litigation, and legal strategies designed to protect the client's interests.</p>
-    </details><details class="appr-hex__acc glass" data-d="2">
-      <summary><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18"/><path d="M12 3v18"/><path d="M5 5l14 14M19 5 5 19"/></svg></span><span>Operations department</span></summary>
-      <p>The operations department coordinates raids and seizures with law enforcement across Moscow, Russia's regions and the CIS. The team delivers rapid response, support during enforcement actions and documented outcomes within anti-counterfeit projects.</p>
-    </details><details class="appr-hex__acc glass" data-d="3">
-      <summary><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M3 12h18"/><circle cx="12" cy="12" r="6"/></svg></span><span>Project coordination</span></summary>
-      <p>The project coordination department organises and monitors every stage of work — managing timelines, quality and cross-department communication, and keeping processes transparent for the client.</p>
-    </details><details class="appr-hex__acc glass" data-d="4">
-      <summary><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16v10H4z"/><path d="M8 11h8M8 15h5"/></svg></span><span>IT / Online department</span></summary>
-      <p>The IT and online department handles digital assignments — marketplaces, online checks, monitoring and analysis of internet activity, and remote or contract-based project delivery.</p>
-    </details><details class="appr-hex__acc glass" data-d="5">
-      <summary><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span><span>Offline department</span></summary>
-      <p>The offline and field department works in physical channels — test purchases, retail and wholesale monitoring, warehouse and outlet checks. Specialists gather on-the-ground evidence across Russia and the EAEU, complementing digital checks and enforcement operations.</p>
-    </details></div>
   <div class="appr-hex__kpi res"><div class="res__c reveal">
         <div class="res__head">
           <span class="res__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l6.5 6.5 4-4L21 17"/><path d="M15 17h6v-6"/></svg></span>
@@ -351,6 +304,7 @@
         <p class="res__l"><b>Raids a week</b> with our specialists directly involved</p>
       </div></div>
   </div>
+  <script type="application/json" id="apprHexData">{"title":"All departments — one system","lead":"Our departments work as a single loop — from analytics and field operations to legal and online work. Coordinating them delivers a measurable effect for rights holders across our brand protection programmes.","items":[{"title":"Analytics department","text":"The analytics department collects, verifies and processes information, and conducts comprehensive analysis of companies, individuals and markets. We identify potential risks and violations, producing objective structured materials for management and legal decisions."},{"title":"Legal department","text":"The legal department provides legal support at every stage of a project — advisory work, litigation, and legal strategies designed to protect the client's interests."},{"title":"Operations department","text":"The operations department coordinates raids and seizures with law enforcement across Moscow, Russia's regions and the CIS. The team delivers rapid response, support during enforcement actions and documented outcomes within anti-counterfeit projects."},{"title":"Project coordination","text":"The project coordination department organises and monitors every stage of work — managing timelines, quality and cross-department communication, and keeping processes transparent for the client."},{"title":"IT / Online department","text":"The IT and online department handles digital assignments — marketplaces, online checks, monitoring and analysis of internet activity, and remote or contract-based project delivery."},{"title":"Offline department","text":"The offline and field department works in physical channels — test purchases, retail and wholesale monitoring, warehouse and outlet checks. Specialists gather on-the-ground evidence across Russia and the EAEU, complementing digital checks and enforcement operations."}]}</script>
 </div>
   </div>
 </section>
@@ -1246,6 +1200,6 @@
   </div>
 </div>
 <button class="totop" type="button" aria-label="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg></button>
-<script src="../assets/js/main.js?v=dc687e3d" defer></script>
+<script src="../assets/js/main.js?v=8b4f6025" defer></script>
 </body>
 </html>

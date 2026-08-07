@@ -733,18 +733,6 @@ const HEX_V = [
   { x:  2, y: 0 }, /* IT / Online  — top-right      */
   { x:  0, y: 0 }, /* Offline      — top-centre     */
 ];
-/* Open layout: satellites dock on all 6 flat edges of a large pointy-top
-   explanation hex. Unit vectors (--sx/--sy) are outward normals in CSS
-   y-down space; --d stays on the flat apothem (no vertex docks). */
-const HEX_DOCK = [
-  { sx: -0.5, sy: -0.8660254, d: 'flat' }, /* NW — Analytics */
-  { sx: -1,   sy:  0,         d: 'flat' }, /* W  — Legal */
-  { sx: -0.5, sy:  0.8660254, d: 'flat' }, /* SW — Operations */
-  { sx:  0.5, sy:  0.8660254, d: 'flat' }, /* SE — Coordination */
-  { sx:  1,   sy:  0,         d: 'flat' }, /* E  — IT / Online */
-  { sx:  0.5, sy: -0.8660254, d: 'flat' }, /* NE — Offline */
-];
-
 /* Pointy-top hex with gently rounded corners. Frost pane uses the same mask
    path + the KPI card glass recipe (white 10% + blur 20px). */
 const HEX_D = 'M100.3 8 159.2 42Q173 50 173 66V134Q173 150 159.2 158L100.3 192Q86.5 200 72.7 192L13.8 158Q0 150 0 134V66Q0 50 13.8 42L72.7 8Q86.5 0 100.3 8Z';
@@ -757,9 +745,7 @@ const approachHex = () => {
   const label = EN ? 'Our practice areas' : 'Наши направления работы';
   const cells = site.departments.map((d, i) => {
     const idle = HEX_V[i] || { x: 0, y: 2 };
-    const dock = HEX_DOCK[i] || HEX_DOCK[2];
-    const dVar = dock.d === 'vert' ? 'var(--d-vert)' : 'var(--d-flat)';
-    return `<button type="button" class="appr-hex__cell" data-i="${i}" style="--x:${idle.x};--y:${idle.y};--sx:${dock.sx};--sy:${dock.sy};--d:${dVar}" aria-expanded="false" aria-controls="apprHexPanel">
+    return `<button type="button" class="appr-hex__cell" data-i="${i}" style="--x:${idle.x};--y:${idle.y}" aria-pressed="false">
       <span class="appr-hex__shape">
         ${HEX_PLATE}
         <span class="appr-hex__in">
@@ -769,11 +755,6 @@ const approachHex = () => {
       </span>
     </button>`;
   }).join('');
-  const panels = site.departments.map((d, i) =>
-    `<article class="appr-hex__panel" data-i="${i}" hidden>
-      <h3 class="h3">${esc(t(d, 'title'))}</h3>
-      <p>${esc(t(d, 'text'))}</p>
-    </article>`).join('');
   const kpis = site.results.map((r, i) => `<div class="res__c reveal"${i ? ` data-d="${i}"` : ''}>
         <div class="res__head">
           <span class="res__ico">${I[r.icon] || I.shield}</span>
@@ -783,34 +764,28 @@ const approachHex = () => {
         </div>
         <p class="res__l">${rich(t(r, 'label'))}</p>
       </div>`).join('');
+  const apprData = {
+    title: C.apprTitle,
+    lead: C.apprDesc,
+    items: site.departments.map(d => ({ title: t(d, 'title'), text: t(d, 'text') })),
+  };
   return `<div class="appr-hex reveal" id="apprHex" aria-label="${label}">
   <div class="appr-hex__shell">
   <div class="appr-hex__mesh" aria-hidden="true">
     <canvas class="appr-hex__field"></canvas>
     <div class="appr-hex__blur"></div>
   </div>
-  <div class="appr-hex__copy">
+  <div class="appr-hex__copy" id="apprHexCopy">
     ${kick(C.apprKicker)}
-    <h2 class="h2">${C.apprTitle}</h2>
-    <p class="lead appr-hex__lead">${esc(C.apprDesc)}</p>
-    ${C.apprDesc2 ? `<p class="lead appr-hex__lead">${esc(C.apprDesc2)}</p>` : ''}
+    <h2 class="h2" id="apprHexTitle">${C.apprTitle}</h2>
+    <p class="lead appr-hex__lead" id="apprHexLead">${esc(C.apprDesc)}</p>
   </div>
   <div class="appr-hex__stage">
-    <div class="appr-hex__pop" id="apprHexPanel">
-      <div class="appr-hex__hub">
-        ${HEX_PLATE}
-        <div class="appr-hex__hub-in">${panels}</div>
-      </div>
-    </div>
     <div class="appr-hex__grid">${cells}</div>
   </div>
-  <div class="appr-hex__mob">${site.departments.map((d, i) =>
-    `<details class="appr-hex__acc glass"${i ? ` data-d="${i}"` : ''}>
-      <summary><span class="ico">${I[d.icon] || I.search}</span><span>${esc(t(d, 'title'))}</span></summary>
-      <p>${esc(t(d, 'text'))}</p>
-    </details>`).join('')}</div>
   <div class="appr-hex__kpi res">${kpis}</div>
   </div>
+  <script type="application/json" id="apprHexData">${JSON.stringify(apprData).replace(/</g, '\\u003c')}</script>
 </div>`;
 };
 

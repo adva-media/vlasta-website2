@@ -4,7 +4,17 @@
   var doc = document, root = doc.documentElement;
   var $ = function (s, c) { return (c || doc).querySelector(s); };
   var $$ = function (s, c) { return Array.prototype.slice.call((c || doc).querySelectorAll(s)); };
-  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  /* Windows "Animation effects: Off" (common on locked-down work PCs) maps to
+     prefers-reduced-motion. We still honor it for vestibular/scroll motion, but
+     ambient loops (CTA mesh, logo marquee, assoc/letter belts) keep running —
+     those are the site's intended atmosphere, not page-throwing motion. */
+  var reduceMq = matchMedia('(prefers-reduced-motion: reduce)');
+  var reduce = reduceMq.matches;
+  try {
+    reduceMq.addEventListener('change', function (e) { reduce = e.matches; });
+  } catch (e) {
+    try { reduceMq.addListener(function (e) { reduce = e.matches; }); } catch (e2) {}
+  }
 
   /* ---------------------------------------------------------- theme */
   var KEY = 'vlasta-theme';
@@ -160,7 +170,6 @@
     var minDist = 48;
     var raf = 0;
     var visible = false;
-    var staticDrawn = false;
     var t0 = performance.now();
     var lastNow = 0;
     var spawnAcc = 0;
@@ -465,7 +474,6 @@
       seedW = w;
       seedH = h;
       graphSeeded = true;
-      staticDrawn = false;
       lastNow = 0;
     }
 
@@ -524,7 +532,6 @@
         seedGraph();
       } else if (prevW && prevH && (w !== prevW || h !== prevH) && graphSeeded) {
         remapGraph(prevW, prevH);
-        staticDrawn = false;
         lastNow = 0;
       }
     }
@@ -901,7 +908,7 @@
 
     function frame(now) {
       raf = 0;
-      if (!visible || reduce || !meshEnabled()) return;
+      if (!visible || !meshEnabled()) return;
       var dt = lastNow ? Math.min(0.05, (now - lastNow) * 0.001) : 0.016;
       lastNow = now;
       paint((now - t0) * 0.001, true, dt);
@@ -910,13 +917,6 @@
 
     function play() {
       if (!meshEnabled()) return;
-      if (reduce) {
-        if (!staticDrawn) {
-          paint(0, false, 0);
-          staticDrawn = true;
-        }
-        return;
-      }
       if (!visible || raf) return;
       lastNow = 0;
       raf = requestAnimationFrame(frame);
@@ -953,10 +953,7 @@
       resizeTimer = setTimeout(function () {
         rebuild(forceSeed === true);
         if (!meshEnabled()) return;
-        if (reduce) {
-          paint(0, false, 0);
-          staticDrawn = true;
-        } else if (visible) play();
+        if (visible) play();
       }, 280);
     }
     addEventListener('resize', onResize, { passive: true });
@@ -973,17 +970,8 @@
 
     var mo = new MutationObserver(function () {
       dark = isDark();
-      if (reduce && meshEnabled()) {
-        paint(0, false, 0);
-        staticDrawn = true;
-      }
     });
     mo.observe(root, { attributes: true, attributeFilter: ['data-theme'] });
-
-    if (reduce && meshEnabled()) {
-      paint(0, false, 0);
-      staticDrawn = true;
-    }
   }
 
   $$('.sec--cta').forEach(function (sec) {
@@ -1739,60 +1727,93 @@
   var yr = $('#yr');
   if (yr) yr.textContent = new Date().getFullYear();
 
-  /* ---------------------------------------- approach hex (homepage) */
+  /* ---------------------------------------- approach hex (homepage)
+     Hover/focus a department hex → swap the left title + paragraph.
+     Hex V stays in place (no centre explanation hub / edge docking). */
   var apprHex = $('#apprHex');
   if (apprHex) {
     var stage = $('.appr-hex__stage', apprHex);
-    var cells = $$('.appr-hex__cell:not(.appr-hex__cell--hub)', apprHex);
-    var panels = $$('.appr-hex__panel', apprHex);
+    var cells = $$('.appr-hex__cell', apprHex);
+    var copyEl = $('#apprHexCopy', apprHex) || $('.appr-hex__copy', apprHex);
+    var titleEl = $('#apprHexTitle', apprHex);
+    var leadEl = $('#apprHexLead', apprHex);
+    var dataEl = $('#apprHexData', apprHex);
     var active = -1;
     var offTimer = 0;
-    var hideTimers = [];
+    var swapTimer = 0;
     var fine = matchMedia('(hover: hover) and (pointer: fine)');
     var narrow = matchMedia('(max-width:899px)');
-    var panelDur = reduce ? 0 : 520;
+    var data = { title: '', lead: '', items: [] };
+    try {
+      if (dataEl) data = JSON.parse(dataEl.textContent);
+    } catch (e) {}
+    if (!data.title && titleEl) data.title = titleEl.textContent;
+    if (!data.lead && leadEl) data.lead = leadEl.textContent;
+    if (!Array.isArray(data.items)) data.items = [];
 
-    /* Desktop: CSS docks satellites on the big-hex perimeter (--open).
-       Mobile: V stays put; hex-shaped hub drops under the cluster. */
-    function clearHideTimers() {
-      hideTimers.forEach(clearTimeout);
-      hideTimers = [];
+    /* Lock copy column to the tallest title+lead so hover swaps don't resize
+       the white plate or bounce «Подход и практика». */
+    function lockCopyHeight() {
+      if (!copyEl || !titleEl || !leadEl) return;
+      var prevT = titleEl.textContent;
+      var prevL = leadEl.textContent;
+      var wasSwap = copyEl.classList.contains('is-swap');
+      copyEl.classList.remove('is-swap');
+      copyEl.style.minHeight = '';
+      var max = 0;
+      var variants = [{ title: data.title, text: data.lead }].concat(data.items);
+      var i;
+      for (i = 0; i < variants.length; i++) {
+        var v = variants[i];
+        if (!v) continue;
+        titleEl.textContent = v.title || '';
+        leadEl.textContent = v.text || '';
+        max = Math.max(max, copyEl.offsetHeight);
+      }
+      titleEl.textContent = prevT;
+      leadEl.textContent = prevL;
+      if (wasSwap) copyEl.classList.add('is-swap');
+      if (max > 0) copyEl.style.minHeight = max + 'px';
+    }
+    lockCopyHeight();
+    var lockTimer = 0;
+    addEventListener('resize', function () {
+      clearTimeout(lockTimer);
+      lockTimer = setTimeout(lockCopyHeight, 120);
+    }, { passive: true });
+
+    function paintCopy(i) {
+      if (!titleEl || !leadEl) return;
+      var item = i >= 0 ? data.items[i] : null;
+      var nextTitle = item && item.title ? item.title : data.title;
+      var nextLead = item && item.text ? item.text : data.lead;
+      if (titleEl.textContent === nextTitle && leadEl.textContent === nextLead) return;
+
+      function apply() {
+        titleEl.textContent = nextTitle;
+        leadEl.textContent = nextLead;
+        if (copyEl) copyEl.classList.remove('is-swap');
+      }
+      if (reduce || !copyEl) {
+        apply();
+        return;
+      }
+      clearTimeout(swapTimer);
+      copyEl.classList.add('is-swap');
+      swapTimer = setTimeout(apply, 160);
     }
 
     function setActive(i) {
       if (i === active) return;
       clearTimeout(offTimer);
-      clearHideTimers();
       active = i;
       apprHex.classList.toggle('is-dim', i >= 0);
-      apprHex.classList.toggle('is-open', i >= 0);
       cells.forEach(function (c, j) {
-        c.classList.toggle('is-active', j === i);
-        c.setAttribute('aria-expanded', j === i ? 'true' : 'false');
-      });
-      panels.forEach(function (p, j) {
         var on = j === i;
-        if (on) {
-          p.hidden = false;
-          /* Two frames so the browser paints opacity:0 before .is-on. */
-          requestAnimationFrame(function () {
-            requestAnimationFrame(function () {
-              if (active === j) p.classList.add('is-on');
-            });
-          });
-        } else {
-          p.classList.remove('is-on');
-          if (i < 0) {
-            /* Closing: keep in flow so the exit fade can run. */
-            hideTimers.push(setTimeout(function () {
-              if (!p.classList.contains('is-on')) p.hidden = true;
-            }, panelDur));
-          } else {
-            /* Switching tiles: hide immediately so panels don't stack. */
-            p.hidden = true;
-          }
-        }
+        c.classList.toggle('is-active', on);
+        c.setAttribute('aria-pressed', on ? 'true' : 'false');
       });
+      paintCopy(i);
     }
 
     function scheduleOff() {
@@ -1814,8 +1835,7 @@
         if (!cell.matches(':focus')) scheduleOff();
       });
       cell.addEventListener('click', function () {
-        /* Below 900px the V is the only way into the copy, so a tap must
-           toggle even when the browser still claims a fine hover pointer. */
+        /* Touch / coarse pointer: tap toggles the department copy. */
         if (fine.matches && !narrow.matches) return;
         setActive(active === i ? -1 : i);
       });
@@ -1829,7 +1849,6 @@
         if (fine.matches && !narrow.matches) clearTimeout(offTimer);
       });
     }
-    /* Mobile: tap outside the stage dismisses the open panel. */
     doc.addEventListener('pointerdown', function (e) {
       if (!narrow.matches || active < 0 || !stage) return;
       if (!stage.contains(e.target)) setActive(-1);
@@ -1847,9 +1866,8 @@
     var band = $('.mq__band', section);
     var track = $('.mq__tr--a', section) || $('.mq__tr', section);
     if (!vp || !band || !track) return;
-    /* Reduced-motion: CSS disables the anim and allows native overflow scroll. */
-    if (reduce) return;
-
+    /* Always drive the marquee in JS (incl. when OS reports reduced-motion —
+       Windows work PCs often flip that flag for UI chrome, not site ambience). */
     section.classList.add('is-live');
 
     var DUR = 92; /* seconds per loop — was 46s */
