@@ -367,8 +367,7 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
 .burger.is-on span:nth-child(3){top:8px;transform:rotate(-45deg)}
 
 /* ------------------------------------------------- fixed tower backdrop */
-/* The photo is pinned to the viewport, so the frosted tiles in .glasszone
-   reveal a different part of it as the page scrolls. */
+/* Fixed tower photo behind the transparent glasszone (hero). */
 .skyline{position:fixed;inset:0;z-index:-2;pointer-events:none}
 .skyline img{width:100%;height:100%;object-fit:cover;object-position:50% 32%}
 /* Dark blue wash over the tower photo — off for now so the raw image can be judged.
@@ -414,39 +413,12 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
 .intro{max-width:min(100%,940px);font-size:clamp(19px,2.3vw,30px);font-weight:300;
   line-height:1.42;letter-spacing:-.015em;color:#fff;text-wrap:pretty}
 
-/* White section, but each tile is a window onto the same tower photo.
-   background-attachment:fixed anchors the image to the viewport, so the tiles
-   show the part of the photo they physically sit over and the crop shifts as
-   the page scrolls — a real window, not a picture printed on each tile.
-   The framing matches .skyline's object-position so it lines up with the hero. */
+/* Intro sits on solid paper — KPIs are plain ink figures, not glass tiles */
 .glasszone #intro{background:var(--paper)}
 .glasszone #intro .intro{color:var(--ink)}
-#intro .stat{
-  background-image:url("../img/hero-tower.jpg");
-  background-attachment:fixed;
-  background-size:cover;
-  background-position:50% 32%;
-  border-color:rgba(255,255,255,.22);
-  position:relative;overflow:hidden;isolation:isolate;
-  -webkit-backdrop-filter:none;backdrop-filter:none;
-}
-/* the tint sits above the photo but below the text, so it never shifts it */
-#intro .stat::before{content:"";position:absolute;inset:0;z-index:-1;
-  background:linear-gradient(160deg,rgba(28,28,56,.62),rgba(12,12,36,.76));
-  transition:background .35s var(--ease)}
-/* No transform on hover: a transform makes the tile a containing block, which
-   drops background-attachment:fixed back to element-relative — the photo then
-   re-fits to the single tile and you see the whole skyscraper in miniature.
-   Border, shadow and the tint carry the hover instead. */
-#intro .stat:hover{border-color:rgba(255,255,255,.44);
-  box-shadow:0 20px 50px -26px rgba(8,8,24,.6)}
-#intro .stat:hover::before{background:linear-gradient(160deg,rgba(28,28,56,.5),rgba(12,12,36,.66))}
-/* iOS never honours fixed attachment. Falling back to `scroll` would fit the
-   entire photo inside each tile, so drop the image and keep a frosted tile. */
-@supports (-webkit-touch-callout:none){
-  #intro .stat{background-image:none;background-color:rgba(28,28,56,.72)}
-  #intro .stat::before{background:none}
-}
+.glasszone #intro .stat__n{color:var(--ink)}
+.glasszone #intro .stat__n .u{color:var(--accent)}
+.glasszone #intro .stat__l{color:var(--steel)}
 
 /* ------------------------------------------- signature: link-analysis map */
 /* padding reserves clear bands so the floating chips never cover a node */
@@ -477,20 +449,40 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
 @keyframes nm-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
 
 /* ------------------------------------------------------------ stats bar */
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;
-  margin-top:clamp(38px,5vw,60px)}
-.stat{padding:26px 26px 28px;border-radius:var(--r-md);
-  background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.20);
-  -webkit-backdrop-filter:blur(18px) saturate(1.5);backdrop-filter:blur(18px) saturate(1.5);
-  transition:var(--t)}
-.stat:hover{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.32)}
-.stat__n{display:flex;align-items:baseline;gap:5px;
+/* Flat figures on paper — no glass tiles. Logo watermark sits behind the
+   right half and drifts slightly on scroll (see main.js). */
+.stats{position:relative;display:grid;grid-template-columns:repeat(4,1fr);
+  gap:clamp(18px,2.4vw,28px);margin-top:clamp(38px,5vw,60px);
+  padding:clamp(8px,1.2vw,14px) 0;overflow:hidden;isolation:isolate}
+.stats__mark{position:absolute;z-index:0;pointer-events:none;user-select:none;
+  right:-4%;top:50%;width:min(62%,520px);height:auto;
+  opacity:.07;filter:grayscale(1) brightness(1.05);
+  transform:translate3d(0,calc(-50% + var(--stats-py,0px)),0);
+  will-change:transform}
+.stat{position:relative;z-index:1;padding:4px 0 2px;
+  background:none;border:none;border-radius:0;
+  -webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:none}
+.stat__n{display:flex;align-items:baseline;gap:6px;
   font-size:clamp(30px,3.3vw,44px);font-weight:700;letter-spacing:-.035em;line-height:1;
-  color:#fff;font-variant-numeric:tabular-nums}
-/* units sit on the baseline beside the figure, never as a dropped subscript */
-.stat__n .u{font-size:.4em;font-weight:600;color:var(--mist);letter-spacing:.01em;
+  color:var(--ink);font-variant-numeric:tabular-nums}
+.stat__v{font-variant-numeric:tabular-nums}
+/* units sit on the baseline beside the figure — larger than before */
+.stat__n .u{font-size:.62em;font-weight:600;color:var(--accent);letter-spacing:.01em;
   white-space:nowrap;line-height:1}
-.stat__l{margin-top:13px;font-size:13px;color:rgba(255,255,255,.68);line-height:1.45}
+.stat__l{margin-top:13px;font-size:13px;color:var(--steel);line-height:1.45;
+  max-width:16em}
+/* 2006: fade/rise reveal (not countup) once the row enters view */
+.js .stat--appear .stat__n{opacity:0;transform:translateY(14px);
+  transition:opacity .85s var(--ease),transform .85s var(--ease);transition-delay:.08s}
+.js .stats.is-in .stat--appear .stat__n{opacity:1;transform:none}
+[data-theme="dark"] .stats__mark{opacity:.1;filter:grayscale(1) brightness(1.35)}
+@media (max-width:680px){
+  .stats__mark{width:min(78%,360px);right:-10%;opacity:.055}
+}
+@media (prefers-reduced-motion:reduce){
+  .js .stat--appear .stat__n{opacity:1;transform:none;transition:none}
+  .stats__mark{transform:translate3d(0,-50%,0);will-change:auto}
+}
 
 /* ---------------------------------------------------------------- cards */
 /* paper card — for white/alt backgrounds where real glass would read as mud */
@@ -1151,15 +1143,18 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
   border:1px solid var(--line);display:grid;place-items:center;color:var(--body);transition:var(--t)}
 .modal__x:hover{border-color:var(--accent);color:var(--accent);background:var(--paper-alt)}
 .modal__x svg{width:17px;height:17px}
-.modal__head{display:flex;justify-content:center;margin:4px auto 0}
-.modal__logo{height:96px;max-width:248px;width:auto;object-fit:contain;
-  background:#fff;border:1px solid var(--line-soft);border-radius:12px;padding:14px 18px}
-.modal__facts{display:flex;flex-wrap:wrap;align-items:flex-start;gap:10px 28px;margin-top:22px}
-.modal__fact{display:flex;flex-direction:column;gap:3px;min-width:0}
-.modal__fact-l{font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+.modal__top{display:flex;align-items:center;gap:18px 22px;margin:4px 0 0;min-width:0}
+.modal__head{flex:0 0 auto;margin:0}
+.modal__logo{height:118px;max-width:200px;width:auto;object-fit:contain;
+  background:#fff;border:1px solid var(--line-soft);border-radius:12px;padding:12px 16px;
+  display:block}
+.modal__facts{display:flex;flex-direction:column;justify-content:center;gap:12px;
+  flex:1 1 auto;min-width:0;margin:0;padding:2px 0}
+.modal__fact{display:flex;flex-direction:column;gap:2px;min-width:0}
+.modal__fact-l{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
   color:var(--steel)}
-.modal__fact-v{font-size:18px;font-weight:700;letter-spacing:.02em;line-height:1.15;color:var(--ink)}
-.modal__c h3{font-size:clamp(21px,2.5vw,27px);margin-top:12px;font-weight:700}
+.modal__fact-v{font-size:17px;font-weight:700;letter-spacing:.02em;line-height:1.15;color:var(--ink)}
+.modal__c h3{font-size:clamp(21px,2.5vw,27px);margin-top:18px;font-weight:700}
 .modal__c p{margin-top:15px;font-size:15px;line-height:1.7;color:var(--body)}
 .modal__link{display:inline-flex;align-items:center;gap:8px;margin-top:22px;
   font-size:14px;font-weight:600;color:var(--accent)}
@@ -1684,11 +1679,7 @@ html.is-locked,html.is-locked body{overflow:hidden}
 .js .reveal{opacity:0;transform:translateY(20px);
   transition:opacity .75s var(--ease),transform .75s var(--ease)}
 .js .reveal.is-in{opacity:1;transform:none}
-/* Fade-only variant. Anything wrapping an element that relies on
-   background-attachment:fixed must never carry a transform, even a transient
-   one: a transformed ancestor becomes a containing block and the fixed
-   background falls back to element-relative, so the tiles flash the whole
-   photo for the length of the entrance animation. */
+/* Fade-only variant (no translate) — safer for rows that host positioned art. */
 .js .reveal--fade,.js .reveal--fade.is-in{transform:none}
 .js .reveal--fade{transition:opacity .75s var(--ease)}
 .js .reveal[data-d="1"]{transition-delay:.07s}
@@ -1757,8 +1748,9 @@ html.is-locked,html.is-locked body{overflow:hidden}
   .nrow__d{display:flex;align-items:baseline;gap:8px}
   .nrow__d span{margin-top:0}
   .modal__c{padding:30px 22px 32px}
-  .modal__head{max-width:100%}
-  .modal__logo{height:88px;max-width:min(220px,58vw);padding:12px 14px}
+  .modal__top{gap:14px 16px}
+  .modal__logo{height:100px;max-width:min(148px,42vw);padding:10px 12px}
+  .modal__fact-v{font-size:15px}
   .topbar .wrap{flex-wrap:nowrap;gap:12px}
   .topbar__l{gap:14px;min-width:0}
   .topbar__l .tb:nth-child(2),.topbar__l .tb:nth-child(3){display:none}

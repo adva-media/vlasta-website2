@@ -21,27 +21,34 @@
   "stats": [
     {
       "n": "2006",
+      "suffix": "год",
+      "suffix_en": "year",
+      "appear": true,
       "label": "Год основания компании",
       "label_en": "Year the company was founded"
     },
     {
       "n": "20",
       "suffix": "+",
+      "count": 20,
       "label": "Лет на рынке безопасности",
       "label_en": "Years in business security"
     },
     {
       "n": "80",
       "suffix": "+",
+      "count": 80,
       "label": "Брендов под защитой",
       "label_en": "Brands under protection"
     },
     {
       "n": "4,5",
       "unit": "млрд ₽",
+      "unit_en": "bn ₽",
+      "count": 4.5,
+      "decimals": 1,
       "label": "Предотвращённого ущерба в год",
-      "label_en": "Damage prevented per year",
-      "unit_en": "bn ₽"
+      "label_en": "Damage prevented per year"
     }
   ],
   "results": [

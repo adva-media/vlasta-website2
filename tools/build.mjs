@@ -959,17 +959,19 @@ const assocModal = () => `<div class="modal" id="assocModal" role="dialog" aria-
       <div class="modal__bd" data-close></div>
       <div class="modal__c">
         <button class="modal__x" type="button" aria-label="${EN ? 'Close' : 'Закрыть'}" data-close>${I.x}</button>
-        <div class="modal__head">
-          <img class="modal__logo" id="amLogo" src="" alt="">
-        </div>
-        <div class="modal__facts">
-          <div class="modal__fact" id="amYearWrap" hidden>
-            <span class="modal__fact-l">${esc(C.assocFounded)}</span>
-            <span class="modal__fact-v" id="amYear"></span>
+        <div class="modal__top">
+          <div class="modal__head">
+            <img class="modal__logo" id="amLogo" src="" alt="">
           </div>
-          <div class="modal__fact" id="amMetaWrap" hidden>
-            <span class="modal__fact-l" id="amMetaL"></span>
-            <span class="modal__fact-v" id="amMeta"></span>
+          <div class="modal__facts">
+            <div class="modal__fact" id="amYearWrap" hidden>
+              <span class="modal__fact-l">${esc(C.assocFounded)}</span>
+              <span class="modal__fact-v" id="amYear"></span>
+            </div>
+            <div class="modal__fact" id="amMetaWrap" hidden>
+              <span class="modal__fact-l" id="amMetaL"></span>
+              <span class="modal__fact-v" id="amMeta"></span>
+            </div>
           </div>
         </div>
         <h3 id="amTitle"></h3>
@@ -1013,9 +1015,10 @@ function buildHome() {
   /* The rail carries the whole catalogue so it can be swiped end to end; the six
      strongest lead and the rest follow. Photos past the first screen only load
      when they are scrolled to. */
-  const railLead = [5, 10, 11, 2, 12, 7];
-  const railCases = cases.filter(x => railLead.includes(x.n))
-    .concat(cases.filter(x => !railLead.includes(x.n)));
+  const railLead = [10, 12, 8, 7, 5, 11];
+  const railLeadSet = new Set(railLead);
+  const railCases = railLead.map(n => cases.find(x => x.n === n)).filter(Boolean)
+    .concat(cases.filter(x => !railLeadSet.has(x.n)));
   /* Full catalogue in a swipe rail; images past the first screen stay lazy. */
 
   const html = j(
@@ -1054,10 +1057,19 @@ function buildHome() {
   <div class="wrap">
     <p class="intro reveal">${C.intro}</p>
     <div class="stats reveal reveal--fade" data-d="1">
-      ${site.stats.map(s => `<div class="stat">
-        <div class="stat__n">${esc(s.n)}${s.suffix ? `<span class="u">${esc(s.suffix)}</span>` : ''}${t(s,'unit') ? `<span class="u">${esc(t(s,'unit'))}</span>` : ''}</div>
-        <div class="stat__l">${esc(t(s,'label'))}</div>
-      </div>`).join('')}
+      <img class="stats__mark" src="${rel(0, 'assets/img/logo-dark.svg')}" alt="" aria-hidden="true" decoding="async">
+      ${site.stats.map(s => {
+        const suffix = t(s, 'suffix');
+        const unit = t(s, 'unit');
+        const countAttr = s.count != null
+          ? ` data-count="${esc(String(s.count))}"${s.decimals ? ` data-decimals="${s.decimals}"` : ''}`
+          : '';
+        const appear = s.appear ? ' stat--appear' : '';
+        return `<div class="stat${appear}">
+        <div class="stat__n"${countAttr}><span class="stat__v">${esc(s.n)}</span>${suffix ? `<span class="u">${esc(suffix)}</span>` : ''}${unit ? `<span class="u">${esc(unit)}</span>` : ''}</div>
+        <div class="stat__l">${esc(t(s, 'label'))}</div>
+      </div>`;
+      }).join('')}
     </div>
   </div>
 </section>
