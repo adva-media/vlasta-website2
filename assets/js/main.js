@@ -1374,6 +1374,12 @@
         var pt = r.done.getPointAtLength(Math.max(0, Math.min(r.len, p * r.len)));
         r.tip.setAttribute('cx', pt.x);
         r.tip.setAttribute('cy', pt.y);
+        /* preserveAspectRatio=none stretches the viewBox — compensate so the tip
+           stays a ~5.5px circle instead of a flat oval on long rails. */
+        var sr = r.svg.getBoundingClientRect();
+        var tipPx = 5.5;
+        r.tip.setAttribute('rx', String(tipPx * 1000 / Math.max(1, sr.width)));
+        r.tip.setAttribute('ry', String(tipPx * 100 / Math.max(1, sr.height)));
       }
       roadEdgeFade(r.body);
       var mids = roadMarkMids(r);
@@ -1470,7 +1476,7 @@
   }
 
   /* --------------------------- drag + wheel scrolling for horizontal rails */
-  $$('.case-rail,.letters-rail,.assoc-rail,.news-rail').forEach(function (rail) {
+  $$('.case-rail,.letters-rail,.assoc-rail,.news-rail,.svc-grid').forEach(function (rail) {
     var down = false, moved = false, sx = 0, sl = 0, pid = null;
 
     rail.addEventListener('pointerdown', function (e) {
@@ -1752,14 +1758,16 @@
     if (!Array.isArray(data.items)) data.items = [];
 
     /* Lock copy column to the tallest title+lead so hover swaps don't resize
-       the white plate or bounce «Подход и практика». */
+       the white plate or bounce «Подход и практика». Skip on narrow: the locked
+       min-height leaves a large empty gap above the hex V on phones. */
     function lockCopyHeight() {
       if (!copyEl || !titleEl || !leadEl) return;
+      copyEl.style.minHeight = '';
+      if (narrow.matches) return;
       var prevT = titleEl.textContent;
       var prevL = leadEl.textContent;
       var wasSwap = copyEl.classList.contains('is-swap');
       copyEl.classList.remove('is-swap');
-      copyEl.style.minHeight = '';
       var max = 0;
       var variants = [{ title: data.title, text: data.lead }].concat(data.items);
       var i;

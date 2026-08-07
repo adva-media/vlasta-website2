@@ -614,7 +614,19 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
   .svc__hl{padding-left:0;border-left:0}
   .svc__n{font-size:clamp(72px,22vw,112px);bottom:-20%;right:-6%}
 }
-@media (max-width:560px){.svc-grid{grid-template-columns:1fr;gap:12px}}
+/* Mobile: horizontal swipe rail (same language as .case-rail / .news-rail) */
+@media (max-width:899px){
+  .svc-grid{
+    display:flex;gap:14px;overflow-x:auto;overflow-y:hidden;
+    padding:4px 0 20px;scroll-snap-type:x proximity;
+    scrollbar-width:none;-ms-overflow-style:none;
+    -webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;
+    margin-inline:calc(var(--gutter) * -1);padding-inline:var(--gutter);
+    cursor:grab;
+  }
+  .svc-grid::-webkit-scrollbar{display:none;width:0;height:0}
+  .svc-grid .svc{flex:0 0 min(82vw,300px);scroll-snap-align:start}
+}
 
 /* service detail block (services page) */
 .svc-detail{scroll-margin-top:104px}
@@ -705,11 +717,16 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
 #approach{background:transparent}
 .appr-hex{display:grid;gap:clamp(22px,3vw,36px)}
 /* Plain white plate: copy + hex V + KPI footer row. */
-.appr-hex__shell{position:relative;display:grid;gap:clamp(22px,3vw,36px);align-items:start;
+/* minmax(0,1fr): on the mobile single-column stack, an implicit `auto` track
+   grows to KPI/hex min-content and overflows the plate — hexes center in that
+   oversized track and look shifted right once overflow:hidden clips. */
+.appr-hex__shell{position:relative;display:grid;grid-template-columns:minmax(0,1fr);
+  gap:clamp(22px,3vw,36px);align-items:start;
   padding:clamp(22px,3vw,36px) clamp(22px,3.2vw,40px);
   border-radius:var(--r-lg);overflow:hidden;color:var(--ink);
   background:var(--paper);border:1px solid var(--line);box-shadow:var(--sh-sm)}
-.appr-hex__copy{position:relative;z-index:1;padding-top:clamp(4px,1vw,10px);
+.appr-hex__copy{position:relative;z-index:1;min-width:0;max-width:100%;
+  padding-top:clamp(4px,1vw,10px);
   align-self:start;transition:opacity .28s var(--ease)}
 .appr-hex__copy.is-swap{opacity:.35}
 .appr-hex__shell .kick,.glasszone .appr-hex__shell .kick{color:#6B6E86}
@@ -719,7 +736,7 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
 .appr-hex__lead,.glasszone .appr-hex__shell .lead,.glasszone .appr-hex__shell p.lead{
   margin-top:18px;max-width:44ch;font-weight:400;color:var(--body)}
 .appr-hex__stage{display:none;position:relative;z-index:1;justify-self:end;align-self:start;
-  width:100%;max-width:680px;overflow:visible;
+  width:100%;max-width:680px;min-width:0;overflow:visible;
   --hex-w:min(10.8vw,128px);--hex-h:calc(var(--hex-w) * 1.1547);
   /* Dense 3–2–1 pack: same-row neighbours at Δx=2; offset rows at Δx=1. */
   --xs:calc(var(--hex-w) * .55);--ys:calc(var(--hex-w) * .93);
@@ -784,9 +801,9 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
   transform:translate(calc(-50% + var(--tx)),var(--ty))}
 /* KPI footer inside the white plate — full width, above mesh, no card chrome at rest. */
 .appr-hex__kpi{position:relative;z-index:1;grid-column:1/-1;align-self:stretch;
-  margin:0;gap:6px}
+  min-width:0;max-width:100%;margin:0;gap:6px}
 .appr-hex__kpi .res__c{
-  padding:14px 16px 12px;border:0;outline:0;border-radius:0;
+  min-width:0;padding:14px 16px 12px;border:0;outline:0;border-radius:0;
   background:transparent;box-shadow:none;transform:none;
   transition:none;pointer-events:none;cursor:default;align-items:center;text-align:center}
 .appr-hex__kpi .res__c:hover,.appr-hex__kpi .res__c:focus-within{
@@ -834,8 +851,9 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
     transparent 100%)}
 }
 @media (max-width:899px){
-  .appr-hex__stage{display:block;justify-self:stretch;max-width:none;
-    --hex-w:clamp(78px,23vw,112px);--hex-h:calc(var(--hex-w) * 1.1547);
+  .appr-hex__shell{gap:clamp(16px,4vw,24px)}
+  .appr-hex__stage{display:block;justify-self:center;width:100%;max-width:none;
+    --hex-w:clamp(72px,21vw,104px);--hex-h:calc(var(--hex-w) * 1.1547);
     --xs:calc(var(--hex-w) * .55);--ys:calc(var(--hex-w) * .93);
     --grid-h:calc(var(--ys) * 2 + var(--hex-h))}
   .appr-hex__grid{width:100%}
@@ -845,12 +863,16 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
   .appr-hex__ico svg{width:16px;height:16px}
   .appr-hex__lb{font-size:11px}
   .appr-hex__in{gap:7px}
-  .appr-hex__kpi.res{grid-template-columns:repeat(2,1fr);gap:4px}
-  .appr-hex__kpi .res__c{padding:12px 12px 10px}
+  /* minmax(0,1fr) — plain 1fr is minmax(auto,1fr) and lets long labels blow the track. */
+  .appr-hex__kpi.res{grid-template-columns:repeat(2,minmax(0,1fr));gap:4px}
+  .appr-hex__kpi .res__c{padding:12px 8px 10px}
   .appr-hex__kpi .res__ico{width:clamp(32px,8.5vw,42px);height:clamp(32px,8.5vw,42px)}
   .appr-hex__kpi .res__n{font-size:clamp(28px,7.5vw,36px)}
-  .appr-hex__kpi .res__head{gap:6px}
-  .appr-hex__kpi .res__l{margin-top:8px;font-size:13.5px;line-height:1.4;
+  .appr-hex__kpi .res__head{gap:6px;flex-wrap:wrap;justify-content:center}
+  .appr-hex__kpi .res__l,
+  .glasszone .appr-hex__shell .appr-hex__kpi .res__l,
+  .glasszone .appr-hex__shell .appr-hex__kpi p.res__l{
+    margin-top:8px;font-size:13.5px;line-height:1.4;max-width:100%;
     display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 }
 @media (prefers-reduced-motion:reduce){
@@ -956,10 +978,13 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
 /* Explicit width — SVG viewBox (1000×100) would otherwise size width to
    height×10 via intrinsic ratio, ignoring left/right and ending the trail
    before the last marks. */
-.road__arcH{display:block;position:absolute;left:var(--road-inset);
-  top:var(--chip-room);height:var(--rail);
-  width:calc(100% - 2 * var(--road-inset));max-width:none;aspect-ratio:auto;
+/* Sized wrapper locks the rail band — SVG viewBox is 10:1 and would otherwise
+   inflate height vs the pegs (marks float above the stroke on mobile). */
+.road__arcWrap{position:absolute;left:var(--road-inset);right:var(--road-inset);
+  top:var(--chip-room);height:var(--rail);max-height:var(--rail);
   overflow:visible;pointer-events:none;z-index:0}
+.road__arcH{display:block;width:100%;height:100%;max-height:100%;
+  max-width:none;aspect-ratio:unset;overflow:visible;pointer-events:none}
 .road__arcH path{fill:none}
 .road__arcGlow{stroke:rgba(83,93,134,.22);stroke-width:7;stroke-linecap:round}
 [data-theme="dark"] .road__arcGlow{stroke:rgba(168,170,210,.18)}
@@ -967,8 +992,9 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
 [data-theme="dark"] .road__arcBase{stroke:rgba(255,255,255,.18)}
 .road__arcDone{stroke:url(#roadGrad);stroke-width:3.2;stroke-linecap:round;opacity:0}
 .road__arcDone.is-live{opacity:1}
+/* Ellipse — rx/ry are set in JS so the tip stays circular under preserveAspectRatio=none. */
 .road__arcTip{fill:#fff;stroke:rgba(83,93,134,.55);stroke-width:1.2;opacity:0;
-  filter:drop-shadow(0 0 6px rgba(83,93,134,.9))}
+  filter:drop-shadow(0 0 6px rgba(83,93,134,.9));vector-effect:non-scaling-stroke}
 .road__arcTip.is-live{opacity:1;animation:roadPulse 2.4s ease-in-out infinite}
 @keyframes roadPulse{0%,100%{opacity:.55}50%{opacity:1}}
 @media (prefers-reduced-motion:reduce){.road__arcTip{display:none}}
@@ -1036,9 +1062,10 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
 
 @media (max-width:640px){
   .road{--tile:min(72vw,260px)}
-  .road__body{--rail:96px;--mk:40px;--chip-room:14px;--fade:clamp(20px,10vw,40px)}
+  .road__body{--rail:88px;--mk:38px;--chip-room:18px;--fade:clamp(20px,10vw,40px)}
   .road__i{padding:6px 16px 0 0}
-  .road__peg{right:16px}
+  .road__peg{right:16px;top:calc(var(--rail) * -1);height:var(--rail)}
+  .road__arcWrap{height:var(--rail);max-height:var(--rail);top:var(--chip-room)}
   .road__yr{font-size:14px;padding:3px 9px}
   .road__c{padding:10px 11px}
   .road__c p{font-size:12.5px}
@@ -1682,7 +1709,7 @@ html.is-locked,html.is-locked body{overflow:hidden}
   .assoc{flex-basis:170px}
   .values{grid-template-columns:1fr}
   .res{grid-template-columns:1fr}
-  .appr-hex__kpi.res{grid-template-columns:repeat(2,1fr)}
+  .appr-hex__kpi.res{grid-template-columns:repeat(2,minmax(0,1fr))}
   .case-row{grid-template-columns:40px 1fr}
   .case-row__cat{display:none}
   .nrow{grid-template-columns:1fr;gap:10px}
@@ -1899,8 +1926,8 @@ section[id]{scroll-margin-top:96px}
 
 /* rails share one grab-scroll behaviour */
 .case-rail,.letters-rail,.assoc-rail,.news-rail{cursor:grab}
-.case-rail.is-drag,.letters-rail.is-drag,.assoc-rail.is-drag,.news-rail.is-drag{cursor:grabbing;scroll-snap-type:none}
-.case-rail.is-drag a,.letters-rail.is-drag button,.news-rail.is-drag a{pointer-events:none}
+.case-rail.is-drag,.letters-rail.is-drag,.assoc-rail.is-drag,.news-rail.is-drag,.svc-grid.is-drag{cursor:grabbing;scroll-snap-type:none}
+.case-rail.is-drag a,.letters-rail.is-drag button,.news-rail.is-drag a,.svc-grid.is-drag a{pointer-events:none}
 
 /* =========================================================================
    Mobile pass over everything added in this round

@@ -842,19 +842,21 @@ const roadmap = () => {
   return `<div class="road" style="--yh0:${ARC_H.y0};--yh1:${ARC_H.y1};--ahead:${ROAD_AHEAD}">
       <div class="road__body" tabindex="0" role="region" aria-label="${esc(C.histTitle.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim())}">
         <div class="road__htrack">
-          <svg class="road__arcH" viewBox="0 0 1000 100" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-            <defs>
-              <linearGradient id="${gid}" x1="0" y1="0" x2="1000" y2="0" gradientUnits="userSpaceOnUse">
-                <stop offset="0%" stop-color="#8A90B8"/>
-                <stop offset="55%" stop-color="#535D86"/>
-                <stop offset="100%" stop-color="#141428"/>
-              </linearGradient>
-            </defs>
-            <path class="road__arcGlow" d="${d}"/>
-            <path class="road__arcBase" d="${d}"/>
-            <path class="road__arcDone" d="${d}"/>
-            <circle class="road__arcTip" cx="0" cy="${ARC_H.y0}" r="3.2"/>
-          </svg>
+          <div class="road__arcWrap" aria-hidden="true">
+            <svg class="road__arcH" viewBox="0 0 1000 100" preserveAspectRatio="none" focusable="false">
+              <defs>
+                <linearGradient id="${gid}" x1="0" y1="0" x2="1000" y2="0" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#8A90B8"/>
+                  <stop offset="55%" stop-color="#535D86"/>
+                  <stop offset="100%" stop-color="#141428"/>
+                </linearGradient>
+              </defs>
+              <path class="road__arcGlow" d="${d}"/>
+              <path class="road__arcBase" d="${d}"/>
+              <path class="road__arcDone" d="${d}"/>
+              <ellipse class="road__arcTip" cx="0" cy="${ARC_H.y0}" rx="3.2" ry="3.2"/>
+            </svg>
+          </div>
           <ol class="road__list" style="--n:${n}">
             ${items.map((x, i) => {
               const k = Math.round((n - 1 - i) * (TONES_L.length - 1) / Math.max(1, n - 1));
