@@ -20,7 +20,7 @@ if (!src) { console.error('usage: node tools/make-map.mjs <ne_110m_admin_0_count
 const gj = JSON.parse(fs.readFileSync(src, 'utf8'));
 
 /* countries where the company runs programmes (from content/site.json) */
-const HOME = ['Russia', 'Belarus', 'Kazakhstan', 'Uzbekistan', 'Kyrgyzstan', 'Armenia', 'Azerbaijan', 'Georgia'];
+const HOME = ['Russia', 'Belarus', 'Kazakhstan', 'Uzbekistan', 'Kyrgyzstan', 'Armenia', 'Georgia'];
 /* surrounding context */
 const NEAR = ['Ukraine', 'Moldova', 'Estonia', 'Latvia', 'Lithuania', 'Poland', 'Finland', 'Norway', 'Sweden',
   'Turkey', 'Iran', 'Turkmenistan', 'Tajikistan', 'Afghanistan', 'China', 'Mongolia',

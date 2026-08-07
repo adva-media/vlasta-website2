@@ -188,21 +188,21 @@
             "Тестовая (контрольная) закупка и проверка товара на подделку",
             "Установление фактического адреса цели",
             "Проверочные мероприятия с сотрудниками полиции",
-            "Сопровождение дела в суде и контроль уничтожения"
+            "Организация уничтожения контрафакта и контроль исполнения решения суда"
           ],
           "bullets_en": [
             "Test purchase and examination of the goods offered",
             "Establishing the real address behind the offer",
             "Inspections carried out with police officers",
-            "Case support in court and supervision of destruction"
+            "Organising destruction of counterfeit and verifying that the court order is carried out"
           ]
         },
         {
           "icon": "scales",
-          "title": "Гражданские иски",
-          "title_en": "Civil claims",
-          "text": "Когда правообладатель намерен действовать, минуя правоохранительные органы, гражданский иск часто оказывается самым результативным путём — и хорошо дополняет административные и уголовные меры.",
-          "text_en": "Where a rights holder would rather act without involving law enforcement, a civil claim is often the most effective route — and it complements administrative and criminal measures well.",
+          "title": "Представительство в судах по ИС",
+          "title_en": "Court representation in IP disputes",
+          "text": "Представительство в судах по спорам, связанным с интеллектуальной собственностью — от досудебной стратегии до исполнения решения.",
+          "text_en": "Representation in court in disputes relating to intellectual property — from pre-action strategy through to enforcement of the judgment.",
           "bullets": [
             "Взыскание убытков и компенсаций с нарушителя",
             "Изъятие и уничтожение контрафакта за счёт нарушителя",
@@ -285,8 +285,8 @@
           "icon": "raid",
           "title": "Рейды с полицией",
           "title_en": "Raids with the police",
-          "note": "Рейды на производствах, в торговых точках и на складах — один из самых действенных инструментов программы. Взаимодействие с правоохранительными органами выстроено на всех этапах: от обнаружения нарушения до уничтожения контрафакта.",
-          "note_en": "Raids on production sites, retail outlets and warehouses are among the most effective instruments in the programme. Our work with law enforcement is set up at every stage, from spotting the infringement to destroying the goods.",
+          "note": "Рейды на производствах, в торговых точках и на складах — один из самых действенных инструментов программы. Взаимодействие с правоохранительными органами выстроено на всех этапах: от обнаружения нарушения до организации уничтожения контрафакта.",
+          "note_en": "Raids on production sites, retail outlets and warehouses are among the most effective instruments in the programme. Our work with law enforcement is set up at every stage, from spotting the infringement to organising destruction of the goods.",
           "steps": [
             {
               "h": "Мониторинг и сбор информации",
@@ -297,14 +297,8 @@
             {
               "h": "Организация и участие в рейде",
               "h_en": "Organising and joining the raid",
-              "p": "Наши специалисты работают в рейде вместе с полицией и дают экспертную поддержку, чтобы подделка была изъята, а нарушитель привлечён к ответственности.",
-              "p_en": "Our specialists work the raid alongside the police and provide expert support, so the fakes are seized and the infringer is held to account."
-            },
-            {
-              "h": "Независимая экспертиза изъятого",
-              "h_en": "Independent examination of seized goods",
-              "p": "Подбор экспертной организации и товароведческие исследования: подтверждаем контрафактность и факт нарушения прав.",
-              "p_en": "Selecting the expert body and running the examinations that establish the goods are counterfeit and the rights were infringed."
+              "p": "Наши специалисты работают в рейде вместе с полицией, чтобы подделка была изъята, а нарушитель привлечён к ответственности.",
+              "p_en": "Our specialists work the raid alongside the police, so the fakes are seized and the infringer is held to account."
             },
             {
               "h": "Юридическая поддержка",
@@ -315,8 +309,8 @@
             {
               "h": "Уничтожение контрафакта",
               "h_en": "Destruction of the counterfeit",
-              "p": "Сопровождение процедуры уничтожения после решения суда: подделка не должна вернуться на рынок.",
-              "p_en": "Supervising destruction once the court has ruled: the fakes must not find their way back onto the market."
+              "p": "Организация уничтожения контрафактной продукции после решения суда и контроль фактического исполнения: подделка не должна вернуться на рынок.",
+              "p_en": "Organising destruction of the counterfeit after the court order and verifying that it is actually carried out: the fakes must not find their way back onto the market."
             },
             {
               "h": "Мониторинг после рейдов",
@@ -342,8 +336,8 @@
             {
               "h": "Внесение в ТРОИС",
               "h_en": "Entry into the Russian customs register",
-              "p": "Регистрация знаков и объектов авторских прав в таможенном реестре РФ. Мы внесли в ТРОИС десятки объектов.",
-              "p_en": "Registering marks and copyrighted works in the Russian customs register. We have entered dozens of objects into it."
+              "p": "Внесение товарных знаков и объектов авторских прав в таможенный реестр РФ (ТРОИС). Мы внесли в ТРОИС десятки объектов.",
+              "p_en": "Entering trademarks and copyrighted works in the Russian customs IP register (TROIS). We have entered dozens of objects into it."
             },
             {
               "h": "Зарубежные таможенные реестры",
@@ -381,8 +375,8 @@
           "icon": "scales",
           "title": "Судебная защита",
           "title_en": "Litigation",
-          "note": "Юристы компании ведут дела в арбитражных судах и судах общей юрисдикции — от первой инстанции до исполнительного производства.",
-          "note_en": "Our lawyers run cases in the commercial courts and the courts of general jurisdiction, from first instance through to enforcement.",
+          "note": "Представительство в судах по спорам, связанным с интеллектуальной собственностью — в арбитражных судах и судах общей юрисдикции, от первой инстанции до исполнительного производства.",
+          "note_en": "Representation in court in disputes relating to intellectual property — in the commercial courts and the courts of general jurisdiction, from first instance through to enforcement.",
           "steps": [
             {
               "h": "Предварительная консультация",
@@ -466,25 +460,6 @@
             "Wanted-persons databases and sanctions lists",
             "Regulator registers and court records",
             "Source enquiries and interviews"
-          ]
-        },
-        {
-          "icon": "laptop",
-          "title": "Онлайн-система проверки соискателя",
-          "title_en": "Online candidate screening system",
-          "text": "Веб-приложение обрабатывает анкету автоматически и соотносит кандидата с уровнем риска — без отдельной кадровой службы безопасности и без месяцев ожидания решения.",
-          "text_en": "A web application processes the questionnaire automatically and places the candidate on a risk level, with no separate in-house vetting team and no months of waiting.",
-          "bullets": [
-            "Кандидат заполняет анкету сам, по персональному токену",
-            "Первичные данные формируются системой автоматически",
-            "Углублённый анализ — на стороне наших специалистов",
-            "Итог: уровень риска и отчёт по кандидату"
-          ],
-          "bullets_en": [
-            "The candidate fills in the form himself, using a personal token",
-            "The system compiles the primary data automatically",
-            "The deeper analysis sits with our specialists",
-            "The result: a risk level and a report on the candidate"
           ]
         },
         {
@@ -609,47 +584,7 @@
         { "t": "<b>Corporate investigations</b>", "to": "search" },
         { "t": "<b>Close protection</b> and event security", "to": "shield" }
       ],
-      "flows": [
-        {
-          "icon": "laptop",
-          "title": "Как устроена проверка соискателя",
-          "title_en": "How candidate screening works",
-          "note": "Обычно решение по кандидату затягивается на месяцы: кадры оценивают профессиональные качества, служба безопасности проверяет достоверность сведений, и каждый этап стоит денег. Наша система сокращает и сроки, и расходы, оставаясь в рамках правовых норм.",
-          "note_en": "A decision on a candidate usually drags on for months: HR weighs the professional side, the security team checks whether the information holds up, and every stage costs money. Our system cuts both the time and the cost, and stays within the law.",
-          "steps": [
-            {
-              "h": "Создание токена",
-              "h_en": "Token created",
-              "p": "Клиент заводит кандидата в системе и получает персональную ссылку на анкету.",
-              "p_en": "The client enters the candidate in the system and receives a personal link to the questionnaire."
-            },
-            {
-              "h": "Заполнение анкеты",
-              "h_en": "The candidate fills it in",
-              "p": "Кандидат вносит данные сам; наша техническая поддержка помогает ему на всём протяжении заполнения.",
-              "p_en": "The candidate enters the data himself, with our technical support on hand throughout."
-            },
-            {
-              "h": "Автоматическая обработка",
-              "h_en": "Automatic processing",
-              "p": "Система перерабатывает анкету и формирует первичные данные для передачи специалистам.",
-              "p_en": "The system processes the form and compiles the primary data for the specialists."
-            },
-            {
-              "h": "Углублённый анализ",
-              "h_en": "In-depth analysis",
-              "p": "Проверка достоверности сведений, деловых связей и фактов биографии, при необходимости — дополнение данных.",
-              "p_en": "Verification of the information, the business connections and the personal history, with further data added where needed."
-            },
-            {
-              "h": "Отчёт и уровень риска",
-              "h_en": "Report and risk level",
-              "p": "Кандидат соотносится с одним из уровней риска для компании, клиент получает готовый отчёт.",
-              "p_en": "The candidate is placed on one of the risk levels for the company and the client receives the finished report."
-            }
-          ]
-        }
-      ]
+      "flows": []
     },
     {
       "id": "intelligence",
@@ -657,7 +592,8 @@
       "num": "3",
       "img": "assets/img/services/strukturirovaniy-analiz.jpg",
       "title": "Разведка и анализ",
-      "tagline": "<b>Бизнес-разведка</b>, конкурентный анализ рынка, независимая экспертиза и <b>оценка рисков</b> сделок.",
+      "titleBreak": ["Разведка", "и анализ"],
+      "tagline": "<b>Бизнес-разведка</b>, конкурентный анализ рынка и <b>оценка рисков</b> сделок.",
       "icon": "search",
       "intro": "Мы объединяем аналитику и доступ к проверенным источникам в России, СНГ и странах бывшего Восточного блока, помогая выстраивать стратегии, минимизирующие риски до входа в сделку или на новый рынок.",
       "directions": [
@@ -709,25 +645,6 @@
           ]
         },
         {
-          "icon": "coins",
-          "title": "Отслеживание активов и поиск людей",
-          "title_en": "Asset tracing and locating people",
-          "text": "Поиск частных лиц и их активов по России, СНГ и Восточной Европе: анализ открытых данных плюс полевые расследования на местах.",
-          "text_en": "Finding individuals and their assets across Russia, the CIS and Eastern Europe: open-data analysis backed by field enquiries on the ground.",
-          "bullets": [
-            "Выявление финансовых и материальных активов",
-            "Поиск жертв мошенничества, наследников, членов семьи",
-            "Корпоративные активы и скрытые деловые связи при банкротстве",
-            "Обоснование позиции в суде и взыскание задолженности"
-          ],
-          "bullets_en": [
-            "Identification of financial and physical assets",
-            "Locating fraud victims, heirs and family members",
-            "Corporate assets and hidden connections in insolvency",
-            "Building the case in court and recovering debt"
-          ]
-        },
-        {
           "icon": "legal",
           "title": "Расследование страховых случаев",
           "title_en": "Insurance claim investigation",
@@ -774,7 +691,8 @@
         { "t": "<b>Структурированный анализ</b> и профайлинг", "to": "layers" }
       ],
       "title_en": "Intelligence and analysis",
-      "tagline_en": "<b>Business intelligence</b>, competitive market analysis, independent expertise and <b>deal risk</b> assessment.",
+      "titleBreak_en": ["Intelligence", "and analysis"],
+      "tagline_en": "<b>Business intelligence</b>, competitive market analysis and <b>deal risk</b> assessment.",
       "intro_en": "We combine analysis with access to verified sources across Russia, the CIS and the former Eastern Bloc, helping build strategies that reduce risk before you enter a deal or a new market.",
       "highlights_en": [
         { "t": "Counterparty screening and <b>due diligence</b>", "to": "security/check" },
@@ -796,16 +714,14 @@
           "icon": "coord",
           "title": "Стратегический консалтинг",
           "title_en": "Strategic consulting",
-          "text": "Построение целостной системы экономической безопасности предприятия и аналитическая поддержка решений, которые принимаются наверху.",
-          "text_en": "Building a coherent economic security system for the enterprise, and analytical support for the decisions taken at the top.",
+          "text": "Аналитическая поддержка решений, которые принимаются наверху, взаимодействие с органами власти и кризисное реагирование в острых ситуациях.",
+          "text_en": "Analytical support for the decisions taken at the top, engagement with public authorities, and crisis response in acute situations.",
           "bullets": [
-            "Система экономической безопасности предприятия",
             "Взаимодействие с государственными и контролирующими органами",
             "Аналитическая поддержка управленческих решений",
             "Кризисное реагирование"
           ],
           "bullets_en": [
-            "An economic security system for the enterprise",
             "Dealings with state and supervisory authorities",
             "Analytical support for management decisions",
             "Crisis response"
@@ -875,10 +791,10 @@
       "y": 0.5,
       "short": "Операции",
       "title": "Оперативный отдел",
-      "text": "Оперативный отдел представлен специалистами, работающими в Москве, Московской области, а также в регионах России и странах СНГ. Подразделение выполняет выездные задачи, участвуют в проверках и рейдовых мероприятиях, обеспечивая получение фактической информации и оперативное реагирование в рамках реализуемых проектов.",
+      "text": "Оперативный отдел координирует рейды и изъятия совместно с правоохранительными органами в Москве, регионах России и странах СНГ. Специалисты обеспечивают оперативное реагирование, сопровождение силовых мероприятий и фиксацию результатов в рамках антиконтрафактных проектов.",
       "title_en": "Operations department",
       "short_en": "Operations",
-      "text_en": "The operations department covers Moscow, the Moscow region, Russia's regions and the CIS. The team handles field assignments, inspections and raids, delivering factual intelligence and rapid response within each project."
+      "text_en": "The operations department coordinates raids and seizures with law enforcement across Moscow, Russia's regions and the CIS. The team delivers rapid response, support during enforcement actions and documented outcomes within anti-counterfeit projects."
     },
     {
       "icon": "coord",
@@ -897,10 +813,21 @@
       "y": 0.76,
       "short": "IT / Online",
       "title": "IT / Онлайн-отдел",
-      "text": "IT и онлайн-отдел занимается реализацией задач в цифровой среде. Включает работу с маркетплейсами, проведение онлайн-проверок, мониторинг и анализ интернет-активности, а также выполнение проектов в рамках удалённого взаимодействия и контрактной работы.",
+      "text": "IT и онлайн-отдел занимается реализацией задач в цифровой среде. Включает работу с маркетплейсами, проведение онлайн-проверок, мониторинг и анализ интернет-активности, а также решение проектов в рамках удалённого взаимодействия и контрактной работы.",
       "title_en": "IT / Online department",
       "short_en": "IT / Online",
       "text_en": "The IT and online department handles digital assignments — marketplaces, online checks, monitoring and analysis of internet activity, and remote or contract-based project delivery."
+    },
+    {
+      "icon": "pin",
+      "x": 0.5,
+      "y": 0.9,
+      "short": "Офлайн",
+      "title": "Офлайн-отдел",
+      "text": "Офлайн и полевой отдел работает в физических каналах — контрольные закупки, мониторинг розницы и опта, проверки складов и точек продаж. Специалисты собирают доказательства на местах по России и ЕАЭС, дополняя цифровые проверки и оперативные мероприятия.",
+      "title_en": "Offline department",
+      "short_en": "Offline",
+      "text_en": "The offline and field department works in physical channels — test purchases, retail and wholesale monitoring, warehouse and outlet checks. Specialists gather on-the-ground evidence across Russia and the EAEU, complementing digital checks and enforcement operations."
     }
   ],
   "approach": [
@@ -1015,12 +942,11 @@
       "Армения",
       "Кыргызстан",
       "Узбекистан",
-      "Азербайджан",
       "Грузия"
     ],
     "bar": [
       {
-        "n": "8",
+        "n": "7",
         "label": "стран присутствия"
       },
       {
@@ -1042,12 +968,11 @@
       "Armenia",
       "Kyrgyzstan",
       "Uzbekistan",
-      "Azerbaijan",
       "Georgia"
     ],
     "bar_en": [
       {
-        "n": "8",
+        "n": "7",
         "label": "countries of presence"
       },
       {
@@ -1256,10 +1181,6 @@
       "scale": 1.3
     },
     {
-      "n": "Nestlé",
-      "l": "assets/img/clients/nestle.svg"
-    },
-    {
       "n": "Red Bull",
       "l": "assets/img/clients/redbull.svg"
     },
@@ -1273,15 +1194,11 @@
     },
     {
       "n": "Henkel",
-      "l": "assets/img/clients/henkel.svg"
+      "l": "assets/img/clients/henkel.png"
     },
     {
       "n": "Adidas",
       "l": "assets/img/clients/adidas.svg"
-    },
-    {
-      "n": "Mars",
-      "l": "assets/img/clients/mars.png"
     },
     {
       "n": "Philip Morris International",
@@ -1323,6 +1240,55 @@
       "n": "SPLAT",
       "l": "assets/img/clients/splat.png",
       "scale": 1.12
+    },
+    {
+      "n": "PepsiCo",
+      "l": "assets/img/clients/pepsico.png"
+    },
+    {
+      "n": "Unilever",
+      "l": "assets/img/clients/unilever.png"
+    },
+    {
+      "n": "Gillette",
+      "l": "assets/img/clients/gillette.png"
+    },
+    {
+      "n": "Bushido",
+      "l": "assets/img/clients/bushido.png",
+      "scale": 1.15
+    },
+    {
+      "n": "Reckitt Benckiser",
+      "l": "assets/img/clients/reckitt.png"
+    },
+    {
+      "n": "LAB Industries",
+      "l": "assets/img/clients/lab-industries.png"
+    },
+    {
+      "n": "Egoiste Café",
+      "l": "assets/img/clients/egoiste.png"
+    },
+    {
+      "n": "Straumann",
+      "l": "assets/img/clients/straumann.png"
+    },
+    {
+      "n": "Zielinski & Rozen",
+      "l": "assets/img/clients/zielinski-rozen.png"
+    },
+    {
+      "n": "POXIPOL",
+      "l": "assets/img/clients/poxipol.png"
+    },
+    {
+      "n": "Чёрная Карта",
+      "l": "assets/img/clients/chernaya-karta.png"
+    },
+    {
+      "n": "Jacobs",
+      "l": "assets/img/clients/jacobs.png"
     }
   ],
   "letters": [

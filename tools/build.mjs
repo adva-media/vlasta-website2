@@ -194,6 +194,7 @@ const C = {
     assocKicker:'Партнёрство', assocTitle:'Ассоциации и профессиональные сообщества',
     assocDesc:'Мы состоим в ведущих российских и международных объединениях. Нажмите на карточку, чтобы узнать об участии в каждой ассоциации.',
     assocNav:'Ассоциации — прокрутите по горизонтали',
+    assocFounded:'Год основания',
     clientsKicker:'Клиенты', clientsTitle:'Нам доверяют ведущие бренды',
     clientsNote:'и ещё <b>более 80 брендов</b> под нашей защитой',
     lettersKicker:'Отзывы', lettersTitle:'Благодарственные письма',
@@ -259,6 +260,7 @@ const C = {
     assocKicker:'Partnerships', assocTitle:'Associations and professional bodies',
     assocDesc:'We belong to leading Russian and international bodies. Select a card to read about our involvement in each.',
     assocNav:'Associations — scroll horizontally',
+    assocFounded:'Year founded',
     clientsKicker:'Clients', clientsTitle:'Trusted by leading brands',
     clientsNote:'and <b>over 80 more brands</b> under our protection',
     lettersKicker:'References', lettersTitle:'Letters of appreciation',
@@ -309,7 +311,6 @@ const I = {
   sun: '<svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.4"/><path d="M12 2v2.5M12 19.5V22M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2 12h2.5M19.5 12H22M4.2 19.8 6 18M18 6l1.8-1.8"/></svg>',
   up: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>',
   x: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>',
-  play: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>',
   search: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>',
   shield: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 3v5.5c0 4.8-3.2 8-7.5 9.5-4.3-1.5-7.5-4.7-7.5-9.5V6z"/><path d="M9 12l2 2 4-4"/></svg>',
   brand: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 11.5 12.5 3.5a2 2 0 0 0-1.4-.6H4.5A1.5 1.5 0 0 0 3 4.4v6.6a2 2 0 0 0 .6 1.4l8 8a1.5 1.5 0 0 0 2.1 0l6.8-6.8a1.5 1.5 0 0 0 0-2.1z"/><circle cx="7.8" cy="7.8" r="1.4"/></svg>',
@@ -498,7 +499,7 @@ const orgLd = {
   logo: `${BASE}/assets/img/logo-dark.svg`, foundingDate: String(O.founded),
   telephone: O.phoneHref, email: O.email,
   address: { '@type': 'PostalAddress', streetAddress: O.addressStreet, addressLocality: O.addressCity, postalCode: O.addressZip, addressCountry: 'RU' },
-  areaServed: ['RU', 'BY', 'KZ', 'UZ', 'KG', 'AM', 'AZ', 'GE'],
+  areaServed: ['RU', 'BY', 'KZ', 'UZ', 'KG', 'AM', 'GE'],
   contactPoint: { '@type': 'ContactPoint', telephone: O.phoneHref, contactType: 'customer service', availableLanguage: ['Russian', 'English'] },
 };
 const crumbLd = items => ({
@@ -838,8 +839,9 @@ const glyphOn = hex => {
   return ctr(l, 1) >= ctr(l, relLum('#141428')) ? '#FFFFFF' : '#141428';
 };
 
-/* Ahead spacer in tile units — keep in sync with .road__ahead in CSS. */
-const ROAD_AHEAD = 1.75;
+/* Ahead spacer in tile units — keep in sync with .road__ahead in CSS.
+   ~0.45×tile ≈ 90–110px (~3cm) past the last year so tip/pulse stop early. */
+const ROAD_AHEAD = 0.45;
 
 const roadmap = () => {
   /* Story reads left→right: founding to present. Source JSON is newest-first.
@@ -925,21 +927,42 @@ const lettersMarquee = () => belt(
     </button>`),
   'belt--letters', C.lettersTitle);
 
+/* Split "1925 · 75+ стран" into year + scope for the modal; leave non-year
+   metas (e.g. RusBrand) as a single scope line with no founded label. */
+const assocParts = a => {
+  const meta = t(a, 'meta');
+  const m = /^(\d{4})\s*[·•]\s*(.+)$/.exec(String(meta).trim());
+  return m ? { year: m[1], meta: m[2] } : { year: '', meta };
+};
+
 const assocModal = () => `<div class="modal" id="assocModal" role="dialog" aria-modal="true" aria-labelledby="amTitle" hidden>
       <div class="modal__bd" data-close></div>
       <div class="modal__c">
-        <button class="modal__x" type="button" aria-label="Закрыть" data-close>${I.x}</button>
-        <img class="modal__logo" id="amLogo" src="" alt="">
-        <div class="modal__meta" id="amMeta"></div>
+        <button class="modal__x" type="button" aria-label="${EN ? 'Close' : 'Закрыть'}" data-close>${I.x}</button>
+        <div class="modal__head">
+          <span class="modal__rail" aria-hidden="true"></span>
+          <img class="modal__logo" id="amLogo" src="" alt="">
+          <span class="modal__rail" aria-hidden="true"></span>
+        </div>
+        <div class="modal__facts">
+          <div class="modal__year" id="amYearWrap" hidden>
+            <span class="modal__year-l">${esc(C.assocFounded)}</span>
+            <span class="modal__year-v" id="amYear"></span>
+          </div>
+          <div class="modal__meta" id="amMeta"></div>
+        </div>
         <h3 id="amTitle"></h3>
         <p id="amDesc"></p>
         <a class="modal__link" id="amLink" href="#" target="_blank" rel="noopener noreferrer"><span></span> ${I.ext}</a>
       </div>
     </div>
-    <script id="assocData" type="application/json">${JSON.stringify(site.associations.map(a => ({ logo: a.logo, name: t(a,'name'), meta: t(a,'meta'), desc: t(a,'desc'), url: a.url, site: a.site })))}</script>`;
+    <script id="assocData" type="application/json">${JSON.stringify(site.associations.map(a => {
+      const p = assocParts(a);
+      return { logo: a.logo, name: t(a,'name'), year: p.year, meta: p.meta, desc: t(a,'desc'), url: a.url, site: a.site };
+    }))}</script>`;
 
 const newsCard = (n, depth = 0, d = 0, { eager = false } = {}) => `<a class="card ncard reveal" href="${rel(depth, `news/${n.slug}.html`)}"${d ? ` data-d="${d}"` : ''}>
-        ${n.img ? `<div class="ncard__img"><img src="${rel(depth, n.img)}" alt="${esc(n.title)}" loading="${eager ? 'eager' : 'lazy'}" decoding="async">${n.video ? `<span class="ncard__play" aria-hidden="true">${I.play}</span>` : ''}</div>` : ''}
+        ${n.img ? `<div class="ncard__img"><img src="${rel(depth, n.img)}" alt="${esc(n.title)}" loading="${eager ? 'eager' : 'lazy'}" decoding="async"></div>` : ''}
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="${n.dateIso}">${esc(n.dateDisp)}</time><span class="dot"></span><span class="cl">${esc(n.cluster)}</span></div>
           <h3>${esc(n.title)}</h3>
@@ -1478,7 +1501,7 @@ function buildNews() {
     <p class="count" id="newsCount">${T.shown(INITIAL, news.length)}</p>
     <div class="news-grid" id="newsGrid" data-initial="${INITIAL}">
       ${news.map((n, i) => `<a class="card ncard reveal" href="news/${n.slug}.html" data-cat="${esc(n.cluster)}"${i >= INITIAL ? ' hidden' : ''}${i % 3 && i < INITIAL ? ` data-d="${i % 3}"` : ''}>
-        ${n.img ? `<div class="ncard__img"><img src="${rel(0, n.img)}" alt="${esc(n.title)}" loading="lazy" decoding="async">${n.video ? `<span class="ncard__play" aria-hidden="true">${I.play}</span>` : ''}</div>` : ''}
+        ${n.img ? `<div class="ncard__img"><img src="${rel(0, n.img)}" alt="${esc(n.title)}" loading="lazy" decoding="async"></div>` : ''}
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="${n.dateIso}">${esc(n.dateDisp)}</time><span class="dot"></span><span class="cl">${esc(n.cluster)}</span></div>
           <h2 class="h3" style="font-size:16.5px">${esc(n.title)}</h2>

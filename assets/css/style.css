@@ -516,57 +516,52 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
 /* ------------------------------------------------------------- services */
 /* Wide 2×2 matrix — copy left, linked highlights right. */
 .svc-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-/* White liquid glass tiles — frosted translucent white, soft edge highlight.
-   Content stays dark so the tiles read on glasszone photo, light, or dark. */
+/* Plain paper tiles — same solid plate as .appr-hex__shell (no liquid glass). */
 .svc{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.95fr);gap:22px 28px;
-  align-items:stretch;overflow:hidden;padding:22px 24px 20px;color:#141428;
-  background:linear-gradient(155deg,rgba(255,255,255,.84) 0%,rgba(255,255,255,.58) 52%,rgba(255,255,255,.48) 100%);
-  border:1px solid rgba(255,255,255,.74);
-  -webkit-backdrop-filter:blur(22px) saturate(1.55);backdrop-filter:blur(22px) saturate(1.55);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 10px 28px -20px rgba(8,8,24,.28)}
+  align-items:stretch;overflow:hidden;padding:22px 24px 20px;color:var(--ink);
+  background:var(--paper);border:1px solid var(--line);
+  -webkit-backdrop-filter:none;backdrop-filter:none;
+  box-shadow:var(--sh-sm)}
 .svc:hover{
-  background:linear-gradient(155deg,rgba(255,255,255,.92) 0%,rgba(255,255,255,.68) 100%);
-  border-color:rgba(255,255,255,.88);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.96),0 12px 32px -20px rgba(8,8,24,.32)}
+  background:var(--paper);border-color:var(--mist);
+  box-shadow:var(--sh-md)}
 /* frosted tiles: the pinned photo behind them gives the glass something to bend */
 .glasszone .card{background:rgba(255,255,255,.10);border-color:rgba(255,255,255,.20);
   -webkit-backdrop-filter:blur(20px) saturate(1.5);backdrop-filter:blur(20px) saturate(1.5);
   box-shadow:0 20px 50px -28px rgba(8,8,24,.7)}
 .glasszone .card:hover{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.34)}
-/* svc keeps white liquid glass above the shared .glasszone .card frost */
+/* svc stays solid paper above the shared .glasszone .card frost */
 .glasszone .svc{
-  color:#141428;
-  background:linear-gradient(155deg,rgba(255,255,255,.84) 0%,rgba(255,255,255,.58) 52%,rgba(255,255,255,.48) 100%);
-  border-color:rgba(255,255,255,.74);
-  -webkit-backdrop-filter:blur(24px) saturate(1.6);backdrop-filter:blur(24px) saturate(1.6);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 10px 28px -20px rgba(8,8,24,.28)}
+  color:var(--ink);
+  background:var(--paper);border-color:var(--line);
+  -webkit-backdrop-filter:none;backdrop-filter:none;
+  box-shadow:var(--sh-sm)}
 .glasszone .svc:hover{
-  background:linear-gradient(155deg,rgba(255,255,255,.92) 0%,rgba(255,255,255,.68) 100%);
-  border-color:rgba(255,255,255,.88);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.96),0 12px 32px -20px rgba(8,8,24,.32)}
-.glasszone .svc .h3,.glasszone .svc h3{color:#141428}
-.glasszone .svc__hl a{color:#141428}
-.glasszone .svc__hl b{color:#141428;font-weight:700}
-.glasszone .svc__hl li::before{background:#535D86}
-.glasszone .svc__tag{color:#4C4E64}
+  background:var(--paper);border-color:var(--mist);
+  box-shadow:var(--sh-md)}
+.glasszone .svc .h3,.glasszone .svc h3{color:var(--ink)}
+.glasszone .svc__hl a{color:var(--ink)}
+.glasszone .svc__hl b{color:var(--ink);font-weight:700}
+.glasszone .svc__hl li::before{background:var(--accent)}
+.glasszone .svc__tag{color:var(--body)}
 .glasszone .ico{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.22);color:#fff}
 .glasszone .card:hover .ico{background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.34)}
 .glasszone .arrow-link{color:#fff}
-/* dark-on-white content for liquid-glass svc tiles (beats glasszone white text) */
+/* Theme-aware content on solid svc plates (beats glasszone white text) */
 .glasszone .svc .ico{background:linear-gradient(155deg,rgba(83,93,134,.13),rgba(83,93,134,.05));
-  border-color:rgba(83,93,134,.13);color:#535D86}
+  border-color:rgba(83,93,134,.13);color:var(--accent)}
 .glasszone .svc:hover .ico{background:linear-gradient(155deg,rgba(83,93,134,.2),rgba(83,93,134,.08));
   border-color:rgba(83,93,134,.22)}
-.glasszone .svc .arrow-link{color:#535D86}
+.glasszone .svc .arrow-link{color:var(--accent)}
 /* Decorative index — same language as .case-hero__n: oversized, faded, half-cropped */
 .svc__n{position:absolute;right:-4%;bottom:-22%;z-index:0;
   font-size:clamp(88px,11vw,148px);font-weight:700;line-height:1;
-  color:rgba(20,20,40,.12);filter:blur(2.5px);
+  color:color-mix(in srgb,var(--ink) 12%,transparent);filter:blur(2.5px);
   pointer-events:none;user-select:none;
   transform:translate(0,0);
   transition:transform .55s var(--ease),opacity .55s var(--ease);opacity:.92}
 .svc:hover .svc__n{transform:translate(-5px,-7px);opacity:1}
-.glasszone .svc__n{color:rgba(20,20,40,.14)}
+.glasszone .svc__n{color:color-mix(in srgb,var(--ink) 14%,transparent)}
 @media (prefers-reduced-motion:reduce){
   .svc__n{transition:none;opacity:1}
   .svc:hover .svc__n{transform:none}
@@ -577,25 +572,25 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
 .svc__top .ico svg{width:20px;height:20px}
 .svc__head{min-width:0}
 .svc__top .h3{margin:0;font-size:clamp(15px,1.25vw,18px);line-height:1.2;font-weight:700;
-  letter-spacing:.06em;text-transform:uppercase;color:#141428}
+  letter-spacing:.06em;text-transform:uppercase;color:var(--ink)}
 /* Soft line break in service titles — desktop only; mobile wraps naturally */
 .br-d{display:none}
 @media (min-width:900px){.br-d{display:block}}
-.svc__tag{margin-top:14px;font-size:13.5px;color:#4C4E64;line-height:1.55;font-weight:400}
+.svc__tag{margin-top:14px;font-size:13.5px;color:var(--body);line-height:1.55;font-weight:400}
 .svc__hl{margin:0;display:grid;gap:8px;align-content:start;position:relative;z-index:1;
-  padding-left:22px;border-left:1px solid rgba(20,20,40,.12)}
-.glasszone .svc__hl{border-left-color:rgba(20,20,40,.12)}
+  padding-left:22px;border-left:1px solid var(--line)}
+.glasszone .svc__hl{border-left-color:var(--line)}
 .svc__hl li{position:relative;padding-left:16px;font-size:13.5px;line-height:1.4}
 .svc__hl li::before{content:"";position:absolute;left:0;top:7px;width:6px;height:6px;
-  background:#535D86;transform:rotate(45deg);border-radius:1.5px}
+  background:var(--accent);transform:rotate(45deg);border-radius:1.5px}
 /* Keep link text color stable on hover — only the underline grows.
    (Changing `a` color while `b` kept a fixed color made non-bold words look darker.) */
-.svc__hl a{position:relative;display:inline;color:#141428;font-weight:500;
+.svc__hl a{position:relative;display:inline;color:var(--ink);font-weight:500;
   background-image:linear-gradient(currentColor,currentColor);
   background-position:0 100%;background-repeat:no-repeat;background-size:0% 1.5px;
   transition:background-size .35s cubic-bezier(.22,.7,.25,1),background-image .2s}
 .svc__hl a:hover,.svc__hl a:focus-visible{
-  background-image:linear-gradient(#535D86,#535D86);background-size:100% 1.5px}
+  background-image:linear-gradient(var(--accent),var(--accent));background-size:100% 1.5px}
 .svc__hl b{font-weight:700;color:inherit}
 .svc__more{margin-top:auto;padding-top:18px;width:fit-content}
 .svc__more-l{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px}
@@ -615,6 +610,7 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
 .svc-detail__hero{position:relative;margin-bottom:24px;border-radius:var(--r-md);overflow:hidden}
 .svc-detail__hero .ncard__img{aspect-ratio:16/7;margin:0}
 .svc-detail__hero .ncard__img img{object-position:50% 50%}
+#security .svc-detail__hero .ncard__img img{object-position:top}
 .svc-detail__hero .ncard__img::after{
   opacity:1;
   background:linear-gradient(180deg,rgba(83,93,134,.42),rgba(20,20,40,.76))}
@@ -709,7 +705,7 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
 .appr-hex__stage{display:none;position:relative;z-index:1;justify-self:end;width:100%;max-width:680px;
   overflow:visible;
   --hex-w:min(10.8vw,128px);--hex-h:calc(var(--hex-w) * 1.1547);
-  --big-w:min(34vw,268px);--big-h:calc(var(--big-w) * 1.1547);
+  --big-w:min(36vw,292px);--big-h:calc(var(--big-w) * 1.1547);
   /* Dense 3–2–1 pack: same-row neighbours at Δx=2; offset rows at Δx=1. */
   --xs:calc(var(--hex-w) * .55);--ys:calc(var(--hex-w) * .93);
   /* Dock math: apothem (flat) / circumradius (vertex) + satellite half + hug. */
@@ -750,14 +746,17 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
 .appr-hex__hub > .appr-hex__frost{background:linear-gradient(160deg,#FFFFFF 0%,#F2F3F8 100%);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 14px 32px -18px rgba(20,20,40,.28)}
 .appr-hex__hub .appr-hex__body{stroke:rgba(83,93,134,.38);stroke-width:1.4}
-.appr-hex__hub-in{position:absolute;inset:0;z-index:1}
-.appr-hex__panel{position:absolute;inset:17% 15% 16%;display:flex;flex-direction:column;justify-content:center;
+/* Clip copy to the plate so wider middle inset cannot bleed past hex flats. */
+.appr-hex__hub-in{position:absolute;inset:0;z-index:1;
+  clip-path:polygon(50% 0%,100% 33%,100% 67%,50% 100%,0% 67%,0% 33%);
+  -webkit-clip-path:polygon(50% 0%,100% 33%,100% 67%,50% 100%,0% 67%,0% 33%)}
+/* Vertical inset keeps the box in the flat mid-band; sides use most of flat width. */
+.appr-hex__panel{position:absolute;inset:14% 6% 13%;display:flex;flex-direction:column;justify-content:center;
   text-align:left;opacity:0;visibility:hidden;transform:translateY(8px) scale(.97);pointer-events:none;
   transition:opacity .45s var(--ease),transform .5s var(--ease),visibility .45s}
 .appr-hex__panel.is-on{opacity:1;visibility:visible;transform:none;pointer-events:auto}
-.appr-hex__panel h3{font-size:13.5px;line-height:1.25;color:var(--ink);margin:0;font-weight:700}
-.appr-hex__panel p{margin-top:6px;font-size:11px;line-height:1.45;color:var(--body);
-  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:9;overflow:hidden}
+.appr-hex__panel h3{font-size:13px;line-height:1.22;color:var(--ink);margin:0;font-weight:700}
+.appr-hex__panel p{margin-top:5px;font-size:10.5px;line-height:1.4;color:var(--body)}
 
 /* Idle V uses --x/--y; open ring uses --sx/--sy/--d (dock from hub). */
 .appr-hex__grid{position:relative;z-index:1;width:100%;
@@ -871,7 +870,7 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
   .appr-hex.is-open .appr-hex__stage{--open:0}
   .appr-hex__stage{display:flex;flex-direction:column;align-items:center;justify-self:stretch;max-width:none;
     --hex-w:clamp(78px,23vw,112px);--hex-h:calc(var(--hex-w) * 1.1547);
-    --big-w:min(78vw,280px);--big-h:calc(var(--big-w) * 1.1547);
+    --big-w:min(82vw,300px);--big-h:calc(var(--big-w) * 1.1547);
     --xs:calc(var(--hex-w) * .55);--ys:calc(var(--hex-w) * .93);
     --hub-y:0;--grid-h-idle:calc(var(--ys) * 2 + var(--hex-h));--grid-h-open:var(--grid-h-idle)}
   .appr-hex__mob{display:none}
@@ -887,8 +886,9 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
   .appr-hex__panel{transform:translateY(14px) scale(.96);
     transition:opacity .5s var(--ease),transform .55s var(--ease),visibility .5s}
   .appr-hex__panel.is-on{transform:none}
-  .appr-hex__panel h3{font-size:14px}
-  .appr-hex__panel p{font-size:11.5px;-webkit-line-clamp:10}
+  .appr-hex__panel{inset:13% 7% 12%}
+  .appr-hex__panel h3{font-size:13.5px}
+  .appr-hex__panel p{font-size:11px;line-height:1.38}
   .appr-hex__cell.is-active{z-index:8;
     transform:translate(calc(-50% + var(--tx)),calc(var(--ty) - 10px))}
   .appr-hex__ico{width:34px;height:34px;border-radius:10px}
@@ -981,7 +981,7 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
   background-size:cover;
   background-position:center;
   background-repeat:no-repeat;
-  filter:blur(4px);
+  filter:blur(8px);
 }
 #history::after{
   content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
@@ -1001,7 +1001,7 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
 }
 
 /* Free full-bleed rail — no card chrome; edge fades ease off at the ends. */
-.road{--yh0:78;--ahead:1.75;--tile:clamp(200px,24vw,248px);position:relative;margin-top:0;padding:0;border:0;
+.road{--yh0:78;--ahead:.45;--tile:clamp(200px,24vw,248px);position:relative;margin-top:0;padding:0;border:0;
   background:none;box-shadow:none;border-radius:0;
   -webkit-backdrop-filter:none;backdrop-filter:none}
 .road__body{--rail:clamp(128px,14.5vw,168px);--mk:clamp(48px,5.8vw,60px);
@@ -1125,9 +1125,9 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
   border:1px solid var(--line-soft);display:grid;place-items:center;padding:16px 18px;
   overflow:hidden;transition:var(--t)}
 .assoc__logo img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;
-  filter:grayscale(1);opacity:.8;transition:var(--t)}
+  opacity:.8;transition:var(--t)}
 .assoc:hover .assoc__logo{border-color:var(--mist)}
-.assoc:hover .assoc__logo img{filter:none;opacity:1}
+.assoc:hover .assoc__logo img{opacity:1}
 .assoc h3{font-size:13.5px;font-weight:600;margin-top:15px;line-height:1.32}
 .assoc__meta{font-size:11px;color:var(--steel);margin-top:6px;letter-spacing:.03em}
 .assoc__more{margin-top:12px;font-size:11.5px;font-weight:600;letter-spacing:.04em;color:var(--accent);
@@ -1150,11 +1150,22 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
   border:1px solid var(--line);display:grid;place-items:center;color:var(--body);transition:var(--t)}
 .modal__x:hover{border-color:var(--accent);color:var(--accent);background:var(--paper-alt)}
 .modal__x svg{width:17px;height:17px}
-.modal__logo{height:78px;max-width:216px;width:auto;object-fit:contain;
-  background:#fff;border:1px solid var(--line-soft);border-radius:12px;padding:12px 16px}
+/* Logo framed by slender indigo rails — reads as a seal, not a floating badge */
+.modal__head{display:flex;align-items:stretch;justify-content:center;gap:clamp(14px,3vw,22px);
+  margin:4px auto 0;max-width:320px}
+.modal__rail{flex:0 0 3px;width:3px;align-self:stretch;min-height:88px;border-radius:2px;
+  background:linear-gradient(180deg,transparent 0%,var(--accent) 18%,var(--accent-lo) 50%,var(--accent) 82%,transparent 100%);
+  opacity:.55;box-shadow:1px 0 0 rgba(83,93,134,.12),-1px 0 0 rgba(83,93,134,.08)}
+.modal__logo{height:96px;max-width:248px;width:auto;object-fit:contain;
+  background:#fff;border:1px solid var(--line-soft);border-radius:12px;padding:14px 18px}
+.modal__facts{display:flex;flex-wrap:wrap;align-items:flex-end;gap:10px 18px;margin-top:22px}
+.modal__year{display:flex;flex-direction:column;gap:3px;min-width:0}
+.modal__year-l{font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--steel)}
+.modal__year-v{font-size:18px;font-weight:700;letter-spacing:.02em;line-height:1.15;color:var(--ink)}
 .modal__meta{font-size:11.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
-  color:var(--accent);margin-top:22px}
-.modal__c h3{font-size:clamp(21px,2.5vw,27px);margin-top:9px;font-weight:700}
+  color:var(--accent);padding-bottom:2px}
+.modal__c h3{font-size:clamp(21px,2.5vw,27px);margin-top:12px;font-weight:700}
 .modal__c p{margin-top:15px;font-size:15px;line-height:1.7;color:var(--body)}
 .modal__link{display:inline-flex;align-items:center;gap:8px;margin-top:22px;
   font-size:14px;font-weight:600;color:var(--accent)}
@@ -1168,7 +1179,8 @@ html.is-locked,html.is-locked body{overflow:hidden}
 .client{background:#fff;min-height:98px;display:flex;align-items:center;justify-content:center;
   padding:20px 22px;transition:background var(--t)}
 .client img{max-width:82%;max-height:52px;width:auto;height:auto;object-fit:contain;
-  filter:grayscale(1);opacity:.66;transition:var(--t);
+  /* match homepage .mq__i img — soft grey wash, color peeks through */
+  filter:grayscale(.5);opacity:.81;transition:var(--t);
   /* some files carry a lot of built-in padding — see `scale` in site.json */
   transform:scale(var(--logo-scale,1))}
 .client:hover{background:var(--paper-alt)}
@@ -1299,10 +1311,6 @@ html.is-locked,html.is-locked body{overflow:hidden}
 .ncard__img img{width:100%;height:100%;object-fit:cover;object-position:50% 0;
   transition:transform .7s var(--ease)}
 .ncard:hover .ncard__img img{transform:scale(1.045)}
-.ncard__play{position:absolute;left:14px;bottom:14px;width:34px;height:34px;border-radius:50%;
-  background:rgba(20,20,40,.62);color:#fff;display:grid;place-items:center;
-  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
-.ncard__play svg{width:14px;height:14px}
 .ncard__b{padding:24px 24px 26px;display:flex;flex-direction:column;flex:1}
 .ncard__meta{display:flex;align-items:center;gap:9px;font-size:11.5px;font-weight:600;
   letter-spacing:.07em;text-transform:uppercase;color:var(--accent);flex-wrap:wrap}
@@ -1397,13 +1405,17 @@ html.is-locked,html.is-locked body{overflow:hidden}
 .letter__n{display:block;margin-top:12px;font-size:13.5px;font-weight:600;color:var(--ink)}
 @media (max-width:620px){.letter{flex-basis:200px}}
 
-.lightbox{position:fixed;inset:0;z-index:400;display:grid;place-items:center;padding:24px;
+/* Letters lightbox: fit the full scan in the viewport (contain), never a
+   scrollable/zoomed crop. Scans are ~A4 (~1650×2340); max-height:100% alone
+   fails when the panel only has max-height, so use viewport units. */
+.lightbox{position:fixed;inset:0;z-index:400;display:grid;place-items:center;
+  padding:clamp(12px,2.5vw,24px);
   background:rgba(20,20,40,.86);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
   opacity:0;visibility:hidden;transition:opacity .3s var(--ease),visibility .3s}
 .lightbox.is-open{opacity:1;visibility:visible}
 .lightbox__p{position:relative;display:flex;flex-direction:column;
-  width:min(880px,100%);max-height:calc(100vh - 56px);background:#fff;
-  border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh-lg)}
+  width:min(880px,100%);max-height:calc(100vh - 48px);max-height:calc(100dvh - 48px);
+  background:#fff;border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh-lg)}
 .lightbox__h{display:flex;align-items:center;justify-content:space-between;gap:14px;
   padding:13px 17px;border-bottom:1px solid var(--line);flex:none}
 .lightbox__t{font-size:15px;font-weight:600;color:var(--ink)}
@@ -1411,9 +1423,13 @@ html.is-locked,html.is-locked body{overflow:hidden}
   color:var(--body);display:grid;place-items:center;transition:var(--t)}
 .lightbox__x:hover{background:var(--line)}
 .lightbox__x svg{width:16px;height:16px}
-.lightbox__b{flex:1;min-height:0;overflow:auto;display:grid;place-items:center;
+.lightbox__b{flex:1;min-height:0;overflow:hidden;display:grid;place-items:center;
   padding:14px;background:var(--paper-alt)}
-.lightbox__b img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain}
+.lightbox__b img{
+  display:block;width:auto;height:auto;max-width:100%;
+  /* Header ~62px + body pad 28px + outer pad 48px ≈ 138px chrome */
+  max-height:calc(100vh - 138px);max-height:calc(100dvh - 138px);
+  object-fit:contain;touch-action:none;-webkit-user-drag:none;user-select:none}
 
 /* --------------------------------------------------------------- CTA band */
 /* Neutral paper wash + sparse constellation field (violet graph + pulses).
@@ -1748,6 +1764,9 @@ html.is-locked,html.is-locked body{overflow:hidden}
   .nrow__d{display:flex;align-items:baseline;gap:8px}
   .nrow__d span{margin-top:0}
   .modal__c{padding:30px 22px 32px}
+  .modal__head{gap:12px;max-width:100%}
+  .modal__logo{height:88px;max-width:min(220px,58vw);padding:12px 14px}
+  .modal__rail{min-height:72px;flex-basis:2px;width:2px}
   .topbar .wrap{flex-wrap:nowrap;gap:12px}
   .topbar__l{gap:14px;min-width:0}
   .topbar__l .tb:nth-child(2),.topbar__l .tb:nth-child(3){display:none}
@@ -1835,15 +1854,21 @@ section[id]{scroll-margin-top:96px}
 /* let the map run past the container so it feels like part of the section
    rather than a panel dropped into it */
 /* The map is not a panel: let it breathe past the column vertically and run
-   to the page edge, fading out only on the left where the copy sits. */
+   to the page edge, fading out only on the left where the copy sits.
+   Desktop gets a slight zoom so Russia fills more of the right column. */
 .cmap{position:relative;width:100%;
   margin-right:calc(var(--gutter) * -1);
   margin-block:calc(clamp(20px,4vw,58px) * -1)}
-.cmap svg{overflow:visible}
+.cmap svg{overflow:visible;width:100%;height:auto;display:block}
+@media (min-width:901px){
+  .cmap svg{
+    transform:scale(1.3);
+    transform-origin:55% 38%;
+  }
+}
 @media (max-width:900px){
   .cmap{margin-right:0;margin-block:0}
 }
-.cmap svg{width:100%;height:auto;display:block}
 .cm__c{
   fill:rgba(255,255,255,.04);
   stroke:rgba(255,255,255,.13);
@@ -2012,9 +2037,9 @@ section[id]{scroll-margin-top:96px}
   border:1px solid var(--line);display:grid;place-items:center;padding:16px 18px;
   overflow:hidden;transition:var(--t)}
 .belt--assoc .assoc__logo img{max-width:100%;max-height:100%;width:auto;height:auto;
-  object-fit:contain;filter:grayscale(1);opacity:.82;transition:var(--t)}
+  object-fit:contain;opacity:.82;transition:var(--t)}
 .belt__i:hover .assoc__logo{border-color:var(--mist);box-shadow:var(--sh-md)}
-.belt__i:hover .assoc__logo img{filter:none;opacity:1}
+.belt__i:hover .assoc__logo img{opacity:1}
 .assoc__n{display:block;margin-top:14px;font-size:13.5px;font-weight:600;color:var(--ink);line-height:1.3}
 .belt--assoc .assoc__meta{display:block;margin-top:5px;font-size:11px;color:var(--steel);letter-spacing:.03em}
 
