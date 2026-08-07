@@ -1100,8 +1100,8 @@ ${marquee()}
   <div class="wrap">
     ${shead({
       k: C.casesKicker, h: C.casesTitle,
+      extra: seeall('cases.html', T.allCases),
     })}
-    <div class="sec__cta">${seeall('cases.html', T.allCases)}</div>
     <div class="case-rail" tabindex="0" role="group" aria-label="${C.casesTitle}">${railCases.map(x => caseCard(x, 0, 0)).join('')}</div>
   </div>
 </section>
@@ -1142,8 +1142,8 @@ ${marquee()}
   <div class="wrap">
     ${shead({
       k: C.newsKicker, h: C.newsTitle,
+      extra: seeall('news.html', T.allNews),
     })}
-    <div class="sec__cta">${seeall('news.html', T.allNews)}</div>
     <div class="news-rail" tabindex="0" role="group" aria-label="${esc(C.newsTitle)}">${
       news.map((n, i) => newsCard(n, 0, 0, { eager: i < 3 })).join('')
     }</div>
