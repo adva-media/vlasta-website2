@@ -1218,10 +1218,19 @@
             yearWrap.hidden = true;
           }
         }
+        var metaWrap = $('#amMetaWrap');
+        var metaL = $('#amMetaL');
         var meta = $('#amMeta');
-        if (meta) {
-          meta.textContent = a.meta || '';
-          meta.hidden = !a.meta;
+        if (metaWrap && meta) {
+          if (a.meta) {
+            if (metaL) metaL.textContent = a.metaLabel || '';
+            meta.textContent = a.meta;
+            metaWrap.hidden = false;
+          } else {
+            if (metaL) metaL.textContent = '';
+            meta.textContent = '';
+            metaWrap.hidden = true;
+          }
         }
         $('#amTitle').textContent = a.name;
         $('#amDesc').textContent = a.desc;

@@ -195,6 +195,8 @@ const C = {
     assocDesc:'Мы состоим в ведущих российских и международных объединениях. Нажмите на карточку, чтобы узнать об участии в каждой ассоциации.',
     assocNav:'Ассоциации — прокрутите по горизонтали',
     assocFounded:'Год основания',
+    assocReach:'Охват', assocHq:'Штаб-квартира', assocCountry:'Страна',
+    assocRegion:'Регион', assocFocus:'Фокус',
     clientsKicker:'Клиенты', clientsTitle:'Нам доверяют ведущие бренды',
     clientsNote:'и ещё <b>более 80 брендов</b> под нашей защитой',
     lettersKicker:'Отзывы', lettersTitle:'Благодарственные письма',
@@ -261,6 +263,8 @@ const C = {
     assocDesc:'We belong to leading Russian and international bodies. Select a card to read about our involvement in each.',
     assocNav:'Associations — scroll horizontally',
     assocFounded:'Year founded',
+    assocReach:'Reach', assocHq:'Headquarters', assocCountry:'Country',
+    assocRegion:'Region', assocFocus:'Focus',
     clientsKicker:'Clients', clientsTitle:'Trusted by leading brands',
     clientsNote:'and <b>over 80 more brands</b> under our protection',
     lettersKicker:'References', lettersTitle:'Letters of appreciation',
@@ -928,12 +932,27 @@ const lettersMarquee = () => belt(
     </button>`),
   'belt--letters', C.lettersTitle);
 
-/* Split "1925 · 75+ стран" into year + scope for the modal; leave non-year
-   metas (e.g. RusBrand) as a single scope line with no founded label. */
+/* Split "1925 · 75+ стран" into year + scope; label the scope sensibly. */
+const assocScopeLabel = (scope) => {
+  const s = String(scope || '').trim();
+  if (!s) return '';
+  if (/\d+\+?\s*(стран|countries|регион)/i.test(s) || /ЕАЭС|EAEU/i.test(s)) return C.assocReach;
+  if (/Лондон|London|Нью-Йорк|New York|Александри|Alexandria|Вирджини/i.test(s)) return C.assocHq;
+  if (/^Россия$|^Russia$/i.test(s)) return C.assocCountry;
+  if (/FMCG|ритейл|retail/i.test(s)) return C.assocFocus;
+  if (/регион/i.test(s)) return C.assocRegion;
+  return C.assocReach;
+};
 const assocParts = a => {
   const meta = t(a, 'meta');
-  const m = /^(\d{4})\s*[·•]\s*(.+)$/.exec(String(meta).trim());
-  return m ? { year: m[1], meta: m[2] } : { year: '', meta };
+  const raw = String(meta || '').trim();
+  const m = /^(\d{4})\s*[·•]\s*(.+)$/.exec(raw);
+  if (m) return { year: m[1], meta: m[2], metaLabel: assocScopeLabel(m[2]) };
+  /* e.g. RusBrand "Россия · FMCG" — show the whole line under a fitting label */
+  const label = /FMCG/i.test(raw) ? C.assocFocus
+    : /Россия|Russia/i.test(raw) ? C.assocCountry
+    : C.assocReach;
+  return { year: '', meta: raw, metaLabel: raw ? label : '' };
 };
 
 const assocModal = () => `<div class="modal" id="assocModal" role="dialog" aria-modal="true" aria-labelledby="amTitle" hidden>
@@ -941,16 +960,17 @@ const assocModal = () => `<div class="modal" id="assocModal" role="dialog" aria-
       <div class="modal__c">
         <button class="modal__x" type="button" aria-label="${EN ? 'Close' : 'Закрыть'}" data-close>${I.x}</button>
         <div class="modal__head">
-          <span class="modal__rail" aria-hidden="true"></span>
           <img class="modal__logo" id="amLogo" src="" alt="">
-          <span class="modal__rail" aria-hidden="true"></span>
         </div>
         <div class="modal__facts">
-          <div class="modal__year" id="amYearWrap" hidden>
-            <span class="modal__year-l">${esc(C.assocFounded)}</span>
-            <span class="modal__year-v" id="amYear"></span>
+          <div class="modal__fact" id="amYearWrap" hidden>
+            <span class="modal__fact-l">${esc(C.assocFounded)}</span>
+            <span class="modal__fact-v" id="amYear"></span>
           </div>
-          <div class="modal__meta" id="amMeta"></div>
+          <div class="modal__fact" id="amMetaWrap" hidden>
+            <span class="modal__fact-l" id="amMetaL"></span>
+            <span class="modal__fact-v" id="amMeta"></span>
+          </div>
         </div>
         <h3 id="amTitle"></h3>
         <p id="amDesc"></p>
@@ -959,7 +979,7 @@ const assocModal = () => `<div class="modal" id="assocModal" role="dialog" aria-
     </div>
     <script id="assocData" type="application/json">${JSON.stringify(site.associations.map(a => {
       const p = assocParts(a);
-      return { logo: a.logo, name: t(a,'name'), year: p.year, meta: p.meta, desc: t(a,'desc'), url: a.url, site: a.site };
+      return { logo: a.logo, name: t(a,'name'), year: p.year, meta: p.meta, metaLabel: p.metaLabel, desc: t(a,'desc'), url: a.url, site: a.site };
     }))}</script>`;
 
 const newsCard = (n, depth = 0, d = 0, { eager = false } = {}) => `<a class="card ncard reveal" href="${rel(depth, `news/${n.slug}.html`)}"${d ? ` data-d="${d}"` : ''}>
