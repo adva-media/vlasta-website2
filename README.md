@@ -119,9 +119,11 @@ node tools/build.mjs ru && node tools/build.mjs en && node tools/check.mjs
 git add -A && git commit -m "Новость: краткое описание" && git push
 ```
 
-Деплой на `adva.media/website` произойдёт автоматически (GitHub Actions → rsync по SSH).
+Деплой на `adva.media/vlasta` произойдёт автоматически (GitHub Actions → rsync по SSH).
+Путь на сервере задаётся секретом `DEPLOY_PATH` (должен указывать на каталог для `/vlasta/`).
 
-Ссылки и ассеты в HTML — относительные, поэтому отдельный `baseHref` для `/website/` не нужен. Канонические URL и sitemap намеренно указывают на `https://vlasta-s.com` (staging не конкурирует в поиске).
+
+Ссылки и ассеты в HTML — относительные, поэтому отдельный `baseHref` для `/vlasta/` не нужен. Канонические URL и sitemap намеренно указывают на `https://vlasta-s.com` (staging не конкурирует в поиске).
 
 ---
 

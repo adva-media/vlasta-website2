@@ -1,4 +1,4 @@
-name: Deploy to adva.media/website
+name: Deploy to adva.media/vlasta
 
 # Rebuilds every page from content/ and rsyncs the result to the server.
 # Runs on every push to main, or manually from the Actions tab.
@@ -9,7 +9,9 @@ name: Deploy to adva.media/website
 #   SSH_PORT (default 22)
 #
 # DEPLOY_PATH should be the absolute server directory served at
-# https://adva.media/website/ (e.g. /var/www/adva.media/website).
+# https://adva.media/vlasta/ (e.g. /var/www/adva.media/vlasta).
+# Note: the actual path is a GitHub secret — update the secret if the
+# server directory for /vlasta differs from the previous /website path.
 on:
   push:
     branches: [main]
@@ -105,6 +107,6 @@ jobs:
 
       - name: Summary
         run: |
-          echo "### Deployed to adva.media/website" >> $GITHUB_STEP_SUMMARY
+          echo "### Deployed to adva.media/vlasta" >> $GITHUB_STEP_SUMMARY
           echo "Pages rebuilt from \`content/\` and synced to \`${{ secrets.DEPLOY_PATH }}\`." >> $GITHUB_STEP_SUMMARY
-          echo "Preview: https://adva.media/website/" >> $GITHUB_STEP_SUMMARY
+          echo "Preview: https://adva.media/vlasta/" >> $GITHUB_STEP_SUMMARY
