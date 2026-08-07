@@ -1282,16 +1282,47 @@
   /* ------------------------------------------------- roadmap arc light */
   /* Progress trail uses getTotalLength() dashes. The tip is a circle placed
      with getPointAtLength along the rising path (including the ahead stretch
-     past the last year). */
+     past the last year). Tip progress is lerped each frame so scroll jumps
+     do not telegraph into the pulse. On ≤640px the path flattens to y=50. */
+  var roadFlatMq = typeof matchMedia === 'function' ? matchMedia('(max-width:640px)') : null;
+  var roadTipRaf = 0;
+  var ROAD_TIP_LERP = 0.22;
+  var ROAD_FADE_R_MIN = 28;
+
+  function roadIsFlat() {
+    return !!(roadFlatMq && roadFlatMq.matches);
+  }
+
+  function roadApplyPathMode(r) {
+    var flat = roadIsFlat();
+    var key = flat ? 'dFlat' : 'dRise';
+    if (r.pathMode === key) return;
+    r.pathMode = key;
+    var d = flat ? r.dFlat : r.dRise;
+    if (!d) return;
+    [r.glow, r.base, r.done].forEach(function (el) {
+      if (el && d) el.setAttribute('d', d);
+    });
+    try { r.len = r.done.getTotalLength(); } catch (e) { return; }
+    if (!r.len) return;
+    r.done.style.strokeDasharray = String(r.len);
+    if (r.progress == null) r.progress = 0;
+    r.done.style.strokeDashoffset = String(r.len * (1 - r.progress));
+  }
+
   var roads = $$('.road').map(function (road) {
     var body = $('.road__body', road);
     if (!body || reduce) return null;
     var doneEl = $('.road__arcH .road__arcDone', road);
     var tipEl = $('.road__arcH .road__arcTip', road);
+    var glowEl = $('.road__arcH .road__arcGlow', road);
+    var baseEl = $('.road__arcH .road__arcBase', road);
     var svg = $('.road__arcH', road);
     var marks = $$('.road__i', road);
     var list = $('.road__list', road);
     if (!marks.length || !list || !doneEl || typeof doneEl.getTotalLength !== 'function') return null;
+    var dRise = doneEl.getAttribute('data-d-rise') || doneEl.getAttribute('d') || '';
+    var dFlat = doneEl.getAttribute('data-d-flat') || '';
     var len = 0;
     try { len = doneEl.getTotalLength(); } catch (e) { return null; }
     if (!len) return null;
@@ -1300,8 +1331,11 @@
     doneEl.classList.add('is-live');
     if (tipEl) tipEl.classList.add('is-live');
     body.addEventListener('scroll', function () { paintRoads(); }, { passive: true });
-    return { body: body, list: list, svg: svg, done: doneEl, tip: tipEl, len: len,
-             marks: marks, last: -1 };
+    var rec = { body: body, list: list, svg: svg, done: doneEl, tip: tipEl,
+             glow: glowEl, base: baseEl, len: len, marks: marks, last: -1,
+             dRise: dRise, dFlat: dFlat, pathMode: '', target: 0, progress: 0 };
+    roadApplyPathMode(rec);
+    return rec;
   }).filter(Boolean);
 
   function roadMarkMids(r) {
@@ -1318,7 +1352,8 @@
     });
   }
 
-  /* Soft edge fades only on the overflowing side — start/end stay fully readable. */
+  /* Soft edge fades only on the overflowing side — start stays fully readable;
+     the right edge always keeps a minimum fade so the trail does not hard-cut. */
   function roadEdgeFade(body) {
     if (!body) return;
     var max = Math.max(0, body.scrollWidth - body.clientWidth);
@@ -1335,8 +1370,17 @@
     }
     if (atStart) body.style.setProperty('--fade-l', '0px');
     else body.style.removeProperty('--fade-l');
-    if (atEnd) body.style.setProperty('--fade-r', '0px');
-    else body.style.removeProperty('--fade-r');
+    if (atEnd) {
+      var minR = ROAD_FADE_R_MIN;
+      try {
+        var cs = getComputedStyle(body).getPropertyValue('--fade-r-min').trim();
+        if (cs) {
+          var px = parseFloat(cs);
+          if (!isNaN(px) && px > 0) minR = px;
+        }
+      } catch (e) {}
+      body.style.setProperty('--fade-r', minR + 'px');
+    } else body.style.removeProperty('--fade-r');
   }
 
   /* Edge fades must run even when arc light is skipped (reduced motion). */
@@ -1359,33 +1403,38 @@
     return p < 0 ? 0 : p > 1 ? 1 : p;
   }
 
-  function paintRoads() {
-    var vh = window.innerHeight || root.clientHeight;
+  function roadPaintTip(r, p) {
+    if (!r.len) return;
+    r.done.style.strokeDashoffset = String(r.len * (1 - p));
+    if (r.tip && typeof r.done.getPointAtLength === 'function') {
+      var pt = r.done.getPointAtLength(Math.max(0, Math.min(r.len, p * r.len)));
+      r.tip.setAttribute('cx', pt.x);
+      r.tip.setAttribute('cy', pt.y);
+      /* preserveAspectRatio=none stretches the viewBox — compensate so the tip
+         stays a ~5.5px circle instead of a flat oval on long rails. */
+      var sr = r.svg.getBoundingClientRect();
+      var tipPx = 5.5;
+      r.tip.setAttribute('rx', String(tipPx * 1000 / Math.max(1, sr.width)));
+      r.tip.setAttribute('ry', String(tipPx * 100 / Math.max(1, sr.height)));
+    }
+  }
+
+  function roadTickTips() {
+    roadTipRaf = 0;
+    var need = false;
     roads.forEach(function (r) {
-      var p = roadProgress(r);
-      /* Page-scroll fallback only when the rail truly does not overflow. */
-      if (r.body.scrollWidth <= r.body.clientWidth + 12) {
-        var b = r.body.getBoundingClientRect();
-        p = (vh * .55 - b.top) / Math.max(1, b.height + vh * .2);
-        p = p < 0 ? 0 : p > 1 ? 1 : p;
+      var diff = r.target - r.progress;
+      if (Math.abs(diff) < 0.0008) r.progress = r.target;
+      else {
+        r.progress += diff * ROAD_TIP_LERP;
+        need = true;
       }
-      r.done.style.strokeDashoffset = String(r.len * (1 - p));
-      if (r.tip && typeof r.done.getPointAtLength === 'function') {
-        var pt = r.done.getPointAtLength(Math.max(0, Math.min(r.len, p * r.len)));
-        r.tip.setAttribute('cx', pt.x);
-        r.tip.setAttribute('cy', pt.y);
-        /* preserveAspectRatio=none stretches the viewBox — compensate so the tip
-           stays a ~5.5px circle instead of a flat oval on long rails. */
-        var sr = r.svg.getBoundingClientRect();
-        var tipPx = 5.5;
-        r.tip.setAttribute('rx', String(tipPx * 1000 / Math.max(1, sr.width)));
-        r.tip.setAttribute('ry', String(tipPx * 100 / Math.max(1, sr.height)));
-      }
+      roadPaintTip(r, r.progress);
       roadEdgeFade(r.body);
       var mids = roadMarkMids(r);
       var near = -1, best = .55 / r.marks.length;
       mids.forEach(function (a, i) {
-        var d = Math.abs(a - p);
+        var d = Math.abs(a - r.progress);
         if (d < best) { best = d; near = i; }
       });
       if (near !== r.last) {
@@ -1393,6 +1442,43 @@
         r.last = near;
       }
     });
+    if (need) roadTipRaf = requestAnimationFrame(roadTickTips);
+  }
+
+  function roadWakeTipLerp() {
+    if (roadTipRaf) return;
+    roadTipRaf = requestAnimationFrame(roadTickTips);
+  }
+
+  function paintRoads() {
+    var vh = window.innerHeight || root.clientHeight;
+    roads.forEach(function (r) {
+      roadApplyPathMode(r);
+      var p = roadProgress(r);
+      /* Page-scroll fallback only when the rail truly does not overflow. */
+      if (r.body.scrollWidth <= r.body.clientWidth + 12) {
+        var b = r.body.getBoundingClientRect();
+        p = (vh * .55 - b.top) / Math.max(1, b.height + vh * .2);
+        p = p < 0 ? 0 : p > 1 ? 1 : p;
+      }
+      r.target = p;
+    });
+    roadWakeTipLerp();
+  }
+
+  if (roadFlatMq) {
+    var onRoadFlatChange = function () {
+      roads.forEach(function (r) {
+        r.pathMode = '';
+        roadApplyPathMode(r);
+      });
+      paintRoads();
+    };
+    if (typeof roadFlatMq.addEventListener === 'function') {
+      roadFlatMq.addEventListener('change', onRoadFlatChange);
+    } else if (typeof roadFlatMq.addListener === 'function') {
+      roadFlatMq.addListener(onRoadFlatChange);
+    }
   }
 
   /* ------------------------------------------- geography panes catch light */

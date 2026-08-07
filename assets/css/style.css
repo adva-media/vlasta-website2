@@ -954,12 +954,14 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
 }
 
 /* Free full-bleed rail — no card chrome; edge fades ease off at the ends. */
-.road{--yh0:78;--ahead:.45;--tile:clamp(200px,24vw,248px);position:relative;margin-top:0;padding:0;border:0;
+.road{--yh0:78;--ahead:.15;--tile:clamp(200px,24vw,248px);position:relative;margin-top:0;padding:0;border:0;
   background:none;box-shadow:none;border-radius:0;
   -webkit-backdrop-filter:none;backdrop-filter:none}
 .road__body{--rail:clamp(108px,12vw,140px);--mk:clamp(44px,5.2vw,54px);
   --chip-room:clamp(16px,2.2vw,26px);
   --fade:clamp(36px,7vw,80px);--fade-l:var(--fade);--fade-r:var(--fade);
+  /* Keep a soft right fade even at scroll end (JS floors --fade-r). */
+  --fade-r-min:28px;
   /* End clearance must live in scrollable content (not the scroller padding). */
   --road-inset:max(var(--gutter), calc(var(--fade) + 24px));
   position:relative;cursor:grab;padding:0;
@@ -1061,14 +1063,18 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
 .road__c p{margin-top:5px;font-size:13px;line-height:1.48;color:var(--body)}
 
 @media (max-width:640px){
-  .road{--tile:min(72vw,260px)}
-  .road__body{--rail:88px;--mk:38px;--chip-room:18px;--fade:clamp(20px,10vw,40px)}
-  .road__i{padding:6px 16px 0 0}
+  /* Flatten to a horizontal mid-rail: marks, tip, and stroke share y=50%.
+     JS swaps SVG paths to data-d-flat; CSS locks --yh so chips stay on the line. */
+  .road{--tile:min(72vw,260px);--yh0:50;--yh1:50}
+  .road__body{--rail:88px;--mk:38px;--chip-room:18px;--fade:clamp(20px,10vw,40px);--fade-r-min:24px}
+  .road__i{padding:6px 16px 0 0;--yh:50}
   .road__peg{right:16px;top:calc(var(--rail) * -1);height:var(--rail)}
   .road__arcWrap{height:var(--rail);max-height:var(--rail);top:var(--chip-room)}
+  .road__yr,.road__mark{top:50%}
   .road__yr{font-size:14px;padding:3px 9px}
-  .road__c{padding:10px 11px}
+  .road__c{padding:10px 11px;--lift:0}
   .road__c p{font-size:12.5px}
+  .road__i:hover .road__c,.road__i.is-lit .road__c{transform:translateY(-2px)}
 }
 
 /* ---------------------------------------------------------- associations */

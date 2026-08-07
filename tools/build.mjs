@@ -799,8 +799,10 @@ const approachHex = () => {
 /* Horizontal story trail: gently rising left→right (oldest→newest).
    Marker --yh and the SVG path share arcYH(), so marks sit on the stroke.
    SVG y grows downward, so a falling y% reads as continuous upward progress.
-   The path keeps going past the last mark (tail) so time feels ongoing. */
+   Mobile (≤640px) flattens to a mid-rail via data-d-flat + CSS --yh:50.
+   The path keeps a short runway past the last mark (ROAD_AHEAD). */
 const ARC_H = { y0: 78, y1: 32 }; // y% of the rail; start low, end high on screen
+const ARC_FLAT_Y = 50;
 const arcYH = f => {
   const t = Math.min(1, Math.max(0, f));
   return ARC_H.y0 + (ARC_H.y1 - ARC_H.y0) * t;
@@ -810,6 +812,8 @@ const arcPathH = (steps = 96) =>
     const g = i / steps;
     return `${(g * 1000).toFixed(1)},${arcYH(g).toFixed(2)}`;
   }).join('L');
+/* Flat mid-rail for narrow viewports — marks and stroke share one Y. */
+const arcPathFlat = () => `M0,${ARC_FLAT_Y}L1000,${ARC_FLAT_Y}`;
 
 /* Newest end of the ramp is deepest; oldest is quieter. */
 const TONES_L = ['#141428', '#1E1E38', '#282844', '#343454', '#404068', '#4C4C7A', '#535D86', '#646E96'];
@@ -826,19 +830,21 @@ const glyphOn = hex => {
 };
 
 /* Ahead spacer in tile units — keep in sync with .road__ahead in CSS.
-   ~0.45×tile ≈ 90–110px (~3cm) past the last year so tip/pulse stop early. */
-const ROAD_AHEAD = 0.45;
+   Short runway past the last year (~0.15×tile) so the trail does not look endless. */
+const ROAD_AHEAD = 0.15;
 
 const roadmap = () => {
   /* Story reads left→right: founding to present. Source JSON is newest-first.
      Marks + SVG path share arcYH() over the full track (list + ahead). A
-     trailing ahead span lets the stroke + tip continue past the newest year. */
+     trailing ahead span lets the stroke + tip continue a little past the newest year. */
   const items = [...site.timeline].reverse();
   const n = items.length;
-  const d = arcPathH();
+  const dRise = arcPathH();
+  const dFlat = arcPathFlat();
   const gid = 'roadGrad';
   /* Mark centers sit at (i+.5) tile units; path spans n + ROAD_AHEAD tiles. */
   const track = n + ROAD_AHEAD;
+  const pathAttrs = `d="${dRise}" data-d-rise="${dRise}" data-d-flat="${dFlat}"`;
   return `<div class="road" style="--yh0:${ARC_H.y0};--yh1:${ARC_H.y1};--ahead:${ROAD_AHEAD}">
       <div class="road__body" tabindex="0" role="region" aria-label="${esc(C.histTitle.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim())}">
         <div class="road__htrack">
@@ -851,9 +857,9 @@ const roadmap = () => {
                   <stop offset="100%" stop-color="#141428"/>
                 </linearGradient>
               </defs>
-              <path class="road__arcGlow" d="${d}"/>
-              <path class="road__arcBase" d="${d}"/>
-              <path class="road__arcDone" d="${d}"/>
+              <path class="road__arcGlow" ${pathAttrs}/>
+              <path class="road__arcBase" ${pathAttrs}/>
+              <path class="road__arcDone" ${pathAttrs}/>
               <ellipse class="road__arcTip" cx="0" cy="${ARC_H.y0}" rx="3.2" ry="3.2"/>
             </svg>
           </div>
