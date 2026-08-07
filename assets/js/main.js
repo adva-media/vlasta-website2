@@ -1158,6 +1158,10 @@
   function openDialog(el) {
     lastFocus = doc.activeElement;
     lastFocusByKeyboard = usingKeyboard;
+    /* Sections use position:relative + z-index, which traps position:fixed
+       dialogs in that stacking context — the next .sec paints over them.
+       Park overlays on <body> so they sit above the whole page. */
+    if (el.parentNode !== doc.body) doc.body.appendChild(el);
     el.hidden = false;
     root.classList.add('is-locked');
     /* Flush layout so the opening transition still runs from the closed state.

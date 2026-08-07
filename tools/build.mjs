@@ -331,6 +331,7 @@ const I = {
   chat: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 11.6a7.5 7.5 0 0 1-7.5 7.4H8.4L4 22v-4.4a7.5 7.5 0 0 1 9-11.4 7.5 7.5 0 0 1 7.5 5.4z"/><path d="M9 12h.01M12.5 12h.01M16 12h.01"/></svg>',
   app: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2.6"/><path d="M10.5 18.6h3"/><path d="M9.6 8.4h4.8M9.6 12h4.8"/></svg>',
   dark: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m3 3 18 18"/><path d="M10.6 5.2A9.7 9.7 0 0 1 12 5c5 0 9 5 9 7 0 .9-.9 2.5-2.5 3.9M6.4 7.6C4.2 9 3 11.1 3 12c0 2 4 7 9 7 1.4 0 2.7-.3 3.8-.9"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg>',
+  cart: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M3 4h2l2.2 11.2a1.6 1.6 0 0 0 1.6 1.3h8.7a1.6 1.6 0 0 0 1.55-1.2L21 8H7"/></svg>',
   car: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 15.4h18M4.8 15.4v2.3M19.2 15.4v2.3"/><path d="m4.9 15.4 1.5-6.6a2 2 0 0 1 2-1.5h7.2a2 2 0 0 1 2 1.5l1.5 6.6"/><circle cx="8" cy="15.4" r="1.5"/><circle cx="16" cy="15.4" r="1.5"/></svg>',
   event: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/><circle cx="12" cy="15.4" r="2.1"/></svg>',
   radar: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1.8"/><path d="m12 12 5.6-5.6"/><path d="M15.9 8.1a5.5 5.5 0 1 1-7.8 0"/><path d="M19.1 4.9a10 10 0 1 1-14.2 0"/></svg>',
@@ -913,7 +914,7 @@ function belt(items, cls, label) {
 const assocMarquee = () => belt(
   site.associations.map((a, i) => dup =>
     `<button class="belt__i assoc" type="button" data-assoc="${i}" aria-haspopup="dialog"${dup ? ' tabindex="-1"' : ''}>
-      <span class="assoc__logo"><img src="${rel(0, a.logo)}" alt="${dup ? '' : esc(a.abbr)}" decoding="async"></span>
+      <span class="assoc__logo"><img src="${rel(0, a.logo)}" alt="${dup ? '' : esc(a.abbr)}" decoding="async"${a.logoScale ? ` style="--logo-scale:${a.logoScale}"` : ''}></span>
       <span class="assoc__n">${esc(t(a, 'name'))}</span>
       <span class="assoc__meta">${esc(t(a, 'meta'))}</span>
     </button>`),
