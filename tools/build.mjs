@@ -1039,12 +1039,14 @@ function buildHome() {
       ${site.stats.map(s => {
         const suffix = t(s, 'suffix');
         const unit = t(s, 'unit');
+        /* Single-glyph marks (+, %) stay slightly stronger; word units quieter */
+        const uClass = (str) => (/^[\+\-%‰]$/.test(String(str).trim()) ? 'u u--mark' : 'u u--word');
         const countAttr = s.count != null
           ? ` data-count="${esc(String(s.count))}"${s.decimals ? ` data-decimals="${s.decimals}"` : ''}`
           : '';
         const appear = s.appear ? ' stat--appear' : '';
         return `<div class="stat${appear}">
-        <div class="stat__n"${countAttr}><span class="stat__v">${esc(s.n)}</span>${suffix ? `<span class="u">${esc(suffix)}</span>` : ''}${unit ? `<span class="u">${esc(unit)}</span>` : ''}</div>
+        <div class="stat__n"${countAttr}><span class="stat__v">${esc(s.n)}</span>${suffix ? `<span class="${uClass(suffix)}">${esc(suffix)}</span>` : ''}${unit ? `<span class="${uClass(unit)}">${esc(unit)}</span>` : ''}</div>
         <div class="stat__l">${esc(t(s, 'label'))}</div>
       </div>`;
       }).join('')}
@@ -1057,6 +1059,7 @@ function buildHome() {
     ${shead({
       k: C.svcKicker, h: C.svcTitle,
       d: C.svcDesc,
+      mod: 'stack',
     })}
     <div class="sec__cta">${seeall('services.html', T.allServices)}</div>
     <div class="svc-grid" role="list" aria-label="${esc(C.svcTitle)}">

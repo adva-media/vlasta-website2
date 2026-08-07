@@ -104,7 +104,7 @@
       "block": "Блок III",
       "num": "1",
       "img": "assets/img/services/zashita-brenda.jpg",
-      "title": "Защита бренда и ИС",
+      "title": "Интеллектуальная собственность",
       "tagline": "Полный цикл защиты <b>интеллектуальной собственности</b> и противодействие <b>недобросовестной конкуренции</b>.",
       "icon": "brand",
       "intro": "В России мы были практически первыми, кто разработал и запустил в 2006 году программу защиты товарных знаков. Работаем по всем видам нарушений — от тождества и сходства до недобросовестной конкуренции.",
@@ -230,7 +230,7 @@
         { "t": "<b>Рейды с полицией и таможней</b>", "to": "raid" },
         { "t": "<b>Online Brand Protection System</b>", "to": "laptop" }
       ],
-      "title_en": "Brand and IP protection",
+      "title_en": "Intellectual property",
       "tagline_en": "The full cycle of <b>intellectual property</b> protection and action against <b>unfair competition</b>.",
       "intro_en": "In Russia we were among the very first to design and launch a trademark protection programme, back in 2006. We act on every type of infringement — from identity and confusing similarity through to unfair competition.",
       "highlights_en": [
