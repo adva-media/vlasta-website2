@@ -367,9 +367,28 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
 .burger.is-on span:nth-child(3){top:8px;transform:rotate(-45deg)}
 
 /* ------------------------------------------------- fixed tower backdrop */
-/* Fixed tower photo behind the transparent glasszone (hero). */
-.skyline{position:fixed;inset:0;z-index:-2;pointer-events:none}
-.skyline img{width:100%;height:100%;object-fit:cover;object-position:50% 32%}
+/* Fixed tower photo behind the transparent glasszone (hero).
+   Source is ~1280px wide — on ultrawide/4K, full-bleed cover looks soft.
+   Cap the photo, fill the wings with tower navy, and feather the edges. */
+.skyline{position:fixed;inset:0;z-index:-2;pointer-events:none;overflow:hidden;
+  display:flex;align-items:stretch;justify-content:center;
+  background:var(--surface-dark-2)}
+.skyline img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 32%}
+@media (min-width:1441px){
+  .skyline img{width:min(100%,1440px);flex:none;
+    /* Soft L/R dissolve into the navy wings — no hard crop line. */
+    -webkit-mask-image:linear-gradient(90deg,
+      transparent 0%,#000 9%,#000 91%,transparent 100%);
+    mask-image:linear-gradient(90deg,
+      transparent 0%,#000 9%,#000 91%,transparent 100%)}
+}
+@media (min-width:1800px){
+  .skyline img{width:min(100%,1600px);
+    -webkit-mask-image:linear-gradient(90deg,
+      transparent 0%,#000 7%,#000 93%,transparent 100%);
+    mask-image:linear-gradient(90deg,
+      transparent 0%,#000 7%,#000 93%,transparent 100%)}
+}
 /* Dark blue wash over the tower photo — off for now so the raw image can be judged.
 .skyline::after{content:"";position:absolute;inset:0;background:
   linear-gradient(180deg,rgba(12,12,36,.72) 0%,rgba(12,12,36,.62) 42%,rgba(18,18,42,.78) 100%)}
