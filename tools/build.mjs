@@ -647,10 +647,13 @@ function chrome(active, depth = 0) {
 const kick = t => `<span class="kick">${esc(t)}</span>`;
 
 function shead({ k, h, d, extra, mod = 'split', tag = 'h2', richH = false }) {
+  const parts = [
+    `<div class="shead__t">${kick(k)}<${tag} class="h2">${richH ? h : esc(h)}</${tag}></div>`,
+    d ? `<p class="shead__d lead">${esc(d)}</p>` : '',
+    extra ? `<div class="shead__x">${extra}</div>` : '',
+  ].filter(Boolean);
   return `<div class="shead shead--${mod}${extra ? ' shead--cta' : ''} reveal">
-      <div class="shead__t">${kick(k)}<${tag} class="h2">${richH ? h : esc(h)}</${tag}></div>
-      ${d ? `<p class="shead__d lead">${esc(d)}</p>` : ''}
-      ${extra ? `<div class="shead__x">${extra}</div>` : ''}
+      ${parts.join('\n      ')}
     </div>`;
 }
 
@@ -1054,8 +1057,8 @@ function buildHome() {
     ${shead({
       k: C.svcKicker, h: C.svcTitle,
       d: C.svcDesc,
-      extra: seeall('services.html', T.allServices),
     })}
+    <div class="sec__cta">${seeall('services.html', T.allServices)}</div>
     <div class="svc-grid" role="list" aria-label="${esc(C.svcTitle)}">
       ${site.services.map((s, i) => `<article class="card glass svc reveal"${i ? ` data-d="${i}"` : ''} role="listitem">
         <span class="svc__n" aria-hidden="true">${esc(s.num)}</span>
@@ -1091,8 +1094,8 @@ ${marquee()}
   <div class="wrap">
     ${shead({
       k: C.casesKicker, h: C.casesTitle,
-      extra: seeall('cases.html', T.allCases),
     })}
+    <div class="sec__cta">${seeall('cases.html', T.allCases)}</div>
     <div class="case-rail" tabindex="0" role="group" aria-label="${C.casesTitle}">${railCases.map(x => caseCard(x, 0, 0)).join('')}</div>
   </div>
 </section>
@@ -1133,8 +1136,8 @@ ${marquee()}
   <div class="wrap">
     ${shead({
       k: C.newsKicker, h: C.newsTitle,
-      extra: seeall('news.html', T.allNews),
     })}
+    <div class="sec__cta">${seeall('news.html', T.allNews)}</div>
     <div class="news-rail" tabindex="0" role="group" aria-label="${esc(C.newsTitle)}">${
       news.map((n, i) => newsCard(n, 0, 0, { eager: i < 3 })).join('')
     }</div>

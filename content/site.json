@@ -70,10 +70,10 @@
       "label_en": "<b>Damage prevented</b> for every rouble invested",
       "count": 4.8,
       "decimals": 1,
-      "unit": "",
-      "unit_en": "",
+      "unit": "×",
+      "unit_en": "×",
       "icon": "coins",
-      "prefix": "×"
+      "prefix": ""
     },
     {
       "value": "60",
@@ -783,10 +783,10 @@
       "y": 0.24,
       "short": "Аналитика",
       "title": "Аналитический отдел",
-      "text": "Аналитический отдел осуществляет сбор, проверку и обработку информации, а также проводит комплексный анализ деятельности компаний, отдельных лиц и рынков. Мы выявляем потенциальные риски и нарушения, формируя объективные и структурированные материалы, которые могут быть использованы для принятия управленческих и правовых решений.",
+      "text": "Аналитический отдел собирает, проверяет и обрабатывает информацию и проводит анализ компаний, лиц и рынков. Выявляем риски и нарушения, формируя структурированные материалы для управленческих и правовых решений.",
       "title_en": "Analytics department",
       "short_en": "Analytics",
-      "text_en": "The analytics department collects, verifies and processes information, and conducts comprehensive analysis of companies, individuals and markets. We identify potential risks and violations, producing objective structured materials for management and legal decisions."
+      "text_en": "The analytics department collects, verifies and processes information and analyses companies, individuals and markets. We identify risks and violations, producing structured materials for management and legal decisions."
     },
     {
       "icon": "legal",
