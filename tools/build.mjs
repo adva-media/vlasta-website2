@@ -647,11 +647,14 @@ function chrome(active, depth = 0) {
 const kick = t => `<span class="kick">${esc(t)}</span>`;
 
 function shead({ k, h, d, extra, mod = 'split', tag = 'h2', richH = false }) {
-  const parts = [
-    `<div class="shead__t">${kick(k)}<${tag} class="h2">${richH ? h : esc(h)}</${tag}></div>`,
-    d ? `<p class="shead__d lead">${esc(d)}</p>` : '',
-    extra ? `<div class="shead__x">${extra}</div>` : '',
-  ].filter(Boolean);
+  const title = `<div class="shead__t">${kick(k)}<${tag} class="h2">${richH ? h : esc(h)}</${tag}></div>`;
+  const lead = d ? `<p class="shead__d lead">${esc(d)}</p>` : '';
+  const cta = extra ? `<div class="shead__x">${extra}</div>` : '';
+  /* Stack + lead + CTA: share a horizontal band under the title so the pill
+     can bottom-align with the last line of the lead (homepage services). */
+  const parts = (mod === 'stack' && lead && cta)
+    ? [title, `<div class="shead__row">\n        ${lead}\n        ${cta}\n      </div>`]
+    : [title, lead, cta].filter(Boolean);
   return `<div class="shead shead--${mod}${extra ? ' shead--cta' : ''} reveal">
       ${parts.join('\n      ')}
     </div>`;
@@ -1060,8 +1063,8 @@ function buildHome() {
       k: C.svcKicker, h: C.svcTitle,
       d: C.svcDesc,
       mod: 'stack',
+      extra: seeall('services.html', T.allServices),
     })}
-    <div class="sec__cta">${seeall('services.html', T.allServices)}</div>
     <div class="svc-grid" role="list" aria-label="${esc(C.svcTitle)}">
       ${site.services.map((s, i) => `<article class="card glass svc reveal"${i ? ` data-d="${i}"` : ''} role="listitem">
         <span class="svc__n" aria-hidden="true">${esc(s.num)}</span>

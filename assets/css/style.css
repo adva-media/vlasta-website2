@@ -135,6 +135,11 @@ h1,h2,h3,h4{font-family:var(--ui);color:var(--ink);line-height:1.14;letter-spaci
 .sec--dark .shead__d,.sec--ink .shead__d{color:rgba(255,255,255,.7)}
 .shead .h2{margin-top:15px}
 .shead__x{display:flex;justify-content:flex-start}
+/* Lead + seeall band under the title (homepage services) */
+.shead__row{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;
+  gap:18px 32px}
+.shead__row .shead__d{flex:1 1 min(100%,420px);margin:0}
+.shead__row .shead__x{flex:none;margin-left:auto;justify-content:flex-end}
 @media (min-width:900px){
   .shead--split{grid-template-columns:1.1fr .9fr;align-items:end}
   .shead--split .shead__d{justify-self:end}
@@ -145,6 +150,7 @@ h1,h2,h3,h4{font-family:var(--ui);color:var(--ink);line-height:1.14;letter-spaci
 .shead--center .shead__x{justify-content:center}
 /* Title + lead stacked left (homepage services); wider lead for fewer wraps */
 .shead--stack .shead__d{max-width:min(100%,780px)}
+.shead--stack .shead__row .shead__d{max-width:min(100%,780px)}
 
 /* Section listing CTA — sits directly above the tiles/rail, right-aligned */
 .sec__cta{display:flex;justify-content:flex-end;align-items:center;
