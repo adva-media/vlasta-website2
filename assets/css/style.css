@@ -318,25 +318,38 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
   transition:opacity .28s var(--ease),visibility .28s}
 .hdr.is-stuck .hdr__tools{opacity:1;visibility:visible;pointer-events:auto}
 .hdr__tools .lang{display:flex;flex:1 1 0;min-height:0;width:100%;font-size:10px;letter-spacing:.04em;font-weight:700}
-.hdr__tools .lang a.is-on{display:none}
-/* Flat matched chips — equal flex share of Contact height */
-.hdr__tools .lang a,.hdr__tools .tt{
+/* Flat matched chips — equal flex share of Contact height.
+   Stuck/scrolled header wins over .lang a / .tt / glass leftovers:
+   plain #fff (or flat dark), no border/outline/shadow. */
+.hdr.is-stuck .hdr__tools .lang a,
+.hdr.is-stuck .hdr__tools .tt,
+.hdr__tools .lang a,
+.hdr__tools .tt{
   box-sizing:border-box;width:100%;height:100%;padding:0;margin:0;
   display:grid;place-items:center;
-  background:rgba(20,20,40,.08);border:1px solid rgba(20,20,40,.12);
+  background:#fff;border:0;outline:0;
   border-radius:7px;color:var(--ink);box-shadow:none;
-  transition:background .25s var(--ease),color .25s var(--ease),border-color .25s}
-.hdr__tools .lang a:hover,.hdr__tools .tt:hover{
-  background:rgba(20,20,40,.14);border-color:rgba(20,20,40,.18);color:var(--ink)}
+  -webkit-appearance:none;appearance:none;
+  transition:background .25s var(--ease),color .25s var(--ease)}
+.hdr.is-stuck .hdr__tools .lang a:hover,
+.hdr.is-stuck .hdr__tools .tt:hover,
+.hdr__tools .lang a:hover,
+.hdr__tools .tt:hover{
+  background:#ebebef;border:0;outline:0;box-shadow:none;color:var(--ink)}
 .hdr__tools .tt{flex:1 1 0;min-height:0;width:100%;transform:none}
-.hdr__tools .tt:hover{color:var(--accent);transform:none}
+.hdr.is-stuck .hdr__tools .tt:hover,
+.hdr__tools .tt:hover{color:var(--ink);transform:none}
 .hdr__tools .tt svg{width:12px;height:12px}
+[data-theme="dark"] .hdr.is-stuck .hdr__tools .lang a,
+[data-theme="dark"] .hdr.is-stuck .hdr__tools .tt,
 [data-theme="dark"] .hdr__tools .lang a,
 [data-theme="dark"] .hdr__tools .tt{
-  background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.14);color:#fff}
+  background:#1a1a30;border:0;outline:0;box-shadow:none;color:#fff}
+[data-theme="dark"] .hdr.is-stuck .hdr__tools .lang a:hover,
+[data-theme="dark"] .hdr.is-stuck .hdr__tools .tt:hover,
 [data-theme="dark"] .hdr__tools .lang a:hover,
 [data-theme="dark"] .hdr__tools .tt:hover{
-  background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.22);color:#fff}
+  background:#2a2a44;border:0;outline:0;box-shadow:none;color:#fff}
 
 .tt{width:32px;height:32px;flex:none;display:grid;place-items:center;
   color:var(--body);transition:color var(--t),transform var(--t);border:0;background:none}
@@ -503,23 +516,48 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
 /* ------------------------------------------------------------- services */
 /* Wide 2×2 matrix — copy left, linked highlights right. */
 .svc-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+/* White liquid glass tiles — frosted translucent white, soft edge highlight.
+   Content stays dark so the tiles read on glasszone photo, light, or dark. */
 .svc{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.95fr);gap:22px 28px;
-  align-items:stretch;overflow:hidden;padding:22px 24px 20px}
+  align-items:stretch;overflow:hidden;padding:22px 24px 20px;color:#141428;
+  background:linear-gradient(155deg,rgba(255,255,255,.84) 0%,rgba(255,255,255,.58) 52%,rgba(255,255,255,.48) 100%);
+  border:1px solid rgba(255,255,255,.74);
+  -webkit-backdrop-filter:blur(22px) saturate(1.55);backdrop-filter:blur(22px) saturate(1.55);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 10px 28px -20px rgba(8,8,24,.28)}
+.svc:hover{
+  background:linear-gradient(155deg,rgba(255,255,255,.92) 0%,rgba(255,255,255,.68) 100%);
+  border-color:rgba(255,255,255,.88);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.96),0 12px 32px -20px rgba(8,8,24,.32)}
 /* frosted tiles: the pinned photo behind them gives the glass something to bend */
 .glasszone .card{background:rgba(255,255,255,.10);border-color:rgba(255,255,255,.20);
   -webkit-backdrop-filter:blur(20px) saturate(1.5);backdrop-filter:blur(20px) saturate(1.5);
   box-shadow:0 20px 50px -28px rgba(8,8,24,.7)}
 .glasszone .card:hover{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.34)}
+/* svc keeps white liquid glass above the shared .glasszone .card frost */
 .glasszone .svc{
-  -webkit-backdrop-filter:blur(24px) saturate(1.55);backdrop-filter:blur(24px) saturate(1.55)}
-.glasszone .svc__hl a{color:#fff}
-.glasszone .svc__hl a:hover{color:var(--mist)}
-.glasszone .svc__hl li::before{background:var(--mist)}
-.glasszone .svc__tag{color:rgba(255,255,255,.86)}
-.glasszone .svc__hl b{color:#fff;font-weight:700}
+  color:#141428;
+  background:linear-gradient(155deg,rgba(255,255,255,.84) 0%,rgba(255,255,255,.58) 52%,rgba(255,255,255,.48) 100%);
+  border-color:rgba(255,255,255,.74);
+  -webkit-backdrop-filter:blur(24px) saturate(1.6);backdrop-filter:blur(24px) saturate(1.6);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 10px 28px -20px rgba(8,8,24,.28)}
+.glasszone .svc:hover{
+  background:linear-gradient(155deg,rgba(255,255,255,.92) 0%,rgba(255,255,255,.68) 100%);
+  border-color:rgba(255,255,255,.88);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.96),0 12px 32px -20px rgba(8,8,24,.32)}
+.glasszone .svc .h3,.glasszone .svc h3{color:#141428}
+.glasszone .svc__hl a{color:#141428}
+.glasszone .svc__hl b{color:#141428;font-weight:700}
+.glasszone .svc__hl li::before{background:#535D86}
+.glasszone .svc__tag{color:#4C4E64}
 .glasszone .ico{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.22);color:#fff}
 .glasszone .card:hover .ico{background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.34)}
 .glasszone .arrow-link{color:#fff}
+/* dark-on-white content for liquid-glass svc tiles (beats glasszone white text) */
+.glasszone .svc .ico{background:linear-gradient(155deg,rgba(83,93,134,.13),rgba(83,93,134,.05));
+  border-color:rgba(83,93,134,.13);color:#535D86}
+.glasszone .svc:hover .ico{background:linear-gradient(155deg,rgba(83,93,134,.2),rgba(83,93,134,.08));
+  border-color:rgba(83,93,134,.22)}
+.glasszone .svc .arrow-link{color:#535D86}
 /* Decorative index — same language as .case-hero__n: oversized, faded, half-cropped */
 .svc__n{position:absolute;right:-4%;bottom:-22%;z-index:0;
   font-size:clamp(88px,11vw,148px);font-weight:700;line-height:1;
@@ -528,7 +566,7 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
   transform:translate(0,0);
   transition:transform .55s var(--ease),opacity .55s var(--ease);opacity:.92}
 .svc:hover .svc__n{transform:translate(-5px,-7px);opacity:1}
-.glasszone .svc__n{color:rgba(8,8,20,.28)}
+.glasszone .svc__n{color:rgba(20,20,40,.14)}
 @media (prefers-reduced-motion:reduce){
   .svc__n{transition:none;opacity:1}
   .svc:hover .svc__n{transform:none}
@@ -539,20 +577,26 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
 .svc__top .ico svg{width:20px;height:20px}
 .svc__head{min-width:0}
 .svc__top .h3{margin:0;font-size:clamp(15px,1.25vw,18px);line-height:1.2;font-weight:700;
-  letter-spacing:.06em;text-transform:uppercase}
-.svc__tag{margin-top:14px;font-size:13.5px;color:var(--body);line-height:1.55;font-weight:400}
+  letter-spacing:.06em;text-transform:uppercase;color:#141428}
+/* Soft line break in service titles — desktop only; mobile wraps naturally */
+.br-d{display:none}
+@media (min-width:900px){.br-d{display:block}}
+.svc__tag{margin-top:14px;font-size:13.5px;color:#4C4E64;line-height:1.55;font-weight:400}
 .svc__hl{margin:0;display:grid;gap:8px;align-content:start;position:relative;z-index:1;
-  padding-left:22px;border-left:1px solid var(--line)}
-.glasszone .svc__hl{border-left-color:rgba(255,255,255,.22)}
+  padding-left:22px;border-left:1px solid rgba(20,20,40,.12)}
+.glasszone .svc__hl{border-left-color:rgba(20,20,40,.12)}
 .svc__hl li{position:relative;padding-left:16px;font-size:13.5px;line-height:1.4}
 .svc__hl li::before{content:"";position:absolute;left:0;top:7px;width:6px;height:6px;
-  background:var(--accent);transform:rotate(45deg);border-radius:1.5px}
-.svc__hl a{position:relative;display:inline;color:var(--ink);font-weight:500;
+  background:#535D86;transform:rotate(45deg);border-radius:1.5px}
+/* Keep link text color stable on hover — only the underline grows.
+   (Changing `a` color while `b` kept a fixed color made non-bold words look darker.) */
+.svc__hl a{position:relative;display:inline;color:#141428;font-weight:500;
   background-image:linear-gradient(currentColor,currentColor);
   background-position:0 100%;background-repeat:no-repeat;background-size:0% 1.5px;
-  transition:color .2s,background-size .35s cubic-bezier(.22,.7,.25,1)}
-.svc__hl a:hover,.svc__hl a:focus-visible{color:var(--accent);background-size:100% 1.5px}
-.svc__hl b{font-weight:700}
+  transition:background-size .35s cubic-bezier(.22,.7,.25,1),background-image .2s}
+.svc__hl a:hover,.svc__hl a:focus-visible{
+  background-image:linear-gradient(#535D86,#535D86);background-size:100% 1.5px}
+.svc__hl b{font-weight:700;color:inherit}
 .svc__more{margin-top:auto;padding-top:18px;width:fit-content}
 .svc__more-l{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px}
 @media (max-width:900px){
@@ -648,75 +692,125 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
 
 /* ------------------------------------------------------------- approach */
 #approach{background:transparent}
-.appr-hex{display:grid;gap:clamp(28px,4vw,48px);align-items:center}
-.appr-hex__copy{padding-top:clamp(8px,1.5vw,18px)}
+.appr-hex{display:grid;gap:clamp(22px,3vw,36px)}
+/* Plain white plate: copy + hex V + KPI footer row. */
+.appr-hex__shell{position:relative;display:grid;gap:clamp(22px,3vw,36px);align-items:center;
+  padding:clamp(22px,3vw,36px) clamp(22px,3.2vw,40px);
+  border-radius:var(--r-lg);overflow:hidden;color:var(--ink);
+  background:var(--paper);border:1px solid var(--line);box-shadow:var(--sh-sm)}
+.appr-hex__copy{position:relative;z-index:1;padding-top:clamp(4px,1vw,10px)}
+.appr-hex__shell .kick,.glasszone .appr-hex__shell .kick{color:#6B6E86}
+.appr-hex__shell .h2,.glasszone .appr-hex__shell .h2,
+.appr-hex__shell h2,.glasszone .appr-hex__shell h2{color:var(--ink)}
 .appr-hex__copy .h2{margin-top:15px;max-width:19ch}
-.appr-hex__lead{margin-top:18px;max-width:44ch;font-weight:700;color:rgba(255,255,255,.9)}
+.appr-hex__lead,.glasszone .appr-hex__shell .lead,.glasszone .appr-hex__shell p.lead{
+  margin-top:18px;max-width:44ch;font-weight:400;color:var(--body)}
 .appr-hex__lead + .appr-hex__lead{margin-top:12px}
-.appr-hex__stage{display:none;position:relative;justify-self:end;width:100%;max-width:660px;
-  --hex-w:min(11.4vw,148px);--xs:calc(var(--hex-w) * .55);--ys:calc(var(--hex-w) * .93)}
+.appr-hex__stage{display:none;position:relative;z-index:1;justify-self:end;width:100%;max-width:680px;
+  overflow:visible;
+  --hex-w:min(10.8vw,128px);--hex-h:calc(var(--hex-w) * 1.1547);
+  --big-w:min(34vw,268px);--big-h:calc(var(--big-w) * 1.1547);
+  /* Dense 3–2–1 pack: same-row neighbours at Δx=2; offset rows at Δx=1. */
+  --xs:calc(var(--hex-w) * .55);--ys:calc(var(--hex-w) * .93);
+  /* Dock math: apothem (flat) / circumradius (vertex) + satellite half + hug. */
+  --hug:8px;
+  --d-flat:calc(var(--big-w) * .5 + var(--hex-w) * .5 + var(--hug));
+  --d-vert:calc(var(--big-w) * .57735 + var(--hex-w) * .57735 + var(--hug));
+  /* Hub sits low enough that NW/NE flats clear the stage top when docked. */
+  --hub-y:1;--open:0;
+  /* Idle 3–2–1 spans y=0…2 (Ops tip); x reaches ±2 on the top row. */
+  --grid-h-idle:calc(var(--ys) * 2 + var(--hex-h));
+  --grid-h-open:calc(var(--ys) * var(--hub-y) + var(--big-h) * .5 + var(--d-flat) * .8660254 + var(--hex-h) * .5 + 8px)}
+/* Hover: satellites ease onto the big-hex perimeter; hub fades/scales in. */
+.appr-hex.is-open .appr-hex__stage{--open:1}
+/* Full-tile fabric under copy/hexes/KPIs. Shell overflow clips overscan canvas edges. */
+.appr-hex__mesh{display:block;position:absolute;inset:0;z-index:0;overflow:hidden;
+  pointer-events:none;border-radius:inherit}
+.appr-hex__field{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none}
+/* Mobile stack: frost from copy (top) → hex V (bottom). Desktop overrides to L→R. */
+.appr-hex__blur{position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,
+    var(--paper) 0%,
+    rgba(255,255,255,.94) 22%,
+    rgba(255,255,255,.55) 42%,
+    rgba(255,255,255,.12) 68%,
+    transparent 100%);
+  -webkit-backdrop-filter:blur(1.5px);backdrop-filter:blur(1.5px)}
 .appr-hex__mob{display:grid;gap:10px}
-/* The hover copy drops into the mouth of the V; main.js slides it sideways so it
-   never lands on the arm being read. Above the hexes so nothing cuts through. */
-.appr-hex__pop{position:absolute;left:50%;top:36%;z-index:12;width:min(300px,72%);
-  transform:translate(-50%,-50%);
-  transition:transform .45s var(--ease);pointer-events:none}
-/* Heavier frost than the KPI cards so neighbouring hexes don't read through. */
-.appr-hex__panel{padding:17px 19px;text-align:left;border-radius:var(--r-md);
-  background:rgba(20,20,40,.48);border:1px solid rgba(255,255,255,.22);
-  -webkit-backdrop-filter:blur(40px) saturate(1.65);backdrop-filter:blur(40px) saturate(1.65);
-  box-shadow:0 22px 54px -24px rgba(8,8,24,.78);
-  opacity:0;visibility:hidden;transform:translateY(10px) scale(.98);pointer-events:none;
+/* Big explanation hex — same pointy-top plate as satellites; title + body inside. */
+.appr-hex__pop{position:absolute;left:50%;top:calc(var(--ys) * var(--hub-y));z-index:5;
+  width:var(--big-w);height:var(--big-h);transform:translate(-50%,0);
+  opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .45s var(--ease),visibility .45s,top .55s var(--ease)}
+.appr-hex.is-open .appr-hex__pop{opacity:1;visibility:visible}
+.appr-hex__hub{position:relative;width:100%;height:100%;
+  transform:scale(.9);opacity:0;
+  transition:transform .55s var(--ease),opacity .45s var(--ease)}
+.appr-hex.is-open .appr-hex__hub{transform:none;opacity:1}
+.appr-hex__hub > .appr-hex__frost{background:linear-gradient(160deg,#FFFFFF 0%,#F2F3F8 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 14px 32px -18px rgba(20,20,40,.28)}
+.appr-hex__hub .appr-hex__body{stroke:rgba(83,93,134,.38);stroke-width:1.4}
+.appr-hex__hub-in{position:absolute;inset:0;z-index:1}
+.appr-hex__panel{position:absolute;inset:17% 15% 16%;display:flex;flex-direction:column;justify-content:center;
+  text-align:left;opacity:0;visibility:hidden;transform:translateY(8px) scale(.97);pointer-events:none;
   transition:opacity .45s var(--ease),transform .5s var(--ease),visibility .45s}
 .appr-hex__panel.is-on{opacity:1;visibility:visible;transform:none;pointer-events:auto}
-.appr-hex__panel h3{font-size:16px;line-height:1.3;color:#fff;margin:0}
-.appr-hex__panel p{margin-top:8px;font-size:13px;line-height:1.55;color:rgba(255,255,255,.78)}
-/* The V: arms step down at the honeycomb diagonal, so the five cells read as one
-   letter rather than five loose tiles. The span is 3.2 hex widths, which keeps
-   the arms inside the column at every width the two-column layout is used. */
-.appr-hex__grid{position:relative;width:100%;height:calc(var(--ys) * 2 + var(--hex-w) * 1.1547)}
-.appr-hex__cell{--x:0;--y:0;position:absolute;left:50%;top:0;z-index:1;
-  width:var(--hex-w);height:calc(var(--hex-w) * 1.1547);
+.appr-hex__panel h3{font-size:13.5px;line-height:1.25;color:var(--ink);margin:0;font-weight:700}
+.appr-hex__panel p{margin-top:6px;font-size:11px;line-height:1.45;color:var(--body);
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:9;overflow:hidden}
+
+/* Idle V uses --x/--y; open ring uses --sx/--sy/--d (dock from hub). */
+.appr-hex__grid{position:relative;z-index:1;width:100%;
+  height:calc(var(--grid-h-idle) * (1 - var(--open)) + var(--grid-h-open) * var(--open));
+  transition:height .55s var(--ease)}
+.appr-hex__cell{--x:0;--y:0;--sx:0;--sy:1;--d:var(--d-flat);position:absolute;left:50%;top:0;z-index:1;
+  width:var(--hex-w);height:var(--hex-h);
   margin:0;padding:0;border:none;background:transparent;cursor:pointer;color:inherit;
-  transform:translate(calc(-50% + var(--xs) * var(--x)),calc(var(--ys) * var(--y)));
-  transition:transform .5s var(--ease),opacity .45s var(--ease)}
-/* Frosted hex — same glass as .glasszone .card, masked to a rounded hex.
-   Never put CSS filter/scale on ancestors of .appr-hex__frost: both kill
-   backdrop-filter for a frame (the clear flash on hover). */
-.appr-hex__shape{position:relative;display:grid;place-items:center;width:100%;height:100%;color:#fff}
+  /* Docked top-left: hub centre + d·(sx,sy) − half satellite. */
+  --ox:calc(var(--d) * var(--sx));
+  --oy:calc(var(--ys) * var(--hub-y) + var(--big-h) * .5 + var(--d) * var(--sy) - var(--hex-h) * .5);
+  --tx:calc(var(--xs) * var(--x) * (1 - var(--open)) + var(--ox) * var(--open));
+  --ty:calc(var(--ys) * var(--y) * (1 - var(--open)) + var(--oy) * var(--open));
+  transform:translate(calc(-50% + var(--tx)),var(--ty));
+  transition:transform .55s var(--ease),opacity .45s var(--ease)}
+/* Indigo hexes on the white plate — readable icons/labels (beats .glasszone .ico). */
+.appr-hex__shape{position:relative;display:grid;place-items:center;width:100%;height:100%;color:var(--ink)}
 .appr-hex__frost{position:absolute;inset:0;pointer-events:none;
-  background:rgba(24,24,48,.56);
-  -webkit-backdrop-filter:blur(20px) saturate(1.5);backdrop-filter:blur(20px) saturate(1.5);
-  box-shadow:0 20px 50px -28px rgba(8,8,24,.7);
+  background:linear-gradient(160deg,#EEF0F7 0%,#E2E5F1 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.85),0 10px 22px -16px rgba(20,20,40,.22);
   -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 173 200'%3E%3Cpath fill='black' d='M100.3 8 159.2 42Q173 50 173 66V134Q173 150 159.2 158L100.3 192Q86.5 200 72.7 192L13.8 158Q0 150 0 134V66Q0 50 13.8 42L72.7 8Q86.5 0 100.3 8Z'/%3E%3C/svg%3E");
   mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 173 200'%3E%3Cpath fill='black' d='M100.3 8 159.2 42Q173 50 173 66V134Q173 150 159.2 158L100.3 192Q86.5 200 72.7 192L13.8 158Q0 150 0 134V66Q0 50 13.8 42L72.7 8Q86.5 0 100.3 8Z'/%3E%3C/svg%3E");
   -webkit-mask-size:100% 100%;mask-size:100% 100%;
   -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;
-  transform:translateZ(0);-webkit-transform:translateZ(0);
-  transition:background .35s var(--ease)}
+  transition:background .35s var(--ease),box-shadow .35s var(--ease)}
 .appr-hex__plate{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
-.appr-hex__body{fill:none;stroke:rgba(255,255,255,.20);stroke-width:1.5;
+.appr-hex__body{fill:none;stroke:rgba(83,93,134,.42);stroke-width:1.6;
   transition:stroke .35s var(--ease)}
 .appr-hex__in{position:relative;z-index:1;display:grid;justify-items:center;gap:10px;padding:0 14%}
-.appr-hex__ico{width:42px;height:42px;border-radius:12px;
-  background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.20);color:var(--mist);
+.appr-hex__ico,.glasszone .appr-hex__shell .appr-hex__ico{width:38px;height:38px;border-radius:11px;
+  background:#fff;border:1px solid rgba(83,93,134,.2);color:var(--accent);
   transition:var(--t)}
-.appr-hex__ico svg{width:20px;height:20px;stroke-width:1.5}
-.appr-hex__lb{font-size:12.5px;font-weight:600;letter-spacing:.02em;line-height:1.2;text-align:center;
-  color:rgba(255,255,255,.92)}
-/* Lift only (no scale) so the frost layer keeps its backdrop-filter. */
+.appr-hex__ico svg{width:18px;height:18px;stroke-width:1.5}
+.appr-hex__lb{font-size:12.5px;font-weight:700;letter-spacing:.02em;line-height:1.2;text-align:center;
+  color:var(--ink)}
+/* Lift only while idle; docked active hex stays flush on the hub edge. */
 .appr-hex__cell.is-active,.appr-hex__cell:focus-visible{z-index:8;
-  transform:translate(calc(-50% + var(--xs) * var(--x)),calc(var(--ys) * var(--y) - 8px))}
+  transform:translate(calc(-50% + var(--tx)),calc(var(--ty) - (1 - var(--open)) * 8px))}
 .appr-hex__cell.is-active .appr-hex__frost,.appr-hex__cell:focus-visible .appr-hex__frost{
-  background:rgba(32,32,60,.64)}
+  background:linear-gradient(160deg,#646E96 0%,#535D86 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 12px 28px -16px rgba(20,20,40,.4)}
 .appr-hex__cell.is-active .appr-hex__body,.appr-hex__cell:focus-visible .appr-hex__body{
-  stroke:rgba(255,255,255,.34)}
-.appr-hex__cell.is-active .appr-hex__ico,.appr-hex__cell:focus-visible .appr-hex__ico{
-  background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.34);color:#fff}
-/* Soften idle arms with opacity only — CSS filter on the cell kills frost blur. */
+  stroke:rgba(255,255,255,.35)}
+.appr-hex__cell.is-active .appr-hex__lb,.appr-hex__cell:focus-visible .appr-hex__lb{color:#fff}
+.appr-hex__cell.is-active .appr-hex__ico,.appr-hex__cell:focus-visible .appr-hex__ico,
+.glasszone .appr-hex__shell .appr-hex__cell.is-active .appr-hex__ico,
+.glasszone .appr-hex__shell .appr-hex__cell:focus-visible .appr-hex__ico{
+  background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.32);color:#fff}
+/* Soften idle arms — keep them readable so they frame the centre hub. */
+.appr-hex.is-open .appr-hex__cell{z-index:6}
 .appr-hex.is-dim .appr-hex__cell:not(.is-active){
-  opacity:.38;
-  transform:translate(calc(-50% + var(--xs) * var(--x)),calc(var(--ys) * var(--y)))}
+  opacity:.55;
+  transform:translate(calc(-50% + var(--tx)),var(--ty))}
 .appr-hex__acc{padding:0;overflow:hidden;border-radius:var(--r-md);
   background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);
   -webkit-backdrop-filter:blur(18px) saturate(1.55);backdrop-filter:blur(18px) saturate(1.55)}
@@ -724,64 +818,114 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
 .appr-hex__acc summary::-webkit-details-marker{display:none}
 .appr-hex__acc summary .ico{width:40px;height:40px;border-radius:12px;flex:none}
 .appr-hex__acc p{padding:0 18px 18px;font-size:13.5px;line-height:1.58;color:rgba(255,255,255,.78)}
-.appr-hex__kpi{margin-top:clamp(6px,1.5vw,20px)}
+/* KPI footer inside the white plate — full width, above mesh, no card chrome at rest. */
+.appr-hex__kpi{position:relative;z-index:1;grid-column:1/-1;align-self:stretch;
+  margin:0;gap:6px}
+.appr-hex__kpi .res__c{
+  padding:14px 16px 12px;border:0;outline:0;border-radius:10px;
+  background:transparent;box-shadow:none;transform:none;
+  transition:background .25s var(--ease)}
+.appr-hex__kpi .res__c:hover,.appr-hex__kpi .res__c:focus-within{
+  background:#ebebef;border:0;outline:0;box-shadow:none;transform:none}
+/* Glyph only — no button chrome; cell hover chip stays on .res__c. */
+.appr-hex__kpi .res__ico,.glasszone .appr-hex__shell .appr-hex__kpi .res__ico{
+  background:transparent;border:0;box-shadow:none;border-radius:0;color:var(--accent)}
+.appr-hex__kpi .res__c:hover .res__ico,.appr-hex__kpi .res__c:focus-within .res__ico,
+.glasszone .appr-hex__shell .appr-hex__kpi .res__c:hover .res__ico,
+.glasszone .appr-hex__shell .appr-hex__kpi .res__c:focus-within .res__ico{
+  background:transparent;border:0;box-shadow:none;color:var(--accent)}
+.appr-hex__kpi .res__n{color:var(--ink)}
+.appr-hex__kpi .res__pre,.appr-hex__kpi .res__u{color:var(--accent)}
+.appr-hex__kpi .res__l,.glasszone .appr-hex__shell .appr-hex__kpi .res__l,
+.glasszone .appr-hex__shell .appr-hex__kpi p.res__l{color:var(--body)}
+.appr-hex__kpi .res__l b,.appr-hex__kpi .res__l strong,
+.glasszone .appr-hex__shell .appr-hex__kpi .res__l b,
+.glasszone .appr-hex__shell .appr-hex__kpi .res__l strong{color:var(--ink);font-weight:700}
+[data-theme="dark"] .appr-hex__kpi .res__c:hover,
+[data-theme="dark"] .appr-hex__kpi .res__c:focus-within{background:#2a2a44}
+[data-theme="dark"] .appr-hex__kpi .res__ico,
+[data-theme="dark"] .glasszone .appr-hex__shell .appr-hex__kpi .res__ico{
+  background:transparent;border:0;box-shadow:none;color:var(--mist)}
+[data-theme="dark"] .appr-hex__kpi .res__c:hover .res__ico,
+[data-theme="dark"] .appr-hex__kpi .res__c:focus-within .res__ico{
+  background:transparent;border:0;box-shadow:none;color:#fff}
+[data-theme="dark"] .appr-hex__hub > .appr-hex__frost{
+  background:linear-gradient(160deg,#1E1E38 0%,#18182E 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 14px 32px -18px rgba(0,0,0,.45)}
+[data-theme="dark"] .appr-hex__hub .appr-hex__body{stroke:rgba(198,200,218,.28)}
 @media (min-width:900px){
-  .appr-hex{grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:clamp(32px,5vw,64px)}
+  .appr-hex__shell{grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);
+    column-gap:clamp(32px,5vw,64px);row-gap:clamp(24px,3vw,36px)}
   .appr-hex__stage{display:block}
   .appr-hex__mob{display:none}
-  .appr-hex__kpi{grid-column:1/-1;margin-top:clamp(4px,1vw,14px)}
+  .appr-hex__kpi{gap:8px}
+  .appr-hex__blur{background:linear-gradient(90deg,
+    var(--paper) 0%,
+    rgba(255,255,255,.92) 28%,
+    rgba(255,255,255,.45) 52%,
+    rgba(255,255,255,.08) 78%,
+    transparent 100%)}
 }
-/* Mobile: tap a hex → it grows, siblings soften/blur, copy eases in under the V. */
+/* Mobile: keep idle V; hex-shaped explanation appears under the cluster. */
 @media (max-width:899px){
-  .appr-hex__stage{display:flex;flex-direction:column;justify-self:stretch;max-width:none;
-    --hex-w:clamp(78px,23vw,112px);--xs:calc(var(--hex-w) * .55);--ys:calc(var(--hex-w) * .93)}
+  .appr-hex.is-open .appr-hex__stage{--open:0}
+  .appr-hex__stage{display:flex;flex-direction:column;align-items:center;justify-self:stretch;max-width:none;
+    --hex-w:clamp(78px,23vw,112px);--hex-h:calc(var(--hex-w) * 1.1547);
+    --big-w:min(78vw,280px);--big-h:calc(var(--big-w) * 1.1547);
+    --xs:calc(var(--hex-w) * .55);--ys:calc(var(--hex-w) * .93);
+    --hub-y:0;--grid-h-idle:calc(var(--ys) * 2 + var(--hex-h));--grid-h-open:var(--grid-h-idle)}
   .appr-hex__mob{display:none}
-  .appr-hex__grid{order:1}
-  .appr-hex__pop{order:2;position:relative;left:auto;top:auto;width:100%;max-width:none;
-    transform:none;margin-top:0;max-height:0;opacity:0;overflow:hidden;
-    transition:max-height .55s var(--ease),opacity .4s var(--ease),margin-top .45s var(--ease);
+  .appr-hex__grid{order:1;width:100%}
+  .appr-hex__pop{order:2;position:relative;left:auto;top:auto;width:var(--big-w);height:0;
+    transform:none;margin:0 auto;opacity:0;overflow:hidden;
+    transition:height .55s var(--ease),opacity .4s var(--ease),margin-top .45s var(--ease);
     pointer-events:none}
-  .appr-hex.is-open .appr-hex__pop{max-height:420px;opacity:1;margin-top:16px;pointer-events:auto}
-  .appr-hex__panel{transform:translateY(18px) scale(.96);
+  .appr-hex.is-open .appr-hex__pop{height:var(--big-h);opacity:1;margin-top:16px}
+  .appr-hex.is-open .appr-hex__panel.is-on{pointer-events:auto}
+  .appr-hex__hub{transform:translateY(12px) scale(.94)}
+  .appr-hex.is-open .appr-hex__hub{transform:none}
+  .appr-hex__panel{transform:translateY(14px) scale(.96);
     transition:opacity .5s var(--ease),transform .55s var(--ease),visibility .5s}
   .appr-hex__panel.is-on{transform:none}
+  .appr-hex__panel h3{font-size:14px}
+  .appr-hex__panel p{font-size:11.5px;-webkit-line-clamp:10}
   .appr-hex__cell.is-active{z-index:8;
-    transform:translate(calc(-50% + var(--xs) * var(--x)),calc(var(--ys) * var(--y) - 10px))}
+    transform:translate(calc(-50% + var(--tx)),calc(var(--ty) - 10px))}
   .appr-hex__ico{width:34px;height:34px;border-radius:10px}
   .appr-hex__ico svg{width:16px;height:16px}
   .appr-hex__lb{font-size:11px}
   .appr-hex__in{gap:7px}
-  .appr-hex__kpi.res{grid-template-columns:repeat(2,1fr);gap:10px;margin-top:18px}
-  .appr-hex__kpi .res__c{padding:14px 14px 12px}
-  .appr-hex__kpi .res__ico{width:30px;height:30px;border-radius:9px}
-  .appr-hex__kpi .res__ico svg{width:15px;height:15px}
+  .appr-hex__kpi.res{grid-template-columns:repeat(2,1fr);gap:4px}
+  .appr-hex__kpi .res__c{padding:12px 12px 10px}
+  .appr-hex__kpi .res__ico{width:30px;height:30px;border-radius:0}
+  .appr-hex__kpi .res__ico svg{width:16px;height:16px}
   .appr-hex__kpi .res__n{font-size:clamp(24px,7vw,32px)}
   .appr-hex__kpi .res__head{gap:10px}
   .appr-hex__kpi .res__l{margin-top:8px;font-size:11.5px;line-height:1.35;
     display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 }
 @media (prefers-reduced-motion:reduce){
-  .appr-hex__cell,.appr-hex__panel,.appr-hex__pop{transition-duration:.01ms!important}
-  .appr-hex.is-dim .appr-hex__cell:not(.is-active){opacity:.38;transform:translate(calc(-50% + var(--xs) * var(--x)),calc(var(--ys) * var(--y)))}
+  .appr-hex__cell,.appr-hex__panel,.appr-hex__pop,.appr-hex__hub,.appr-hex__grid{transition-duration:.01ms!important}
+  .appr-hex.is-dim .appr-hex__cell:not(.is-active){opacity:.55;
+    transform:translate(calc(-50% + var(--tx)),var(--ty))}
 }
 
 /* -------------------------------------------------------------- results */
+/* Shared KPI atom — colours assume the white approach plate; see .appr-hex__kpi. */
 .res{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
 .res__c{padding:16px 18px 14px;text-align:left;display:flex;flex-direction:column;align-items:stretch}
 .res__head{display:flex;align-items:center;gap:12px;min-width:0}
-.res__ico{width:40px;height:40px;border-radius:11px;display:grid;place-items:center;flex:none;
-  background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.20);color:var(--mist);
-  transition:var(--t)}
-.res__ico svg{width:18px;height:18px;stroke-width:1.5}
-.res__c:hover .res__ico{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.34);color:#fff}
+.res__ico{width:40px;height:40px;border-radius:0;display:grid;place-items:center;flex:none;
+  background:transparent;border:0;box-shadow:none;color:var(--accent)}
+.res__ico svg{width:20px;height:20px;stroke-width:1.5}
 /* Figure sits beside the icon; unit rides the baseline so nothing shifts */
 .res__n{display:flex;align-items:baseline;justify-content:flex-start;gap:2px;min-width:0;
   font-size:clamp(32px,3.4vw,44px);font-weight:700;letter-spacing:-.04em;line-height:1;
-  color:#fff;font-variant-numeric:tabular-nums}
-.res__pre,.res__u{font-size:.46em;font-weight:600;color:var(--mist);letter-spacing:0}
+  color:var(--ink);font-variant-numeric:tabular-nums}
+.res__pre,.res__u{font-size:.46em;font-weight:600;color:var(--accent);letter-spacing:0}
 .res__u{white-space:nowrap;margin-left:3px}
-.res__l{margin-top:10px;font-size:13.5px;line-height:1.45;color:rgba(255,255,255,.76)}
-.res__l b,.res__l strong{font-weight:700;color:rgba(255,255,255,.92)}
+.res__l{margin-top:10px;font-size:13.5px;line-height:1.45;color:var(--body)}
+.res__l b,.res__l strong{font-weight:700;color:var(--ink)}
 
 /* ------------------------------------------------------------- geography */
 .geo{display:grid;gap:clamp(34px,4vw,60px)}
@@ -857,7 +1001,7 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
 }
 
 /* Free full-bleed rail — no card chrome; edge fades ease off at the ends. */
-.road{--yh0:78;--tile:clamp(200px,24vw,248px);position:relative;margin-top:0;padding:0;border:0;
+.road{--yh0:78;--ahead:1.75;--tile:clamp(200px,24vw,248px);position:relative;margin-top:0;padding:0;border:0;
   background:none;box-shadow:none;border-radius:0;
   -webkit-backdrop-filter:none;backdrop-filter:none}
 .road__body{--rail:clamp(128px,14.5vw,168px);--mk:clamp(48px,5.8vw,60px);
@@ -878,9 +1022,13 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
 .road__htrack{display:inline-flex;align-items:flex-start;min-width:100%;position:relative;
   /* Top room for year chips on the rising end; ahead spacer continues the trail. */
   padding:calc(var(--rail) + var(--chip-room)) var(--road-inset) 0}
-.road__arcH{display:block;position:absolute;left:var(--road-inset);right:var(--road-inset);
+/* Explicit width — SVG viewBox (1000×100) would otherwise size width to
+   height×10 via intrinsic ratio, ignoring left/right and ending the trail
+   before the last marks. */
+.road__arcH{display:block;position:absolute;left:var(--road-inset);
   top:var(--chip-room);height:var(--rail);
-  width:auto;max-width:none;overflow:visible;pointer-events:none;z-index:0}
+  width:calc(100% - 2 * var(--road-inset));max-width:none;aspect-ratio:auto;
+  overflow:visible;pointer-events:none;z-index:0}
 .road__arcH path{fill:none}
 .road__arcGlow{stroke:rgba(83,93,134,.22);stroke-width:7;stroke-linecap:round}
 [data-theme="dark"] .road__arcGlow{stroke:rgba(168,170,210,.18)}
@@ -896,8 +1044,9 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
 
 .road__list{display:flex;align-items:flex-start;width:max-content;gap:0;flex:0 0 auto;
   margin:0;padding:0;list-style:none;position:relative;z-index:1}
-/* Extra path after the last year — tip keeps traveling into open time. */
-.road__ahead{flex:0 0 calc(var(--tile) * 1.75);align-self:stretch;pointer-events:none}
+/* Extra path after the last year — tip keeps traveling into open time.
+   --ahead must match ROAD_AHEAD in tools/build.mjs. */
+.road__ahead{flex:0 0 calc(var(--tile) * var(--ahead));align-self:stretch;pointer-events:none}
 .road__i{display:flex;flex-direction:column;flex:0 0 var(--tile);
   position:relative;padding:14px 22px 2px 0}
 .road__peg{position:absolute;left:0;right:22px;
@@ -937,9 +1086,10 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
 @keyframes roadRing{0%{transform:scale(1);opacity:.85}100%{transform:scale(1.45);opacity:0}}
 @media (prefers-reduced-motion:reduce){.road__i.is-lit .road__mark::after{animation:none}}
 
-.road__c{min-width:0;padding:14px 14px 15px;border-radius:14px;
-  /* Climb with the rising trail — keep a steady gap under each mark. */
-  margin-top:calc(4px + (var(--yh) - var(--yh0)) * var(--rail) / 100);
+.road__c{min-width:0;padding:14px 14px 15px;border-radius:14px;margin-top:4px;
+  /* Climb with the rising trail via transform only — never shift the mark/peg. */
+  --lift:calc((var(--yh) - var(--yh0)) * var(--rail) / 100);
+  transform:translateY(var(--lift));
   background:rgba(255,255,255,.78);border:1px solid rgba(255,255,255,.8);
   -webkit-backdrop-filter:blur(18px) saturate(1.45);backdrop-filter:blur(18px) saturate(1.45);
   box-shadow:0 12px 32px -18px rgba(20,20,40,.4);
@@ -947,7 +1097,7 @@ body.over-hero .hdr.is-stuck .burger span{background:var(--ink)}
 [data-theme="dark"] .road__c{background:rgba(20,20,40,.72);border-color:rgba(255,255,255,.12);
   -webkit-backdrop-filter:blur(18px) saturate(1.3);backdrop-filter:blur(18px) saturate(1.3)}
 .road__i:hover .road__c,.road__i.is-lit .road__c{background:rgba(255,255,255,.9);
-  border-color:rgba(83,93,134,.2);transform:translateY(-2px)}
+  border-color:rgba(83,93,134,.2);transform:translateY(calc(var(--lift) - 2px))}
 [data-theme="dark"] .road__i:hover .road__c,
 [data-theme="dark"] .road__i.is-lit .road__c{background:rgba(28,28,52,.88);border-color:rgba(255,255,255,.2)}
 .road__c h3{font-size:clamp(14.5px,1.35vw,17px);line-height:1.3}
@@ -1026,21 +1176,35 @@ html.is-locked,html.is-locked body{overflow:hidden}
 .clients-note{text-align:center;margin-top:22px;font-size:15px;color:var(--steel)}
 .clients-note b{color:var(--ink);font-weight:600}
 
-/* marquee band — white separator between glasszone blocks */
-.mq{position:relative;padding:42px 0 48px;border-block:1px solid var(--line);background:var(--paper-alt);overflow:hidden}
+/* marquee band — white separator between glasszone blocks
+   Two brick-staggered rows; JS drives scroll + swipe (CSS anim is no-JS fallback). */
+.mq{--mq-w:148px;--mq-gap:18px;--mq-slot:calc(var(--mq-w) + var(--mq-gap));
+  --mq-dur:92s; /* was 46s — half speed */
+  position:relative;padding:42px 0 48px;border-block:1px solid var(--line);
+  background:var(--paper-alt);overflow:hidden}
 .mq__l{text-align:center;font-size:11px;letter-spacing:.2em;text-transform:uppercase;
   color:var(--steel);margin-bottom:28px}
 .mq__vp{-webkit-mask:linear-gradient(90deg,transparent,#000 11%,#000 89%,transparent);
-  mask:linear-gradient(90deg,transparent,#000 11%,#000 89%,transparent)}
-.mq__tr{display:flex;width:max-content;gap:18px;animation:mq 46s linear infinite}
+  mask:linear-gradient(90deg,transparent,#000 11%,#000 89%,transparent);
+  cursor:grab;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+/* pan-y at rest so the page still scrolls; lock once a horizontal swipe commits */
+.mq__vp.is-dragging{cursor:grabbing;touch-action:none}
+.mq__band{display:flex;flex-direction:column;gap:14px;width:max-content;
+  will-change:transform;animation:mq var(--mq-dur) linear infinite}
+.js .mq.is-live .mq__band{animation:none}
+.mq__tr{display:flex;width:max-content;gap:var(--mq-gap)}
+/* Brick offset via transform so it doesn't inflate loop width */
+.mq__tr--b{transform:translateX(calc(var(--mq-slot) * .5))}
 
 @keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.mq__i{flex:none;width:148px;height:128px;border-radius:16px;background:#fff;
+.mq__i{flex:none;width:var(--mq-w);height:128px;border-radius:16px;background:#fff;
   border:1px solid var(--line-soft);display:flex;align-items:center;justify-content:center;padding:22px 20px}
 .mq__i img{max-width:82%;max-height:72%;width:auto;height:auto;object-fit:contain;
-  filter:grayscale(1);opacity:.62;transition:var(--t);
-  transform:scale(var(--logo-scale,1))}
+  /* ~50% less greying than grayscale(1)/.62 — color peeks through at rest */
+  filter:grayscale(.5);opacity:.81;transition:var(--t);
+  transform:scale(var(--logo-scale,1));-webkit-user-drag:none;user-select:none;pointer-events:none}
 .mq__i:hover img{filter:none;opacity:1}
+.mq__vp.is-dragging .mq__i img{filter:grayscale(.5);opacity:.81}
 
 /* ---------------------------------------------------------------- cases */
 .case-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
@@ -1163,6 +1327,13 @@ html.is-locked,html.is-locked body{overflow:hidden}
 .article__hero{aspect-ratio:21/9;overflow:hidden;border-radius:var(--r-lg);
   background:var(--paper-tint);margin-bottom:34px}
 .article__hero img{width:100%;height:100%;object-fit:cover;object-position:50% 0}
+/* News article dek — bridges photo hero and body without competing with H1 */
+.article__subtitle{font-family:var(--ui);font-size:clamp(18px,1.65vw,22px);font-weight:600;
+  letter-spacing:-.018em;line-height:1.45;color:var(--ink);max-width:62ch;
+  margin:0 0 clamp(22px,3vw,34px);padding-bottom:clamp(18px,2.4vw,26px);
+  border-bottom:1px solid var(--line)}
+[data-theme="dark"] .article__subtitle{color:rgba(255,255,255,.88);
+  border-bottom-color:rgba(255,255,255,.12)}
 .article__meta{display:flex;align-items:center;gap:11px;flex-wrap:wrap;
   font-size:12px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--accent)}
 .article__meta .cl{color:var(--steel)}
@@ -1355,6 +1526,24 @@ html.is-locked,html.is-locked body{overflow:hidden}
 }
 [data-theme="dark"] .cta__blur{
   background:rgba(18,18,38,.02);
+}
+[data-theme="dark"] .appr-hex__blur{
+  background:linear-gradient(180deg,
+    var(--paper) 0%,
+    rgba(12,12,28,.94) 22%,
+    rgba(12,12,28,.55) 42%,
+    rgba(12,12,28,.12) 68%,
+    transparent 100%);
+}
+@media (min-width:900px){
+  [data-theme="dark"] .appr-hex__blur{
+    background:linear-gradient(90deg,
+      var(--paper) 0%,
+      rgba(12,12,28,.94) 28%,
+      rgba(12,12,28,.48) 52%,
+      rgba(12,12,28,.1) 78%,
+      transparent 100%);
+  }
 }
 [data-theme="dark"] .cta__title,[data-theme="dark"] .cta__val{color:var(--ink)}
 [data-theme="dark"] .cta__sub{color:var(--mist)}
@@ -1618,6 +1807,8 @@ html.is-locked,html.is-locked body{overflow:hidden}
     transition-duration:.01ms!important}
   .reveal{opacity:1;transform:none}
   .seeall__r svg{animation:none!important}
+  .mq__band{animation:none!important}
+  .mq__vp{overflow-x:auto;-webkit-mask:none;mask:none;cursor:auto}
   .js .cta:not(.is-in) .cta__title,
   .js .cta:not(.is-in) .cta__sub,
   .js .cta:not(.is-in) .cta__lead,

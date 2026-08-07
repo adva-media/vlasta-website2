@@ -110,6 +110,15 @@ const rich = s => String(s ?? '')
 const plain = s => String(s ?? '').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
 const j = (...c) => c.filter(Boolean).join('\n');
 
+/* Homepage service card title: optional soft break (desktop-only <br>). */
+const svcHomeTitle = (s) => {
+  const lines = t(s, 'titleBreak');
+  if (Array.isArray(lines) && lines.length > 1) {
+    return lines.map(l => esc(l)).join('<br class="br-d">');
+  }
+  return esc(t(s, 'title'));
+};
+
 /* Homepage service bullets → services.html#svc-icon (or svc/icon cross-link). */
 const hlHref = (svcId, h) => {
   if (!h || typeof h === 'string' || !h.to) return `services.html#${svcId}`;
@@ -161,8 +170,7 @@ const C = {
     svcKicker:'Услуги', svcTitle:'Наши направления',
     svcDesc:'Единая методология — от анализа рисков до сопровождения «под ключ» в суде. Каждое направление работает самостоятельно и усиливает остальные.',
     apprKicker:'Подход и практика', apprTitle:'Все отделы — одна система',
-    apprDesc:'Профильные отделы работают в одном контуре — от аналитики и полевых мероприятий до права и цифровой среды.',
-    apprDesc2:'Координация между ними обеспечивает правообладателям измеримый эффект наших программ защиты брендов.',
+    apprDesc:'Профильные отделы работают в одном контуре — от аналитики и полевых мероприятий до права и цифровой среды. Координация между ними обеспечивает правообладателям измеримый эффект наших программ защиты брендов.',
     casesKicker:'Кейсы', casesTitle:'Как мы решаем задачи клиентов',
     histKicker:'История компании',
     histTitle:'<span class="h2__line">Путь, отмеченный</span><span class="h2__line">международным признанием</span>',
@@ -227,8 +235,7 @@ const C = {
     svcKicker:'Services', svcTitle:'Our practice areas',
     svcDesc:'One methodology — from risk analysis through to representation in court. Each area stands on its own and reinforces the others.',
     apprKicker:'Approach and record', apprTitle:'All departments — one system',
-    apprDesc:'Our departments work as a single loop — from analytics and field operations to legal and online work.',
-    apprDesc2:'Coordinating them delivers a measurable effect for rights holders across our brand protection programmes.',
+    apprDesc:'Our departments work as a single loop — from analytics and field operations to legal and online work. Coordinating them delivers a measurable effect for rights holders across our brand protection programmes.',
     casesKicker:'Cases', casesTitle:'How we solve client problems',
     histKicker:'Company history',
     histTitle:'<span class="h2__line">A record marked by</span><span class="h2__line">international recognition</span>',
@@ -513,6 +520,10 @@ function chrome(active, depth = 0) {
     `<a class="mnav__l${h === active ? ' is-on' : ''}" href="${R(h)}"${h === active ? ' aria-current="page"' : ''}>${t}</a>`).join('');
   const tt = `<button class="tt" type="button" aria-label="${T.themeLabel}" aria-pressed="false">${I.moon}${I.sun}</button>`;
   const lang = `<div class="lang"><a href="${ruHref}"${EN ? '' : ' class="is-on" aria-current="true"'} hreflang="ru">RU</a><a href="${enHref}"${EN ? ' class="is-on" aria-current="true"' : ''} hreflang="en">EN</a></div>`;
+  /* Scrolled header: only the other locale — never both side by side. */
+  const langAlt = EN
+    ? `<div class="lang"><a href="${ruHref}" hreflang="ru">RU</a></div>`
+    : `<div class="lang"><a href="${enHref}" hreflang="en">EN</a></div>`;
   /* Wordmark stacks without the hyphen so the mark can sit larger beside it. */
   const brandLines = EN ? ['VLASTA', 'CONSULTING'] : ['ВЛАСТА', 'КОНСАЛТИНГ'];
   const brand = (light, mod = '') => `<a class="brand${mod ? ` ${mod}` : ''}" href="${R('index.html')}" aria-label="${esc(O.name)} — на главную">
@@ -546,7 +557,7 @@ function chrome(active, depth = 0) {
     <div class="hdr__cta">
       <div class="hdr__contact">
         <div class="hdr__tools">
-          ${lang}
+          ${langAlt}
           ${tt}
         </div>
         <a href="${R('contacts.html')}" class="btn btn--glass">${T.contactBtn}</a>
@@ -670,23 +681,62 @@ const clientsGrid = () => site.clients.map(c =>
   `<div class="client"><img src="${rel(0, c.l)}" alt="${esc(c.n)}" loading="lazy" decoding="async"${c.scale ? ` style="--logo-scale:${c.scale}"` : ''}></div>`).join('');
 
 const marquee = () => {
-  const row = site.clients.map(c =>
-    `<span class="mq__i"><img src="${rel(0, c.l)}" alt="${esc(c.n)}" loading="lazy" decoding="async"${c.scale ? ` style="--logo-scale:${c.scale}"` : ''}></span>`).join('');
+  const item = c =>
+    `<span class="mq__i"><img src="${rel(0, c.l)}" alt="${esc(c.n)}" loading="lazy" decoding="async"${c.scale ? ` style="--logo-scale:${c.scale}"` : ''}></span>`;
+  /* Two brick rows (even / odd). Pad the shorter row from the *other* row so we
+     never repeat a logo inside the same track (e.g. double P&G). */
+  const list = site.clients;
+  let a = list.filter((_, i) => i % 2 === 0);
+  let b = list.filter((_, i) => i % 2 === 1);
+  if (!a.length) a = b.slice();
+  if (!b.length) b = a.slice();
+  const n = Math.max(a.length, b.length);
+  const pad = (row, donor) => {
+    const out = row.slice();
+    const pool = donor.length ? donor : row;
+    let i = 0;
+    while (out.length < n) { out.push(pool[i % pool.length]); i++; }
+    return out;
+  };
+  a = pad(a, b); b = pad(b, a);
+  const rowA = a.map(item).join('');
+  const rowB = b.map(item).join('');
   return `<section class="mq" aria-label="Клиенты">
   <div class="mq__l">${C.marquee}</div>
-  <div class="mq__vp"><div class="mq__tr">${row}${row}</div></div>
+  <div class="mq__vp">
+    <div class="mq__band">
+      <div class="mq__tr mq__tr--a">${rowA}${rowA}</div>
+      <div class="mq__tr mq__tr--b">${rowB}${rowB}</div>
+    </div>
+  </div>
 </section>`;
 };
 
-/* The five departments sit on a V: two arms descending to a single vertex, which
-   echoes the V of the wordmark. --x is the column (hex widths from the centre
-   line), --y the step down; CSS turns the pair into a translate. */
+/* Idle layout: dense downward triangle of 6 pointy-top hexes (3–2–1).
+   Classic open-V arms (Analytics/Legal ↔ IT/Coord → Ops tip) with Offline
+   filling the crotch so the silhouette matches the 3–2–1 reference sketch.
+   --x/--y → CSS translate; index → HEX_DOCK.
+     Analytics (-2,0)  Offline (0,0)  IT (2,0)
+          Legal (-1,1)      Coord (1,1)
+                     Ops (0,2) */
 const HEX_V = [
-  { x: -2, y: 0 },
-  { x: -1, y: 1 },
-  { x: 0, y: 2 },
-  { x: 1, y: 1 },
-  { x: 2, y: 0 },
+  { x: -2, y: 0 }, /* Analytics    — top-left       */
+  { x: -1, y: 1 }, /* Legal        — mid-left       */
+  { x:  0, y: 2 }, /* Operations   — tip            */
+  { x:  1, y: 1 }, /* Coordination — mid-right      */
+  { x:  2, y: 0 }, /* IT / Online  — top-right      */
+  { x:  0, y: 0 }, /* Offline      — top-centre     */
+];
+/* Open layout: satellites dock on all 6 flat edges of a large pointy-top
+   explanation hex. Unit vectors (--sx/--sy) are outward normals in CSS
+   y-down space; --d stays on the flat apothem (no vertex docks). */
+const HEX_DOCK = [
+  { sx: -0.5, sy: -0.8660254, d: 'flat' }, /* NW — Analytics */
+  { sx: -1,   sy:  0,         d: 'flat' }, /* W  — Legal */
+  { sx: -0.5, sy:  0.8660254, d: 'flat' }, /* SW — Operations */
+  { sx:  0.5, sy:  0.8660254, d: 'flat' }, /* SE — Coordination */
+  { sx:  1,   sy:  0,         d: 'flat' }, /* E  — IT / Online */
+  { sx:  0.5, sy: -0.8660254, d: 'flat' }, /* NE — Offline */
 ];
 
 /* Pointy-top hex with gently rounded corners. Frost pane uses the same mask
@@ -700,8 +750,10 @@ const HEX_PLATE = `<span class="appr-hex__frost" aria-hidden="true"></span>
 const approachHex = () => {
   const label = EN ? 'Our practice areas' : 'Наши направления работы';
   const cells = site.departments.map((d, i) => {
-    const { x, y } = HEX_V[i] || { x: 0, y: 2 };
-    return `<button type="button" class="appr-hex__cell" data-i="${i}" style="--x:${x};--y:${y}" aria-expanded="false" aria-controls="apprHexPanel">
+    const idle = HEX_V[i] || { x: 0, y: 2 };
+    const dock = HEX_DOCK[i] || HEX_DOCK[2];
+    const dVar = dock.d === 'vert' ? 'var(--d-vert)' : 'var(--d-flat)';
+    return `<button type="button" class="appr-hex__cell" data-i="${i}" style="--x:${idle.x};--y:${idle.y};--sx:${dock.sx};--sy:${dock.sy};--d:${dVar}" aria-expanded="false" aria-controls="apprHexPanel">
       <span class="appr-hex__shape">
         ${HEX_PLATE}
         <span class="appr-hex__in">
@@ -712,11 +764,11 @@ const approachHex = () => {
     </button>`;
   }).join('');
   const panels = site.departments.map((d, i) =>
-    `<article class="appr-hex__panel glass" data-i="${i}" hidden>
+    `<article class="appr-hex__panel" data-i="${i}" hidden>
       <h3 class="h3">${esc(t(d, 'title'))}</h3>
       <p>${esc(t(d, 'text'))}</p>
     </article>`).join('');
-  const kpis = site.results.map((r, i) => `<div class="card glass res__c reveal"${i ? ` data-d="${i}"` : ''}>
+  const kpis = site.results.map((r, i) => `<div class="res__c reveal"${i ? ` data-d="${i}"` : ''}>
         <div class="res__head">
           <span class="res__ico">${I[r.icon] || I.shield}</span>
           <div class="res__n" data-count="${esc(r.count)}"${r.decimals ? ` data-decimals="${r.decimals}"` : ''}>
@@ -726,6 +778,11 @@ const approachHex = () => {
         <p class="res__l">${rich(t(r, 'label'))}</p>
       </div>`).join('');
   return `<div class="appr-hex reveal" id="apprHex" aria-label="${label}">
+  <div class="appr-hex__shell">
+  <div class="appr-hex__mesh" aria-hidden="true">
+    <canvas class="appr-hex__field"></canvas>
+    <div class="appr-hex__blur"></div>
+  </div>
   <div class="appr-hex__copy">
     ${kick(C.apprKicker)}
     <h2 class="h2">${C.apprTitle}</h2>
@@ -733,7 +790,12 @@ const approachHex = () => {
     ${C.apprDesc2 ? `<p class="lead appr-hex__lead">${esc(C.apprDesc2)}</p>` : ''}
   </div>
   <div class="appr-hex__stage">
-    <div class="appr-hex__pop" id="apprHexPanel">${panels}</div>
+    <div class="appr-hex__pop" id="apprHexPanel">
+      <div class="appr-hex__hub">
+        ${HEX_PLATE}
+        <div class="appr-hex__hub-in">${panels}</div>
+      </div>
+    </div>
     <div class="appr-hex__grid">${cells}</div>
   </div>
   <div class="appr-hex__mob">${site.departments.map((d, i) =>
@@ -742,16 +804,19 @@ const approachHex = () => {
       <p>${esc(t(d, 'text'))}</p>
     </details>`).join('')}</div>
   <div class="appr-hex__kpi res">${kpis}</div>
+  </div>
 </div>`;
 };
 
 /* ------------------------------------------------------- company roadmap */
-/* Horizontal story arc: milestones ride a shallow bow left→right (oldest→newest).
-   Marker --yh and the SVG path share arcYH(), so marks sit on the stroke. */
-const ARC_H = { y0: 76, amp: 30 }; // y% of the rail; amp lifts the mid of the bow
+/* Horizontal story trail: gently rising left→right (oldest→newest).
+   Marker --yh and the SVG path share arcYH(), so marks sit on the stroke.
+   SVG y grows downward, so a falling y% reads as continuous upward progress.
+   The path keeps going past the last mark (tail) so time feels ongoing. */
+const ARC_H = { y0: 78, y1: 32 }; // y% of the rail; start low, end high on screen
 const arcYH = f => {
   const t = Math.min(1, Math.max(0, f));
-  return ARC_H.y0 - ARC_H.amp * Math.sin(Math.PI * t);
+  return ARC_H.y0 + (ARC_H.y1 - ARC_H.y0) * t;
 };
 const arcPathH = (steps = 96) =>
   'M' + Array.from({ length: steps + 1 }, (_, i) => {
@@ -773,13 +838,20 @@ const glyphOn = hex => {
   return ctr(l, 1) >= ctr(l, relLum('#141428')) ? '#FFFFFF' : '#141428';
 };
 
+/* Ahead spacer in tile units — keep in sync with .road__ahead in CSS. */
+const ROAD_AHEAD = 1.75;
+
 const roadmap = () => {
-  /* Story reads left→right: founding to present. Source JSON is newest-first. */
+  /* Story reads left→right: founding to present. Source JSON is newest-first.
+     Marks + SVG path share arcYH() over the full track (list + ahead). A
+     trailing ahead span lets the stroke + tip continue past the newest year. */
   const items = [...site.timeline].reverse();
   const n = items.length;
   const d = arcPathH();
   const gid = 'roadGrad';
-  return `<div class="road">
+  /* Mark centers sit at (i+.5) tile units; path spans n + ROAD_AHEAD tiles. */
+  const track = n + ROAD_AHEAD;
+  return `<div class="road" style="--yh0:${ARC_H.y0};--yh1:${ARC_H.y1};--ahead:${ROAD_AHEAD}">
       <div class="road__body" tabindex="0" role="region" aria-label="${esc(C.histTitle.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim())}">
         <div class="road__htrack">
           <svg class="road__arcH" viewBox="0 0 1000 100" preserveAspectRatio="none" aria-hidden="true" focusable="false">
@@ -799,7 +871,7 @@ const roadmap = () => {
             ${items.map((x, i) => {
               const k = Math.round((n - 1 - i) * (TONES_L.length - 1) / Math.max(1, n - 1));
               const tone = TONES_L[k], toneD = TONES_D[k];
-              const mid = (i + .5) / n;
+              const mid = (i + .5) / track;
               return `<li class="road__i${x.highlight ? ' road__i--hi' : ''} reveal reveal--fade"
                 style="--yh:${arcYH(mid).toFixed(2)};--tone:${tone};--fg:${glyphOn(tone)};--tone-d:${toneD};--fg-d:${glyphOn(toneD)}">
               <span class="road__peg">
@@ -814,6 +886,7 @@ const roadmap = () => {
             </li>`;
             }).join('')}
           </ol>
+          <span class="road__ahead" aria-hidden="true"></span>
         </div>
       </div>
     </div>`;
@@ -959,7 +1032,7 @@ function buildHome() {
           <div class="svc__top">
             <span class="ico">${I[s.icon]}</span>
             <div class="svc__head">
-              <h3 class="h3">${esc(t(s,'title'))}</h3>
+              <h3 class="h3">${svcHomeTitle(s)}</h3>
             </div>
           </div>
           <p class="svc__tag">${esc(plain(t(s,'tagline')))}</p>
@@ -1469,6 +1542,7 @@ function buildNews() {
 <section class="sec">
   <div class="wrap wrap--narrow">
     ${videoBlock}
+    ${n.subtitle ? `<h2 class="article__subtitle${videoBlock ? '' : ' reveal'}">${esc(n.subtitle)}</h2>` : ''}
     <article class="prose reveal">
       ${renderBody(n.body)}
     </article>
