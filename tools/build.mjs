@@ -1073,22 +1073,46 @@ function buildHome() {
       mod: 'stack',
       extra: seeall('services.html', T.allServices),
     })}
-    <div class="svc-grid" role="list" aria-label="${esc(C.svcTitle)}">
-      ${site.services.map((s, i) => `<article class="card glass svc reveal"${i ? ` data-d="${i}"` : ''} role="listitem">
-        <span class="svc__n" aria-hidden="true">${esc(s.num)}</span>
-        <div class="svc__main">
-          <div class="svc__top">
-            <span class="ico">${I[s.icon]}</span>
-            <div class="svc__head">
-              <h3 class="h3">${svcHomeTitle(s)}</h3>
-            </div>
+    <div class="svc-tabs reveal" data-svc-tabs>
+      <div class="svc-tabs__bar" role="tablist" aria-label="${esc(C.svcTitle)}">
+        ${site.services.map((s, i) => `<button type="button"
+            class="svc-tabs__tab${i === 0 ? ' is-on' : ''}"
+            role="tab"
+            id="svc-tab-${s.id}"
+            aria-selected="${i === 0 ? 'true' : 'false'}"
+            aria-controls="svc-panel-${s.id}"
+            tabindex="${i === 0 ? '0' : '-1'}"
+            data-svc-tab="${s.id}">
+          <span class="svc-tabs__ico" aria-hidden="true">${I[s.icon]}</span>
+          <span class="svc-tabs__lab">${esc(t(s, 'title'))}</span>
+        </button>`).join('')}
+      </div>
+      <div class="svc-tabs__stage">
+        ${site.services.map((s, i) => `<div
+            class="svc-tabs__panel${i === 0 ? ' is-on' : ''}"
+            role="tabpanel"
+            id="svc-panel-${s.id}"
+            aria-labelledby="svc-tab-${s.id}"
+            data-svc-panel="${s.id}"
+            ${i === 0 ? '' : 'hidden'}>
+          <div class="svc-tabs__bg" aria-hidden="true" data-svc-bg="${esc(s.id)}">
+            ${s.tabImg ? `<img src="${rel(0, s.tabImg)}" alt="" width="1600" height="900" decoding="async">` : '<div class="svc-tabs__ph"></div>'}
+            <div class="svc-tabs__wash"></div>
           </div>
-          <p class="svc__tag">${esc(plain(t(s,'tagline')))}</p>
-          <a class="svc__more arrow-link" href="services.html#${s.id}"><span class="svc__more-l">${T.more}</span> ${I.arrow}</a>
-        </div>
-        <ul class="svc__hl">${(t(s,'highlights') || []).map(h =>
-          `<li><a href="${hlHref(s.id, h)}">${rich(hlText(h))}</a></li>`).join('')}</ul>
-      </article>`).join('')}
+          <div class="svc-tabs__body">
+            <div class="svc-tabs__main">
+              <span class="svc-tabs__n" aria-hidden="true">${esc(s.num)}</span>
+              <h3 class="svc-tabs__title">${svcHomeTitle(s)}</h3>
+              <p class="svc-tabs__tag">${esc(plain(t(s, 'tagline')))}</p>
+              <a class="svc-tabs__more arrow-link" href="services.html#${s.id}">
+                <span class="svc-tabs__more-l">${T.more}</span> ${I.arrow}
+              </a>
+            </div>
+            <ul class="svc-tabs__hl">${(t(s, 'highlights') || []).map(h =>
+              `<li><a href="${hlHref(s.id, h)}">${rich(hlText(h))}</a></li>`).join('')}</ul>
+          </div>
+        </div>`).join('')}
+      </div>
     </div>
   </div>
 </section>

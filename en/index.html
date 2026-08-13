@@ -28,7 +28,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200..800;1,300..600&display=swap">
-<link rel="stylesheet" href="../assets/css/style.css?v=113270f0">
+<link rel="stylesheet" href="../assets/css/style.css?v=c5264943">
 <link rel="icon" href="../assets/img/logo-dark.svg" type="image/svg+xml">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Власта-Консалтинг","alternateName":"Vlasta Consulting","url":"https://vlasta-s.com/","logo":"https://vlasta-s.com/assets/img/logo-dark.svg","foundingDate":"2006","telephone":"+74951233336","email":"info@vlasta-s.com","address":{"@type":"PostalAddress","streetAddress":"ул. Усачёва, д. 13, помещение 4н","addressLocality":"Москва","postalCode":"119048","addressCountry":"RU"},"areaServed":["RU","BY","KZ","UZ","KG","AM","GE"],"contactPoint":{"@type":"ContactPoint","telephone":"+74951233336","contactType":"customer service","availableLanguage":["Russian","English"]}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Власта-Консалтинг","url":"https://vlasta-s.com/","inLanguage":"ru-RU","potentialAction":{"@type":"SearchAction","target":"https://vlasta-s.com/news.html?q={q}","query-input":"required name=q"}}</script>
@@ -120,60 +120,141 @@
         <div class="shead__x"><a href="services.html" class="seeall"><span class="seeall__l">All services</span><span class="seeall__r"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div>
       </div>
     </div>
-    <div class="svc-grid" role="list" aria-label="Our practice areas">
-      <article class="card glass svc reveal" role="listitem">
-        <span class="svc__n" aria-hidden="true">1</span>
-        <div class="svc__main">
-          <div class="svc__top">
-            <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 11.5 12.5 3.5a2 2 0 0 0-1.4-.6H4.5A1.5 1.5 0 0 0 3 4.4v6.6a2 2 0 0 0 .6 1.4l8 8a1.5 1.5 0 0 0 2.1 0l6.8-6.8a1.5 1.5 0 0 0 0-2.1z"/><circle cx="7.8" cy="7.8" r="1.4"/></svg></span>
-            <div class="svc__head">
-              <h3 class="h3">Intellectual property</h3>
-            </div>
+    <div class="svc-tabs reveal" data-svc-tabs>
+      <div class="svc-tabs__bar" role="tablist" aria-label="Our practice areas">
+        <button type="button"
+            class="svc-tabs__tab is-on"
+            role="tab"
+            id="svc-tab-brand"
+            aria-selected="true"
+            aria-controls="svc-panel-brand"
+            tabindex="0"
+            data-svc-tab="brand">
+          <span class="svc-tabs__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 11.5 12.5 3.5a2 2 0 0 0-1.4-.6H4.5A1.5 1.5 0 0 0 3 4.4v6.6a2 2 0 0 0 .6 1.4l8 8a1.5 1.5 0 0 0 2.1 0l6.8-6.8a1.5 1.5 0 0 0 0-2.1z"/><circle cx="7.8" cy="7.8" r="1.4"/></svg></span>
+          <span class="svc-tabs__lab">Intellectual property</span>
+        </button><button type="button"
+            class="svc-tabs__tab"
+            role="tab"
+            id="svc-tab-security"
+            aria-selected="false"
+            aria-controls="svc-panel-security"
+            tabindex="-1"
+            data-svc-tab="security">
+          <span class="svc-tabs__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 3v5.5c0 4.8-3.2 8-7.5 9.5-4.3-1.5-7.5-4.7-7.5-9.5V6z"/><path d="M9 12l2 2 4-4"/></svg></span>
+          <span class="svc-tabs__lab">Business security</span>
+        </button><button type="button"
+            class="svc-tabs__tab"
+            role="tab"
+            id="svc-tab-intelligence"
+            aria-selected="false"
+            aria-controls="svc-panel-intelligence"
+            tabindex="-1"
+            data-svc-tab="intelligence">
+          <span class="svc-tabs__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></span>
+          <span class="svc-tabs__lab">Intelligence and analysis</span>
+        </button><button type="button"
+            class="svc-tabs__tab"
+            role="tab"
+            id="svc-tab-consulting"
+            aria-selected="false"
+            aria-controls="svc-panel-consulting"
+            tabindex="-1"
+            data-svc-tab="consulting">
+          <span class="svc-tabs__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M7 21h10M4 7h16M8 7l-4 6h8zM16 7l4 6h-8z"/></svg></span>
+          <span class="svc-tabs__lab">Consulting</span>
+        </button>
+      </div>
+      <div class="svc-tabs__stage">
+        <div
+            class="svc-tabs__panel is-on"
+            role="tabpanel"
+            id="svc-panel-brand"
+            aria-labelledby="svc-tab-brand"
+            data-svc-panel="brand"
+            >
+          <div class="svc-tabs__bg" aria-hidden="true" data-svc-bg="brand">
+            <img src="../assets/img/services/tab-brand.png" alt="" width="1600" height="900" decoding="async">
+            <div class="svc-tabs__wash"></div>
           </div>
-          <p class="svc__tag">The full cycle of intellectual property protection and action against unfair competition.</p>
-          <a class="svc__more arrow-link" href="services.html#brand"><span class="svc__more-l">Learn more</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        </div>
-        <ul class="svc__hl"><li><a href="services.html#brand-cert"><b>Trademark registration</b></a></li><li><a href="services.html#brand-raid"><b>Customs registers and border control</b></a></li><li><a href="services.html#brand-raid"><b>Raids with police and customs</b></a></li><li><a href="services.html#brand-laptop"><b>Online Brand Protection System</b></a></li></ul>
-      </article><article class="card glass svc reveal" data-d="1" role="listitem">
-        <span class="svc__n" aria-hidden="true">2</span>
-        <div class="svc__main">
-          <div class="svc__top">
-            <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 3v5.5c0 4.8-3.2 8-7.5 9.5-4.3-1.5-7.5-4.7-7.5-9.5V6z"/><path d="M9 12l2 2 4-4"/></svg></span>
-            <div class="svc__head">
-              <h3 class="h3">Business security</h3>
+          <div class="svc-tabs__body">
+            <div class="svc-tabs__main">
+              <span class="svc-tabs__n" aria-hidden="true">1</span>
+              <h3 class="svc-tabs__title">Intellectual property</h3>
+              <p class="svc-tabs__tag">The full cycle of intellectual property protection and action against unfair competition.</p>
+              <a class="svc-tabs__more arrow-link" href="services.html#brand">
+                <span class="svc-tabs__more-l">Learn more</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
             </div>
+            <ul class="svc-tabs__hl"><li><a href="services.html#brand-cert"><b>Trademark registration</b></a></li><li><a href="services.html#brand-raid"><b>Customs registers and border control</b></a></li><li><a href="services.html#brand-raid"><b>Raids with police and customs</b></a></li><li><a href="services.html#brand-laptop"><b>Online Brand Protection System</b></a></li></ul>
           </div>
-          <p class="svc__tag">Information, economic and physical security: screening, audit, protection of premises and people.</p>
-          <a class="svc__more arrow-link" href="services.html#security"><span class="svc__more-l">Learn more</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        </div>
-        <ul class="svc__hl"><li><a href="services.html#security-check"><b>KYC / AML</b> and <b>FCPA / UKBA</b> compliance</a></li><li><a href="services.html#security-search"><b>Corporate investigations</b></a></li><li><a href="services.html#security-shield"><b>Close protection</b> and event security</a></li></ul>
-      </article><article class="card glass svc reveal" data-d="2" role="listitem">
-        <span class="svc__n" aria-hidden="true">3</span>
-        <div class="svc__main">
-          <div class="svc__top">
-            <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></span>
-            <div class="svc__head">
-              <h3 class="h3">Intelligence<br class="br-d">and analysis</h3>
+        </div><div
+            class="svc-tabs__panel"
+            role="tabpanel"
+            id="svc-panel-security"
+            aria-labelledby="svc-tab-security"
+            data-svc-panel="security"
+            hidden>
+          <div class="svc-tabs__bg" aria-hidden="true" data-svc-bg="security">
+            <img src="../assets/img/services/tab-security.png" alt="" width="1600" height="900" decoding="async">
+            <div class="svc-tabs__wash"></div>
+          </div>
+          <div class="svc-tabs__body">
+            <div class="svc-tabs__main">
+              <span class="svc-tabs__n" aria-hidden="true">2</span>
+              <h3 class="svc-tabs__title">Business security</h3>
+              <p class="svc-tabs__tag">Information, economic and physical security: screening, audit, protection of premises and people.</p>
+              <a class="svc-tabs__more arrow-link" href="services.html#security">
+                <span class="svc-tabs__more-l">Learn more</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
             </div>
+            <ul class="svc-tabs__hl"><li><a href="services.html#security-check"><b>KYC / AML</b> and <b>FCPA / UKBA</b> compliance</a></li><li><a href="services.html#security-search"><b>Corporate investigations</b></a></li><li><a href="services.html#security-shield"><b>Close protection</b> and event security</a></li></ul>
           </div>
-          <p class="svc__tag">Business intelligence, competitive market analysis and deal risk assessment.</p>
-          <a class="svc__more arrow-link" href="services.html#intelligence"><span class="svc__more-l">Learn more</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        </div>
-        <ul class="svc__hl"><li><a href="services.html#security-check">Counterparty screening and <b>due diligence</b></a></li><li><a href="services.html#intelligence-growth"><b>Market analysis</b> before entry</a></li><li><a href="services.html#intelligence-layers"><b>Structured analysis</b> and profiling</a></li></ul>
-      </article><article class="card glass svc reveal" data-d="3" role="listitem">
-        <span class="svc__n" aria-hidden="true">4</span>
-        <div class="svc__main">
-          <div class="svc__top">
-            <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M7 21h10M4 7h16M8 7l-4 6h8zM16 7l4 6h-8z"/></svg></span>
-            <div class="svc__head">
-              <h3 class="h3">Consulting</h3>
+        </div><div
+            class="svc-tabs__panel"
+            role="tabpanel"
+            id="svc-panel-intelligence"
+            aria-labelledby="svc-tab-intelligence"
+            data-svc-panel="intelligence"
+            hidden>
+          <div class="svc-tabs__bg" aria-hidden="true" data-svc-bg="intelligence">
+            <img src="../assets/img/services/tab-intelligence.png" alt="" width="1600" height="900" decoding="async">
+            <div class="svc-tabs__wash"></div>
+          </div>
+          <div class="svc-tabs__body">
+            <div class="svc-tabs__main">
+              <span class="svc-tabs__n" aria-hidden="true">3</span>
+              <h3 class="svc-tabs__title">Intelligence<br class="br-d">and analysis</h3>
+              <p class="svc-tabs__tag">Business intelligence, competitive market analysis and deal risk assessment.</p>
+              <a class="svc-tabs__more arrow-link" href="services.html#intelligence">
+                <span class="svc-tabs__more-l">Learn more</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
             </div>
+            <ul class="svc-tabs__hl"><li><a href="services.html#security-check">Counterparty screening and <b>due diligence</b></a></li><li><a href="services.html#intelligence-growth"><b>Market analysis</b> before entry</a></li><li><a href="services.html#intelligence-layers"><b>Structured analysis</b> and profiling</a></li></ul>
           </div>
-          <p class="svc__tag">Strategic and legal support: engagement with state authorities, litigation, crisis response.</p>
-          <a class="svc__more arrow-link" href="services.html#consulting"><span class="svc__more-l">Learn more</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div><div
+            class="svc-tabs__panel"
+            role="tabpanel"
+            id="svc-panel-consulting"
+            aria-labelledby="svc-tab-consulting"
+            data-svc-panel="consulting"
+            hidden>
+          <div class="svc-tabs__bg" aria-hidden="true" data-svc-bg="consulting">
+            <div class="svc-tabs__ph"></div>
+            <div class="svc-tabs__wash"></div>
+          </div>
+          <div class="svc-tabs__body">
+            <div class="svc-tabs__main">
+              <span class="svc-tabs__n" aria-hidden="true">4</span>
+              <h3 class="svc-tabs__title">Consulting</h3>
+              <p class="svc-tabs__tag">Strategic and legal support: engagement with state authorities, litigation, crisis response.</p>
+              <a class="svc-tabs__more arrow-link" href="services.html#consulting">
+                <span class="svc-tabs__more-l">Learn more</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+            </div>
+            <ul class="svc-tabs__hl"><li><a href="services.html#consulting-coord">Engagement with <b>state authorities</b></a></li><li><a href="services.html#consulting-legal"><b>Litigation support</b></a></li><li><a href="services.html#consulting-legal"><b>Corporate disputes</b> and crises</a></li></ul>
+          </div>
         </div>
-        <ul class="svc__hl"><li><a href="services.html#consulting-coord">Engagement with <b>state authorities</b></a></li><li><a href="services.html#consulting-legal"><b>Litigation support</b></a></li><li><a href="services.html#consulting-legal"><b>Corporate disputes</b> and crises</a></li></ul>
-      </article>
+      </div>
     </div>
   </div>
 </section>
@@ -1200,6 +1281,6 @@
   </div>
 </div>
 <button class="totop" type="button" aria-label="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg></button>
-<script src="../assets/js/main.js?v=06a60407" defer></script>
+<script src="../assets/js/main.js?v=3644e355" defer></script>
 </body>
 </html>
