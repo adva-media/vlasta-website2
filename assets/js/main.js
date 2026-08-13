@@ -1562,7 +1562,7 @@
   }
 
   /* --------------------------- drag + wheel scrolling for horizontal rails */
-  $$('.case-rail,.letters-rail,.assoc-rail,.news-rail,.svc-grid').forEach(function (rail) {
+  $$('.case-rail,.letters-rail,.assoc-rail,.news-rail').forEach(function (rail) {
     var down = false, moved = false, sx = 0, sl = 0, pid = null;
 
     rail.addEventListener('pointerdown', function (e) {
@@ -1818,6 +1818,46 @@
   /* ------------------------------------------------------ footer year */
   var yr = $('#yr');
   if (yr) yr.textContent = new Date().getFullYear();
+
+  /* --------------------------------------------- homepage services tabs */
+  $$('[data-svc-tabs]').forEach(function (root) {
+    var tabs = $$('[data-svc-tab]', root);
+    var panels = $$('[data-svc-panel]', root);
+    if (!tabs.length || !panels.length) return;
+
+    function activate(id, focusTab) {
+      tabs.forEach(function (tab) {
+        var on = tab.getAttribute('data-svc-tab') === id;
+        tab.classList.toggle('is-on', on);
+        tab.setAttribute('aria-selected', on ? 'true' : 'false');
+        tab.tabIndex = on ? 0 : -1;
+        if (on && focusTab) tab.focus();
+      });
+      panels.forEach(function (panel) {
+        var on = panel.getAttribute('data-svc-panel') === id;
+        panel.classList.toggle('is-on', on);
+        if (on) panel.removeAttribute('hidden');
+        else panel.setAttribute('hidden', '');
+      });
+    }
+
+    tabs.forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        activate(tab.getAttribute('data-svc-tab'), false);
+      });
+      tab.addEventListener('keydown', function (e) {
+        var i = tabs.indexOf(tab);
+        var next = -1;
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next = (i + 1) % tabs.length;
+        else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') next = (i - 1 + tabs.length) % tabs.length;
+        else if (e.key === 'Home') next = 0;
+        else if (e.key === 'End') next = tabs.length - 1;
+        if (next < 0) return;
+        e.preventDefault();
+        activate(tabs[next].getAttribute('data-svc-tab'), true);
+      });
+    });
+  });
 
   /* ---------------------------------------- approach hex (homepage)
      Hover/focus a department hex → swap the left title + paragraph.
