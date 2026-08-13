@@ -7,15 +7,15 @@
     "phone": "+7 (495) 123-33-36",
     "phoneHref": "+74951233336",
     "email": "info@vlasta-s.com",
-    "hours": "Пн–Пт 9:30–18:00",
-    "address": "119048, Москва, ул. Усачёва, д. 13, помещение 4н",
-    "addressStreet": "ул. Усачёва, д. 13, помещение 4н",
+    "hours": "Будни: 9:30 - 18:00",
+    "address": "119048, город Москва, ул. Усачёва, д. 13, помещ. 4н",
+    "addressStreet": "ул. Усачёва, д. 13, помещ. 4н",
     "addressCity": "Москва",
     "addressZip": "119048",
     "domain": "https://vlasta-s.com",
-    "hours_en": "Mon–Fri 9:30–18:00",
-    "address_en": "Usacheva 13, office 4n, Moscow 119048, Russia",
-    "addressStreet_en": "Usacheva 13, office 4n",
+    "hours_en": "Weekdays: 9:30 a.m. - 6 p.m.",
+    "address_en": "office 4N, 13, Usacheva str., Moscow, 119048",
+    "addressStreet_en": "office 4N, 13, Usacheva str.",
     "addressCity_en": "Moscow"
   },
   "stats": [
@@ -66,7 +66,7 @@
     {
       "value": "4,8",
       "pct": 82,
-      "label": "<b>Предотвращённого ущерба</b> на каждый вложенный рубль",
+      "label": "<b>Предотвращенный ущерб</b> на каждый вложенный рубль",
       "label_en": "<b>Damage prevented</b> for every rouble invested",
       "count": 4.8,
       "decimals": 1,
@@ -79,8 +79,8 @@
       "value": "60",
       "unit": "%",
       "pct": 60,
-      "label": "<b>Бюджета программы возвращается</b> через компенсации по искам",
-      "label_en": "<b>Of the programme budget recovered</b> through claims",
+      "label": "<b>Затрат на программу возвращено</b> правообладателю",
+      "label_en": "<b>Of programme costs returned</b> to the rights holder",
       "count": 60,
       "unit_en": "%",
       "icon": "scales",
@@ -106,16 +106,16 @@
       "img": "assets/img/services/zashita-brenda.jpg",
       "tabImg": "assets/img/services/tab-brand.png",
       "title": "Интеллектуальная собственность",
-      "tagline": "Полный цикл защиты <b>интеллектуальной собственности</b> и противодействие <b>недобросовестной конкуренции</b>.",
+      "tagline": "Планомерная защита товарных знаков по всем видам нарушений — тождество, сходство до степени смешения, <b>недобросовестная конкуренция</b>.",
       "icon": "brand",
-      "intro": "В России мы были практически первыми, кто разработал и запустил в 2006 году программу защиты товарных знаков. Работаем по всем видам нарушений — от тождества и сходства до недобросовестной конкуренции.",
+      "intro": "ООО «Власта-Консалтинг» имеет многолетний опыт работы в области защиты прав на объекты интеллектуальной собственности. В России мы были практически первыми, кто разработал и запустил в действие в 2006 году программу защиты товарных знаков.",
       "directions": [
         {
           "icon": "cert",
           "title": "Регистрация товарных знаков",
           "title_en": "Trademark registration",
-          "text": "Товарный знак — визитная карточка и актив бизнеса. Прежде чем его использовать, нужно обеспечить правовую охрану: мы ведём знак от проверки обозначения до свидетельства и дальше — в России и за рубежом.",
-          "text_en": "A trademark is both the face of a business and an asset on its balance sheet. Before it can be used it needs legal protection: we take a mark from the initial clearance search through to the certificate and beyond, in Russia and abroad.",
+          "text": "Товарный знак - это визитная карточка и ценный актив Вашего бизнеса. Именно товарный знак будет ассоциироваться у клиентов с Вашими товарами и услугами. При помощи товарного знака можно эффективно защитить бизнес от подделок, а также получить прибыль от продажи лицензий третьим лицам. Прежде чем начать использовать товарный знак, необходимо обеспечить его правовую охрану.",
+          "text_en": "A trademark is a business card and a valuable asset to your business. It is the trademark that customers will associate with your goods and services. By using a trademark, you can effectively protect a business from counterfeits, and also profit from licensing to third parties. Before you start using a trademark, you need to secure its legal protection.",
           "bullets": [
             "Проверка обозначения и подача заявки",
             "Делопроизводство до получения свидетельства",
@@ -133,8 +133,8 @@
           "icon": "shield",
           "title": "Комплексная защита знака",
           "title_en": "Full-scope trademark defence",
-          "text": "Защита работает, когда она планомерна и охватывает все виды нарушений сразу. Комплексное использование доступных инструментов даёт максимально возможный уровень охраны знака.",
-          "text_en": "Defence works when it is systematic and covers every type of infringement at once. Using the full set of instruments together is what produces the highest level of protection a mark can have.",
+          "text": "Защита товарных знаков заключается в планомерной и полномасштабной работе как по всем возможным направлениям, так и в отношении всех видов нарушений (тождество, сходство до степени смешения, недобросовестная конкуренция). Комплексное использование всех доступных инструментов позволяет обеспечить максимально возможный уровень защиты товарного знака.",
+          "text_en": "Trademark protection consists of systematic and full-scale work in all possible directions and in relation to all types of infringements (identity, similarity to the point of confusion, unfair competition). The integrated use of all available tools allows you to ensure the highest possible level of trademark protection.",
           "bullets": [
             "Тождество и сходство до степени смешения",
             "Недобросовестная конкуренция",
@@ -226,19 +226,43 @@
         }
       ],
       "highlights": [
-        { "t": "<b>Регистрация товарных знаков</b>", "to": "cert" },
-        { "t": "<b>ТРОИС и таможенный контроль</b>", "to": "raid" },
-        { "t": "<b>Рейды с полицией и таможней</b>", "to": "raid" },
-        { "t": "<b>Online Brand Protection System</b>", "to": "laptop" }
+        {
+          "t": "<b>Регистрация товарных знаков</b>",
+          "to": "cert"
+        },
+        {
+          "t": "<b>ТРОИС</b> и таможенный контроль",
+          "to": "raid"
+        },
+        {
+          "t": "Рейды совместно с полицией и таможней",
+          "to": "raid"
+        },
+        {
+          "t": "<b>Online Brand Protection System</b>",
+          "to": "laptop"
+        }
       ],
       "title_en": "Intellectual property",
-      "tagline_en": "The full cycle of <b>intellectual property</b> protection and action against <b>unfair competition</b>.",
-      "intro_en": "In Russia we were among the very first to design and launch a trademark protection programme, back in 2006. We act on every type of infringement — from identity and confusing similarity through to unfair competition.",
+      "tagline_en": "Systematic trademark protection against all types of infringement — identity, confusing similarity, <b>unfair competition</b>.",
+      "intro_en": "Vlasta-Consulting LLC has many years of experience in the protection of intellectual property rights. In Russia, we were practically the first to develop and launch a trademark protection program in 2006.",
       "highlights_en": [
-        { "t": "<b>Trademark registration</b>", "to": "cert" },
-        { "t": "<b>Customs registers and border control</b>", "to": "raid" },
-        { "t": "<b>Raids with police and customs</b>", "to": "raid" },
-        { "t": "<b>Online Brand Protection System</b>", "to": "laptop" }
+        {
+          "t": "<b>Trademark registration</b>",
+          "to": "cert"
+        },
+        {
+          "t": "<b>Customs registers</b> and border control",
+          "to": "raid"
+        },
+        {
+          "t": "Raids together with police and customs",
+          "to": "raid"
+        },
+        {
+          "t": "<b>Online Brand Protection System</b>",
+          "to": "laptop"
+        }
       ],
       "channels": {
         "title": "Мониторинг ведётся по семи типам ресурсов",
@@ -300,8 +324,8 @@
           "icon": "raid",
           "title": "Рейды с полицией",
           "title_en": "Raids with the police",
-          "note": "Рейды на производствах, в торговых точках и на складах — один из самых действенных инструментов программы. Взаимодействие с правоохранительными органами выстроено на всех этапах: от обнаружения нарушения до организации уничтожения контрафакта.",
-          "note_en": "Raids on production sites, retail outlets and warehouses are among the most effective instruments in the programme. Our work with law enforcement is set up at every stage, from spotting the infringement to organising destruction of the goods.",
+          "note": "Работа с полицией и проведение рейдов на производствах, торговых точках и складах с контрафактной продукцией является одним из самых важных и эффективных инструментов этой программы. Мы сумели организовать взаимодействие с правоохранительными органами на различных этапах работы: от обнаружения нарушений до принятия судебных решений и уничтожения контрафактной продукции.",
+          "note_en": "Working with the police and conducting raids in factories, stores and warehouses with counterfeit products is one of the most important and effective tools of this program. We have established effective cooperation with law enforcement agencies at various stages of work: from detecting violations to making court decisions and destroying counterfeit products.",
           "steps": [
             {
               "h": "Мониторинг и сбор информации",
@@ -312,8 +336,8 @@
             {
               "h": "Организация и участие в рейде",
               "h_en": "Organising and joining the raid",
-              "p": "Наши специалисты работают в рейде вместе с полицией, чтобы подделка была изъята, а нарушитель привлечён к ответственности.",
-              "p_en": "Our specialists work the raid alongside the police, so the fakes are seized and the infringer is held to account."
+              "p": "Наши специалисты участвуют в рейдах, проводимых полицией, и оказывают необходимую экспертную и консультационную помощь с тем, чтобы гарантированно изъять подделку и впоследствии привлечь нарушителей к установленной законом ответственности.",
+              "p_en": "Our specialists take part in raids conducted by the police and provide the necessary expert and advisory support so that the counterfeit is seized and the infringers are subsequently held to account as provided by law."
             },
             {
               "h": "Юридическая поддержка",
@@ -433,10 +457,10 @@
       "num": "2",
       "img": "assets/img/services/biznes-bezopasnost.jpg",
       "tabImg": "assets/img/services/tab-security.png",
-      "title": "Безопасность бизнеса",
-      "tagline": "Информационная, экономическая и физическая безопасность: <b>проверки</b>, <b>аудит</b>, охрана объектов и людей.",
+      "title": "Корпоративная безопасность",
+      "tagline": "Комплексные решения в области <b>экономической безопасности</b> бизнеса.",
       "icon": "shield",
-      "intro": "Двадцать лет опыта сделали из нас команду, которой клиенты доверяют защиту бизнеса и первых лиц. Подход «одного окна» усилен информационной проверкой и комплексной оценкой рисков объектов.",
+      "intro": "Холдинговая компания Власта Консалтинг предлагает комплексные решения в области экономической безопасности. Двадцать лет опыта сделали из нас первоклассную команду, которой наши клиенты готовы доверить решение любых вопросов в сфере защиты бизнеса.",
       "directions": [
         {
           "icon": "check",
@@ -518,17 +542,17 @@
         },
         {
           "icon": "shield",
-          "title": "Личная охрана",
-          "title_en": "Close protection",
-          "text": "Телохранители с аналитическим складом ума, знанием английского и представительской внешностью. Вооружённая или невооружённая охрана — по профилю риска.",
-          "text_en": "Bodyguards with an analytical turn of mind, English, and an appearance that draws no attention. Armed or unarmed, according to the risk profile.",
+          "title": "Личная безопасность",
+          "title_en": "Personal security",
+          "text": "Обеспечение личной безопасности VIP-персон или гостей — через привлечение профессиональных телохранителей. Мы специализируемся на привлечении специалистов с аналитическим складом ума, знанием английского и представительской внешностью. В зависимости от профиля риска принимается решение, привлекать ли вооруженную или невооруженную охрану.",
+          "text_en": "Personal security of VIP guests is arranged by involving professional bodyguards. We specialize in obtaining specialists with an analytical mindset, English and a representative appearance. Depending on the risk profile, it is possible to involve armed or unarmed guards.",
           "bullets": [
-            "Охрана первых лиц и гостей компании",
+            "Привлечение специалистов для VIP-персон и гостей компании",
             "Состав группы определяется профилем риска",
             "Англоговорящие координаторы на связи 24/7"
           ],
           "bullets_en": [
-            "Protection for principals and company guests",
+            "Obtaining specialists for principals and company guests",
             "The detail is sized to the risk profile",
             "English-speaking coordinators on call 24/7"
           ]
@@ -537,17 +561,17 @@
           "icon": "car",
           "title": "Транспортная безопасность",
           "title_en": "Transport security",
-          "text": "От формата Meet & Greet до многодневного сопровождения. Под проект подбирается класс автомобиля и уровень подготовки водителя.",
-          "text_en": "From Meet & Greet through to details running several days. The class of vehicle and the driver’s training are matched to the assignment.",
+          "text": "За клиентом закрепляется машина с профессиональным водителем — от формата Meet & Greet до проектов на несколько дней. Под конкретный проект подбирается класс автомобиля; в кейсах с высоким профилем риска можем предложить использование бронированных автомобилей и водителей с навыками экстремального вождения.",
+          "text_en": "A car with a professional driver is assigned to the client — from Meet & Greet through to details running several days. The class of vehicle is matched to the assignment; in high-risk cases we may offer the use of armoured vehicles and drivers trained in evasive driving.",
           "bullets": [
             "Премиальный седан для гостя, внедорожники сопровождения",
             "Бизнес-шаттл Mercedes-Benz V-class для групп",
-            "Бронированные автомобили и водители с навыками экстремального вождения"
+            "По высокому профилю риска — предложение бронированных автомобилей"
           ],
           "bullets_en": [
             "A premium saloon for the principal, escort SUVs alongside",
             "A Mercedes-Benz V-class shuttle for groups",
-            "Armoured vehicles and drivers trained in evasive driving"
+            "In high-risk cases — the option of armoured vehicles"
           ]
         },
         {
@@ -571,10 +595,10 @@
         },
         {
           "icon": "layers",
-          "title": "Комплексная система безопасности",
-          "title_en": "An integrated security system",
-          "text": "Чем выше компания в своём развитии, тем дороже обходится каждый инцидент. Эффективнее не реагировать на возникшие риски, а построить систему, которая их предупреждает.",
-          "text_en": "The further a company has come, the more each incident costs it. Building a system that anticipates risk beats reacting to it after the fact.",
+          "title": "Комплексная безопасность",
+          "title_en": "Integrated security",
+          "text": "Росту успешности компании всегда сопутствует рост рисков. Они подразделяются на внешние (воровство как продукции, так и объектов интеллектуальной собственности) и внутренние (финансовые и иные махинации, шантаж руководства, физические угрозы персоналу как следствие недостатка эффективности систем внутренней безопасности). Наиболее защищенная от рисков компания получает абсолютное преимущество перед конкурентами, что напрямую влияет на ее финансовые показатели. При этом чем выше компания находится на уровне своего развития, тем существеннее для нее потенциальный урон и тем больше ресурсов затрачивается на их устранение. Наиболее эффективным вариантом является не реагирование на уже возникшие риски, а создание комплексной системы обеспечения безопасности бизнеса.",
+          "text_en": "The increase of a company’s success is always accompanied by increased risks. These are subdivided into external (theft of products and intellectual property) and internal (financial and other manipulations, corporate blackmail, physical threats to personnel from a lack of an effective internal security system). The risk-protected company has an absolute advantage over competitors, directly affecting its financial performance. Moreover, the higher the company is at the level of its development, the more significant is its potential damage and the more resources are spent on eliminating them. The most effective option is not to respond to occurring risks, but rather to create an integrated business security system.",
           "bullets": [
             "Внешние риски: хищение продукции и интеллектуальной собственности",
             "Внутренние риски: махинации, шантаж руководства, угрозы персоналу",
@@ -588,17 +612,35 @@
         }
       ],
       "highlights": [
-        { "t": "Комплаенс <b>KYC / AML</b>, <b>FCPA / UKBA</b>", "to": "check" },
-        { "t": "<b>Корпоративные расследования</b>", "to": "search" },
-        { "t": "<b>Охрана</b> первых лиц и мероприятий", "to": "shield" }
+        {
+          "t": "Комплаенс <b>KYC / AML</b>, <b>FCPA / UKBA</b>",
+          "to": "check"
+        },
+        {
+          "t": "<b>Корпоративные расследования</b>",
+          "to": "search"
+        },
+        {
+          "t": "<b>Личная безопасность</b> VIP-персон",
+          "to": "shield"
+        }
       ],
-      "title_en": "Business security",
-      "tagline_en": "Information, economic and physical security: <b>screening</b>, <b>audit</b>, protection of premises and people.",
-      "intro_en": "Twenty years of experience have made us a team clients trust with the protection of their business and their principals. The single point of contact is reinforced by information screening and a full risk assessment of the sites involved.",
+      "title_en": "Corporate security",
+      "tagline_en": "Integrated solutions in the field of <b>economic security</b> of business.",
+      "intro_en": "Vlasta Consulting holding company offers complex solutions in the field of economic security. Twenty years of experience have made us a top-tier team, and our clients trust us with solving any issues in business protection.",
       "highlights_en": [
-        { "t": "<b>KYC / AML</b> and <b>FCPA / UKBA</b> compliance", "to": "check" },
-        { "t": "<b>Corporate investigations</b>", "to": "search" },
-        { "t": "<b>Close protection</b> and event security", "to": "shield" }
+        {
+          "t": "<b>KYC / AML</b> and <b>FCPA / UKBA</b> compliance",
+          "to": "check"
+        },
+        {
+          "t": "<b>Corporate investigations</b>",
+          "to": "search"
+        },
+        {
+          "t": "<b>Personal security</b> of VIP guests",
+          "to": "shield"
+        }
       ],
       "flows": []
     },
@@ -609,10 +651,13 @@
       "img": "assets/img/services/strukturirovaniy-analiz.jpg",
       "tabImg": "assets/img/services/tab-intelligence.png",
       "title": "Разведка и анализ",
-      "titleBreak": ["Разведка", "и анализ"],
-      "tagline": "<b>Бизнес-разведка</b>, конкурентный анализ рынка и <b>оценка рисков</b> сделок.",
+      "titleBreak": [
+        "Разведка",
+        "и анализ"
+      ],
+      "tagline": "<b>Бизнес-разведка</b> и аналитика: информация из проверенных источников для стратегий, минимизирующих риски.",
       "icon": "search",
-      "intro": "Мы объединяем аналитику и доступ к проверенным источникам в России, СНГ и странах бывшего Восточного блока, помогая выстраивать стратегии, минимизирующие риски до входа в сделку или на новый рынок.",
+      "intro": "Наша команда высококвалифицированных профессионалов предоставляет услуги, объединяющие в себе глубокую аналитику и возможность получать информацию из проверенных источников в странах бывшего Восточного блока и за его пределами, чтобы помочь нашим клиентам выстроить бизнес-стратегии, минимизирующие риски, и закрепить свои позиции в этом регионе.",
       "directions": [
         {
           "icon": "globe",
@@ -703,18 +748,39 @@
         }
       ],
       "highlights": [
-        { "t": "Проверка контрагентов и <b>due diligence</b>", "to": "security/check" },
-        { "t": "<b>Анализ рынка</b> перед выходом", "to": "growth" },
-        { "t": "<b>Структурированный анализ</b> и профайлинг", "to": "layers" }
+        {
+          "t": "Проверка контрагентов и <b>due diligence</b>",
+          "to": "security/check"
+        },
+        {
+          "t": "<b>Анализ рынка</b> перед выходом",
+          "to": "growth"
+        },
+        {
+          "t": "<b>Структурированный анализ</b> и профайлинг",
+          "to": "layers"
+        }
       ],
       "title_en": "Intelligence and analysis",
-      "titleBreak_en": ["Intelligence", "and analysis"],
-      "tagline_en": "<b>Business intelligence</b>, competitive market analysis and <b>deal risk</b> assessment.",
-      "intro_en": "We combine analysis with access to verified sources across Russia, the CIS and the former Eastern Bloc, helping build strategies that reduce risk before you enter a deal or a new market.",
+      "titleBreak_en": [
+        "Intelligence",
+        "and analysis"
+      ],
+      "tagline_en": "<b>Business intelligence</b> and analysis: information from trusted sources for strategies that minimise risk.",
+      "intro_en": "Our team of highly qualified professionals provides services that combine in-depth analytics and the ability to obtain information from trusted sources — in the countries of the former Eastern Bloc and beyond — to help our clients build business strategies that minimize risks and consolidate their position in the region.",
       "highlights_en": [
-        { "t": "Counterparty screening and <b>due diligence</b>", "to": "security/check" },
-        { "t": "<b>Market analysis</b> before entry", "to": "growth" },
-        { "t": "<b>Structured analysis</b> and profiling", "to": "layers" }
+        {
+          "t": "Counterparty screening and <b>due diligence</b>",
+          "to": "security/check"
+        },
+        {
+          "t": "<b>Market analysis</b> before entry",
+          "to": "growth"
+        },
+        {
+          "t": "<b>Structured analysis</b> and profiling",
+          "to": "layers"
+        }
       ]
     },
     {
@@ -724,25 +790,25 @@
       "img": "assets/img/services/konsalting.jpg",
       "tabImg": "assets/img/services/tab-consulting.png",
       "title": "Консалтинг",
-      "tagline": "Стратегическое и юридическое сопровождение: взаимодействие с <b>госорганами</b>, <b>суды</b>, кризисное реагирование.",
+      "tagline": "Консультирование по вопросам обеспечения безопасности — формат <b>«одного окна»</b>.",
       "icon": "scales",
-      "intro": "Сопровождаем клиента от постановки задачи до защиты интересов в суде, включая взаимодействие с государственными органами и кризисное реагирование в спорных ситуациях.",
+      "intro": "Общая миссия нашей компании, заключающаяся в обеспечении комплексной защиты от рисков (формат «одного окна»), находит свое отражение и в рамках услуг по консультировании по вопросам обеспечения безопасности.",
       "directions": [
         {
           "icon": "coord",
           "title": "Стратегический консалтинг",
           "title_en": "Strategic consulting",
-          "text": "Аналитическая поддержка решений, которые принимаются наверху, взаимодействие с органами власти и кризисное реагирование в острых ситуациях.",
-          "text_en": "Analytical support for the decisions taken at the top, engagement with public authorities, and crisis response in acute situations.",
+          "text": "Помимо консультирования в вопросах предоставления охраны и автотранспорта, мы также имеем возможность дополнительно усилить данное направление как по информационной части (проверки на негативную информацию и неблагонадежность), так и со стороны комплексной оценки рисков того или иного объекта.",
+          "text_en": "In addition to advising on the provision of security and transportation, we are also able to further strengthen this area both on the part of information (checking for negative information and unreliability) and on the part of a comprehensive risk assessment of a specific location.",
           "bullets": [
-            "Взаимодействие с государственными и контролирующими органами",
-            "Аналитическая поддержка управленческих решений",
-            "Кризисное реагирование"
+            "Консультирование по вопросам обеспечения безопасности",
+            "Информационные проверки и оценка неблагонадёжности",
+            "Комплексная оценка рисков объекта"
           ],
           "bullets_en": [
-            "Dealings with state and supervisory authorities",
-            "Analytical support for management decisions",
-            "Crisis response"
+            "Advice on security arrangements",
+            "Information checks and reliability assessment",
+            "Comprehensive site risk assessment"
           ]
         },
         {
@@ -766,17 +832,35 @@
         }
       ],
       "highlights": [
-        { "t": "Взаимодействие с <b>госорганами</b>", "to": "coord" },
-        { "t": "<b>Сопровождение в суде</b>", "to": "legal" },
-        { "t": "<b>Корпоративные споры</b> и кризисы", "to": "legal" }
+        {
+          "t": "Консультации по <b>обеспечению безопасности</b>",
+          "to": "coord"
+        },
+        {
+          "t": "<b>Сопровождение в суде</b>",
+          "to": "legal"
+        },
+        {
+          "t": "<b>Корпоративные споры</b>",
+          "to": "legal"
+        }
       ],
       "title_en": "Consulting",
-      "tagline_en": "Strategic and legal support: engagement with <b>state authorities</b>, <b>litigation</b>, crisis response.",
-      "intro_en": "We support the client from the initial brief through to representation in court, including engagement with state authorities and crisis response in contested situations.",
+      "tagline_en": "Security consulting in a <b>one-window</b> format.",
+      "intro_en": "The overall mission of our company is to provide comprehensive protection against risks (“one window” format) and is reflected in our security consulting services.",
       "highlights_en": [
-        { "t": "Engagement with <b>state authorities</b>", "to": "coord" },
-        { "t": "<b>Litigation support</b>", "to": "legal" },
-        { "t": "<b>Corporate disputes</b> and crises", "to": "legal" }
+        {
+          "t": "Advice on <b>security arrangements</b>",
+          "to": "coord"
+        },
+        {
+          "t": "<b>Litigation support</b>",
+          "to": "legal"
+        },
+        {
+          "t": "<b>Corporate disputes</b>",
+          "to": "legal"
+        }
       ]
     }
   ],
@@ -809,10 +893,10 @@
       "y": 0.5,
       "short": "Операции",
       "title": "Оперативный отдел",
-      "text": "Оперативный отдел координирует рейды и изъятия совместно с правоохранительными органами в Москве, регионах России и странах СНГ. Специалисты обеспечивают оперативное реагирование, сопровождение силовых мероприятий и фиксацию результатов в рамках антиконтрафактных проектов.",
+      "text": "Оперативный отдел координирует взаимодействие с правоохранительными органами в Москве, регионах России и странах СНГ. Специалисты оказывают экспертную и консультационную помощь при рейдах и изъятиях и фиксируют результаты в рамках антиконтрафактных проектов.",
       "title_en": "Operations department",
       "short_en": "Operations",
-      "text_en": "The operations department coordinates raids and seizures with law enforcement across Moscow, Russia's regions and the CIS. The team delivers rapid response, support during enforcement actions and documented outcomes within anti-counterfeit projects."
+      "text_en": "The operations department coordinates work with law enforcement across Moscow, Russia's regions and the CIS. The team provides expert and advisory support during raids and seizures and documents outcomes within anti-counterfeit projects."
     },
     {
       "icon": "coord",
@@ -868,10 +952,10 @@
     {
       "n": "3",
       "title": "Реализация",
-      "text": "Внедряем меры, проводим расследования и оперативные мероприятия в правовом поле.",
+      "text": "Реализуем согласованные меры и сопровождаем расследования в правовом поле.",
       "icon": "check",
       "title_en": "Execution",
-      "text_en": "We put measures in place and run investigations and operations within the law."
+      "text_en": "We put agreed measures in place and support investigations within the law."
     },
     {
       "n": "4",
@@ -952,7 +1036,7 @@
   "geography": {
     "kicker": "География",
     "title": "Россия, СНГ и страны ЕАЭС",
-    "lead": "Основной регион нашей работы — Россия и страны бывшего СССР. Мы защищаем товарные знаки правообладателей на всей территории ЕАЭС и ведём проекты в сопредельных странах, опираясь на сеть проверенных партнёров.",
+    "lead": "Мы работаем и оказываем услуги на территории России и стран СНГ, а также в Европе, Северной и Южной Америке, Африке и Юго-Восточной Азии. Сотрудничество с зарубежными партнёрами наряду с членством в профильных международных ассоциациях позволяет представлять интересы клиентов, включая защиту бренда в странах ЕАЭС.",
     "regions": [
       "Россия",
       "Казахстан",
@@ -978,7 +1062,7 @@
     ],
     "kicker_en": "Geography",
     "title_en": "Russia, the CIS and the EAEU",
-    "lead_en": "Our core region is Russia and the states of the former USSR. We protect rights holders’ trademarks across the whole of the EAEU and run engagements in neighbouring countries, working through a network of trusted partners.",
+    "lead_en": "We work and provide services in Russia and the CIS, as well as in Europe, North and South America, Africa and Southeast Asia. Cooperation with foreign partners, together with membership of specialised international associations, enables us to represent clients’ interests, including brand protection in the EAEU.",
     "regions_en": [
       "Russia",
       "Kazakhstan",
@@ -1006,31 +1090,31 @@
   "values": [
     {
       "num": "01",
-      "title": "Закон",
-      "text": "Действуем строго в правовом поле — соответствие законодательству на каждом этапе работы.",
-      "title_en": "Law",
-      "text_en": "We act strictly within the law — compliance at every stage of the work."
+      "title": "Законность",
+      "text": "В своей работе мы руководствуемся принципами законности.",
+      "title_en": "Legality",
+      "text_en": "In our work, we are guided by the principles of legality."
     },
     {
       "num": "02",
       "title": "Деловая этика",
-      "text": "Честность и конфиденциальность во взаимоотношениях с клиентами и партнёрами.",
+      "text": "Мы руководствуемся правилами деловой этики во взаимоотношениях с клиентами и партнёрами.",
       "title_en": "Business ethics",
-      "text_en": "Honesty and confidentiality in dealings with clients and partners."
+      "text_en": "We are guided by the rules of business ethics in dealings with clients and partners."
     },
     {
       "num": "03",
-      "title": "Результативность",
-      "text": "Эффективность, измеримая для клиента, — главный критерий нашей работы.",
-      "title_en": "Results",
-      "text_en": "Effectiveness the client can measure is the test we hold ourselves to."
+      "title": "Эффективность",
+      "text": "Осуществляем свою деятельность с максимальной эффективностью для наших клиентов.",
+      "title_en": "Efficiency",
+      "text_en": "We carry out our activities with maximum efficiency for our clients."
     },
     {
       "num": "04",
-      "title": "Международные стандарты",
-      "text": "Качество партнёрства на уровне ведущих мировых практик безопасности.",
-      "title_en": "International standards",
-      "text_en": "Partnership quality at the level of leading global security practice."
+      "title": "Комплексный подход",
+      "text": "Главный принцип в работе «Власта-Консалтинг» — комплексный подход к каждому клиенту.",
+      "title_en": "Integrated approach",
+      "text_en": "The main principle in the work of Vlasta-Consulting is an integrated approach to each client."
     }
   ],
   "team": [

@@ -1823,7 +1823,162 @@
   $$('[data-svc-tabs]').forEach(function (root) {
     var tabs = $$('[data-svc-tab]', root);
     var panels = $$('[data-svc-panel]', root);
-    if (!tabs.length || !panels.length) return;
+    var planes = $$('[data-svc-plane]', root);
+    var bar = $('.svc-tabs__bar', root);
+    var shell = $('.svc-tabs__shell', root);
+    var contour = $('.svc-tabs__contour path', root);
+    var svg = $('.svc-tabs__contour', root);
+    if (!tabs.length || !panels.length || !shell) return;
+
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+    var anim = 0;
+    var from = null;
+    var to = null;
+
+    function ease(t) {
+      return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    }
+
+    function lerp(a, b, t) { return a + (b - a) * t; }
+
+    function roundedPoly(pts) {
+      var d = '';
+      var n = pts.length;
+      for (var i = 0; i < n; i++) {
+        var prev = pts[(i + n - 1) % n];
+        var cur = pts[i];
+        var next = pts[(i + 1) % n];
+        var vx1 = cur.x - prev.x, vy1 = cur.y - prev.y;
+        var vx2 = next.x - cur.x, vy2 = next.y - cur.y;
+        var len1 = Math.hypot(vx1, vy1) || 1;
+        var len2 = Math.hypot(vx2, vy2) || 1;
+        var r = Math.min(cur.r || 0, len1 / 2 - .25, len2 / 2 - .25);
+        if (r < 0) r = 0;
+        var p1x = cur.x - vx1 / len1 * r;
+        var p1y = cur.y - vy1 / len1 * r;
+        var p2x = cur.x + vx2 / len2 * r;
+        var p2y = cur.y + vy2 / len2 * r;
+        d += (i ? 'L' : 'M') + p1x.toFixed(2) + ',' + p1y.toFixed(2);
+        if (r > .6) {
+          /* SVG Y grows down — pick sweep from turn so outer corners stay convex */
+          var sweep = (vx1 * vy2 - vy1 * vx2) < 0 ? 0 : 1;
+          d += 'A' + r.toFixed(2) + ',' + r.toFixed(2) + ' 0 0 ' + sweep + ' ' +
+            p2x.toFixed(2) + ',' + p2y.toFixed(2);
+        } else {
+          d += 'L' + cur.x.toFixed(2) + ',' + cur.y.toFixed(2);
+        }
+      }
+      return d + 'Z';
+    }
+
+    function measure(tab) {
+      var cs = window.getComputedStyle(shell);
+      var bw = parseFloat(cs.borderLeftWidth) || 0;
+      var bh = parseFloat(cs.borderTopWidth) || 0;
+      var w = shell.clientWidth;
+      var h = shell.clientHeight;
+      var sr = shell.getBoundingClientRect();
+      var ox = sr.left + shell.clientLeft;
+      var oy = sr.top + shell.clientTop;
+      var tr = tab.getBoundingClientRect();
+      var shellR = parseFloat(cs.borderTopLeftRadius) || 22;
+      /* overflow clips the padding box; inner radius shrinks by the border */
+      var clipR = Math.max(0, shellR - Math.max(bw, bh));
+      var inset = 2;
+      var R = Math.max(4, clipR - inset);
+      return {
+        w: w,
+        h: h,
+        xL: inset,
+        xR: w - inset,
+        yT: inset,
+        yB: h - inset,
+        yS: Math.max(inset + 8, Math.min(tr.bottom - oy, h - inset)),
+        tL: Math.max(inset, tr.left - ox),
+        tR: Math.min(w - inset, tr.right - ox),
+        R: R,
+        r: Math.min(8, R * .45)
+      };
+    }
+
+    function pathFrom(m) {
+      if (!m || m.w < 8 || m.h < 8) return '';
+      var tL = Math.min(m.tL, m.tR - 24);
+      var tR = Math.max(m.tR, tL + 24);
+      tL = Math.max(m.xL, tL);
+      tR = Math.min(m.xR, tR);
+      var first = tL <= m.xL + 1.5;
+      var last = tR >= m.xR - 1.5;
+      var pts = [];
+      function add(x, y, r) {
+        var prev = pts[pts.length - 1];
+        if (prev && Math.hypot(x - prev.x, y - prev.y) < 1.25) {
+          prev.r = Math.max(prev.r, r);
+          prev.x = x;
+          prev.y = y;
+          return;
+        }
+        pts.push({ x: x, y: y, r: r });
+      }
+      add(m.xL, m.yB, m.R);
+      add(m.xR, m.yB, m.R);
+      if (last) {
+        add(m.xR, m.yT, m.R);
+      } else {
+        add(m.xR, m.yS, 0);
+        add(tR, m.yS, m.r);
+        add(tR, m.yT, m.r);
+      }
+      if (first) {
+        add(m.xL, m.yT, m.R);
+      } else {
+        add(tL, m.yT, m.r);
+        add(tL, m.yS, m.r);
+        add(m.xL, m.yS, 0);
+      }
+      return roundedPoly(pts);
+    }
+
+    function mix(a, b, t) {
+      var o = {};
+      Object.keys(b).forEach(function (k) { o[k] = lerp(a[k], b[k], t); });
+      return o;
+    }
+
+    function paint(m) {
+      if (!contour || !svg || !m) return;
+      svg.setAttribute('viewBox', '0 0 ' + m.w + ' ' + m.h);
+      svg.setAttribute('width', String(m.w));
+      svg.setAttribute('height', String(m.h));
+      contour.setAttribute('d', pathFrom(m));
+    }
+
+    function activeTab() {
+      return tabs.find(function (tab) { return tab.classList.contains('is-on'); }) || tabs[0];
+    }
+
+    function draw(animate) {
+      var next = measure(activeTab());
+      to = next;
+      if (!from) from = next;
+      if (!animate || reduce.matches || !from) {
+        from = next;
+        paint(next);
+        return;
+      }
+      if (anim) cancelAnimationFrame(anim);
+      var t0 = performance.now();
+      var start = from;
+      function tick(now) {
+        var t = Math.min(1, (now - t0) / 520);
+        var m = mix(start, next, ease(t));
+        from = m;
+        paint(m);
+        if (t < 1) anim = requestAnimationFrame(tick);
+        else { from = next; paint(next); }
+      }
+      anim = requestAnimationFrame(tick);
+    }
 
     function activate(id, focusTab) {
       tabs.forEach(function (tab) {
@@ -1832,13 +1987,29 @@
         tab.setAttribute('aria-selected', on ? 'true' : 'false');
         tab.tabIndex = on ? 0 : -1;
         if (on && focusTab) tab.focus();
+        if (on && bar && typeof tab.scrollIntoView === 'function') {
+          try {
+            tab.scrollIntoView({ inline: 'nearest', block: 'nearest', behavior: 'smooth' });
+          } catch (err) {
+            tab.scrollIntoView(false);
+          }
+        }
+      });
+      planes.forEach(function (plane) {
+        plane.classList.toggle('is-on', plane.getAttribute('data-svc-plane') === id);
       });
       panels.forEach(function (panel) {
         var on = panel.getAttribute('data-svc-panel') === id;
         panel.classList.toggle('is-on', on);
-        if (on) panel.removeAttribute('hidden');
-        else panel.setAttribute('hidden', '');
+        if (on) {
+          panel.removeAttribute('aria-hidden');
+          panel.removeAttribute('inert');
+        } else {
+          panel.setAttribute('aria-hidden', 'true');
+          panel.setAttribute('inert', '');
+        }
       });
+      draw(true);
     }
 
     tabs.forEach(function (tab) {
@@ -1847,16 +2018,25 @@
       });
       tab.addEventListener('keydown', function (e) {
         var i = tabs.indexOf(tab);
-        var next = -1;
-        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next = (i + 1) % tabs.length;
-        else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') next = (i - 1 + tabs.length) % tabs.length;
-        else if (e.key === 'Home') next = 0;
-        else if (e.key === 'End') next = tabs.length - 1;
-        if (next < 0) return;
+        var nextI = -1;
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') nextI = (i + 1) % tabs.length;
+        else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') nextI = (i - 1 + tabs.length) % tabs.length;
+        else if (e.key === 'Home') nextI = 0;
+        else if (e.key === 'End') nextI = tabs.length - 1;
+        if (nextI < 0) return;
         e.preventDefault();
-        activate(tabs[next].getAttribute('data-svc-tab'), true);
+        activate(tabs[nextI].getAttribute('data-svc-tab'), true);
       });
     });
+
+    if (bar) bar.addEventListener('scroll', function () { draw(false); }, { passive: true });
+    if (window.ResizeObserver) {
+      var ro = new ResizeObserver(function () { draw(false); });
+      ro.observe(shell);
+    } else {
+      window.addEventListener('resize', function () { draw(false); });
+    }
+    requestAnimationFrame(function () { draw(false); });
   });
 
   /* ---------------------------------------- approach hex (homepage)
