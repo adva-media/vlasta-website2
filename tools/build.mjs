@@ -40,7 +40,7 @@ const BASE = O.domain;
 /* UI strings. Content strings live in the JSON; these are the chrome. */
 const T = {
   ru: {
-    nav: [['index.html','Главная'],['services.html','Услуги'],['about.html','О компании'],
+    nav: [['index.html','Главная'],['services.html','Услуги'],['about.html','О нас'],
           ['cases.html','Кейсы'],['news.html','Новости']],
     contact:'Связаться', menu:'Меню', more:'Подробнее', readOn:'Читать',
     allServices:'Все услуги', allCases:'Все кейсы', allNews:'Все новости',
@@ -50,11 +50,11 @@ const T = {
     themeLabel:'Переключить тёмную тему', openMenu:'Открыть меню', closeMenu:'Закрыть меню',
     toTop:'Наверх', crumbs:'Хлебные крошки', mainNav:'Основная навигация',
     rights:'Все права защищены.', privacy:'Политика конфиденциальности',
-    footerAbout:`Обеспечиваем экономическую безопасность бизнеса и защиту брендов от контрафакта с ${O.founded} года — на передовых технологиях и высоких моральных ценностях.`,
-    ctaKicker:'Начнём сотрудничество', ctaTitle:'Обсудим, как защитить ваш бизнес',
-    ctaText:'Проведём конфиденциальную консультацию, оценим риски и предложим решение под вашу задачу.',
+    footerAbout:'Используя передовые технологии, опираясь на высокие моральные ценности и постоянно стремясь к успеху, обеспечивать экономическую безопасность бизнеса наших клиентов.',
+    ctaKicker:'Контакты', ctaTitle:'Свяжитесь с нами',
+    ctaText:'Проведём конфиденциальную консультацию по вашей задаче.',
     cookieTitle:'Файлы cookie',
-    cookieText:'Мы используем cookie, чтобы сайт работал корректно и чтобы понимать, какие материалы вам полезны. Аналитику можно отключить — на работу сайта это не повлияет.',
+    cookieText:'Продолжая просмотр настоящего сайта, Вы соглашаетесь с использованием файлов Cookie и иных методов, средств и инструментов интернет-статистики и настройки, применяемых на сайте для повышения удобства использования сайта.',
     cookieMore:'Подробнее', ckReject:'Отклонить всё', ckNeeded:'Только необходимые', ckAll:'Принять всё',
     scrollHint:'листайте', sources:'Источники и упоминания', topics:'Темы кейса',
     newer:'Новее', earlier:'Ранее', related:'По теме', showMore:'Показать ещё',
@@ -77,11 +77,11 @@ const T = {
     themeLabel:'Toggle dark theme', openMenu:'Open menu', closeMenu:'Close menu',
     toTop:'Back to top', crumbs:'Breadcrumb', mainNav:'Main navigation',
     rights:'All rights reserved.', privacy:'Privacy policy',
-    footerAbout:`Protecting brands from counterfeiting and securing business operations since ${O.founded} — on advanced technology and high ethical standards.`,
-    ctaKicker:'Start a conversation', ctaTitle:'Let us discuss protecting your business',
-    ctaText:'We will hold a confidential consultation, assess the risks and propose a solution for your situation.',
+    footerAbout:'Using the modern approaches, relying on the highest moral standards and continuously striving for success to ensure business security of our Clients.',
+    ctaKicker:'Contacts', ctaTitle:'Get in touch',
+    ctaText:'We will hold a confidential consultation on your brief.',
     cookieTitle:'Cookies',
-    cookieText:'We use cookies so the site works properly and so we can see which material is useful to you. Analytics can be switched off — the site will work either way.',
+    cookieText:'By continuing to view this site, you agree with cookie files and other methods, means and tools of Internet statistics and configuration used on the site to improve the usability of the site.',
     cookieMore:'Learn more', ckReject:'Reject all', ckNeeded:'Necessary only', ckAll:'Accept all',
     scrollHint:'scroll', sources:'Sources and mentions', topics:'Case topics',
     newer:'Newer', earlier:'Earlier', related:'Related', showMore:'Show more',
@@ -160,36 +160,36 @@ function write(rp, html) {
    content JSON because it is chrome, not data the client edits. */
 const C = {
   ru: {
-    homeTitle:`${O.name} — защита брендов и экономическая безопасность бизнеса`,
-    homeDesc:`«${O.name}» с ${O.founded} года защищает товарные знаки от контрафакта и обеспечивает экономическую безопасность бизнеса в России, СНГ и странах ЕАЭС: ТРОИС, рейды, проверки контрагентов, сопровождение в суде.`,
-    homeKw:'защита бренда, борьба с контрафактом, ТРОИС, экономическая безопасность бизнеса, проверка контрагентов, бизнес-разведка, Власта-Консалтинг',
+    homeTitle:'Официальный сайт компании Власта Консалтинг | Vlasta Consulting',
+    homeDesc:'Защита бренда, корпоративная безопасность, личная безопасность - Власта консалтинг',
+    homeKw:'контрафакт, безопасность, защита бренда, интеллектуальная собственность, brand protection, антиконтрафакт',
     heroPill:`С ${O.founded} года · Москва · Россия и ЕАЭС`,
     heroTitle:'Безопасность бизнеса<br>в надёжных руках',
     heroScroll:'Пролистать к описанию',
-    intro:'Защищаем бренды от контрафакта и обеспечиваем экономическую безопасность компаний в России, СНГ и странах ЕАЭС — опираясь на передовые технологии и высокие моральные ценности.',
-    svcKicker:'Услуги', svcTitle:'Наши направления',
-    svcDesc:'Единая методология — от анализа рисков до сопровождения «под ключ» в суде. Каждое направление работает самостоятельно и усиливает остальные.',
+    intro:'Используя передовые технологии, опираясь на высокие моральные ценности и постоянно стремясь к успеху, обеспечивать экономическую безопасность бизнеса наших клиентов.',
+    svcKicker:'Услуги', svcTitle:'Наши услуги',
+    svcDesc:'Защита бренда, корпоративная безопасность и личная безопасность — комплексный подход к каждому клиенту.',
     apprKicker:'Подход и практика', apprTitle:'Все отделы — одна система',
-    apprDesc:'Профильные отделы работают в одном контуре — от аналитики и полевых мероприятий до права и цифровой среды. Координация между ними обеспечивает правообладателям измеримый эффект наших программ защиты брендов.',
+    apprDesc:'Профильные отделы работают совместно — от аналитики и консультаций до правовой поддержки. Координация между ними обеспечивает комплексный подход к задачам клиента в сфере безопасности бизнеса.',
     casesKicker:'Кейсы', casesTitle:'Как мы решаем задачи клиентов',
     histKicker:'История компании',
     histTitle:'<span class="h2__line">Путь, отмеченный</span><span class="h2__line">международным признанием</span>',
     histHint:'От московского старта до международной практики',
     newsKicker:'Новости', newsTitle:'Компания в публичном пространстве',
     marquee:'Нам доверяют ведущие российские и международные бренды',
-    svcPageTitle:'Услуги: защита бренда, ТРОИС, проверки контрагентов, бизнес-разведка — Власта-Консалтинг',
-    svcPageDesc:'Восемь направлений в четырёх блоках: разведка и анализ, безопасность бизнеса, защита бренда и ИС, консалтинг. Регистрация в ТРОИС, рейды с полицией и таможней, комплаенс, сопровождение в суде.',
-    svcPageKw:'защита интеллектуальной собственности, ТРОИС, бизнес-разведка, проверка контрагентов, комплаенс KYC AML, физическая безопасность, юридический консалтинг',
-    svcH1:'Услуги по защите бренда и безопасности бизнеса',
-    svcLead:'Единая методология: анализ рисков, предупреждение угроз и сопровождение клиента вплоть до защиты интересов в суде — в России, СНГ и странах ЕАЭС.',
+    svcPageTitle:'Наши услуги — Власта-Консалтинг',
+    svcPageDesc:'Защита бренда, корпоративная безопасность, личная безопасность — Власта консалтинг. Интеллектуальная собственность, экономическая безопасность бизнеса, консалтинг.',
+    svcPageKw:'защита бренда, корпоративная безопасность, личная безопасность, интеллектуальная собственность, экономическая безопасность бизнеса, антиконтрафакт',
+    svcH1:'Наши услуги',
+    svcLead:'Защита бренда, корпоративная безопасность и личная безопасность. Комплексный подход к каждому клиенту.',
     svcNav:'Блоки услуг',
-    aboutTitle:'О компании Власта-Консалтинг — эксперты по защите брендов с 2006 года',
-    aboutDesc:'История, команда и партнёрства «Власта-Консалтинг»: 20 лет на рынке, членство в WAD, INTA, ASIS, AEB и «Антиконтрафакт», защита интересов международных корпораций в России и ЕАЭС.',
-    aboutKw:'Власта-Консалтинг о компании, WAD, INTA, ASIS, история компании, команда, ассоциации безопасности',
-    aboutKicker:'О нас', aboutH1:`Эксперты по защите брендов и безопасности бизнеса с ${O.founded} года`,
-    aboutLead:'Мы помогаем компаниям расти спокойно — анализируем риски, предвидим неблагоприятные сценарии и выстраиваем системы защиты, которые работают на опережение.',
+    aboutTitle:'О нас — Власта-Консалтинг',
+    aboutDesc:'Основанная в 2006 году компания Власта-Консалтинг занимает лидирующее место в сфере обеспечения безопасности бизнеса и широко известна в отечественных и иностранных бизнес-кругах.',
+    aboutKw:'Власта-Консалтинг, безопасность бизнеса, защита бренда, корпоративная безопасность, интеллектуальная собственность',
+    aboutKicker:'О нас', aboutH1:'О нас',
+    aboutLead:'Многолетний опыт работы позволяет нашим специалистам анализировать риски, предвидеть неблагоприятные сценарии развития событий и эффективно реагировать на критические ситуации. Мы работаем и оказываем услуги как на территории России, так и в странах СНГ, Европы, Северной и Южной Америки, Африки, Юго-Восточной Азии. Сотрудничество с зарубежными партнерами наряду с членством в профильных международных ассоциациях позволяет нам эффективно представлять в России интересы транснациональных корпораций.',
     whoKicker:'Кто мы', whoTitle:'Надёжный партнёр в вопросах экономической безопасности',
-    whoDesc:'Основанная в 2006 году, компания занимает лидирующее место в сфере обеспечения безопасности бизнеса и защиты интеллектуальной собственности в России.',
+    whoDesc:'Основанная в 2006 году компания Власта-Консалтинг занимает лидирующее место в сфере обеспечения безопасности бизнеса и широко известна в отечественных и иностранных бизнес-кругах. Главный принцип в работе «Власта-Консалтинг» - комплексный подход к каждому клиенту.',
     teamKicker:'Руководство', teamTitle:'Команда, которая отвечает за результат',
     assocKicker:'Партнёрство', assocTitle:'Ассоциации и профессиональные сообщества',
     assocDesc:'Мы состоим в ведущих российских и международных объединениях. Нажмите на карточку, чтобы узнать об участии в каждой ассоциации.',
@@ -214,11 +214,11 @@ const C = {
     newsKick:'Хроника', newsH1:'Новости борьбы с контрафактом и защиты брендов',
     newsLead:'Антиконтрафактные операции и изъятия, инициативы на площадках ЕЭК и ФТС, участие в международных форумах по защите интеллектуальной собственности.',
     newsFilter:'Фильтр по темам', newsCollection:'Новости Власта-Консалтинг',
-    contactsTitle:'Контакты — Власта-Консалтинг, Москва',
-    contactsDesc:`Свяжитесь с «${O.name}»: ${O.address}. Телефон ${O.phone}, e-mail ${O.email}. Конфиденциальная консультация по защите бренда и безопасности бизнеса.`,
-    contactsKw:'Власта-Консалтинг контакты, консультация по защите бренда, безопасность бизнеса Москва',
-    contactsKick:'Свяжитесь с нами', contactsH1:'Обсудим безопасность вашего бизнеса',
-    contactsLead:'Проведём конфиденциальную консультацию и предложим решение под вашу задачу.',
+    contactsTitle:'Контакты — Власта-Консалтинг',
+    contactsDesc:`Свяжитесь с «${O.name}»: ${O.address}. Тел./факс ${O.phone}, e-mail ${O.email}.`,
+    contactsKw:'Власта-Консалтинг контакты, Москва, Усачёва',
+    contactsKick:'Контакты', contactsH1:'Контакты',
+    contactsLead:'119048, город Москва, ул. Усачёва, д. 13, помещ. 4н. Будни: 9:30 - 18:00.',
     mapTitle:'Офис «Власта-Консалтинг» на карте: Москва, ул. Усачёва, 13',
     privacyTitle:'Политика конфиденциальности — Власта-Консалтинг',
     privacyDesc:'Политика обработки персональных данных ООО «Власта-Консалтинг»: какие данные мы собираем, цели и правовые основания обработки, сроки хранения и ваши права.',
@@ -228,36 +228,36 @@ const C = {
     videoTitle:'Видео к материалу',
   },
   en: {
-    homeTitle:'Vlasta Consulting — brand protection and business security',
-    homeDesc:`Since ${O.founded}, Vlasta Consulting has protected trademarks from counterfeiting and secured business operations across Russia, the CIS and the EAEU: customs registers, raids, counterparty screening and litigation support.`,
-    homeKw:'brand protection, anti-counterfeiting, customs register, business security, counterparty screening, business intelligence, Vlasta Consulting',
+    homeTitle:'Official website of Vlasta Consulting | Vlasta Consulting',
+    homeDesc:'Brand protection, corporate security, personal security - Vlasta consulting',
+    homeKw:'counterfeit, security, brand protection, intellectual property, антиконтрафакт',
     heroPill:`Since ${O.founded} · Moscow · Russia and the EAEU`,
-    heroTitle:'Business security<br>in trusted hands',
+    heroTitle:'Business security<br>in reliable hands',
     heroScroll:'Scroll to the introduction',
-    intro:'We protect brands from counterfeiting and secure the operations of companies across Russia, the CIS and the EAEU — on advanced technology and high ethical standards.',
-    svcKicker:'Services', svcTitle:'Our practice areas',
-    svcDesc:'One methodology — from risk analysis through to representation in court. Each area stands on its own and reinforces the others.',
+    intro:'Using the modern approaches, relying on the highest moral standards and continuously striving for success to ensure business security of our Clients.',
+    svcKicker:'Services', svcTitle:'Our services',
+    svcDesc:'Brand protection, corporate security and personal security — an integrated approach to each client.',
     apprKicker:'Approach and record', apprTitle:'All departments — one system',
-    apprDesc:'Our departments work as a single loop — from analytics and field operations to legal and online work. Coordinating them delivers a measurable effect for rights holders across our brand protection programmes.',
+    apprDesc:'Our departments work together — from analytics and advice through to legal support. Coordinating them provides an integrated approach to the client’s business security tasks.',
     casesKicker:'Cases', casesTitle:'How we solve client problems',
     histKicker:'Company history',
     histTitle:'<span class="h2__line">A record marked by</span><span class="h2__line">international recognition</span>',
     histHint:'From a Moscow start to an international practice',
     newsKicker:'News', newsTitle:'The company in the public eye',
     marquee:'Trusted by leading Russian and international brands',
-    svcPageTitle:'Services: brand protection, customs registers, screening, intelligence — Vlasta Consulting',
-    svcPageDesc:'Eight directions across four areas: intelligence and analysis, business security, brand and IP protection, consulting. Customs register filings, raids with police and customs, compliance and litigation support.',
-    svcPageKw:'intellectual property protection, customs register, business intelligence, counterparty screening, KYC AML compliance, physical security, legal consulting',
-    svcH1:'Brand protection and business security services',
-    svcLead:'One methodology: risk analysis, threat prevention and support all the way to representing your interests in court — across Russia, the CIS and the EAEU.',
+    svcPageTitle:'Our services — Vlasta Consulting',
+    svcPageDesc:'Brand protection, corporate security, personal security — Vlasta consulting. Intellectual property, economic security of business, consulting.',
+    svcPageKw:'brand protection, corporate security, personal security, intellectual property, economic security, anti-counterfeit',
+    svcH1:'Our services',
+    svcLead:'Brand protection, corporate security and personal security. An integrated approach to each client.',
     svcNav:'Service areas',
-    aboutTitle:'About Vlasta Consulting — brand protection experts since 2006',
-    aboutDesc:'History, team and partnerships of Vlasta Consulting: 20 years in the market, membership of WAD, INTA, ASIS, AEB and AntiCounterfeit, representing international corporations across Russia and the EAEU.',
-    aboutKw:'Vlasta Consulting about, WAD, INTA, ASIS, company history, team, security associations',
-    aboutKicker:'About us', aboutH1:`Brand protection and business security experts since ${O.founded}`,
-    aboutLead:'We help companies grow without surprises — analysing risk, anticipating adverse scenarios and building protection that works ahead of the threat.',
+    aboutTitle:'About us — Vlasta Consulting',
+    aboutDesc:'Founded in 2006, Vlasta-Consulting is a leader in business security and is widely known in domestic and foreign business circles.',
+    aboutKw:'Vlasta Consulting, business security, brand protection, corporate security, intellectual property',
+    aboutKicker:'About us', aboutH1:'About us',
+    aboutLead:'Many years of experience allow our specialists to analyze risks, anticipate unfavorable scenarios for the development of events and effectively respond to critical situations. We work and provide services both in Russia and in the CIS countries, Europe, North and South America, Africa, and Southeast Asia. Cooperation with foreign partners, as well as membership in specialized international associations enable us to effectively represent the interests of transnational corporations in Russia.',
     whoKicker:'Who we are', whoTitle:'A dependable partner in business security',
-    whoDesc:'Founded in 2006, the company holds a leading position in business security and intellectual property protection in Russia.',
+    whoDesc:'Founded in 2006, Vlasta-Consulting is a leader in business security and is widely known in domestic and foreign business circles. The main principle in the work of Vlasta-Consulting is an integrated approach to each client.',
     teamKicker:'Leadership', teamTitle:'The team accountable for the result',
     assocKicker:'Partnerships', assocTitle:'Associations and professional bodies',
     assocDesc:'We belong to leading Russian and international bodies. Select a card to read about our involvement in each.',
@@ -282,11 +282,11 @@ const C = {
     newsKick:'Chronicle', newsH1:'News on anti-counterfeiting and brand protection',
     newsLead:'Anti-counterfeiting operations and seizures, initiatives at the EEC and the Federal Customs Service, and participation in international IP forums.',
     newsFilter:'Filter by topic', newsCollection:'Vlasta Consulting news',
-    contactsTitle:'Contact — Vlasta Consulting, Moscow',
-    contactsDesc:`Get in touch with Vlasta Consulting: ${O.address}. Phone ${O.phone}, email ${O.email}. Confidential consultation on brand protection and business security.`,
-    contactsKw:'Vlasta Consulting contact, brand protection consultation, business security Moscow',
-    contactsKick:'Get in touch', contactsH1:'Let us discuss your business security',
-    contactsLead:'We will hold a confidential consultation and propose a solution for your situation.',
+    contactsTitle:'Contact — Vlasta Consulting',
+    contactsDesc:`Get in touch with Vlasta Consulting: ${O.address_en || O.address}. Tel./fax ${O.phone}, email ${O.email}.`,
+    contactsKw:'Vlasta Consulting contact, Moscow, Usacheva',
+    contactsKick:'Contacts', contactsH1:'Contacts',
+    contactsLead:'office 4N, 13, Usacheva str., Moscow, 119048. Weekdays: 9:30 a.m. - 6 p.m.',
     mapTitle:'Vlasta Consulting office on the map: Usacheva 13, Moscow',
     privacyTitle:'Privacy policy — Vlasta Consulting',
     privacyDesc:'Personal data processing policy of Vlasta Consulting LLC: what we collect, the purposes and legal basis for processing, retention periods and your rights.',
@@ -748,7 +748,7 @@ const HEX_PLATE = `<span class="appr-hex__frost" aria-hidden="true"></span>
 </svg>`;
 
 const approachHex = () => {
-  const label = EN ? 'Our practice areas' : 'Наши направления работы';
+  const label = EN ? 'Our services' : 'Наши услуги';
   const cells = site.departments.map((d, i) => {
     const idle = HEX_V[i] || { x: 0, y: 2 };
     return `<button type="button" class="appr-hex__cell" data-i="${i}" style="--x:${idle.x};--y:${idle.y}" aria-pressed="false">
@@ -761,6 +761,7 @@ const approachHex = () => {
       </span>
     </button>`;
   }).join('');
+  const kpiHead = EN ? 'Key figures for the year' : 'Ключевые показатели за год';
   const kpis = site.results.map((r, i) => `<div class="res__c reveal"${i ? ` data-d="${i}"` : ''}>
         <div class="res__head">
           <span class="res__ico">${I[r.icon] || I.shield}</span>
@@ -789,7 +790,7 @@ const approachHex = () => {
   <div class="appr-hex__stage">
     <div class="appr-hex__grid">${cells}</div>
   </div>
-  <div class="appr-hex__kpi res">${kpis}</div>
+  <div class="appr-hex__kpi"><p class="appr-hex__kpi-h">${esc(kpiHead)}</p><div class="res">${kpis}</div></div>
   </div>
   <script type="application/json" id="apprHexData">${JSON.stringify(apprData).replace(/</g, '\\u003c')}</script>
 </div>`;
@@ -1064,6 +1065,7 @@ function buildHome() {
     </div>
   </div>
 </section>
+</div><!-- /glasszone -->
 
 <section class="sec" id="services">
   <div class="wrap">
@@ -1074,49 +1076,66 @@ function buildHome() {
       extra: seeall('services.html', T.allServices),
     })}
     <div class="svc-tabs reveal" data-svc-tabs>
-      <div class="svc-tabs__bar" role="tablist" aria-label="${esc(C.svcTitle)}">
-        ${site.services.map((s, i) => `<button type="button"
-            class="svc-tabs__tab${i === 0 ? ' is-on' : ''}"
-            role="tab"
-            id="svc-tab-${s.id}"
-            aria-selected="${i === 0 ? 'true' : 'false'}"
-            aria-controls="svc-panel-${s.id}"
-            tabindex="${i === 0 ? '0' : '-1'}"
-            data-svc-tab="${s.id}">
-          <span class="svc-tabs__ico" aria-hidden="true">${I[s.icon]}</span>
-          <span class="svc-tabs__lab">${esc(t(s, 'title'))}</span>
-        </button>`).join('')}
-      </div>
-      <div class="svc-tabs__stage">
-        ${site.services.map((s, i) => `<div
-            class="svc-tabs__panel${i === 0 ? ' is-on' : ''}"
-            role="tabpanel"
-            id="svc-panel-${s.id}"
-            aria-labelledby="svc-tab-${s.id}"
-            data-svc-panel="${s.id}"
-            ${i === 0 ? '' : 'hidden'}>
-          <div class="svc-tabs__bg" aria-hidden="true" data-svc-bg="${esc(s.id)}">
-            ${s.tabImg ? `<img src="${rel(0, s.tabImg)}" alt="" width="1600" height="900" decoding="async">` : '<div class="svc-tabs__ph"></div>'}
+      <div class="svc-tabs__shell">
+        <div class="svc-tabs__planes" aria-hidden="true">
+          ${site.services.map((s, i) => `<div
+              class="svc-tabs__plane${i === 0 ? ' is-on' : ''}"
+              data-svc-plane="${esc(s.id)}"
+              data-svc-bg="${esc(s.id)}">
+            ${s.tabImg
+              ? `<img src="${rel(0, s.tabImg)}" alt="" width="1600" height="900" decoding="async">`
+              : '<div class="svc-tabs__ph"></div>'}
             <div class="svc-tabs__wash"></div>
-          </div>
-          <div class="svc-tabs__body">
-            <div class="svc-tabs__main">
-              <span class="svc-tabs__n" aria-hidden="true">${esc(s.num)}</span>
-              <h3 class="svc-tabs__title">${svcHomeTitle(s)}</h3>
-              <p class="svc-tabs__tag">${esc(plain(t(s, 'tagline')))}</p>
-              <a class="svc-tabs__more arrow-link" href="services.html#${s.id}">
-                <span class="svc-tabs__more-l">${T.more}</span> ${I.arrow}
-              </a>
+          </div>`).join('')}
+        </div>
+        <div class="svc-tabs__bar" role="tablist" aria-label="${esc(C.svcTitle)}">
+          ${site.services.map((s, i) => `<button type="button"
+              class="svc-tabs__tab${i === 0 ? ' is-on' : ''}"
+              role="tab"
+              id="svc-tab-${s.id}"
+              aria-selected="${i === 0 ? 'true' : 'false'}"
+              aria-controls="svc-panel-${s.id}"
+              tabindex="${i === 0 ? '0' : '-1'}"
+              data-svc-tab="${s.id}">
+            <span class="svc-tabs__tab-media" aria-hidden="true" data-svc-bg="${esc(s.id)}">
+              ${s.tabImg
+                ? `<img src="${rel(0, s.tabImg)}" alt="" width="640" height="360" decoding="async">`
+                : '<span class="svc-tabs__ph"></span>'}
+              <span class="svc-tabs__tab-wash"></span>
+            </span>
+            <span class="svc-tabs__ico" aria-hidden="true">${I[s.icon]}</span>
+            <span class="svc-tabs__lab">${esc(t(s, 'title'))}</span>
+          </button>`).join('')}
+        </div>
+        <svg class="svc-tabs__contour" aria-hidden="true" focusable="false" preserveAspectRatio="none">
+          <path></path>
+        </svg>
+        <div class="svc-tabs__stage">
+          ${site.services.map((s, i) => `<div
+              class="svc-tabs__panel${i === 0 ? ' is-on' : ''}"
+              role="tabpanel"
+              id="svc-panel-${s.id}"
+              aria-labelledby="svc-tab-${s.id}"
+              data-svc-panel="${s.id}"
+              ${i === 0 ? '' : 'aria-hidden="true" inert'}>
+            <div class="svc-tabs__body">
+              <div class="svc-tabs__main">
+                <span class="svc-tabs__n" aria-hidden="true">${esc(s.num)}</span>
+                <h3 class="svc-tabs__title">${svcHomeTitle(s)}</h3>
+                <p class="svc-tabs__tag">${esc(plain(t(s, 'tagline')))}</p>
+                <a class="svc-tabs__more arrow-link" href="services.html#${s.id}">
+                  <span class="svc-tabs__more-l">${T.more}</span> ${I.arrow}
+                </a>
+              </div>
+              <ul class="svc-tabs__hl">${(t(s, 'highlights') || []).map(h =>
+                `<li><a href="${hlHref(s.id, h)}">${rich(hlText(h))}</a></li>`).join('')}</ul>
             </div>
-            <ul class="svc-tabs__hl">${(t(s, 'highlights') || []).map(h =>
-              `<li><a href="${hlHref(s.id, h)}">${rich(hlText(h))}</a></li>`).join('')}</ul>
-          </div>
-        </div>`).join('')}
+          </div>`).join('')}
+        </div>
       </div>
     </div>
   </div>
 </section>
-</div><!-- /glasszone -->
 
 ${marquee()}
 
@@ -1246,7 +1265,7 @@ function buildServices() {
         '@context': 'https://schema.org', '@type': 'ItemList',
         itemListElement: site.services.map((s, i) => ({
           '@type': 'ListItem', position: i + 1,
-          item: { '@type': 'Service', name: s.title, description: s.tagline, provider: { '@type': 'Organization', name: O.name }, url: `${BASE}/services.html#${s.id}` },
+          item: { '@type': 'Service', name: t(s, 'title'), description: plain(t(s, 'tagline')), provider: { '@type': 'Organization', name: O.name }, url: `${BASE}/services.html#${s.id}` },
         })),
       }],
     }),
@@ -1307,14 +1326,14 @@ function buildAbout() {
       desc: C.aboutDesc,
       keywords: C.aboutKw,
       canonical: EN ? `${BASE}/en/about.html` : `${BASE}/about.html`, page: 'about.html',
-      jsonld: [orgLd, crumbLd([['Главная', ''], ['О компании', 'about.html']])],
+      jsonld: [orgLd, crumbLd([['Главная', ''], ['О нас', 'about.html']])],
     }),
     c.header,
     `<main>
 <section class="phero">
   ${engrave('tr', 'ph')}
   <div class="wrap">
-    <nav class="crumbs" aria-label="${T.crumbs}"><a href="index.html">${T.home}</a> / <span>О компании</span></nav>
+    <nav class="crumbs" aria-label="${T.crumbs}"><a href="index.html">${T.home}</a> / <span>О нас</span></nav>
     ${kick(C.aboutKicker)}
     <h1 class="h1">${C.aboutH1}</h1>
     <p class="lead">${C.aboutLead}</p>
@@ -1678,7 +1697,7 @@ function buildContacts() {
         <div class="ci__i"><span class="ci__ico">${I.phone}</span><div><h4>${T.phone}</h4><a href="tel:${O.phoneHref}">${esc(O.phone)}</a></div></div>
         <div class="ci__i"><span class="ci__ico">${I.mail}</span><div><h4>${T.email}</h4><a href="mailto:${O.email}">${esc(O.email)}</a></div></div>
         <div class="ci__i"><span class="ci__ico">${I.pin}</span><div><h4>${T.address}</h4><p>${esc(t(O,'address'))}</p></div></div>
-        <div class="ci__i"><span class="ci__ico">${I.clock}</span><div><h4>${T.hours}</h4><p>${T.weekdays}<br>9:30 – 18:00</p></div></div>
+        <div class="ci__i"><span class="ci__ico">${I.clock}</span><div><h4>${T.hours}</h4><p>${esc(t(O,'hours'))}</p></div></div>
       </div>
       <div class="ci-actions">
         <a href="tel:${O.phoneHref}" class="btn btn--primary">${T.callUs} ${I.arrow}</a>
