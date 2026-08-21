@@ -1109,7 +1109,7 @@ body.over-hero .hero{
   color:#fff;max-width:min(28ch,78%);pointer-events:none;text-wrap:balance}
 .svc-detail__intro{position:absolute;inset:0;z-index:2;display:flex;align-items:flex-end;margin:0;
   padding:clamp(28px,5vw,52px);padding-top:clamp(72px,12vw,120px);
-  font-size:clamp(18px,1.85vw,22px);font-weight:400;line-height:1.55;
+  font-size:clamp(15px,1.4vw,17.5px);font-weight:400;line-height:1.55;
   color:rgba(255,255,255,.92);max-width:min(68ch,85%);pointer-events:none}
 .svc-detail__hero figcaption{font-style:normal}
 .ico--sm{width:40px;height:40px;border-radius:11px;flex:none}
@@ -2338,7 +2338,7 @@ html.is-locked,html.is-locked body{overflow:hidden}
   .svc-detail__title{position:relative;z-index:3;padding:0;
     font-size:clamp(26px,7vw,36px);max-width:90%}
   .svc-detail__intro{position:relative;inset:auto;z-index:2;display:block;
-    padding:0;max-width:100%;font-size:17.5px;line-height:1.5}
+    padding:0;max-width:100%;font-size:15px;line-height:1.5}
   .svc-detail__n{font-size:clamp(110px,36vw,200px);bottom:-8%;right:0}
   .clients{grid-template-columns:repeat(4,1fr)}
   .geo__bar{grid-template-columns:repeat(3,1fr);gap:8px;margin-top:22px}
