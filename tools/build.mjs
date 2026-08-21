@@ -185,11 +185,13 @@ const C = {
     newsKicker:'Новости', newsTitle:'Компания в публичном пространстве',
     marquee:'Нам доверяют ведущие российские и международные бренды',
     svcPageTitle:'Наши услуги — Власта-Консалтинг',
-    svcPageDesc:'Защита бренда, корпоративная безопасность, личная безопасность — Власта консалтинг. Интеллектуальная собственность, экономическая безопасность бизнеса, консалтинг.',
-    svcPageKw:'защита бренда, корпоративная безопасность, личная безопасность, интеллектуальная собственность, экономическая безопасность бизнеса, антиконтрафакт',
-    svcH1:'Наши услуги',
-    svcLead:'Защита бренда, корпоративная безопасность и личная безопасность. Комплексный подход к каждому клиенту.',
+    svcPageDesc:'Восемь направлений в четырёх блоках: анализ compliance, безопасность бизнеса, защита бренда и ИС, стратегический и юридический консалтинг.',
+    svcPageKw:'бизнес-разведка, безопасность бизнеса, защита бренда, интеллектуальная собственность, консалтинг, антиконтрафакт',
+    svcH1:'Услуги для безопасности бизнеса',
+    svcLead:'Восемь направлений в четырёх ключевых блоках — от бизнес-разведки и защиты бренда до стратегического консалтинга и физической безопасности. Единая методология: анализ рисков, предупреждение угроз и сопровождение «под ключ» вплоть до защиты интересов в суде.',
     svcNav:'Блоки услуг',
+    svcScenNav:'Сценарии клиентов',
+    svcScenTo:'Перейти к разделу',
     aboutTitle:'О нас — Власта-Консалтинг',
     aboutDesc:'Основанная в 2006 году компания Власта-Консалтинг занимает лидирующее место в сфере обеспечения безопасности бизнеса и широко известна в отечественных и иностранных бизнес-кругах.',
     aboutKw:'Власта-Консалтинг, безопасность бизнеса, защита бренда, корпоративная безопасность, интеллектуальная собственность',
@@ -255,11 +257,13 @@ const C = {
     newsKicker:'News', newsTitle:'The company in the public eye',
     marquee:'Trusted by leading Russian and international brands',
     svcPageTitle:'Our services — Vlasta Consulting',
-    svcPageDesc:'Brand protection, corporate security, personal security — Vlasta consulting. Intellectual property, economic security of business, consulting.',
-    svcPageKw:'brand protection, corporate security, personal security, intellectual property, economic security, anti-counterfeit',
-    svcH1:'Our services',
-    svcLead:'Brand protection, corporate security and personal security. An integrated approach to each client.',
+    svcPageDesc:'Eight practice areas in four blocks: compliance analysis, business security, brand and IP protection, strategic and legal consulting.',
+    svcPageKw:'compliance analysis, business security, brand protection, intellectual property, consulting, anti-counterfeit',
+    svcH1:'Services for business security',
+    svcLead:'Eight practice areas in four key blocks — from business intelligence and brand protection to strategic consulting and physical security. One methodology: risk analysis, threat prevention and turnkey support through to defending your interests in court.',
     svcNav:'Service areas',
+    svcScenNav:'Client scenarios',
+    svcScenTo:'Go to section',
     aboutTitle:'About us — Vlasta Consulting',
     aboutDesc:'Founded in 2006, Vlasta-Consulting is a leader in business security and is widely known in domestic and foreign business circles.',
     aboutKw:'Vlasta Consulting, business security, brand protection, corporate security, intellectual property',
@@ -1246,6 +1250,55 @@ const flowBlock = (f) => `<details class="fold fold--flow" open>
         </div>
       </details>`;
 
+/* Client scenarios: situation → linked service blocks (from site.serviceScenarios). */
+const svcById = Object.fromEntries(site.services.map(s => [s.id, s]));
+const svcShort = {
+  brand: EN ? 'Brand & IP' : 'Защита бренда',
+  security: EN ? 'Business security' : 'Безопасность бизнеса',
+  compliance: EN ? 'Compliance analysis' : 'Анализ compliance',
+  consulting: EN ? 'Consulting' : 'Консалтинг',
+};
+
+function scenariosBlock() {
+  const sc = site.serviceScenarios;
+  if (!sc?.groups?.length) return '';
+  let n = 0;
+  const groups = sc.groups.map(g => {
+    const items = g.items.map(it => {
+      n += 1;
+      const hint = tt(it, 'hint');
+      const offers = (it.offers || []).map(o => {
+        const svc = svcById[o.to];
+        const label = svcShort[o.to] || (svc ? t(svc, 'title') : o.to);
+        return `<li class="scen__offer">
+            <a class="scen__link" href="#${esc(o.to)}" aria-label="${esc(C.svcScenTo)}: ${esc(label)}">
+              <span class="scen__svc">${esc(label)}</span>
+              <span class="scen__go" aria-hidden="true">${I.arrow}</span>
+            </a>
+            <p class="scen__how">${esc(tt(o, 'text'))}</p>
+          </li>`;
+      }).join('');
+      return `<li class="scen__item reveal">
+          <span class="scen__n" aria-hidden="true">${String(n).padStart(2, '0')}</span>
+          <div class="scen__body">
+            <h4 class="scen__t">${esc(tt(it, 'trigger'))}${hint ? ` <span class="scen__hint">(${esc(hint)})</span>` : ''}</h4>
+            <ul class="scen__offers">${offers}</ul>
+          </div>
+        </li>`;
+    }).join('');
+    return `<div class="scen__group">
+        <h3 class="scen__g">${esc(tt(g, 'title'))}</h3>
+        <ol class="scen__list">${items}</ol>
+      </div>`;
+  }).join('');
+  return `<section class="sec sec--alt" id="scenarios" aria-label="${esc(C.svcScenNav)}">
+  <div class="wrap">
+    ${shead({ k: t(sc, 'kicker'), h: t(sc, 'title'), d: t(sc, 'lead'), mod: 'split' })}
+    <div class="scen">${groups}</div>
+  </div>
+</section>`;
+}
+
 function buildServices() {
   const c = chrome('services.html', 0);
   const html = j(
@@ -1277,13 +1330,18 @@ function buildServices() {
 <nav class="svc-jump" aria-label="${C.svcNav}">
   <div class="wrap">
     <div class="svc-tabs">
-      ${site.services.map(s => `<a class="svc-tabs__tab" href="#${s.id}">
+      <a class="svc-tabs__tab" href="#scenarios">
+        <span class="svc-tabs__fill" aria-hidden="true"></span>
+        <span class="svc-tabs__txt">${esc(C.svcScenNav)}</span>
+      </a>${site.services.map(s => `<a class="svc-tabs__tab" href="#${s.id}">
         <span class="svc-tabs__fill" aria-hidden="true"></span>
         <span class="svc-tabs__txt"><b>${esc(s.num)}</b>${esc(t(s,'title'))}</span>
       </a>`).join('')}
     </div>
   </div>
 </nav>
+
+${scenariosBlock()}
 
 <section class="sec">
   <div class="wrap">
@@ -1374,11 +1432,11 @@ function buildAbout() {
   </div>
 </section>
 
-<section class="sec">
+<section class="sec sec--alt" id="who">
   <div class="wrap">
-    ${shead({ k: C.whoKicker, h: C.whoTitle, d: C.whoDesc })}
-    <div class="values reveal">
-      ${site.values.map(v => `<div class="value"><span class="value__n">${esc(v.num)}</span><h3>${esc(t(v,'title'))}</h3><p>${esc(t(v,'text'))}</p></div>`).join('')}
+    ${shead({ k: C.whoKicker, h: C.whoTitle, d: C.whoDesc, mod: 'stack' })}
+    <div class="values reveal" role="list">
+      ${site.values.map(v => `<div class="value" role="listitem"><span class="value__n">${esc(v.num)}</span><h3>${esc(t(v,'title'))}</h3><p>${esc(t(v,'text'))}</p></div>`).join('')}
     </div>
   </div>
 </section>

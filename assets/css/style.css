@@ -186,7 +186,7 @@ h1,h2,h3,h4{font-family:var(--ui);color:var(--ink);line-height:1.14;letter-spaci
 .shead--center .shead__t{max-width:min(100%,660px)}
 .shead--center .shead__d{margin-inline:auto}
 .shead--center .shead__x{justify-content:center}
-/* Title + lead stacked left (homepage services); wider lead for fewer wraps */
+/* Title + lead stacked left (homepage services / about who); wider lead for fewer wraps */
 .shead--stack .shead__d{max-width:min(100%,780px)}
 .shead--stack .shead__row .shead__d{max-width:min(100%,780px)}
 
@@ -860,7 +860,7 @@ body.over-hero .hero{
 }
 [data-svc-bg="brand"] img{object-position:50% 42%}
 [data-svc-bg="security"] img{object-position:72% 28%}
-[data-svc-bg="intelligence"] img{object-position:55% 35%}
+[data-svc-bg="compliance"] img{object-position:55% 35%}
 [data-svc-bg="consulting"] img{object-position:50% 38%}
 /* Light tiles: single base wash; pocket grows via @property stop animation.
    Ink tiles: dual-wash opacity crossfade (reveal layer) — unchanged. */
@@ -1024,13 +1024,18 @@ body.over-hero .hero{
 .svc-jump{position:sticky;top:var(--hdr-h);z-index:80;
   background:rgba(255,255,255,.92);
   -webkit-backdrop-filter:blur(14px) saturate(1.35);backdrop-filter:blur(14px) saturate(1.35);
-  border-bottom:1px solid var(--line-soft)}
+  border-bottom:1px solid var(--line-soft);
+  /* No edge fade overlays — labels must stay fully opaque at L/R. */
+  -webkit-mask-image:none;mask-image:none}
 .svc-jump .wrap{padding-block:0}
 .svc-tabs{display:flex;flex-wrap:nowrap;gap:0;margin:0;
   overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
-  overscroll-behavior-x:contain}
+  overscroll-behavior-x:contain;
+  -webkit-mask-image:none;mask-image:none}
 .svc-tabs::-webkit-scrollbar{display:none}
-.svc-tabs__tab{position:relative;flex:1 1 0;min-width:max(9.5rem,22vw);max-width:100%;
+.svc-tabs::before,.svc-tabs::after{content:none;display:none}
+/* Equal columns that shrink to the wrap — avoids overflow clip that looked like edge fades. */
+.svc-tabs__tab{position:relative;flex:1 1 0;min-width:0;max-width:100%;
   display:flex;align-items:center;justify-content:center;gap:0;
   /* No padding on the cell — label padding is on __txt so fill can sit inset:0. */
   padding:0;margin:0;border:0;border-radius:0;
@@ -1047,7 +1052,7 @@ body.over-hero .hero{
   transform:scaleX(var(--progress,0));transform-origin:left center;
   will-change:transform}
 .svc-tabs__txt{position:relative;z-index:1;display:inline-flex;align-items:center;gap:8px;
-  padding:15px 14px;max-width:100%;overflow:hidden;text-overflow:ellipsis;box-sizing:border-box}
+  padding:15px 12px;max-width:100%;overflow:hidden;text-overflow:ellipsis;box-sizing:border-box}
 .svc-tabs__txt b{font-size:11.5px;font-weight:700;letter-spacing:.08em;color:var(--accent);
   flex:none}
 .svc-tabs__tab:hover{color:var(--ink)}
@@ -1067,7 +1072,8 @@ body.over-hero .hero{
   .svc-tabs__tab{min-width:11.5rem;flex:0 0 auto;font-size:12.5px}
   .svc-tabs__txt{padding:14px 16px}
   .svc-jump .wrap{padding-inline:0}
-  .svc-tabs{margin:0;padding-inline:max(16px,env(safe-area-inset-left))}
+  /* Symmetric inset (no L/R fade masks) so first/last labels clear the viewport edge. */
+  .svc-tabs{margin:0;padding-inline:max(16px,env(safe-area-inset-left)) max(16px,env(safe-area-inset-right))}
 }
 @media (prefers-reduced-motion:reduce){
   .svc-tabs__fill{will-change:auto}
@@ -1161,6 +1167,39 @@ body.over-hero .hero{
 .flow__n{display:block;font-size:12px;font-weight:700;letter-spacing:.14em;color:var(--accent)}
 .flow__s h4{margin:9px 0 7px;font-size:16px;font-weight:700;letter-spacing:-.012em}
 .flow__s p{font-size:14px;line-height:1.6;color:var(--body)}
+
+/* client scenarios: situation → linked service blocks */
+#scenarios{scroll-margin-top:calc(var(--hdr-h) + var(--svc-tabs-h) + 16px)}
+.scen{display:grid;gap:clamp(36px,4.5vw,56px)}
+.scen__group{display:grid;gap:18px}
+.scen__g{margin:0;font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--accent)}
+.scen__list{list-style:none;margin:0;padding:0;display:grid;gap:0;
+  border-top:1px solid var(--line)}
+.scen__item{display:grid;grid-template-columns:auto minmax(0,1fr);gap:18px 22px;
+  padding:22px 0;border-bottom:1px solid var(--line);align-items:start}
+.scen__n{font-size:12px;font-weight:700;letter-spacing:.14em;color:var(--accent);
+  padding-top:6px;line-height:1}
+.scen__body{min-width:0;display:grid;gap:12px}
+.scen__t{margin:0;font-size:clamp(17px,1.9vw,21px);font-weight:700;letter-spacing:-.02em;
+  line-height:1.3;color:var(--ink)}
+.scen__hint{font-weight:500;color:var(--steel);font-size:.86em}
+.scen__offers{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.scen__offer{display:grid;gap:4px;padding:12px 14px;border-left:2px solid var(--line);
+  background:var(--paper);transition:border-color .25s var(--ease),background .25s var(--ease)}
+.scen__offer:hover{border-left-color:var(--accent);background:var(--paper-alt)}
+.scen__link{display:inline-flex;align-items:center;gap:8px;width:fit-content;
+  font-size:14px;font-weight:700;color:var(--accent);text-decoration:none}
+.scen__link svg{width:14px;height:14px;transition:transform .3s var(--ease)}
+.scen__link:hover svg{transform:translateX(4px)}
+.scen__how{margin:0;font-size:14px;line-height:1.55;color:var(--body);max-width:72ch}
+@media (min-width:900px){
+  .scen__offers{grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+  .scen__offer{padding:14px 16px;border-left:none;border-top:2px solid var(--line)}
+  .scen__offer:hover{border-top-color:var(--accent);border-left-color:transparent}
+}
+[data-theme="dark"] .scen__offer{background:rgba(255,255,255,.03)}
+[data-theme="dark"] .scen__offer:hover{background:rgba(255,255,255,.06)}
 
 /* chips nav */
 .chips{display:flex;gap:9px;flex-wrap:wrap}
@@ -1400,6 +1439,9 @@ body.over-hero .hero{
   background-repeat:no-repeat;
   filter:blur(8px);
 }
+#services::before{
+  background-image:url("../img/services-bg.jpg");
+}
 #history::after,
 #services::after{
   content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
@@ -1516,7 +1558,8 @@ body.over-hero .hero{
   background:none;box-shadow:none;border-radius:0;
   -webkit-backdrop-filter:none;backdrop-filter:none;
   --rail:clamp(108px,12vw,140px);--mk:clamp(44px,5.2vw,54px);
-  --chip-room:clamp(16px,2.2vw,26px)}
+  --chip-room:clamp(16px,2.2vw,26px);
+  user-select:none;-webkit-user-select:none;-moz-user-select:none}
 .road__body{--rail:clamp(108px,12vw,140px);--mk:clamp(44px,5.2vw,54px);
   --chip-room:clamp(16px,2.2vw,26px);
   --fade:clamp(36px,7vw,80px);--fade-l:var(--fade);--fade-r:var(--fade);
@@ -1528,11 +1571,16 @@ body.over-hero .hero{
   overflow-x:auto;overflow-y:hidden;scroll-snap-type:none;
   scrollbar-width:none;-ms-overflow-style:none;
   -webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;
+  /* Decorative timeline blurbs — block select so grab-drag never highlights copy. */
+  user-select:none;-webkit-user-select:none;-moz-user-select:none;
   -webkit-mask-image:linear-gradient(90deg,
     transparent 0, #000 var(--fade-l), #000 calc(100% - var(--fade-r)), transparent);
   mask-image:linear-gradient(90deg,
     transparent 0, #000 var(--fade-l), #000 calc(100% - var(--fade-r)), transparent)}
-.road__body.is-drag{cursor:grabbing}
+.road__body.is-drag{cursor:grabbing;touch-action:none}
+.road__body img,.road__body a{-webkit-user-drag:none}
+.road__htrack,.road__list,.road__i,.road__peg,.road__yr,.road__mark,.road__c,.road__c p{
+  user-select:none;-webkit-user-select:none;-moz-user-select:none}
 .road__body::-webkit-scrollbar{display:none;width:0;height:0}
 .road__htrack{display:inline-flex;align-items:flex-start;min-width:100%;position:relative;
   /* Top room for year chips on the rising end; ahead spacer continues the trail. */
@@ -1731,11 +1779,14 @@ html.is-locked,html.is-locked body{overflow:hidden}
 .mq__i{flex:none;width:var(--mq-w);height:128px;border-radius:16px;background:#fff;
   border:1px solid var(--line-soft);display:flex;align-items:center;justify-content:center;padding:22px 20px}
 .mq__i img{max-width:82%;max-height:72%;width:auto;height:auto;object-fit:contain;
-  /* ~50% less greying than grayscale(1)/.62 — color peeks through at rest */
-  filter:grayscale(.5);opacity:.81;transition:var(--t);
+  /* Logo wash OFF (full clarity). Prior wash — restore by swapping these two lines:
+     filter:grayscale(.5);opacity:.81;  (~50% less greying than grayscale(1)/.62)
+     and restore drag rule below to filter:grayscale(.5);opacity:.81 */
+  filter:none;opacity:1;transition:var(--t);
   transform:scale(var(--logo-scale,1));-webkit-user-drag:none;user-select:none;pointer-events:none}
 .mq__i:hover img{filter:none;opacity:1}
-.mq__vp.is-dragging .mq__i img{filter:grayscale(.5);opacity:.81}
+/* Prior wash-on-drag: filter:grayscale(.5);opacity:.81 */
+.mq__vp.is-dragging .mq__i img{filter:none;opacity:1}
 
 /* ---------------------------------------------------------------- cases */
 .case-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
@@ -1902,16 +1953,13 @@ html.is-locked,html.is-locked body{overflow:hidden}
   text-transform:uppercase;color:var(--accent)}
 .person p{margin-top:11px;font-size:14px;line-height:1.55;color:var(--body)}
 
-.values{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);
-  border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden}
-.value{background:var(--paper);padding:32px 26px;transition:var(--t)}
-.value:hover{background:var(--accent)}
-.value__n{font-size:12px;font-weight:700;letter-spacing:.16em;color:var(--accent);transition:color var(--t)}
-.value h3{font-size:18px;margin-top:15px;transition:color var(--t)}
-.value p{margin-top:10px;font-size:14px;line-height:1.55;color:var(--body);transition:color var(--t)}
-.value:hover .value__n{color:var(--mist)}
-.value:hover h3{color:#fff}
-.value:hover p{color:rgba(255,255,255,.8)}
+/* Principles — numbered columns (flow-step language), not clickable tiles */
+.values{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:clamp(28px,3.2vw,40px) clamp(22px,2.8vw,36px)}
+.value{min-width:0;padding:18px 0 0;border-top:2px solid var(--line);background:transparent}
+.value__n{display:block;font-size:12px;font-weight:700;letter-spacing:.16em;color:var(--accent)}
+.value h3{font-size:clamp(16px,1.35vw,18px);margin-top:10px;letter-spacing:-.012em;line-height:1.25}
+.value p{margin-top:10px;font-size:14px;line-height:1.55;color:var(--body);max-width:32ch}
 
 /* letters: a horizontal carousel of uniform tiles, like the client strip */
 .letters-rail{display:flex;gap:18px;overflow-x:auto;overflow-y:hidden;padding:4px 0 22px;
@@ -2271,8 +2319,9 @@ html.is-locked,html.is-locked body{overflow:hidden}
   .res{grid-template-columns:repeat(2,1fr)}
   .case-grid,.news-grid,.team{grid-template-columns:repeat(2,1fr)}
   .facts{grid-template-columns:1fr}
-  .values{grid-template-columns:repeat(2,1fr)}
+  .values{grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 32px}
 }
+
 @media (max-width:920px){
   .nav,.hdr__cta .btn,.hdr__talk,.hdr__tools,.hdr.is-stuck .hdr__tools{display:none}
   .burger{display:block}
@@ -2376,9 +2425,6 @@ html.is-locked,html.is-locked body{overflow:hidden}
 [data-theme="dark"] .client img,[data-theme="dark"] .assoc__logo img,
 [data-theme="dark"] .mq__i img{opacity:.72}
 [data-theme="dark"] .nm-grat line{stroke:var(--accent);stroke-opacity:.22}
-[data-theme="dark"] .value:hover h3{color:#0C0C1C}
-[data-theme="dark"] .value:hover p{color:rgba(16,16,36,.78)}
-[data-theme="dark"] .value:hover .value__n{color:rgba(16,16,36,.6)}
 [data-theme="dark"] .btn--light{background:var(--accent);color:#0C0C1C}
 [data-theme="dark"] .geo__bar b{color:#fff}
 
@@ -2544,12 +2590,14 @@ section[id]{scroll-margin-top:96px}
   touch-action:pan-x pan-y;
   -webkit-overflow-scrolling:touch;
 }
+.case-rail img,.letters-rail img,.assoc-rail img,.news-rail img,.svc-rail img,
+.case-rail a,.letters-rail a,.assoc-rail a,.news-rail a,.svc-rail a{-webkit-user-drag:none}
 .case-rail.is-drag,.letters-rail.is-drag,.assoc-rail.is-drag,.news-rail.is-drag,.svc-rail.is-drag,.svc-grid.is-drag,
 .case-rail.is-xscroll,.letters-rail.is-xscroll,.assoc-rail.is-xscroll,.news-rail.is-xscroll,.svc-rail.is-xscroll{
   cursor:grabbing;scroll-snap-type:none
 }
 .case-rail.is-drag,.letters-rail.is-drag,.assoc-rail.is-drag,.news-rail.is-drag,.svc-rail.is-drag,.svc-grid.is-drag{
-  user-select:none;-webkit-user-select:none
+  user-select:none;-webkit-user-select:none;touch-action:none
 }
 .case-rail.is-drag a,.letters-rail.is-drag button,.news-rail.is-drag a,.svc-rail.is-drag a,.svc-grid.is-drag a{pointer-events:none}
 

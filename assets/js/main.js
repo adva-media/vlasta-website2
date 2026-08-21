@@ -1630,11 +1630,18 @@
       if (active !== lastActive) {
         lastActive = active;
         var on = active >= 0 ? tabs[active] : null;
-        if (on && typeof on.scrollIntoView === 'function') {
-          try {
-            on.scrollIntoView({ inline: 'nearest', block: 'nearest', behavior: 'auto' });
-          } catch (e) {
-            on.scrollIntoView(false);
+        /* Fully reveal the active tab inside .svc-tabs (nearest can leave edge labels mid-word). */
+        if (on) {
+          var scroller = on.closest ? on.closest('.svc-tabs') : jump.querySelector('.svc-tabs');
+          if (scroller) {
+            var sRect = scroller.getBoundingClientRect();
+            var tRect = on.getBoundingClientRect();
+            var pad = 12;
+            if (tRect.left < sRect.left + pad) {
+              scroller.scrollLeft += tRect.left - sRect.left - pad;
+            } else if (tRect.right > sRect.right - pad) {
+              scroller.scrollLeft += tRect.right - sRect.right + pad;
+            }
           }
         }
       }
@@ -2584,9 +2591,12 @@
     pheroStates.forEach(paintPhero);
   }
 
-  /* --------------------------- drag + wheel scrolling for horizontal rails */
+  /* --------------------------- drag + wheel scrolling for horizontal rails
+     Mouse/pen: press-hold grab → 1:1 horizontal scroll. Touch stays native.
+     Threshold before drag so stretched svc-card links still click. */
   $$('.case-rail,.letters-rail,.assoc-rail,.news-rail,.svc-rail').forEach(function (rail) {
-    var down = false, moved = false, sx = 0, sl = 0, pid = null;
+    var DRAG_THRESH = 6;
+    var down = false, moved = false, sx = 0, sy = 0, sl = 0, pid = null;
     var snapTimer = 0;
 
     /* Scroll-snap must be off while we apply X deltas — proximity/mandatory
@@ -2603,7 +2613,12 @@
     rail.addEventListener('pointerdown', function (e) {
       if (e.pointerType === 'touch') return;   // native touch scrolling is better
       if (e.button !== 0) return;
-      down = true; moved = false; sx = e.clientX; sl = rail.scrollLeft; pid = e.pointerId;
+      /* Leave real controls alone (nested highlight links still drag the rail
+         when the user swipes; a still click navigates). */
+      if (e.target.closest && e.target.closest('button,input,textarea,select,label')) return;
+      down = true; moved = false;
+      sx = e.clientX; sy = e.clientY;
+      sl = rail.scrollLeft; pid = e.pointerId;
       /* Deliberately NOT capturing here. Capturing on pointerdown sends the
          following pointerup to the rail instead of the card, so the browser
          never raises a click on the link and the cards stop working. Capture
@@ -2613,15 +2628,23 @@
     rail.addEventListener('pointermove', function (e) {
       if (!down || (pid != null && e.pointerId !== pid)) return;
       var dx = e.clientX - sx;
+      var dy = e.clientY - sy;
       if (!moved) {
-        if (Math.abs(dx) <= 4) return;         // still a click, leave it alone
+        var adx = Math.abs(dx), ady = Math.abs(dy);
+        /* Vertical page-scroll intent — abandon before we capture. */
+        if (ady > DRAG_THRESH && ady > adx) {
+          down = false; pid = null;
+          return;
+        }
+        if (adx <= DRAG_THRESH) return;       // still a click, leave it alone
         moved = true;
         rail.classList.add('is-drag');
         hushSnap();
         try { rail.setPointerCapture(pid); } catch (err) {}
       }
       rail.scrollLeft = sl - dx;
-    });
+      if (e.cancelable) e.preventDefault();
+    }, { passive: false });
 
     function endDrag() {
       if (!down) return;
@@ -2648,6 +2671,9 @@
     rail.addEventListener('lostpointercapture', function (e) {
       if (down && pid != null && e.pointerId === pid) endDrag();
     });
+
+    /* Native link/image drag would steal the gesture on desktop. */
+    rail.addEventListener('dragstart', function (e) { e.preventDefault(); });
 
     // swallow the click that ends a drag, so dragging never opens a card
     rail.addEventListener('click', function (e) {
@@ -2700,17 +2726,27 @@
     }, { passive: false });
   });
 
-  /* -------- roadmap: lerped scroll + long coast (buttery, soft edges)
+  /* -------- roadmap: mouse grab-drag (1:1) + coast on release
      Skip only in scroll-drive — page scroll owns progress there.
      arrows mode keeps swipe/drag/wheel-X on the rail. */
   $$('.road__body').forEach(function (rail) {
+    /* Block native text selection on every rail (scroll-drive + arrows). */
+    rail.addEventListener('selectstart', function (e) {
+      if (e.target.closest && e.target.closest('button,input,textarea,select,label,.road__nav')) return;
+      e.preventDefault();
+    });
     if (rail.closest('[data-road-drive="scroll"]')) return;
+    var DRAG_THRESH = 6;
     var down = false, moved = false, dragging = false;
-    var sx = 0, sl = 0, pid = null;
+    var sx = 0, sy = 0, sl = 0, pid = null;
     var lastX = 0, lastT = 0, vel = 0;
     var target = rail.scrollLeft;
     var raf = 0;
 
+    function clearRoadSelection() {
+      var sel = window.getSelection && window.getSelection();
+      if (sel && sel.removeAllRanges) sel.removeAllRanges();
+    }
     function maxScroll() {
       return Math.max(0, rail.scrollWidth - rail.clientWidth);
     }
@@ -2734,35 +2770,34 @@
         vel = 0;
         return;
       }
+      /* While the pointer is held, scrollLeft is set directly in pointermove. */
+      if (dragging) return;
       var max = maxScroll();
       var x = rail.scrollLeft;
       var zone = Math.min(220, max * .3);
 
-      if (!dragging) {
-        if (Math.abs(vel) > 0.03) {
-          var damp = 1;
-          if (target < zone) damp = 0.08 + 0.92 * Math.pow(Math.max(0, target) / zone, 1.75);
-          else if (target > max - zone) damp = 0.08 + 0.92 * Math.pow(Math.max(0, max - target) / zone, 1.75);
-          /* Higher friction — leisurely coast, less runaway. */
-          vel *= 0.948 * damp;
-          target = clamp(target + vel);
-        } else {
-          vel = 0;
-          if (target < 6) target = 0;
-          else if (target > max - 6) target = max;
-        }
+      if (Math.abs(vel) > 0.03) {
+        var damp = 1;
+        if (target < zone) damp = 0.08 + 0.92 * Math.pow(Math.max(0, target) / zone, 1.75);
+        else if (target > max - zone) damp = 0.08 + 0.92 * Math.pow(Math.max(0, max - target) / zone, 1.75);
+        /* Higher friction — leisurely coast, less runaway. */
+        vel *= 0.948 * damp;
+        target = clamp(target + vel);
+      } else {
+        vel = 0;
+        if (target < 6) target = 0;
+        else if (target > max - 6) target = max;
       }
 
       var dest = clamp(target);
-      /* Follow slowly while coasting; a bit snappier while dragging. */
-      var follow = dragging ? 0.10 : 0.045;
+      var follow = 0.045;
       if (x < zone || x > max - zone || dest < zone || dest > max - zone) follow *= 0.5;
 
       var next = x + (dest - x) * follow;
       var still = Math.abs(dest - next) < 0.2 && Math.abs(vel) < 0.03;
-      rail.scrollLeft = still && !dragging ? dest : next;
+      rail.scrollLeft = still ? dest : next;
 
-      if (dragging || !still || Math.abs(vel) >= 0.03) wake();
+      if (!still || Math.abs(vel) >= 0.03) wake();
     }
 
     rail.addEventListener('touchstart', function () {
@@ -2772,9 +2807,12 @@
     rail.addEventListener('pointerdown', function (e) {
       if (e.pointerType === 'touch') return;
       if (e.button !== 0) return;
+      if (e.target.closest && e.target.closest('button,input,textarea,select,label,.road__nav')) return;
       if (rail._roadRec) roadUserScroll(rail._roadRec);
+      clearRoadSelection();
       down = true; moved = false; dragging = false;
       sx = lastX = e.clientX;
+      sy = e.clientY;
       sl = target = rail.scrollLeft;
       pid = e.pointerId;
       lastT = performance.now();
@@ -2782,42 +2820,49 @@
     });
 
     rail.addEventListener('pointermove', function (e) {
-      if (!down) return;
+      if (!down || (pid != null && e.pointerId !== pid)) return;
       var now = performance.now();
       var dx = e.clientX - sx;
+      var dy = e.clientY - sy;
       if (!moved) {
-        if (Math.abs(dx) <= 2) return;
+        var adx = Math.abs(dx), ady = Math.abs(dy);
+        if (ady > DRAG_THRESH && ady > adx) {
+          down = false; pid = null;
+          return;
+        }
+        if (adx <= DRAG_THRESH) return;
         moved = true;
         dragging = true;
+        clearRoadSelection();
         rail.classList.add('is-drag');
         try { rail.setPointerCapture(pid); } catch (err) {}
-        wake();
       }
-      /* ~0.42× drag travel — less distance per swipe. */
-      var sense = 0.42;
-      var proposed = sl - dx * sense;
+      /* 1:1 grab while held — rubber-band slightly near the ends. */
+      var proposed = sl - dx;
       var max = maxScroll();
       var zone = Math.min(220, max * .3);
       if (zone > 10) {
-        if (proposed < zone) {
+        if (proposed < 0) proposed *= 0.28;
+        else if (proposed > max) proposed = max + (proposed - max) * 0.28;
+        else if (proposed < zone) {
           var tl = Math.max(0, proposed) / zone;
-          proposed = sl - dx * sense * (0.12 + 0.88 * tl * tl);
+          proposed = sl - dx * (0.35 + 0.65 * tl * tl);
         } else if (proposed > max - zone) {
           var tr = Math.max(0, max - proposed) / zone;
-          proposed = sl - dx * sense * (0.12 + 0.88 * tr * tr);
+          proposed = sl - dx * (0.35 + 0.65 * tr * tr);
         }
       }
       target = clamp(proposed);
-      if (reduce) rail.scrollLeft = target;
+      rail.scrollLeft = target;
 
       var dt = now - lastT;
       if (dt > 0 && dt < 80) {
-        var inst = -(e.clientX - lastX) / dt * 16.7 * sense;
+        var inst = -(e.clientX - lastX) / dt * 16.7;
         vel = vel * 0.72 + inst * 0.28;
       }
       lastX = e.clientX; lastT = now;
-      wake();
-    });
+      if (e.cancelable) e.preventDefault();
+    }, { passive: false });
 
     function endDrag() {
       if (!down) return;
@@ -2844,6 +2889,11 @@
     rail.addEventListener('pointerleave', function () {
       if (down && !moved) { down = false; pid = null; }
     });
+    rail.addEventListener('lostpointercapture', function (e) {
+      if (down && pid != null && e.pointerId === pid) endDrag();
+    });
+
+    rail.addEventListener('dragstart', function (e) { e.preventDefault(); });
 
     rail.addEventListener('click', function (e) {
       if (!moved) return;
