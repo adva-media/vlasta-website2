@@ -24,17 +24,17 @@
 <meta name="twitter:description" content="Защита бренда, корпоративная безопасность, личная безопасность — Власта консалтинг. Интеллектуальная собственность, экономическая безопасность бизнеса, консалтинг.">
 <meta name="twitter:image" content="https://vlasta-s.com/assets/img/og-default.jpg">
 <meta name="theme-color" content="#141428">
-<script>(function(){var r=document.documentElement;r.classList.add('js');try{var t=localStorage.getItem('vlasta-theme');if(!t)t=matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';r.setAttribute('data-theme',t)}catch(e){}})();</script>
+<script>(function(){var r=document.documentElement;r.classList.add('js');try{var t=localStorage.getItem('vlasta-theme');if(!t)t=matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';r.setAttribute('data-theme',t)}catch(e){}try{var K='vlasta-lang';var lang=(r.getAttribute('lang')||'ru').slice(0,2);if(lang!=='en')lang='ru';var pref=localStorage.getItem(K);if(pref!=='en'&&pref!=='ru'){localStorage.setItem(K,lang);document.cookie=K+'='+lang+';path=/;max-age=31536000;SameSite=Lax';return}if(pref===lang)return;var link=document.querySelector('link[rel="alternate"][hreflang="'+pref+'"]');if(!link)return;var href=link.getAttribute('href');if(!href)return;var dest=new URL(href,'https://vlasta-s.com');var leaf=(dest.pathname||'/').replace(/^\/en\//,'').replace(/^\//,'');if(!leaf||leaf.charAt(leaf.length-1)==='/')leaf='index.html';var cur=location.pathname.replace(/\\/g,'/');if(cur.slice(-1)==='/')cur+='index.html';else if(cur.slice(-3)==='/en')cur+='/index.html';var next;if(lang==='en'){var i=cur.lastIndexOf('/en/');if(i<0)return;next=cur.slice(0,i+1)+(pref==='en'?'en/'+leaf:leaf)}else{var j=cur.lastIndexOf('/'+leaf);if(j<0)return;next=cur.slice(0,j+1)+(pref==='en'?'en/'+leaf:leaf)}if(!next||next===cur)return;location.replace((location.protocol==='file:'?'file://':'')+next+location.search+location.hash)}catch(e){}})();</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200..800;1,300..600&display=swap">
-<link rel="stylesheet" href="assets/css/style.css?v=38adffe8">
+<link rel="stylesheet" href="assets/css/style.css?v=9c876919">
 <link rel="icon" href="assets/img/logo-dark.svg" type="image/svg+xml">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Власта-Консалтинг","alternateName":"Vlasta Consulting","url":"https://vlasta-s.com/","logo":"https://vlasta-s.com/assets/img/logo-dark.svg","foundingDate":"2006","telephone":"+74951233336","email":"info@vlasta-s.com","address":{"@type":"PostalAddress","streetAddress":"ул. Усачёва, д. 13, помещ. 4н","addressLocality":"Москва","postalCode":"119048","addressCountry":"RU"},"areaServed":["RU","BY","KZ","UZ","KG","AM","GE"],"contactPoint":{"@type":"ContactPoint","telephone":"+74951233336","contactType":"customer service","availableLanguage":["Russian","English"]}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://vlasta-s.com/"},{"@type":"ListItem","position":2,"name":"Услуги","item":"https://vlasta-s.com/services.html"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@type":"Service","name":"Интеллектуальная собственность","description":"Планомерная защита товарных знаков по всем видам нарушений — тождество, сходство до степени смешения, недобросовестная конкуренция.","provider":{"@type":"Organization","name":"Власта-Консалтинг"},"url":"https://vlasta-s.com/services.html#brand"}},{"@type":"ListItem","position":2,"item":{"@type":"Service","name":"Корпоративная безопасность","description":"Комплексные решения в области экономической безопасности бизнеса.","provider":{"@type":"Organization","name":"Власта-Консалтинг"},"url":"https://vlasta-s.com/services.html#security"}},{"@type":"ListItem","position":3,"item":{"@type":"Service","name":"Разведка и анализ","description":"Бизнес-разведка и аналитика: информация из проверенных источников для стратегий, минимизирующих риски.","provider":{"@type":"Organization","name":"Власта-Консалтинг"},"url":"https://vlasta-s.com/services.html#intelligence"}},{"@type":"ListItem","position":4,"item":{"@type":"Service","name":"Консалтинг","description":"Консультирование по вопросам обеспечения безопасности — формат «одного окна».","provider":{"@type":"Organization","name":"Власта-Консалтинг"},"url":"https://vlasta-s.com/services.html#consulting"}}]}</script>
 </head>
-<body>
+<body class="page-services">
 <div class="progress" aria-hidden="true"></div>
 <div class="topbar">
   <div class="wrap">
@@ -65,7 +65,7 @@
           <div class="lang"><a href="en/services.html" hreflang="en">EN</a></div>
           <button class="tt" type="button" aria-label="Переключить тёмную тему" aria-pressed="false"><svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.4"/><path d="M12 2v2.5M12 19.5V22M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2 12h2.5M19.5 12H22M4.2 19.8 6 18M18 6l1.8-1.8"/></svg></button>
         </div>
-        <a href="contacts.html" class="btn btn--glass">Контакт</a>
+        <a href="contacts.html" class="hdr__talk">Свяжитесь с нами</a>
       </div>
       <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="mnav"><span></span><span></span><span></span></button>
     </div>
@@ -76,31 +76,40 @@
   <div class="engrave engrave--tr" aria-hidden="true"><svg viewBox="0 0 640 640" aria-hidden="true" focusable="false" fill="none" stroke="var(--mist)" stroke-width=".7"><ellipse cx="320" cy="320" rx="300.0" ry="132.0" transform="rotate(0.0 320 320)"/><ellipse cx="320" cy="320" rx="297.8" ry="128.6" transform="rotate(6.9 320 320)"/><ellipse cx="320" cy="320" rx="295.6" ry="125.2" transform="rotate(13.8 320 320)"/><ellipse cx="320" cy="320" rx="293.4" ry="121.8" transform="rotate(20.8 320 320)"/><ellipse cx="320" cy="320" rx="291.2" ry="118.4" transform="rotate(27.7 320 320)"/><ellipse cx="320" cy="320" rx="289.0" ry="115.0" transform="rotate(34.6 320 320)"/><ellipse cx="320" cy="320" rx="286.8" ry="111.6" transform="rotate(41.5 320 320)"/><ellipse cx="320" cy="320" rx="284.6" ry="108.2" transform="rotate(48.5 320 320)"/><ellipse cx="320" cy="320" rx="282.4" ry="104.8" transform="rotate(55.4 320 320)"/><ellipse cx="320" cy="320" rx="280.2" ry="101.4" transform="rotate(62.3 320 320)"/><ellipse cx="320" cy="320" rx="278.0" ry="98.0" transform="rotate(69.2 320 320)"/><ellipse cx="320" cy="320" rx="275.8" ry="94.6" transform="rotate(76.2 320 320)"/><ellipse cx="320" cy="320" rx="273.6" ry="91.2" transform="rotate(83.1 320 320)"/><ellipse cx="320" cy="320" rx="271.4" ry="87.8" transform="rotate(90.0 320 320)"/><ellipse cx="320" cy="320" rx="269.2" ry="84.4" transform="rotate(96.9 320 320)"/><ellipse cx="320" cy="320" rx="267.0" ry="81.0" transform="rotate(103.8 320 320)"/><ellipse cx="320" cy="320" rx="264.8" ry="77.6" transform="rotate(110.8 320 320)"/><ellipse cx="320" cy="320" rx="262.6" ry="74.2" transform="rotate(117.7 320 320)"/><ellipse cx="320" cy="320" rx="260.4" ry="70.8" transform="rotate(124.6 320 320)"/><ellipse cx="320" cy="320" rx="258.2" ry="67.4" transform="rotate(131.5 320 320)"/><ellipse cx="320" cy="320" rx="256.0" ry="64.0" transform="rotate(138.5 320 320)"/><ellipse cx="320" cy="320" rx="253.8" ry="60.6" transform="rotate(145.4 320 320)"/><ellipse cx="320" cy="320" rx="251.6" ry="57.2" transform="rotate(152.3 320 320)"/><ellipse cx="320" cy="320" rx="249.4" ry="53.8" transform="rotate(159.2 320 320)"/><ellipse cx="320" cy="320" rx="247.2" ry="50.4" transform="rotate(166.2 320 320)"/><ellipse cx="320" cy="320" rx="245.0" ry="47.0" transform="rotate(173.1 320 320)"/></svg></div>
   <div class="wrap">
     <nav class="crumbs" aria-label="Хлебные крошки"><a href="index.html">Главная</a> / <span>Услуги</span></nav>
-    <span class="kick">Услуги</span>
     <h1 class="h1">Наши услуги</h1>
     <p class="lead">Защита бренда, корпоративная безопасность и личная безопасность. Комплексный подход к каждому клиенту.</p>
   </div>
 </section>
 
-<section class="sec sec--tight sec--alt">
+<nav class="svc-jump" aria-label="Блоки услуг">
   <div class="wrap">
-    <nav class="chips" aria-label="Блоки услуг">
-      <a class="chip" href="#brand"><b>1</b>Интеллектуальная собственность</a><a class="chip" href="#security"><b>2</b>Корпоративная безопасность</a><a class="chip" href="#intelligence"><b>3</b>Разведка и анализ</a><a class="chip" href="#consulting"><b>4</b>Консалтинг</a>
-    </nav>
+    <div class="svc-tabs">
+      <a class="svc-tabs__tab" href="#brand">
+        <span class="svc-tabs__fill" aria-hidden="true"></span>
+        <span class="svc-tabs__txt"><b>1</b>Интеллектуальная собственность</span>
+      </a><a class="svc-tabs__tab" href="#security">
+        <span class="svc-tabs__fill" aria-hidden="true"></span>
+        <span class="svc-tabs__txt"><b>2</b>Корпоративная безопасность</span>
+      </a><a class="svc-tabs__tab" href="#intelligence">
+        <span class="svc-tabs__fill" aria-hidden="true"></span>
+        <span class="svc-tabs__txt"><b>3</b>Разведка и анализ</span>
+      </a><a class="svc-tabs__tab" href="#consulting">
+        <span class="svc-tabs__fill" aria-hidden="true"></span>
+        <span class="svc-tabs__txt"><b>4</b>Консалтинг</span>
+      </a>
+    </div>
   </div>
-</section>
+</nav>
 
 <section class="sec">
   <div class="wrap">
     <article class="svc-detail reveal" id="brand">
-      <div class="svc-detail__head">
-        <span class="svc-detail__num">1</span>
-        <h2 class="h2">Интеллектуальная собственность</h2>
-      </div>
       <figure class="svc-detail__hero">
         <div class="ncard__img">
           <img src="assets/img/services/zashita-brenda.jpg" alt="" loading="lazy" decoding="async">
         </div>
+        <span class="svc-detail__n" aria-hidden="true">1</span>
+        <h2 class="svc-detail__title">Интеллектуальная собственность</h2>
         <figcaption class="svc-detail__intro">ООО «Власта-Консалтинг» имеет многолетний опыт работы в области защиты прав на объекты интеллектуальной собственности. В России мы были практически первыми, кто разработал и запустил в действие в 2006 году программу защиты товарных знаков.</figcaption>
       </figure>
       <div class="fold-list">
@@ -114,7 +123,7 @@
           <p>Товарный знак - это визитная карточка и ценный актив Вашего бизнеса. Именно товарный знак будет ассоциироваться у клиентов с Вашими товарами и услугами. При помощи товарного знака можно эффективно защитить бизнес от подделок, а также получить прибыль от продажи лицензий третьим лицам. Прежде чем начать использовать товарный знак, необходимо обеспечить его правовую охрану.</p>
           <ul class="dir__l"><li>Проверка обозначения и подача заявки</li><li>Делопроизводство до получения свидетельства</li><li>Продление, изменения, зарубежная регистрация</li><li>Лицензии и договоры с третьими лицами</li></ul>
         </div>
-      </details><details class="fold" id="brand-shield">
+      </details><details class="fold" id="brand-shield" open>
         <summary class="fold__sum">
           <span class="ico ico--sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 3v5.5c0 4.8-3.2 8-7.5 9.5-4.3-1.5-7.5-4.7-7.5-9.5V6z"/><path d="M9 12l2 2 4-4"/></svg></span>
           <span class="fold__t">Комплексная защита знака</span>
@@ -124,7 +133,7 @@
           <p>Защита товарных знаков заключается в планомерной и полномасштабной работе как по всем возможным направлениям, так и в отношении всех видов нарушений (тождество, сходство до степени смешения, недобросовестная конкуренция). Комплексное использование всех доступных инструментов позволяет обеспечить максимально возможный уровень защиты товарного знака.</p>
           <ul class="dir__l"><li>Тождество и сходство до степени смешения</li><li>Недобросовестная конкуренция</li><li>Онлайн и офлайн в одном контуре</li><li>Мониторинг рецидивов после пресечения</li></ul>
         </div>
-      </details><details class="fold" id="brand-laptop">
+      </details><details class="fold" id="brand-laptop" open>
         <summary class="fold__sum">
           <span class="ico ico--sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16v10H4z"/><path d="M8 11h8M8 15h5"/></svg></span>
           <span class="fold__t">Online Brand Protection System</span>
@@ -132,9 +141,9 @@
         </summary>
         <div class="fold__body">
           <p>Собственное веб-приложение находит нарушающий контент любого типа и ведёт досудебную работу с администраторами ресурсов, хостинг-провайдерами и регистраторами доменных имён.</p>
-          <ul class="dir__l"><li>Поиск по цифровому отпечатку (hash comparison)</li><li>Связка с внутренней системой VCC: адреса точек для рейдов</li><li>Анализ администраторов и аффилированных ресурсов</li><li>Автоматический контроль повторных нарушений</li></ul>
+          <ul class="dir__l"><li>Поиск по цифровому отпечатку (hash comparison)</li><li>Связка с внутренней системой VCC: адреса точек для рейдов</li><li>OSINT-анализ администраторов и аффилированных ресурсов</li><li>Автоматический контроль повторных нарушений</li></ul>
         </div>
-      </details><details class="fold" id="brand-board">
+      </details><details class="fold" id="brand-board" open>
         <summary class="fold__sum">
           <span class="ico ico--sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9.5 9v11"/></svg></span>
           <span class="fold__t">Досудебные меры в сети</span>
@@ -144,7 +153,7 @@
           <p>Большинство нарушений в интернете снимается без суда — если действовать быстро и по всем адресам сразу.</p>
           <ul class="dir__l"><li>Отбор подозрительных ссылок командой аналитиков</li><li>Жалобы администратору, регистратору и хостинг-провайдеру</li><li>Take down tools для быстрой блокировки на популярных платформах</li><li>Блокировка рекламы и результатов поиска</li></ul>
         </div>
-      </details><details class="fold" id="brand-raid">
+      </details><details class="fold" id="brand-raid" open>
         <summary class="fold__sum">
           <span class="ico ico--sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 3v5.2c0 4.6-3.1 7.8-7.5 9.3-4.4-1.5-7.5-4.7-7.5-9.3V6z"/><path d="M12 8.4v4.2M12 15.4h.01"/></svg></span>
           <span class="fold__t">Офлайн-защита бренда</span>
@@ -154,7 +163,7 @@
           <p>Онлайн-след ведёт к физическому адресу. Дальше — контрольная закупка, проверка и рейд вместе с правоохранительными органами.</p>
           <ul class="dir__l"><li>Тестовая (контрольная) закупка и проверка товара на подделку</li><li>Установление фактического адреса цели</li><li>Проверочные мероприятия с сотрудниками полиции</li><li>Организация уничтожения контрафакта и контроль исполнения решения суда</li></ul>
         </div>
-      </details><details class="fold" id="brand-scales">
+      </details><details class="fold" id="brand-scales" open>
         <summary class="fold__sum">
           <span class="ico ico--sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M7 21h10M4 7h16M8 7l-4 6h8zM16 7l4 6h-8z"/></svg></span>
           <span class="fold__t">Представительство в судах по ИС</span>
@@ -193,7 +202,7 @@
           </div>
         </div>
       </div>
-      <div class="fold-list fold-list--flows"><details class="fold fold--flow">
+      <div class="fold-list fold-list--flows"><details class="fold fold--flow" open>
         <summary class="fold__sum">
           <span class="ico ico--sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 3v5.2c0 4.6-3.1 7.8-7.5 9.3-4.4-1.5-7.5-4.7-7.5-9.3V6z"/><path d="M12 8.4v4.2M12 15.4h.01"/></svg></span>
           <span class="fold__t">Рейды с полицией</span>
@@ -225,7 +234,7 @@
             </li>
           </ol>
         </div>
-      </details><details class="fold fold--flow">
+      </details><details class="fold fold--flow" open>
         <summary class="fold__sum">
           <span class="ico ico--sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V7"/><circle cx="4" cy="4.5" r="1.6"/><path d="M6.6 9.2 21 6.6v4.2L6.6 13.4z"/><path d="M3 20h18"/></svg></span>
           <span class="fold__t">Таможня и ТРОИС</span>
@@ -265,7 +274,7 @@
             </li>
           </ol>
         </div>
-      </details><details class="fold fold--flow">
+      </details><details class="fold fold--flow" open>
         <summary class="fold__sum">
           <span class="ico ico--sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M7 21h10M4 7h16M8 7l-4 6h8zM16 7l4 6h-8z"/></svg></span>
           <span class="fold__t">Судебная защита</span>
@@ -299,14 +308,12 @@
         </div>
       </details></div>
     </article><article class="svc-detail reveal" id="security">
-      <div class="svc-detail__head">
-        <span class="svc-detail__num">2</span>
-        <h2 class="h2">Корпоративная безопасность</h2>
-      </div>
       <figure class="svc-detail__hero">
         <div class="ncard__img">
           <img src="assets/img/services/biznes-bezopasnost.jpg" alt="" loading="lazy" decoding="async">
         </div>
+        <span class="svc-detail__n" aria-hidden="true">2</span>
+        <h2 class="svc-detail__title">Корпоративная безопасность</h2>
         <figcaption class="svc-detail__intro">Холдинговая компания Власта Консалтинг предлагает комплексные решения в области экономической безопасности. Двадцать лет опыта сделали из нас первоклассную команду, которой наши клиенты готовы доверить решение любых вопросов в сфере защиты бизнеса.</figcaption>
       </figure>
       <div class="fold-list">
@@ -320,7 +327,7 @@
           <p>Мы знаем, с какими рисками сталкиваются иностранные компании в России, СНГ и Восточной Европе, и готовим проверки по американским и европейским стандартам.</p>
           <ul class="dir__l"><li>Соответствие принципам KYC / AML</li><li>Комплексные проверки по FCPA / UKBA</li><li>Выявление политически значимых лиц (PEP)</li><li>Оценка санкционных рисков</li></ul>
         </div>
-      </details><details class="fold" id="security-users">
+      </details><details class="fold" id="security-users" open>
         <summary class="fold__sum">
           <span class="ico ico--sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.4"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16.5 5.2a3.4 3.4 0 0 1 0 5.6M18 14.4a6.5 6.5 0 0 1 3.5 5.6"/></svg></span>
           <span class="fold__t">Проверка бэкграунда</span>
@@ -330,7 +337,7 @@
           <p>Каким бы безупречным ни было резюме, новые отношения могут нести существенный риск. Проверка закрывает конфликты интересов, преступные связи и скрытые эпизоды биографии.</p>
           <ul class="dir__l"><li>Репутационная информация в открытых источниках</li><li>Регистрационные данные и деловые связи</li><li>Розыскные базы и санкционные списки</li><li>Реестры регулирующих органов и судебные реестры</li><li>Оперативные запросы и интервью</li></ul>
         </div>
-      </details><details class="fold" id="security-search">
+      </details><details class="fold" id="security-search" open>
         <summary class="fold__sum">
           <span class="ico ico--sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></span>
           <span class="fold__t">Корпоративные расследования</span>
@@ -340,7 +347,7 @@
           <p>Подозрения в мошенничестве, растрате или сговоре редко удаётся разобрать внутри компании. Раскрытые нами схемы возвращали клиентам упущенную прибыль, исчисляемую миллиардами рублей.</p>
           <ul class="dir__l"><li>Расследование случаев мошенничества</li><li>Выявление незаконного присвоения активов</li><li>Нарушения деловой этики</li><li>Проверки в сделках слияния и поглощения</li></ul>
         </div>
-      </details><details class="fold" id="security-scales">
+      </details><details class="fold" id="security-scales" open>
         <summary class="fold__sum">
           <span class="ico ico--sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M7 21h10M4 7h16M8 7l-4 6h8zM16 7l4 6h-8z"/></svg></span>
           <span class="fold__t">Корпоративные споры</span>
@@ -350,7 +357,7 @@
           <p>Угрозы корпоративному управлению приходят и снаружи, и изнутри — особенно там, где недобросовестные участники рынка привыкли действовать в обход закона и деловой этики.</p>
           <ul class="dir__l"><li>Противодействие шантажу и вымогательству</li><li>Пресечение кампаний клеветнического характера</li><li>Меры предосторожности против гринмейла</li><li>Противодействие манипуляциям с отчётностью</li></ul>
         </div>
-      </details><details class="fold" id="security-shield">
+      </details><details class="fold" id="security-shield" open>
         <summary class="fold__sum">
           <span class="ico ico--sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 3v5.5c0 4.8-3.2 8-7.5 9.5-4.3-1.5-7.5-4.7-7.5-9.5V6z"/><path d="M9 12l2 2 4-4"/></svg></span>
           <span class="fold__t">Личная безопасность</span>
@@ -360,7 +367,7 @@
           <p>Обеспечение личной безопасности VIP-персон или гостей — через привлечение профессиональных телохранителей. Мы специализируемся на привлечении специалистов с аналитическим складом ума, знанием английского и представительской внешностью. В зависимости от профиля риска принимается решение, привлекать ли вооруженную или невооруженную охрану.</p>
           <ul class="dir__l"><li>Привлечение специалистов для VIP-персон и гостей компании</li><li>Состав группы определяется профилем риска</li><li>Англоговорящие координаторы на связи 24/7</li></ul>
         </div>
-      </details><details class="fold" id="security-car">
+      </details><details class="fold" id="security-car" open>
         <summary class="fold__sum">
           <span class="ico ico--sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 15.4h18M4.8 15.4v2.3M19.2 15.4v2.3"/><path d="m4.9 15.4 1.5-6.6a2 2 0 0 1 2-1.5h7.2a2 2 0 0 1 2 1.5l1.5 6.6"/><circle cx="8" cy="15.4" r="1.5"/><circle cx="16" cy="15.4" r="1.5"/></svg></span>
           <span class="fold__t">Транспортная безопасность</span>
@@ -370,7 +377,7 @@
           <p>За клиентом закрепляется машина с профессиональным водителем — от формата Meet &amp; Greet до проектов на несколько дней. Под конкретный проект подбирается класс автомобиля; в кейсах с высоким профилем риска можем предложить использование бронированных автомобилей и водителей с навыками экстремального вождения.</p>
           <ul class="dir__l"><li>Премиальный седан для гостя, внедорожники сопровождения</li><li>Бизнес-шаттл Mercedes-Benz V-class для групп</li><li>По высокому профилю риска — предложение бронированных автомобилей</li></ul>
         </div>
-      </details><details class="fold" id="security-event">
+      </details><details class="fold" id="security-event" open>
         <summary class="fold__sum">
           <span class="ico ico--sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/><circle cx="12" cy="15.4" r="2.1"/></svg></span>
           <span class="fold__t">Безопасность мероприятий</span>
@@ -380,7 +387,7 @@
           <p>Для мероприятий, которые освещаются в СМИ, даже мелкий инцидент несёт репутационный риск для организаторов. Здесь работает «бесшовный» контур безопасности.</p>
           <ul class="dir__l"><li>Скрининг списков участников мероприятия</li><li>Оценка помещений, пути эвакуации, действия в нештатных ситуациях</li><li>Логистика поездок, пропуска, координация подрядчиков</li><li>Безопасность в местах проживания, включая гостиницы</li></ul>
         </div>
-      </details><details class="fold" id="security-layers">
+      </details><details class="fold" id="security-layers" open>
         <summary class="fold__sum">
           <span class="ico ico--sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 3 8l9 5 9-5z"/><path d="m3 13 9 5 9-5M3 18l9 5 9-5"/></svg></span>
           <span class="fold__t">Комплексная безопасность</span>
@@ -395,14 +402,12 @@
       
       
     </article><article class="svc-detail reveal" id="intelligence">
-      <div class="svc-detail__head">
-        <span class="svc-detail__num">3</span>
-        <h2 class="h2">Разведка и анализ</h2>
-      </div>
       <figure class="svc-detail__hero">
         <div class="ncard__img">
           <img src="assets/img/services/strukturirovaniy-analiz.jpg" alt="" loading="lazy" decoding="async">
         </div>
+        <span class="svc-detail__n" aria-hidden="true">3</span>
+        <h2 class="svc-detail__title">Разведка и анализ</h2>
         <figcaption class="svc-detail__intro">Наша команда высококвалифицированных профессионалов предоставляет услуги, объединяющие в себе глубокую аналитику и возможность получать информацию из проверенных источников в странах бывшего Восточного блока и за его пределами, чтобы помочь нашим клиентам выстроить бизнес-стратегии, минимизирующие риски, и закрепить свои позиции в этом регионе.</figcaption>
       </figure>
       <div class="fold-list">
@@ -416,7 +421,7 @@
           <p>У каждой территории свой набор обстоятельств, который заметно влияет на бизнес-процессы. Их стоит оценить до входа, а не после.</p>
           <ul class="dir__l"><li>Национальные и религиозные особенности среды</li><li>Политические риски и их влияние на деловой климат</li><li>Уровень преступности в регионе и в отрасли</li><li>Уровень коррупции и легальные методы работы с госструктурами</li><li>Террористическая угроза в регионе</li></ul>
         </div>
-      </details><details class="fold" id="intelligence-growth">
+      </details><details class="fold" id="intelligence-growth" open>
         <summary class="fold__sum">
           <span class="ico ico--sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18"/><path d="M6 20v-5M11 20v-9M16 20v-6M21 20V7"/><path d="m14 4 3.4 1.2L16.2 8.6"/></svg></span>
           <span class="fold__t">Анализ рынка и отрасли</span>
@@ -426,7 +431,7 @@
           <p>Выход в новую индустрию требует полной картины: динамика рынка, расстановка сил между игроками, их сильные и слабые стороны. Глубина анализа задаётся ожидаемым объёмом операций — от общего обзора до узкой задачи.</p>
           
         </div>
-      </details><details class="fold" id="intelligence-radar">
+      </details><details class="fold" id="intelligence-radar" open>
         <summary class="fold__sum">
           <span class="ico ico--sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1.8"/><path d="m12 12 5.6-5.6"/><path d="M15.9 8.1a5.5 5.5 0 1 1-7.8 0"/><path d="M19.1 4.9a10 10 0 1 1-14.2 0"/></svg></span>
           <span class="fold__t">Мониторинг угроз</span>
@@ -436,7 +441,7 @@
           <p>Безопасность операций зависит от того, насколько чист информационный поток. Его искажают и скрытые стороны, ищущие слабые места, и недобросовестные сотрудники.</p>
           <ul class="dir__l"><li>Сбор из открытых источников и контент-анализ</li><li>Репутационные запросы и интервью</li><li>Меры по минимизации выявленных рисков</li></ul>
         </div>
-      </details><details class="fold" id="intelligence-legal">
+      </details><details class="fold" id="intelligence-legal" open>
         <summary class="fold__sum">
           <span class="ico ico--sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16v12H4z"/><path d="M8 10h8M8 14h5"/></svg></span>
           <span class="fold__t">Расследование страховых случаев</span>
@@ -446,7 +451,7 @@
           <p>По данным Ассоциации европейских следователей, примерно каждое десятое обращение по страховому случаю оказывается мошенническим.</p>
           <ul class="dir__l"><li>Оценка обращений по страховым случаям</li><li>Проверка подлинности представленных документов</li><li>Полевые расследования на месте</li></ul>
         </div>
-      </details><details class="fold" id="intelligence-layers">
+      </details><details class="fold" id="intelligence-layers" open>
         <summary class="fold__sum">
           <span class="ico ico--sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 3 8l9 5 9-5z"/><path d="m3 13 9 5 9-5M3 18l9 5 9-5"/></svg></span>
           <span class="fold__t">Структурированный анализ</span>
@@ -461,14 +466,12 @@
       
       
     </article><article class="svc-detail reveal" id="consulting">
-      <div class="svc-detail__head">
-        <span class="svc-detail__num">4</span>
-        <h2 class="h2">Консалтинг</h2>
-      </div>
       <figure class="svc-detail__hero">
         <div class="ncard__img">
           <img src="assets/img/services/konsalting.jpg" alt="" loading="lazy" decoding="async">
         </div>
+        <span class="svc-detail__n" aria-hidden="true">4</span>
+        <h2 class="svc-detail__title">Консалтинг</h2>
         <figcaption class="svc-detail__intro">Общая миссия нашей компании, заключающаяся в обеспечении комплексной защиты от рисков (формат «одного окна»), находит свое отражение и в рамках услуг по консультировании по вопросам обеспечения безопасности.</figcaption>
       </figure>
       <div class="fold-list">
@@ -482,7 +485,7 @@
           <p>Помимо консультирования в вопросах предоставления охраны и автотранспорта, мы также имеем возможность дополнительно усилить данное направление как по информационной части (проверки на негативную информацию и неблагонадежность), так и со стороны комплексной оценки рисков того или иного объекта.</p>
           <ul class="dir__l"><li>Консультирование по вопросам обеспечения безопасности</li><li>Информационные проверки и оценка неблагонадёжности</li><li>Комплексная оценка рисков объекта</li></ul>
         </div>
-      </details><details class="fold" id="consulting-legal">
+      </details><details class="fold" id="consulting-legal" open>
         <summary class="fold__sum">
           <span class="ico ico--sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16v12H4z"/><path d="M8 10h8M8 14h5"/></svg></span>
           <span class="fold__t">Юридический консалтинг</span>
@@ -506,8 +509,7 @@
   <div class="wrap">
     <div class="cta" data-cta>
       <div class="cta__copy">
-        <h2 class="cta__title">Контакты</h2>
-        <p class="cta__sub">Свяжитесь с нами</p>
+        <h2 class="cta__title">Свяжитесь с нами</h2>
         <p class="cta__lead">Проведём конфиденциальную консультацию по вашей задаче.</p>
       </div>
       <div class="cta__aside">
@@ -519,7 +521,7 @@
           <span class="cta__lbl">Электронная почта</span>
           <span class="cta__val">info@vlasta-s.com</span>
         </a>
-        <a class="cta__go" href="contacts.html">Контакт <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="cta__go" href="contacts.html">Контакты <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
     </div>
   </div>
@@ -595,6 +597,6 @@
   </div>
 </div>
 <button class="totop" type="button" aria-label="Наверх"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg></button>
-<script src="assets/js/main.js?v=e296b7a5" defer></script>
+<script src="assets/js/main.js?v=52791b71" defer></script>
 </body>
 </html>

@@ -45,7 +45,7 @@ const T = {
     contact:'Связаться', menu:'Меню', more:'Подробнее', readOn:'Читать',
     allServices:'Все услуги', allCases:'Все кейсы', allNews:'Все новости',
     caseStudy:'Разбор кейса', home:'Главная',
-    nav_services:'Услуги', nav_contacts:'Контакты', nav_cases:'Кейсы', contactBtn:'Контакт', navigation:'Навигация',
+    nav_services:'Услуги', nav_contacts:'Контакты', nav_cases:'Кейсы', contactBtn:'Свяжитесь с нами', navigation:'Навигация',
     documents:'Документы', info:'Информация', telFax:'Тел./факс',
     themeLabel:'Переключить тёмную тему', openMenu:'Открыть меню', closeMenu:'Закрыть меню',
     toTop:'Наверх', crumbs:'Хлебные крошки', mainNav:'Основная навигация',
@@ -58,6 +58,7 @@ const T = {
     cookieMore:'Подробнее', ckReject:'Отклонить всё', ckNeeded:'Только необходимые', ckAll:'Принять всё',
     scrollHint:'листайте', sources:'Источники и упоминания', topics:'Темы кейса',
     newer:'Новее', earlier:'Ранее', related:'По теме', showMore:'Показать ещё',
+    roadPrev:'Предыдущий этап', roadNext:'Следующий этап',
     shown:(a,b)=>`Показано ${a} из ${b} материалов`, all:'Все',
     emptyNews:'По выбранной теме материалов пока нет.', emptyCases:'По выбранной категории кейсов пока нет.',
     direction:'Направление', region:'Регион', outcome:'Результат', format:'Формат',
@@ -72,7 +73,7 @@ const T = {
     contact:'Get in touch', menu:'Menu', more:'Learn more', readOn:'Read',
     allServices:'All services', allCases:'All cases', allNews:'All news',
     caseStudy:'Read the case', home:'Home',
-    nav_services:'Services', nav_contacts:'Contact', nav_cases:'Cases', contactBtn:'Contact', navigation:'Navigation',
+    nav_services:'Services', nav_contacts:'Contact', nav_cases:'Cases', contactBtn:'Get in touch', navigation:'Navigation',
     documents:'Documents', info:'Information', telFax:'Tel./fax',
     themeLabel:'Toggle dark theme', openMenu:'Open menu', closeMenu:'Close menu',
     toTop:'Back to top', crumbs:'Breadcrumb', mainNav:'Main navigation',
@@ -85,6 +86,7 @@ const T = {
     cookieMore:'Learn more', ckReject:'Reject all', ckNeeded:'Necessary only', ckAll:'Accept all',
     scrollHint:'scroll', sources:'Sources and mentions', topics:'Case topics',
     newer:'Newer', earlier:'Earlier', related:'Related', showMore:'Show more',
+    roadPrev:'Previous milestone', roadNext:'Next milestone',
     shown:(a,b)=>`Showing ${a} of ${b} articles`, all:'All',
     emptyNews:'Nothing published under this topic yet.', emptyCases:'No cases in this category yet.',
     direction:'Practice', region:'Region', outcome:'Outcome', format:'Format',
@@ -146,8 +148,11 @@ function renderBody(body) {
   }
   return out + (open ? '</ul>' : '');
 }
-// assets live at the site root; from /en/ pages that is one level further up
-const rel = (depth, p) => '../'.repeat(depth + UP) + p;
+/* Page links stay inside the locale tree (/en/… or /…). Assets always live at
+   the site root, so EN pages need one extra ../ to reach them. */
+const pageRel = (depth, p) => '../'.repeat(depth) + p;
+const assetRel = (depth, p) => '../'.repeat(depth + UP) + p;
+const rel = assetRel; // legacy alias — prefer pageRel / assetRel at call sites
 
 function write(rp, html) {
   const abs = path.join(ROOT, PREFIX + rp);
@@ -169,8 +174,10 @@ const C = {
     intro:'Используя передовые технологии, опираясь на высокие моральные ценности и постоянно стремясь к успеху, обеспечивать экономическую безопасность бизнеса наших клиентов.',
     svcKicker:'Услуги', svcTitle:'Наши услуги',
     svcDesc:'Защита бренда, корпоративная безопасность и личная безопасность — комплексный подход к каждому клиенту.',
-    apprKicker:'Подход и практика', apprTitle:'Все отделы — одна система',
+    apprKicker:'Подход и практика', apprTitle:'Отделы, собранные в одну систему',
     apprDesc:'Профильные отделы работают совместно — от аналитики и консультаций до правовой поддержки. Координация между ними обеспечивает комплексный подход к задачам клиента в сфере безопасности бизнеса.',
+    apprKpiHead:'Ключевые показатели за год',
+    apprKpiNote:'Ориентир лучшей практики',
     casesKicker:'Кейсы', casesTitle:'Как мы решаем задачи клиентов',
     histKicker:'История компании',
     histTitle:'<span class="h2__line">Путь, отмеченный</span><span class="h2__line">международным признанием</span>',
@@ -217,7 +224,7 @@ const C = {
     contactsTitle:'Контакты — Власта-Консалтинг',
     contactsDesc:`Свяжитесь с «${O.name}»: ${O.address}. Тел./факс ${O.phone}, e-mail ${O.email}.`,
     contactsKw:'Власта-Консалтинг контакты, Москва, Усачёва',
-    contactsKick:'Контакты', contactsH1:'Контакты',
+    contactsKick:'Контакты', contactsH1:'Свяжитесь с нами',
     contactsLead:'119048, город Москва, ул. Усачёва, д. 13, помещ. 4н. Будни: 9:30 - 18:00.',
     mapTitle:'Офис «Власта-Консалтинг» на карте: Москва, ул. Усачёва, 13',
     privacyTitle:'Политика конфиденциальности — Власта-Консалтинг',
@@ -237,8 +244,10 @@ const C = {
     intro:'Using the modern approaches, relying on the highest moral standards and continuously striving for success to ensure business security of our Clients.',
     svcKicker:'Services', svcTitle:'Our services',
     svcDesc:'Brand protection, corporate security and personal security — an integrated approach to each client.',
-    apprKicker:'Approach and record', apprTitle:'All departments — one system',
+    apprKicker:'Approach and record', apprTitle:'Departments built into one system',
     apprDesc:'Our departments work together — from analytics and advice through to legal support. Coordinating them provides an integrated approach to the client’s business security tasks.',
+    apprKpiHead:'Key figures for the year',
+    apprKpiNote:'Best practice',
     casesKicker:'Cases', casesTitle:'How we solve client problems',
     histKicker:'Company history',
     histTitle:'<span class="h2__line">A record marked by</span><span class="h2__line">international recognition</span>',
@@ -285,7 +294,7 @@ const C = {
     contactsTitle:'Contact — Vlasta Consulting',
     contactsDesc:`Get in touch with Vlasta Consulting: ${O.address_en || O.address}. Tel./fax ${O.phone}, email ${O.email}.`,
     contactsKw:'Vlasta Consulting contact, Moscow, Usacheva',
-    contactsKick:'Contacts', contactsH1:'Contacts',
+    contactsKick:'Contacts', contactsH1:'Get in touch',
     contactsLead:'office 4N, 13, Usacheva str., Moscow, 119048. Weekdays: 9:30 a.m. - 6 p.m.',
     mapTitle:'Vlasta Consulting office on the map: Usacheva 13, Moscow',
     privacyTitle:'Privacy policy — Vlasta Consulting',
@@ -339,6 +348,9 @@ const I = {
   car: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 15.4h18M4.8 15.4v2.3M19.2 15.4v2.3"/><path d="m4.9 15.4 1.5-6.6a2 2 0 0 1 2-1.5h7.2a2 2 0 0 1 2 1.5l1.5 6.6"/><circle cx="8" cy="15.4" r="1.5"/><circle cx="16" cy="15.4" r="1.5"/></svg>',
   event: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/><circle cx="12" cy="15.4" r="2.1"/></svg>',
   radar: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1.8"/><path d="m12 12 5.6-5.6"/><path d="M15.9 8.1a5.5 5.5 0 1 1-7.8 0"/><path d="M19.1 4.9a10 10 0 1 1-14.2 0"/></svg>',
+  handshake: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m11 17 2 2a1 1 0 1 0 3-3"/><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4"/><path d="m21 3 1 11h-2"/><path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3"/><path d="M3 4h8"/></svg>',
+  banknote: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/></svg>',
+  tag: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12.4 2.7 21.3 11.6a2 2 0 0 1 0 2.8l-6.9 6.9a2 2 0 0 1-2.8 0L2.7 12.4A2 2 0 0 1 2 11V4a2 2 0 0 1 2-2h7a2 2 0 0 1 1.4.7z"/><circle cx="7.5" cy="7.5" r="1.2"/></svg>',
 };
 
 /* -------------------------------------------------- guilloche (signature) */
@@ -456,7 +468,7 @@ function netmap(uid = 'a') {
 const NAV = T.nav;
 
 function head({ title, desc, canonical, keywords, image, depth = 0, jsonld = [], robots, page = '', bodyClass = '' }) {
-  const R = p => rel(depth, p);
+  const A = p => assetRel(depth, p);
   const altRu = `${BASE}/${page}`;
   const altEn = `${BASE}/en/${page}`;
   const img = `${BASE}/${image || 'assets/img/og-default.jpg'}`;
@@ -486,12 +498,12 @@ ${keywords ? `<meta name="keywords" content="${esc(keywords)}">` : ''}
 <meta name="twitter:description" content="${esc(desc)}">
 <meta name="twitter:image" content="${img}">
 <meta name="theme-color" content="#141428">
-<script>(function(){var r=document.documentElement;r.classList.add('js');try{var t=localStorage.getItem('vlasta-theme');if(!t)t=matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';r.setAttribute('data-theme',t)}catch(e){}})();</script>
+<script>(function(){var r=document.documentElement;r.classList.add('js');try{var t=localStorage.getItem('vlasta-theme');if(!t)t=matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';r.setAttribute('data-theme',t)}catch(e){}try{var K='vlasta-lang';var lang=(r.getAttribute('lang')||'ru').slice(0,2);if(lang!=='en')lang='ru';var pref=localStorage.getItem(K);if(pref!=='en'&&pref!=='ru'){localStorage.setItem(K,lang);document.cookie=K+'='+lang+';path=/;max-age=31536000;SameSite=Lax';return}if(pref===lang)return;var link=document.querySelector('link[rel="alternate"][hreflang="'+pref+'"]');if(!link)return;var href=link.getAttribute('href');if(!href)return;var dest=new URL(href,'https://vlasta-s.com');var leaf=(dest.pathname||'/').replace(/^\\/en\\//,'').replace(/^\\//,'');if(!leaf||leaf.charAt(leaf.length-1)==='/')leaf='index.html';var cur=location.pathname.replace(/\\\\/g,'/');if(cur.slice(-1)==='/')cur+='index.html';else if(cur.slice(-3)==='/en')cur+='/index.html';var next;if(lang==='en'){var i=cur.lastIndexOf('/en/');if(i<0)return;next=cur.slice(0,i+1)+(pref==='en'?'en/'+leaf:leaf)}else{var j=cur.lastIndexOf('/'+leaf);if(j<0)return;next=cur.slice(0,j+1)+(pref==='en'?'en/'+leaf:leaf)}if(!next||next===cur)return;location.replace((location.protocol==='file:'?'file://':'')+next+location.search+location.hash)}catch(e){}})();</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200..800;1,300..600&display=swap">
-<link rel="stylesheet" href="${R('assets/css/style.css')}?v=${V.css}">
-<link rel="icon" href="${R('assets/img/logo-dark.svg')}" type="image/svg+xml">
+<link rel="stylesheet" href="${A('assets/css/style.css')}?v=${V.css}">
+<link rel="icon" href="${A('assets/img/logo-dark.svg')}" type="image/svg+xml">
 ${jsonld.map(o => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join('\n')}
 </head>
 <body${bodyClass ? ` class="${bodyClass}"` : ''}>
@@ -512,18 +524,20 @@ const crumbLd = items => ({
   itemListElement: items.map((it, i) => ({ '@type': 'ListItem', position: i + 1, name: it[0], item: `${BASE}/${it[1]}` })),
 });
 
-function chrome(active, depth = 0) {
-  const R = p => rel(depth, p);
-  /* the switch always points at the same page in the other language, resolved
-     from this page's depth and from whichever locale tree we are in */
+function chrome(active, depth = 0, pagePath = active) {
+  const P = p => pageRel(depth, p);
+  const A = p => assetRel(depth, p);
+  /* Lang switch: same page in the other tree, resolved from site root (assets
+     depth). pagePath is the real file (e.g. cases/slug.html); active is nav. */
   const toRoot = '../'.repeat(depth + UP);
-  const ruHref = toRoot + active;
-  const enHref = toRoot + 'en/' + active;
+  const leaf = pagePath || 'index.html';
+  const ruHref = toRoot + leaf;
+  const enHref = toRoot + 'en/' + leaf;
   const links = NAV.map(([h, t]) =>
-    `<a href="${R(h)}"${h === active ? ' class="is-on" aria-current="page"' : ''}>${t}</a>`).join('');
+    `<a href="${P(h)}"${h === active ? ' class="is-on" aria-current="page"' : ''}>${t}</a>`).join('');
   const mnavItems = [...NAV, ['contacts.html', T.nav_contacts]];
   const mlinks = mnavItems.map(([h, t]) =>
-    `<a class="mnav__l${h === active ? ' is-on' : ''}" href="${R(h)}"${h === active ? ' aria-current="page"' : ''}>${t}</a>`).join('');
+    `<a class="mnav__l${h === active ? ' is-on' : ''}" href="${P(h)}"${h === active ? ' aria-current="page"' : ''}>${t}</a>`).join('');
   const tt = `<button class="tt" type="button" aria-label="${T.themeLabel}" aria-pressed="false">${I.moon}${I.sun}</button>`;
   const lang = `<div class="lang"><a href="${ruHref}"${EN ? '' : ' class="is-on" aria-current="true"'} hreflang="ru">RU</a><a href="${enHref}"${EN ? ' class="is-on" aria-current="true"' : ''} hreflang="en">EN</a></div>`;
   /* Scrolled header: only the other locale — never both side by side. */
@@ -532,8 +546,8 @@ function chrome(active, depth = 0) {
     : `<div class="lang"><a href="${enHref}" hreflang="en">EN</a></div>`;
   /* Wordmark stacks without the hyphen so the mark can sit larger beside it. */
   const brandLines = EN ? ['VLASTA', 'CONSULTING'] : ['ВЛАСТА', 'КОНСАЛТИНГ'];
-  const brand = (light, mod = '') => `<a class="brand${mod ? ` ${mod}` : ''}" href="${R('index.html')}" aria-label="${esc(O.name)} — на главную">
-      <img class="brand__mark" src="${R(light ? 'assets/img/logo-light.svg' : 'assets/img/logo-dark.svg')}" alt="" width="48" height="56">
+  const brand = (light, mod = '') => `<a class="brand${mod ? ` ${mod}` : ''}" href="${P('index.html')}" aria-label="${esc(O.name)} — на главную">
+      <img class="brand__mark" src="${A(light ? 'assets/img/logo-light.svg' : 'assets/img/logo-dark.svg')}" alt="" width="48" height="56">
       <span class="brand__txt">
         <span class="brand__name">${brandLines.map(l => `<span class="brand__line">${esc(l)}</span>`).join('')}</span>
         ${mod === 'brand--ft' ? '' : `<span class="brand__sub">${esc(O.tagline)}</span>`}
@@ -566,7 +580,7 @@ function chrome(active, depth = 0) {
           ${langAlt}
           ${tt}
         </div>
-        <a href="${R('contacts.html')}" class="btn btn--glass">${T.contactBtn}</a>
+        <a href="${P('contacts.html')}" class="hdr__talk">${T.contactBtn}</a>
       </div>
       <button class="burger" type="button" aria-label="${T.openMenu}" aria-expanded="false" aria-controls="mnav"><span></span><span></span><span></span></button>
     </div>
@@ -582,13 +596,13 @@ function chrome(active, depth = 0) {
       </div>
       <div class="ft__col">
         ${ftH(T.nav_services)}
-        <div class="ft__ls">${site.services.map(s => `<a href="${R('services.html')}#${s.id}">${esc(t(s,'title'))}</a>`).join('')}</div>
+        <div class="ft__ls">${site.services.map(s => `<a href="${P('services.html')}#${s.id}">${esc(t(s,'title'))}</a>`).join('')}</div>
         ${ftH(T.documents)}
-        <div class="ft__ls"><a href="${R('privacy.html')}">${T.privacy}</a></div>
+        <div class="ft__ls"><a href="${P('privacy.html')}">${T.privacy}</a></div>
       </div>
       <div class="ft__col">
         ${ftH(T.nav_cases)}
-        <div class="ft__ls">${ftCases.map(c => `<a href="${R(`cases/${c.slug}.html`)}">${esc(t(c,'title'))}</a>`).join('')}</div>
+        <div class="ft__ls">${ftCases.map(c => `<a href="${P(`cases/${c.slug}.html`)}">${esc(t(c,'title'))}</a>`).join('')}</div>
       </div>
       <div class="ft__col">
         ${ftH(T.info)}
@@ -627,7 +641,7 @@ function chrome(active, depth = 0) {
   <div class="cookie__c">
     <div class="cookie__txt">
       <h4 id="ckT">${T.cookieTitle}</h4>
-      <p id="ckD">${T.cookieText} <a href="${R('privacy.html')}">${T.cookieMore}</a></p>
+      <p id="ckD">${T.cookieText} <a href="${P('privacy.html')}">${T.cookieMore}</a></p>
     </div>
     <div class="cookie__btns">
       <button class="btn btn--ghostline" type="button" data-ck="reject">${T.ckReject}</button>
@@ -637,7 +651,7 @@ function chrome(active, depth = 0) {
   </div>
 </div>
 <button class="totop" type="button" aria-label="${T.toTop}">${I.up}</button>
-<script src="${R('assets/js/main.js')}?v=${V.js}" defer></script>
+<script src="${A('assets/js/main.js')}?v=${V.js}" defer></script>
 </body>
 </html>`,
   };
@@ -647,31 +661,45 @@ function chrome(active, depth = 0) {
 const kick = t => `<span class="kick">${esc(t)}</span>`;
 
 function shead({ k, h, d, extra, mod = 'split', tag = 'h2', richH = false }) {
-  const title = `<div class="shead__t">${kick(k)}<${tag} class="h2">${richH ? h : esc(h)}</${tag}></div>`;
+  const heading = `<${tag} class="h2">${richH ? h : esc(h)}</${tag}>`;
   const lead = d ? `<p class="shead__d lead">${esc(d)}</p>` : '';
   const cta = extra ? `<div class="shead__x">${extra}</div>` : '';
   /* Stack + lead + CTA: share a horizontal band under the title so the pill
      can bottom-align with the last line of the lead (homepage services). */
-  const parts = (mod === 'stack' && lead && cta)
-    ? [title, `<div class="shead__row">\n        ${lead}\n        ${cta}\n      </div>`]
-    : [title, lead, cta].filter(Boolean);
+  if (mod === 'stack' && lead && cta) {
+    return `<div class="shead shead--${mod} shead--cta reveal">
+      <div class="shead__t">${kick(k)}${heading}</div>
+      <div class="shead__row">
+        ${lead}
+        ${cta}
+      </div>
+    </div>`;
+  }
+  /* Title + CTA, no lead (homepage cases/news): kicker → title → see-all.
+     Mobile stacks left; desktop CSS places the pill on the title row. */
+  if (cta && !lead) {
+    return `<div class="shead shead--${mod} shead--cta shead--banner reveal">
+      <div class="shead__t">${kick(k)}${heading}</div>
+      ${cta}
+    </div>`;
+  }
+  const title = `<div class="shead__t">${kick(k)}${heading}</div>`;
   return `<div class="shead shead--${mod}${extra ? ' shead--cta' : ''} reveal">
-      ${parts.join('\n      ')}
+      ${[title, lead, cta].filter(Boolean).join('\n      ')}
     </div>`;
 }
 
 const seeall = (href, label) =>
   `<a href="${href}" class="seeall"><span class="seeall__l">${label}</span><span class="seeall__r">${I.arrow}</span></a>`;
 
-/* Contact close — fabric glyph field + title fade (see main.js). */
+/* Contact close — fabric mesh of plain circle nodes + title fade (see main.js). */
 const ctaBand = (depth = 0) => `<section class="sec sec--cta">
   <canvas class="cta__field" aria-hidden="true"></canvas>
   <div class="cta__blur" aria-hidden="true"></div>
   <div class="wrap">
     <div class="cta" data-cta>
       <div class="cta__copy">
-        <h2 class="cta__title">${esc(T.ctaKicker)}</h2>
-        <p class="cta__sub">${esc(T.ctaTitle)}</p>
+        <h2 class="cta__title">${esc(T.ctaTitle)}</h2>
         <p class="cta__lead">${esc(T.ctaText)}</p>
       </div>
       <div class="cta__aside">
@@ -683,7 +711,7 @@ const ctaBand = (depth = 0) => `<section class="sec sec--cta">
           <span class="cta__lbl">${T.email}</span>
           <span class="cta__val">${esc(O.email)}</span>
         </a>
-        <a class="cta__go" href="${rel(depth, 'contacts.html')}">${T.contactBtn} ${I.arrow}</a>
+        <a class="cta__go" href="${pageRel(depth, 'contacts.html')}">${T.nav_contacts} ${I.arrow}</a>
       </div>
     </div>
   </div>
@@ -694,7 +722,7 @@ const clientsGrid = () => site.clients.map(c =>
 
 const marquee = () => {
   const item = c =>
-    `<span class="mq__i"><img src="${rel(0, c.l)}" alt="${esc(c.n)}" loading="lazy" decoding="async"${c.scale ? ` style="--logo-scale:${c.scale}"` : ''}></span>`;
+    `<span class="mq__i"><img src="${rel(0, c.l)}" alt="${esc(c.n)}" loading="eager" decoding="async"${c.scale ? ` style="--logo-scale:${c.scale}"` : ''}></span>`;
   /* Two brick rows (even / odd). Pad the shorter row from the *other* row so we
      never repeat a logo inside the same track (e.g. double P&G). */
   const list = site.clients;
@@ -724,44 +752,27 @@ const marquee = () => {
 </section>`;
 };
 
-/* Idle layout: dense downward triangle of 6 pointy-top hexes (3–2–1).
-   Classic open-V arms (Analytics/Legal ↔ IT/Coord → Ops tip) with Offline
-   filling the crotch so the silhouette matches the 3–2–1 reference sketch.
-   --x/--y → CSS translate; index → HEX_DOCK.
-     Analytics (-2,0)  Offline (0,0)  IT (2,0)
-          Legal (-1,1)      Coord (1,1)
-                     Ops (0,2) */
-const HEX_V = [
-  { x: -2, y: 0 }, /* Analytics    — top-left       */
-  { x: -1, y: 1 }, /* Legal        — mid-left       */
-  { x:  0, y: 2 }, /* Operations   — tip            */
-  { x:  1, y: 1 }, /* Coordination — mid-right      */
-  { x:  2, y: 0 }, /* IT / Online  — top-right      */
-  { x:  0, y: 0 }, /* Offline      — top-centre     */
-];
-/* Pointy-top hex with gently rounded corners. Frost pane uses the same mask
-   path + the KPI card glass recipe (white 10% + blur 20px). */
-const HEX_D = 'M100.3 8 159.2 42Q173 50 173 66V134Q173 150 159.2 158L100.3 192Q86.5 200 72.7 192L13.8 158Q0 150 0 134V66Q0 50 13.8 42L72.7 8Q86.5 0 100.3 8Z';
-const HEX_PLATE = `<span class="appr-hex__frost" aria-hidden="true"></span>
-<svg class="appr-hex__plate" viewBox="0 0 173 200" aria-hidden="true" focusable="false">
-  <path class="appr-hex__body" d="${HEX_D}" fill="none"/>
-</svg>`;
-
-const approachHex = () => {
-  const label = EN ? 'Our services' : 'Наши услуги';
-  const cells = site.departments.map((d, i) => {
-    const idle = HEX_V[i] || { x: 0, y: 2 };
-    return `<button type="button" class="appr-hex__cell" data-i="${i}" style="--x:${idle.x};--y:${idle.y}" aria-pressed="false">
-      <span class="appr-hex__shape">
-        ${HEX_PLATE}
-        <span class="appr-hex__in">
-          <span class="ico appr-hex__ico">${I[d.icon] || I.search}</span>
-          <span class="appr-hex__lb">${esc(t(d, 'short'))}</span>
-        </span>
-      </span>
+/* Approach: department tiles (tabs) + reveal panel + KPI row. */
+const approachBlock = () => {
+  const tablistLabel = EN ? 'Departments' : 'Отделы';
+  const tabs = site.departments.map((d, i) => {
+    const id = `appr-tab-${i}`;
+    const panelId = `appr-panel-${i}`;
+    const on = i === 0;
+    return `<button type="button" class="appr__tab${on ? ' is-on' : ''}" role="tab" id="${id}"
+      aria-selected="${on ? 'true' : 'false'}" aria-controls="${panelId}" tabindex="${on ? '0' : '-1'}" data-i="${i}">
+      <span class="ico appr__ico">${I[d.icon] || I.search}</span>
+      <span class="appr__lb">${esc(t(d, 'short'))}</span>
     </button>`;
   }).join('');
-  const kpiHead = EN ? 'Key figures for the year' : 'Ключевые показатели за год';
+  const panels = site.departments.map((d, i) => {
+    const on = i === 0;
+    return `<div class="appr__panel${on ? ' is-on' : ''}" role="tabpanel" id="appr-panel-${i}"
+      aria-labelledby="appr-tab-${i}" aria-hidden="${on ? 'false' : 'true'}">
+      <h3 class="appr__panel-t">${esc(t(d, 'title'))}</h3>
+      <p class="appr__panel-d">${esc(t(d, 'text'))}</p>
+    </div>`;
+  }).join('');
   const kpis = site.results.map((r, i) => `<div class="res__c reveal"${i ? ` data-d="${i}"` : ''}>
         <div class="res__head">
           <span class="res__ico">${I[r.icon] || I.shield}</span>
@@ -771,28 +782,25 @@ const approachHex = () => {
         </div>
         <p class="res__l">${rich(t(r, 'label'))}</p>
       </div>`).join('');
-  const apprData = {
-    title: C.apprTitle,
-    lead: C.apprDesc,
-    items: site.departments.map(d => ({ title: t(d, 'title'), text: t(d, 'text') })),
-  };
-  return `<div class="appr-hex reveal" id="apprHex" aria-label="${label}">
-  <div class="appr-hex__shell">
-  <div class="appr-hex__mesh" aria-hidden="true">
-    <canvas class="appr-hex__field"></canvas>
-    <div class="appr-hex__blur"></div>
+  return `<div class="appr reveal" id="appr">
+  <div class="appr__shell">
+    <header class="appr__head">
+      <div class="appr__intro">
+        ${kick(C.apprKicker)}
+        <h2 class="h2">${C.apprTitle}</h2>
+      </div>
+      <p class="lead appr__lead">${esc(C.apprDesc)}</p>
+    </header>
+    <div class="appr__browser">
+      <div class="appr__tabs" role="tablist" aria-label="${tablistLabel}">${tabs}</div>
+      <div class="appr__panels">${panels}</div>
+    </div>
+    <div class="appr__kpi">
+      <p class="appr__kpi-h">${esc(C.apprKpiHead)}</p>
+      <p class="appr__kpi-note">${esc(C.apprKpiNote)}</p>
+      <div class="res">${kpis}</div>
+    </div>
   </div>
-  <div class="appr-hex__copy" id="apprHexCopy">
-    ${kick(C.apprKicker)}
-    <h2 class="h2" id="apprHexTitle">${C.apprTitle}</h2>
-    <p class="lead appr-hex__lead" id="apprHexLead">${esc(C.apprDesc)}</p>
-  </div>
-  <div class="appr-hex__stage">
-    <div class="appr-hex__grid">${cells}</div>
-  </div>
-  <div class="appr-hex__kpi"><p class="appr-hex__kpi-h">${esc(kpiHead)}</p><div class="res">${kpis}</div></div>
-  </div>
-  <script type="application/json" id="apprHexData">${JSON.stringify(apprData).replace(/</g, '\\u003c')}</script>
 </div>`;
 };
 
@@ -800,21 +808,28 @@ const approachHex = () => {
 /* Horizontal story trail: gently rising left→right (oldest→newest).
    Marker --yh and the SVG path share arcYH(), so marks sit on the stroke.
    SVG y grows downward, so a falling y% reads as continuous upward progress.
-   Mobile (≤640px) flattens to a mid-rail via data-d-flat + CSS --yh:50.
+   Mobile (≤640px) keeps a shallower rise (data-d-flat + --yhm), not a flat rail.
    The path keeps a short runway past the last mark (ROAD_AHEAD). */
 const ARC_H = { y0: 78, y1: 32 }; // y% of the rail; start low, end high on screen
-const ARC_FLAT_Y = 50;
+const ARC_M = { y0: 58, y1: 44 }; // slight upward vector on narrow viewports
 const arcYH = f => {
   const t = Math.min(1, Math.max(0, f));
   return ARC_H.y0 + (ARC_H.y1 - ARC_H.y0) * t;
+};
+const arcYM = f => {
+  const t = Math.min(1, Math.max(0, f));
+  return ARC_M.y0 + (ARC_M.y1 - ARC_M.y0) * t;
 };
 const arcPathH = (steps = 96) =>
   'M' + Array.from({ length: steps + 1 }, (_, i) => {
     const g = i / steps;
     return `${(g * 1000).toFixed(1)},${arcYH(g).toFixed(2)}`;
   }).join('L');
-/* Flat mid-rail for narrow viewports — marks and stroke share one Y. */
-const arcPathFlat = () => `M0,${ARC_FLAT_Y}L1000,${ARC_FLAT_Y}`;
+const arcPathMobile = (steps = 96) =>
+  'M' + Array.from({ length: steps + 1 }, (_, i) => {
+    const g = i / steps;
+    return `${(g * 1000).toFixed(1)},${arcYM(g).toFixed(2)}`;
+  }).join('L');
 
 /* Newest end of the ramp is deepest; oldest is quieter. */
 const TONES_L = ['#141428', '#1E1E38', '#282844', '#343454', '#404068', '#4C4C7A', '#535D86', '#646E96'];
@@ -841,12 +856,16 @@ const roadmap = () => {
   const items = [...site.timeline].reverse();
   const n = items.length;
   const dRise = arcPathH();
-  const dFlat = arcPathFlat();
+  const dFlat = arcPathMobile();
   const gid = 'roadGrad';
   /* Mark centers sit at (i+.5) tile units; path spans n + ROAD_AHEAD tiles. */
   const track = n + ROAD_AHEAD;
   const pathAttrs = `d="${dRise}" data-d-rise="${dRise}" data-d-flat="${dFlat}"`;
-  return `<div class="road" style="--yh0:${ARC_H.y0};--yh1:${ARC_H.y1};--ahead:${ROAD_AHEAD}">
+  /* data-road-drive=arrows: prev/next + horizontal swipe/drag own progress.
+     Flip to "scroll" for page-scroll pin/scrub (CSS/JS still support it). */
+  return `<div class="road" data-road-drive="arrows" style="--yh0:${ARC_H.y0};--yh1:${ARC_H.y1};--ahead:${ROAD_AHEAD}">
+      <button class="road__nav road__nav--prev" type="button" aria-label="${esc(T.roadPrev)}">${I.arrow}</button>
+      <button class="road__nav road__nav--next" type="button" aria-label="${esc(T.roadNext)}">${I.arrow}</button>
       <div class="road__body" tabindex="0" role="region" aria-label="${esc(C.histTitle.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim())}">
         <div class="road__htrack">
           <div class="road__arcWrap" aria-hidden="true">
@@ -870,16 +889,16 @@ const roadmap = () => {
               const tone = TONES_L[k], toneD = TONES_D[k];
               const mid = (i + .5) / track;
               return `<li class="road__i${x.highlight ? ' road__i--hi' : ''} reveal reveal--fade"
-                style="--yh:${arcYH(mid).toFixed(2)};--tone:${tone};--fg:${glyphOn(tone)};--tone-d:${toneD};--fg-d:${glyphOn(toneD)}">
+                style="--yh:${arcYH(mid).toFixed(2)};--yhm:${arcYM(mid).toFixed(2)};--tone:${tone};--fg:${glyphOn(tone)};--tone-d:${toneD};--fg-d:${glyphOn(toneD)}">
               <span class="road__peg">
-                <b class="road__yr">${esc(x.year)}</b>
+                <b class="road__yr">${esc(tt(x,'year'))}</b>
                 <span class="road__mark" aria-hidden="true">${
                   x.mark === 'logo'
                     ? `<img class="road__logo" src="${rel(0, 'assets/img/logo-mark.svg')}" alt="" decoding="async">`
                     : (I[x.icon] || I.check)
                 }</span>
               </span>
-              <div class="road__c"><h3>${esc(tt(x,'title'))}</h3><p>${esc(tt(x,'text'))}</p></div>
+              <div class="road__c"><p>${esc(tt(x,'text'))}</p></div>
             </li>`;
             }).join('')}
           </ol>
@@ -974,8 +993,8 @@ const assocModal = () => `<div class="modal" id="assocModal" role="dialog" aria-
       return { logo: a.logo, name: t(a,'name'), year: p.year, meta: p.meta, metaLabel: p.metaLabel, desc: t(a,'desc'), url: a.url, site: a.site };
     }))}</script>`;
 
-const newsCard = (n, depth = 0, d = 0, { eager = false } = {}) => `<a class="card ncard reveal" href="${rel(depth, `news/${n.slug}.html`)}"${d ? ` data-d="${d}"` : ''}>
-        ${n.img ? `<div class="ncard__img"><img src="${rel(depth, n.img)}" alt="${esc(n.title)}" loading="${eager ? 'eager' : 'lazy'}" decoding="async"></div>` : ''}
+const newsCard = (n, depth = 0, d = 0, { eager = false } = {}) => `<a class="card ncard reveal" href="${pageRel(depth, `news/${n.slug}.html`)}"${d ? ` data-d="${d}"` : ''}>
+        ${n.img ? `<div class="ncard__img"><img src="${assetRel(depth, n.img)}" alt="${esc(n.title)}" loading="${eager ? 'eager' : 'lazy'}" decoding="async"></div>` : ''}
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="${n.dateIso}">${esc(n.dateDisp)}</time><span class="dot"></span><span class="cl">${esc(n.cluster)}</span></div>
           <h3>${esc(n.title)}</h3>
@@ -983,8 +1002,8 @@ const newsCard = (n, depth = 0, d = 0, { eager = false } = {}) => `<a class="car
         </div>
       </a>`;
 
-const caseCard = (c, depth = 0, d = 0) => `<a class="card case reveal" href="${rel(depth, `cases/${c.slug}.html`)}"${d ? ` data-d="${d}"` : ''}>
-        ${c.img ? `<div class="case__img"><img src="${rel(depth, c.img)}" alt="${esc(c.title)}" loading="lazy" decoding="async"></div>` : ''}
+const caseCard = (c, depth = 0, d = 0) => `<a class="card case reveal" href="${pageRel(depth, `cases/${c.slug}.html`)}"${d ? ` data-d="${d}"` : ''}>
+        ${c.img ? `<div class="case__img"><img src="${assetRel(depth, c.img)}" alt="${esc(c.title)}" loading="lazy" decoding="async"></div>` : ''}
         <div class="case__b">
           <span class="case__cat">${esc(c.category)}</span>
           <h3>${esc(c.title)}</h3>
@@ -1034,6 +1053,8 @@ function buildHome() {
 
 <div class="glasszone">
 <section class="hero">
+  <!-- Soft V flare: same PNG + ~10% opacity approach as vlasta-s.com .flare -->
+  <div class="hero__flare" aria-hidden="true"></div>
   <div class="wrap hero__inner">
     <h1 class="hero__t rise">${C.heroTitle}</h1>
     <a class="scrollcue rise" data-d="2" href="#intro" aria-label="${C.heroScroll}">
@@ -1075,64 +1096,36 @@ function buildHome() {
       mod: 'stack',
       extra: seeall('services.html', T.allServices),
     })}
-    <div class="svc-tabs reveal" data-svc-tabs>
-      <div class="svc-tabs__shell">
-        <div class="svc-tabs__planes" aria-hidden="true">
-          ${site.services.map((s, i) => `<div
-              class="svc-tabs__plane${i === 0 ? ' is-on' : ''}"
-              data-svc-plane="${esc(s.id)}"
-              data-svc-bg="${esc(s.id)}">
-            ${s.tabImg
-              ? `<img src="${rel(0, s.tabImg)}" alt="" width="1600" height="900" decoding="async">`
-              : '<div class="svc-tabs__ph"></div>'}
-            <div class="svc-tabs__wash"></div>
-          </div>`).join('')}
+    <div class="svc-rail reveal" tabindex="0" role="group" aria-label="${esc(C.svcTitle)}">
+      ${site.services.map((s) => `<article class="svc-card" data-svc-bg="${esc(s.id)}">
+        <div class="svc-card__media" aria-hidden="true">
+          ${s.tabImg
+            ? `<img class="svc-card__shot" src="${rel(0, s.tabImg)}" alt="" width="1600" height="900" decoding="async">`
+            : '<div class="svc-card__ph"></div>'}
+          <div class="svc-card__wash"></div>
+          <div class="svc-card__wash svc-card__wash--reveal"></div>
+          ${s.tabImg
+            ? `<img class="svc-card__shot svc-card__shot--lit" src="${rel(0, s.tabImg)}" alt="" width="1600" height="900" decoding="async">`
+            : ''}
+          <div class="svc-card__chrome">
+            <span class="svc-card__n">${esc(s.num)}</span>
+            <span class="svc-card__mark">${I[s.icon]}</span>
+          </div>
         </div>
-        <div class="svc-tabs__bar" role="tablist" aria-label="${esc(C.svcTitle)}">
-          ${site.services.map((s, i) => `<button type="button"
-              class="svc-tabs__tab${i === 0 ? ' is-on' : ''}"
-              role="tab"
-              id="svc-tab-${s.id}"
-              aria-selected="${i === 0 ? 'true' : 'false'}"
-              aria-controls="svc-panel-${s.id}"
-              tabindex="${i === 0 ? '0' : '-1'}"
-              data-svc-tab="${s.id}">
-            <span class="svc-tabs__tab-media" aria-hidden="true" data-svc-bg="${esc(s.id)}">
-              ${s.tabImg
-                ? `<img src="${rel(0, s.tabImg)}" alt="" width="640" height="360" decoding="async">`
-                : '<span class="svc-tabs__ph"></span>'}
-              <span class="svc-tabs__tab-wash"></span>
-            </span>
-            <span class="svc-tabs__ico" aria-hidden="true">${I[s.icon]}</span>
-            <span class="svc-tabs__lab">${esc(t(s, 'title'))}</span>
-          </button>`).join('')}
-        </div>
-        <svg class="svc-tabs__contour" aria-hidden="true" focusable="false" preserveAspectRatio="none">
-          <path></path>
-        </svg>
-        <div class="svc-tabs__stage">
-          ${site.services.map((s, i) => `<div
-              class="svc-tabs__panel${i === 0 ? ' is-on' : ''}"
-              role="tabpanel"
-              id="svc-panel-${s.id}"
-              aria-labelledby="svc-tab-${s.id}"
-              data-svc-panel="${s.id}"
-              ${i === 0 ? '' : 'aria-hidden="true" inert'}>
-            <div class="svc-tabs__body">
-              <div class="svc-tabs__main">
-                <span class="svc-tabs__n" aria-hidden="true">${esc(s.num)}</span>
-                <h3 class="svc-tabs__title">${svcHomeTitle(s)}</h3>
-                <p class="svc-tabs__tag">${esc(plain(t(s, 'tagline')))}</p>
-                <a class="svc-tabs__more arrow-link" href="services.html#${s.id}">
-                  <span class="svc-tabs__more-l">${T.more}</span> ${I.arrow}
-                </a>
-              </div>
-              <ul class="svc-tabs__hl">${(t(s, 'highlights') || []).map(h =>
-                `<li><a href="${hlHref(s.id, h)}">${rich(hlText(h))}</a></li>`).join('')}</ul>
+        <div class="svc-card__body">
+          <div class="svc-card__copy">
+            <div class="svc-card__main">
+              <h3 class="svc-card__title">${svcHomeTitle(s)}</h3>
+              <p class="svc-card__tag">${esc(plain(t(s, 'tagline')))}</p>
+              <a class="svc-card__more arrow-link" href="services.html#${s.id}">
+                <span class="svc-card__more-l">${T.more}</span> ${I.arrow}
+              </a>
             </div>
-          </div>`).join('')}
+            <ul class="svc-card__hl">${(t(s, 'highlights') || []).map(h =>
+              `<li><a href="${hlHref(s.id, h)}">${rich(hlText(h))}</a></li>`).join('')}</ul>
+          </div>
         </div>
-      </div>
+      </article>`).join('')}
     </div>
   </div>
 </section>
@@ -1142,7 +1135,7 @@ ${marquee()}
 <div class="glasszone">
 <section class="sec" id="approach">
   <div class="wrap">
-    ${approachHex()}
+    ${approachBlock()}
   </div>
 </section>
 </div><!-- /glasszone -->
@@ -1211,9 +1204,9 @@ ${ctaBand(0)}
 /* --------------------------------------------------- service detail parts */
 /* Where the material is a procedure rather than a description it is set as a
    numbered run of steps, and where it is a set of watched channels, as an icon
-   grid. Direction cards and process strips fold shut so the page is not a wall
-   of offerings on arrival — the plus marks that each block opens. */
-const dirCard = (x, i, svcId) => `<details class="fold" id="${svcId}-${x.icon}"${i === 0 ? ' open' : ''}>
+   grid. Direction cards and process strips start expanded; the plus still
+   lets a visitor fold a block shut. */
+const dirCard = (x, i, svcId) => `<details class="fold" id="${svcId}-${x.icon}" open>
         <summary class="fold__sum">
           <span class="ico ico--sm">${I[x.icon] || I.check}</span>
           <span class="fold__t">${esc(tt(x, 'title'))}</span>
@@ -1235,7 +1228,7 @@ const chanGrid = (c) => `<div class="chan">
         </div>
       </div>`;
 
-const flowBlock = (f) => `<details class="fold fold--flow">
+const flowBlock = (f) => `<details class="fold fold--flow" open>
         <summary class="fold__sum">
           <span class="ico ico--sm">${I[f.icon] || I.layers}</span>
           <span class="fold__t">${esc(tt(f, 'title'))}</span>
@@ -1261,6 +1254,7 @@ function buildServices() {
       desc: C.svcPageDesc,
       keywords: C.svcPageKw,
       canonical: EN ? `${BASE}/en/services.html` : `${BASE}/services.html`, page: 'services.html',
+      bodyClass: 'page-services',
       jsonld: [orgLd, crumbLd([['Главная', ''], ['Услуги', 'services.html']]), {
         '@context': 'https://schema.org', '@type': 'ItemList',
         itemListElement: site.services.map((s, i) => ({
@@ -1275,31 +1269,31 @@ function buildServices() {
   ${engrave('tr', 'ph')}
   <div class="wrap">
     <nav class="crumbs" aria-label="${T.crumbs}"><a href="index.html">${T.home}</a> / <span>Услуги</span></nav>
-    ${kick(C.svcKicker)}
     <h1 class="h1">${C.svcH1}</h1>
     <p class="lead">${C.svcLead}</p>
   </div>
 </section>
 
-<section class="sec sec--tight sec--alt">
+<nav class="svc-jump" aria-label="${C.svcNav}">
   <div class="wrap">
-    <nav class="chips" aria-label="${C.svcNav}">
-      ${site.services.map(s => `<a class="chip" href="#${s.id}"><b>${esc(s.num)}</b>${esc(t(s,'title'))}</a>`).join('')}
-    </nav>
+    <div class="svc-tabs">
+      ${site.services.map(s => `<a class="svc-tabs__tab" href="#${s.id}">
+        <span class="svc-tabs__fill" aria-hidden="true"></span>
+        <span class="svc-tabs__txt"><b>${esc(s.num)}</b>${esc(t(s,'title'))}</span>
+      </a>`).join('')}
+    </div>
   </div>
-</section>
+</nav>
 
 <section class="sec">
   <div class="wrap">
     ${site.services.map(s => `<article class="svc-detail reveal" id="${s.id}">
-      <div class="svc-detail__head">
-        <span class="svc-detail__num">${esc(s.num)}</span>
-        <h2 class="h2">${esc(t(s,'title'))}</h2>
-      </div>
       <figure class="svc-detail__hero">
         <div class="ncard__img">
           <img src="${rel(0, s.img)}" alt="" loading="lazy" decoding="async">
         </div>
+        <span class="svc-detail__n" aria-hidden="true">${esc(s.num)}</span>
+        <h2 class="svc-detail__title">${esc(t(s,'title'))}</h2>
         <figcaption class="svc-detail__intro">${esc(t(s,'intro'))}</figcaption>
       </figure>
       <div class="fold-list">
@@ -1334,7 +1328,6 @@ function buildAbout() {
   ${engrave('tr', 'ph')}
   <div class="wrap">
     <nav class="crumbs" aria-label="${T.crumbs}"><a href="index.html">${T.home}</a> / <span>О нас</span></nav>
-    ${kick(C.aboutKicker)}
     <h1 class="h1">${C.aboutH1}</h1>
     <p class="lead">${C.aboutLead}</p>
   </div>
@@ -1467,7 +1460,7 @@ ${ctaBand(0)}
 
   // ---- detail pages
   cases.forEach((x, idx) => {
-    const cc = chrome('cases.html', 1);
+    const cc = chrome('cases.html', 1, `cases/${x.slug}.html`);
     const prev = cases[idx - 1], next = cases[idx + 1];
     const desc = x.intro.length > 300 ? x.intro.slice(0, 297) + '…' : x.intro;
     const page = j(
@@ -1508,7 +1501,7 @@ ${ctaBand(0)}
 </section>
 
 <section class="sec">
-  <div class="wrap wrap--narrow">
+  <div class="wrap wrap--article">
     <div class="prose reveal">
       ${x.sections.map((s, i) => `<h2><span class="step">${String(i + 1).padStart(2, '0')}</span>${esc(s.h)}</h2>
       ${s.p.map(p => `<p>${esc(p)}</p>`).join('')}`).join('')}
@@ -1558,7 +1551,6 @@ function buildNews() {
   ${engrave('tr', 'ph')}
   <div class="wrap">
     <nav class="crumbs" aria-label="${T.crumbs}"><a href="index.html">${T.home}</a> / <span>Новости</span></nav>
-    ${kick(C.newsKick)}
     <h1 class="h1">${C.newsH1}</h1>
     <p class="lead">${C.newsLead}</p>
   </div>
@@ -1589,7 +1581,7 @@ function buildNews() {
 
   // ---- article pages
   news.forEach((n, idx) => {
-    const cc = chrome('news.html', 1);
+    const cc = chrome('news.html', 1, `news/${n.slug}.html`);
     const prev = news[idx - 1], next = news[idx + 1];
     const related = news.filter(r => r.cluster === n.cluster && r.slug !== n.slug).slice(0, 3);
     const videoBlock = n.video
@@ -1623,7 +1615,7 @@ function buildNews() {
       `<main>
 <section class="phero${n.img ? ' phero--photo' : ''}"${n.img ? ` style="background-image:url('${rel(1, n.img)}')"` : ''}>
   ${n.img ? '' : engrave('tr', 'ph')}
-  <div class="wrap wrap--narrow">
+  <div class="wrap wrap--article">
     <nav class="crumbs" aria-label="${T.crumbs}"><a href="../index.html">${T.home}</a> / <a href="../news.html">${NAV[4][1]}</a> / <span><time datetime="${n.dateIso}">${esc(n.dateDisp)}</time></span></nav>
     <div class="article__meta"><span class="cl">${esc(n.cluster)}</span></div>
     <h1 class="h1 rise" style="margin-top:14px">${esc(n.h1)}</h1>
@@ -1631,7 +1623,7 @@ function buildNews() {
 </section>
 
 <section class="sec">
-  <div class="wrap wrap--narrow">
+  <div class="wrap wrap--article">
     ${videoBlock}
     ${n.subtitle ? `<h2 class="article__subtitle${videoBlock ? '' : ' reveal'}">${esc(n.subtitle)}</h2>` : ''}
     <article class="prose reveal">
@@ -1684,7 +1676,6 @@ function buildContacts() {
   ${engrave('tr', 'ph')}
   <div class="wrap">
     <nav class="crumbs" aria-label="${T.crumbs}"><a href="index.html">${T.home}</a> / <span>Контакты</span></nav>
-    ${kick(C.contactsKick)}
     <h1 class="h1">${C.contactsH1}</h1>
     <p class="lead">${C.contactsLead}</p>
   </div>
@@ -1718,7 +1709,7 @@ function buildContacts() {
 
 /* -------------------------------------------------------------- PRIVACY */
 function buildPrivacy() {
-  const c = chrome('contacts.html', 0);
+  const c = chrome('', 0, 'privacy.html');
   const S = EN ? [
     ['General', [`This Policy sets out how ${O.legal} (the Company) processes personal data and the measures taken to keep it secure.`, 'By using the site and contacting us by phone or email, you accept the terms of this Policy.']],
     ['What we process', ['Your name, company, phone number, email address and the content of your enquiry — only as far as you provide it yourself.', 'Technical data: IP address, browser and device type, referral source and on-site activity, in anonymised form, for statistics.']],

@@ -79,8 +79,8 @@
       "value": "60",
       "unit": "%",
       "pct": 60,
-      "label": "<b>Затрат на программу возвращено</b> правообладателю",
-      "label_en": "<b>Of programme costs returned</b> to the rights holder",
+      "label": "<b>Затрат на программу возвращено</b> правообладателю через ГИ",
+      "label_en": "<b>Of programme costs returned</b> to the rights holder via GI",
       "count": 60,
       "unit_en": "%",
       "icon": "scales",
@@ -157,13 +157,13 @@
           "bullets": [
             "Поиск по цифровому отпечатку (hash comparison)",
             "Связка с внутренней системой VCC: адреса точек для рейдов",
-            "Анализ администраторов и аффилированных ресурсов",
+            "OSINT-анализ администраторов и аффилированных ресурсов",
             "Автоматический контроль повторных нарушений"
           ],
           "bullets_en": [
             "Digital fingerprint matching (hash comparison)",
             "Linked to our VCC system: physical addresses for raids",
-            "Profiling of administrators and affiliated resources",
+            "OSINT analysis of administrators and affiliated resources",
             "Automatic re-infringement monitoring"
           ]
         },
@@ -915,10 +915,10 @@
       "y": 0.76,
       "short": "IT / Online",
       "title": "IT / Онлайн-отдел",
-      "text": "IT и онлайн-отдел занимается реализацией задач в цифровой среде. Включает работу с маркетплейсами, проведение онлайн-проверок, мониторинг и анализ интернет-активности, а также решение проектов в рамках удалённого взаимодействия и контрактной работы.",
+      "text": "IT и онлайн-отдел занимается реализацией задач в цифровой среде. Включает работу с маркетплейсами, проведение онлайн-проверок, мониторинг и OSINT-анализ интернет-активности, а также решение проектов в рамках удалённого взаимодействия и контрактной работы.",
       "title_en": "IT / Online department",
       "short_en": "IT / Online",
-      "text_en": "The IT and online department handles digital assignments — marketplaces, online checks, monitoring and analysis of internet activity, and remote or contract-based project delivery."
+      "text_en": "The IT and online department handles digital assignments — marketplaces, online checks, monitoring and OSINT analysis of internet activity, and remote or contract-based project delivery."
     },
     {
       "icon": "pin",
@@ -969,73 +969,51 @@
   "timeline": [
     {
       "year": "2025",
-      "title": "Медаль МПА и масштабирование в ЕАЭС",
-      "text": "Генеральный директор Владимир Соломанидин награжден Всероссийской полицейской ассоциацией МПА медалью «Солидарность Полиции». География деятельности расширена до стран Евразийского экономического союза с запуском комплексных программ защиты брендов на новых рынках.",
+      "text": "Возврат на «пиковые» показатели, география деятельности расширена до стран Евразийского экономического союза с запуском комплексных программ защиты брендов на новых рынках. Объем предотвращённого ущерба правообладателями – более 125 000 000 евро в год. Генеральный директор Владимир Соломанидин награжден Всероссийской полицейской ассоциацией МПА медалью.",
       "highlight": true,
-      "title_en": "IPA medal and EAEU expansion",
-      "text_en": "CEO Vladimir Solomanidin was awarded the “Police Solidarity” medal by the All-Russian Police Association (IPA). Operations expanded across the Eurasian Economic Union with full brand protection programmes on new markets.",
+      "text_en": "A return to “peak” performance; the geography of operations expands to the Eurasian Economic Union countries with the launch of comprehensive brand-protection programmes on new markets. Prevented damage for rights holders — more than €125,000,000 a year. CEO Vladimir Solomanidin is awarded a medal by the All-Russian Police Association (MPA).",
       "icon": "growth"
     },
     {
       "year": "2024",
-      "title": "Новое направление",
-      "text": "Запущено направление по борьбе с недобросовестной конкуренцией, расширившее спектр услуг для клиентов.",
-      "title_en": "A new practice area",
-      "text_en": "Launch of a practice against unfair competition, broadening the range of services for clients.",
+      "text": "Активное развитие направлений борьбы в online среде и борьбы с недобросовестной конкуренцией. Соавторство ряда профильных инициатив и новел.",
+      "text_en": "Active development of practices against threats in the online environment and against unfair competition. Co-authorship of a number of specialist initiatives and legislative amendments.",
       "icon": "layers"
     },
     {
       "year": "2022",
-      "title": "Президент W.A.D.",
-      "text": "Алексей Соломанидин стал самым молодым президентом WAD за всю её историю.",
-      "title_en": "President of W.A.D.",
-      "text_en": "Alexey Solomanidin became the youngest president in WAD history.",
+      "text": "Ключевой для правоохранительной системы РФ вклад в сохранение защиты рынка от нелегальной продукции на фоне санкционного давления. Алексей Соломанидин стал самым молодым президентом WAD за всю её историю.",
+      "text_en": "A contribution pivotal for Russia’s law-enforcement system to sustaining market protection against illicit goods under sanctions pressure. Alexey Solomanidin becomes the youngest president in WAD history.",
       "icon": "users"
     },
     {
       "year": "2020",
-      "title": "Масштабирование brand protection",
-      "text": "Компания вышла на уровень защиты более 80 брендов, укрепив позиции ведущего лидера на рынке.",
-      "title_en": "Brand protection at scale",
-      "text_en": "The company passed 80 brands under protection, consolidating its position as a market leader.",
+      "text": "Выход на показатель закрытия 15 незаконных производств в год. Портфель компании насчитывает более 80 брендов, начало активная работа по борьбе с нелегальной акцизной продукцией. Онлайн направление по целому ряду зарубежных государств.",
+      "text_en": "Reaching a rate of 15 illegal production sites closed per year. The company portfolio exceeds 80 brands; active work begins against illicit excise goods. An online practice across a number of foreign jurisdictions.",
       "icon": "brand"
     },
     {
-      "year": "2015",
-      "title": "Медаль В.В. Леонтьева",
-      "text": "Владимир Соломанидин награждён медалью «За достижения в экономике».",
-      "title_en": "The V.V. Leontief medal",
-      "text_en": "Vladimir Solomanidin awarded the medal “For Achievements in Economics”.",
-      "icon": "medal"
-    },
-    {
-      "year": "2014",
-      "title": "Награда имени Нормана Дж. Слоуна",
-      "text": "Памятная награда вручена Ассоциацией Детективов Владимиру Соломанидину за долгую и безупречную службу в сфере расследований и обеспечения безопасности",
-      "title_en": "The Norman J. Sloan Award",
-      "text_en": "A commemorative award presented by the Association of Detectives to Vladimir Solomanidin for long and distinguished service in investigations and security.",
-      "icon": "trophy"
+      "year": "2014–15",
+      "text": "Проведение крупнейшего за десятилетие рейда на незаконном производстве – изъятие более 100 фур готовой контрафактной продукции. Коллектив компании составляет более 50 человек. Руководитель компании отмечен сразу двумя наградами (Награда имени Нормана Дж. Слоуна от WAD, медаль В.В. Леонтьева «За достижения в экономике».)",
+      "text_en": "The decade’s largest raid on illegal production — seizure of more than 100 truckloads of finished counterfeit goods. The company team exceeds 50 people. Company leadership is recognised with two awards at once (the Norman J. Sloan Award from WAD, and the V.V. Leontief medal “For Achievements in Economics”).",
+      "icon": "raid"
     },
     {
       "year": "2010",
-      "title": "Признание на международном уровне",
-      "text": "Генеральный директор Владимир Соломанидин избран главой Всемирной ассоциации детективов (WAD, основана в 1925 году).",
-      "title_en": "International recognition",
-      "text_en": "CEO Vladimir Solomanidin elected head of the World Association of Detectives (WAD, founded 1925).",
+      "text": "Более 10 успешных программ по защите бренда, развитие практики по пресечению деятельности незаконных производств. Генеральный директор Владимир Соломанидин избран главой Всемирной ассоциации детективов (WAD, основана в 1925 году).",
+      "text_en": "More than 10 successful brand-protection programmes and further development of the practice of shutting down illegal production. CEO Vladimir Solomanidin is elected head of the World Association of Detectives (WAD, founded in 1925).",
       "icon": "globe"
     },
     {
       "year": "2006",
-      "title": "Основание компании",
-      "text": "Старт деятельности в Москве в сфере обеспечения безопасности бизнеса и защиты брендов.",
-      "title_en": "The company is founded",
-      "text_en": "Operations begin in Moscow in business security and brand protection.",
+      "text": "Создание компании, старт деятельности в Москве в сфере обеспечения безопасности бизнеса и защиты брендов. Создание практики работы правоохранительной системы по «контрафактным» статьям КоАп и УК РФ.",
+      "text_en": "The company is founded; operations begin in Moscow in business security and brand protection. Development of law-enforcement practice under the “counterfeit” articles of the Russian Code of Administrative Offences and Criminal Code.",
       "mark": "logo"
     }
   ],
   "geography": {
     "kicker": "География",
-    "title": "Россия, СНГ и страны ЕАЭС",
+    "title": "Мы защищаем бизнес наших клиентов",
     "lead": "Мы работаем и оказываем услуги на территории России и стран СНГ, а также в Европе, Северной и Южной Америке, Африке и Юго-Восточной Азии. Сотрудничество с зарубежными партнёрами наряду с членством в профильных международных ассоциациях позволяет представлять интересы клиентов, включая защиту бренда в странах ЕАЭС.",
     "regions": [
       "Россия",
@@ -1061,7 +1039,7 @@
       }
     ],
     "kicker_en": "Geography",
-    "title_en": "Russia, the CIS and the EAEU",
+    "title_en": "We protect our clients’ business",
     "lead_en": "We work and provide services in Russia and the CIS, as well as in Europe, North and South America, Africa and Southeast Asia. Cooperation with foreign partners, together with membership of specialised international associations, enables us to represent clients’ interests, including brand protection in the EAEU.",
     "regions_en": [
       "Russia",

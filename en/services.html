@@ -24,17 +24,17 @@
 <meta name="twitter:description" content="Brand protection, corporate security, personal security — Vlasta consulting. Intellectual property, economic security of business, consulting.">
 <meta name="twitter:image" content="https://vlasta-s.com/assets/img/og-default.jpg">
 <meta name="theme-color" content="#141428">
-<script>(function(){var r=document.documentElement;r.classList.add('js');try{var t=localStorage.getItem('vlasta-theme');if(!t)t=matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';r.setAttribute('data-theme',t)}catch(e){}})();</script>
+<script>(function(){var r=document.documentElement;r.classList.add('js');try{var t=localStorage.getItem('vlasta-theme');if(!t)t=matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';r.setAttribute('data-theme',t)}catch(e){}try{var K='vlasta-lang';var lang=(r.getAttribute('lang')||'ru').slice(0,2);if(lang!=='en')lang='ru';var pref=localStorage.getItem(K);if(pref!=='en'&&pref!=='ru'){localStorage.setItem(K,lang);document.cookie=K+'='+lang+';path=/;max-age=31536000;SameSite=Lax';return}if(pref===lang)return;var link=document.querySelector('link[rel="alternate"][hreflang="'+pref+'"]');if(!link)return;var href=link.getAttribute('href');if(!href)return;var dest=new URL(href,'https://vlasta-s.com');var leaf=(dest.pathname||'/').replace(/^\/en\//,'').replace(/^\//,'');if(!leaf||leaf.charAt(leaf.length-1)==='/')leaf='index.html';var cur=location.pathname.replace(/\\/g,'/');if(cur.slice(-1)==='/')cur+='index.html';else if(cur.slice(-3)==='/en')cur+='/index.html';var next;if(lang==='en'){var i=cur.lastIndexOf('/en/');if(i<0)return;next=cur.slice(0,i+1)+(pref==='en'?'en/'+leaf:leaf)}else{var j=cur.lastIndexOf('/'+leaf);if(j<0)return;next=cur.slice(0,j+1)+(pref==='en'?'en/'+leaf:leaf)}if(!next||next===cur)return;location.replace((location.protocol==='file:'?'file://':'')+next+location.search+location.hash)}catch(e){}})();</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200..800;1,300..600&display=swap">
-<link rel="stylesheet" href="../assets/css/style.css?v=38adffe8">
+<link rel="stylesheet" href="../assets/css/style.css?v=9c876919">
 <link rel="icon" href="../assets/img/logo-dark.svg" type="image/svg+xml">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Власта-Консалтинг","alternateName":"Vlasta Consulting","url":"https://vlasta-s.com/","logo":"https://vlasta-s.com/assets/img/logo-dark.svg","foundingDate":"2006","telephone":"+74951233336","email":"info@vlasta-s.com","address":{"@type":"PostalAddress","streetAddress":"ул. Усачёва, д. 13, помещ. 4н","addressLocality":"Москва","postalCode":"119048","addressCountry":"RU"},"areaServed":["RU","BY","KZ","UZ","KG","AM","GE"],"contactPoint":{"@type":"ContactPoint","telephone":"+74951233336","contactType":"customer service","availableLanguage":["Russian","English"]}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://vlasta-s.com/"},{"@type":"ListItem","position":2,"name":"Услуги","item":"https://vlasta-s.com/services.html"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@type":"Service","name":"Intellectual property","description":"Systematic trademark protection against all types of infringement — identity, confusing similarity, unfair competition.","provider":{"@type":"Organization","name":"Власта-Консалтинг"},"url":"https://vlasta-s.com/services.html#brand"}},{"@type":"ListItem","position":2,"item":{"@type":"Service","name":"Corporate security","description":"Integrated solutions in the field of economic security of business.","provider":{"@type":"Organization","name":"Власта-Консалтинг"},"url":"https://vlasta-s.com/services.html#security"}},{"@type":"ListItem","position":3,"item":{"@type":"Service","name":"Intelligence and analysis","description":"Business intelligence and analysis: information from trusted sources for strategies that minimise risk.","provider":{"@type":"Organization","name":"Власта-Консалтинг"},"url":"https://vlasta-s.com/services.html#intelligence"}},{"@type":"ListItem","position":4,"item":{"@type":"Service","name":"Consulting","description":"Security consulting in a one-window format.","provider":{"@type":"Organization","name":"Власта-Консалтинг"},"url":"https://vlasta-s.com/services.html#consulting"}}]}</script>
 </head>
-<body>
+<body class="page-services">
 <div class="progress" aria-hidden="true"></div>
 <div class="topbar">
   <div class="wrap">
@@ -51,21 +51,21 @@
 </div>
 <header class="hdr">
   <div class="wrap">
-    <a class="brand" href="../index.html" aria-label="Власта-Консалтинг — на главную">
+    <a class="brand" href="index.html" aria-label="Власта-Консалтинг — на главную">
       <img class="brand__mark" src="../assets/img/logo-dark.svg" alt="" width="48" height="56">
       <span class="brand__txt">
         <span class="brand__name"><span class="brand__line">VLASTA</span><span class="brand__line">CONSULTING</span></span>
         <span class="brand__sub">Business Security</span>
       </span>
     </a>
-    <nav class="nav" aria-label="Main navigation"><a href="../index.html">Home</a><a href="../services.html" class="is-on" aria-current="page">Services</a><a href="../about.html">About</a><a href="../cases.html">Cases</a><a href="../news.html">News</a></nav>
+    <nav class="nav" aria-label="Main navigation"><a href="index.html">Home</a><a href="services.html" class="is-on" aria-current="page">Services</a><a href="about.html">About</a><a href="cases.html">Cases</a><a href="news.html">News</a></nav>
     <div class="hdr__cta">
       <div class="hdr__contact">
         <div class="hdr__tools">
           <div class="lang"><a href="../services.html" hreflang="ru">RU</a></div>
           <button class="tt" type="button" aria-label="Toggle dark theme" aria-pressed="false"><svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.4"/><path d="M12 2v2.5M12 19.5V22M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2 12h2.5M19.5 12H22M4.2 19.8 6 18M18 6l1.8-1.8"/></svg></button>
         </div>
-        <a href="../contacts.html" class="btn btn--glass">Contact</a>
+        <a href="contacts.html" class="hdr__talk">Get in touch</a>
       </div>
       <button class="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mnav"><span></span><span></span><span></span></button>
     </div>
@@ -76,31 +76,40 @@
   <div class="engrave engrave--tr" aria-hidden="true"><svg viewBox="0 0 640 640" aria-hidden="true" focusable="false" fill="none" stroke="var(--mist)" stroke-width=".7"><ellipse cx="320" cy="320" rx="300.0" ry="132.0" transform="rotate(0.0 320 320)"/><ellipse cx="320" cy="320" rx="297.8" ry="128.6" transform="rotate(6.9 320 320)"/><ellipse cx="320" cy="320" rx="295.6" ry="125.2" transform="rotate(13.8 320 320)"/><ellipse cx="320" cy="320" rx="293.4" ry="121.8" transform="rotate(20.8 320 320)"/><ellipse cx="320" cy="320" rx="291.2" ry="118.4" transform="rotate(27.7 320 320)"/><ellipse cx="320" cy="320" rx="289.0" ry="115.0" transform="rotate(34.6 320 320)"/><ellipse cx="320" cy="320" rx="286.8" ry="111.6" transform="rotate(41.5 320 320)"/><ellipse cx="320" cy="320" rx="284.6" ry="108.2" transform="rotate(48.5 320 320)"/><ellipse cx="320" cy="320" rx="282.4" ry="104.8" transform="rotate(55.4 320 320)"/><ellipse cx="320" cy="320" rx="280.2" ry="101.4" transform="rotate(62.3 320 320)"/><ellipse cx="320" cy="320" rx="278.0" ry="98.0" transform="rotate(69.2 320 320)"/><ellipse cx="320" cy="320" rx="275.8" ry="94.6" transform="rotate(76.2 320 320)"/><ellipse cx="320" cy="320" rx="273.6" ry="91.2" transform="rotate(83.1 320 320)"/><ellipse cx="320" cy="320" rx="271.4" ry="87.8" transform="rotate(90.0 320 320)"/><ellipse cx="320" cy="320" rx="269.2" ry="84.4" transform="rotate(96.9 320 320)"/><ellipse cx="320" cy="320" rx="267.0" ry="81.0" transform="rotate(103.8 320 320)"/><ellipse cx="320" cy="320" rx="264.8" ry="77.6" transform="rotate(110.8 320 320)"/><ellipse cx="320" cy="320" rx="262.6" ry="74.2" transform="rotate(117.7 320 320)"/><ellipse cx="320" cy="320" rx="260.4" ry="70.8" transform="rotate(124.6 320 320)"/><ellipse cx="320" cy="320" rx="258.2" ry="67.4" transform="rotate(131.5 320 320)"/><ellipse cx="320" cy="320" rx="256.0" ry="64.0" transform="rotate(138.5 320 320)"/><ellipse cx="320" cy="320" rx="253.8" ry="60.6" transform="rotate(145.4 320 320)"/><ellipse cx="320" cy="320" rx="251.6" ry="57.2" transform="rotate(152.3 320 320)"/><ellipse cx="320" cy="320" rx="249.4" ry="53.8" transform="rotate(159.2 320 320)"/><ellipse cx="320" cy="320" rx="247.2" ry="50.4" transform="rotate(166.2 320 320)"/><ellipse cx="320" cy="320" rx="245.0" ry="47.0" transform="rotate(173.1 320 320)"/></svg></div>
   <div class="wrap">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a> / <span>Услуги</span></nav>
-    <span class="kick">Services</span>
     <h1 class="h1">Our services</h1>
     <p class="lead">Brand protection, corporate security and personal security. An integrated approach to each client.</p>
   </div>
 </section>
 
-<section class="sec sec--tight sec--alt">
+<nav class="svc-jump" aria-label="Service areas">
   <div class="wrap">
-    <nav class="chips" aria-label="Service areas">
-      <a class="chip" href="#brand"><b>1</b>Intellectual property</a><a class="chip" href="#security"><b>2</b>Corporate security</a><a class="chip" href="#intelligence"><b>3</b>Intelligence and analysis</a><a class="chip" href="#consulting"><b>4</b>Consulting</a>
-    </nav>
+    <div class="svc-tabs">
+      <a class="svc-tabs__tab" href="#brand">
+        <span class="svc-tabs__fill" aria-hidden="true"></span>
+        <span class="svc-tabs__txt"><b>1</b>Intellectual property</span>
+      </a><a class="svc-tabs__tab" href="#security">
+        <span class="svc-tabs__fill" aria-hidden="true"></span>
+        <span class="svc-tabs__txt"><b>2</b>Corporate security</span>
+      </a><a class="svc-tabs__tab" href="#intelligence">
+        <span class="svc-tabs__fill" aria-hidden="true"></span>
+        <span class="svc-tabs__txt"><b>3</b>Intelligence and analysis</span>
+      </a><a class="svc-tabs__tab" href="#consulting">
+        <span class="svc-tabs__fill" aria-hidden="true"></span>
+        <span class="svc-tabs__txt"><b>4</b>Consulting</span>
+      </a>
+    </div>
   </div>
-</section>
+</nav>
 
 <section class="sec">
   <div class="wrap">
     <article class="svc-detail reveal" id="brand">
-      <div class="svc-detail__head">
-        <span class="svc-detail__num">1</span>
-        <h2 class="h2">Intellectual property</h2>
-      </div>
       <figure class="svc-detail__hero">
         <div class="ncard__img">
           <img src="../assets/img/services/zashita-brenda.jpg" alt="" loading="lazy" decoding="async">
         </div>
+        <span class="svc-detail__n" aria-hidden="true">1</span>
+        <h2 class="svc-detail__title">Intellectual property</h2>
         <figcaption class="svc-detail__intro">Vlasta-Consulting LLC has many years of experience in the protection of intellectual property rights. In Russia, we were practically the first to develop and launch a trademark protection program in 2006.</figcaption>
       </figure>
       <div class="fold-list">
@@ -114,7 +123,7 @@
           <p>A trademark is a business card and a valuable asset to your business. It is the trademark that customers will associate with your goods and services. By using a trademark, you can effectively protect a business from counterfeits, and also profit from licensing to third parties. Before you start using a trademark, you need to secure its legal protection.</p>
           <ul class="dir__l"><li>Clearance search and filing</li><li>Prosecution through to the certificate</li><li>Renewals, amendments, foreign registration</li><li>Licensing and third-party agreements</li></ul>
         </div>
-      </details><details class="fold" id="brand-shield">
+      </details><details class="fold" id="brand-shield" open>
         <summary class="fold__sum">
           <span class="ico ico--sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 3v5.5c0 4.8-3.2 8-7.5 9.5-4.3-1.5-7.5-4.7-7.5-9.5V6z"/><path d="M9 12l2 2 4-4"/></svg></span>
           <span class="fold__t">Full-scope trademark defence</span>
@@ -124,7 +133,7 @@
           <p>Trademark protection consists of systematic and full-scale work in all possible directions and in relation to all types of infringements (identity, similarity to the point of confusion, unfair competition). The integrated use of all available tools allows you to ensure the highest possible level of trademark protection.</p>
           <ul class="dir__l"><li>Identity and confusing similarity</li><li>Unfair competition</li><li>Online and offline run as one loop</li><li>Monitoring for repeat offences afterwards</li></ul>
         </div>
-      </details><details class="fold" id="brand-laptop">
+      </details><details class="fold" id="brand-laptop" open>
         <summary class="fold__sum">
           <span class="ico ico--sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16v10H4z"/><path d="M8 11h8M8 15h5"/></svg></span>
           <span class="fold__t">Online Brand Protection System</span>
@@ -132,9 +141,9 @@
         </summary>
         <div class="fold__body">
           <p>Our own web application finds infringing content of any kind and handles the pre-action work with site administrators, hosting providers and domain registrars.</p>
-          <ul class="dir__l"><li>Digital fingerprint matching (hash comparison)</li><li>Linked to our VCC system: physical addresses for raids</li><li>Profiling of administrators and affiliated resources</li><li>Automatic re-infringement monitoring</li></ul>
+          <ul class="dir__l"><li>Digital fingerprint matching (hash comparison)</li><li>Linked to our VCC system: physical addresses for raids</li><li>OSINT analysis of administrators and affiliated resources</li><li>Automatic re-infringement monitoring</li></ul>
         </div>
-      </details><details class="fold" id="brand-board">
+      </details><details class="fold" id="brand-board" open>
         <summary class="fold__sum">
           <span class="ico ico--sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9.5 9v11"/></svg></span>
           <span class="fold__t">Pre-action measures online</span>
@@ -144,7 +153,7 @@
           <p>Most online infringement comes down without litigation, provided you move quickly and address every party at once.</p>
           <ul class="dir__l"><li>Suspicious links pre-selected by our analysts</li><li>Complaints to the administrator, registrar and host</li><li>Take-down tools for rapid delisting on major platforms</li><li>Blocking of advertising and search results</li></ul>
         </div>
-      </details><details class="fold" id="brand-raid">
+      </details><details class="fold" id="brand-raid" open>
         <summary class="fold__sum">
           <span class="ico ico--sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 3v5.2c0 4.6-3.1 7.8-7.5 9.3-4.4-1.5-7.5-4.7-7.5-9.3V6z"/><path d="M12 8.4v4.2M12 15.4h.01"/></svg></span>
           <span class="fold__t">Offline brand protection</span>
@@ -154,7 +163,7 @@
           <p>An online trail leads to a physical address. From there it is a test purchase, an inspection and a raid alongside law enforcement.</p>
           <ul class="dir__l"><li>Test purchase and examination of the goods offered</li><li>Establishing the real address behind the offer</li><li>Inspections carried out with police officers</li><li>Organising destruction of counterfeit and verifying that the court order is carried out</li></ul>
         </div>
-      </details><details class="fold" id="brand-scales">
+      </details><details class="fold" id="brand-scales" open>
         <summary class="fold__sum">
           <span class="ico ico--sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M7 21h10M4 7h16M8 7l-4 6h8zM16 7l4 6h-8z"/></svg></span>
           <span class="fold__t">Court representation in IP disputes</span>
@@ -193,7 +202,7 @@
           </div>
         </div>
       </div>
-      <div class="fold-list fold-list--flows"><details class="fold fold--flow">
+      <div class="fold-list fold-list--flows"><details class="fold fold--flow" open>
         <summary class="fold__sum">
           <span class="ico ico--sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 3v5.2c0 4.6-3.1 7.8-7.5 9.3-4.4-1.5-7.5-4.7-7.5-9.3V6z"/><path d="M12 8.4v4.2M12 15.4h.01"/></svg></span>
           <span class="fold__t">Raids with the police</span>
@@ -225,7 +234,7 @@
             </li>
           </ol>
         </div>
-      </details><details class="fold fold--flow">
+      </details><details class="fold fold--flow" open>
         <summary class="fold__sum">
           <span class="ico ico--sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V7"/><circle cx="4" cy="4.5" r="1.6"/><path d="M6.6 9.2 21 6.6v4.2L6.6 13.4z"/><path d="M3 20h18"/></svg></span>
           <span class="fold__t">Customs and the IP register</span>
@@ -265,7 +274,7 @@
             </li>
           </ol>
         </div>
-      </details><details class="fold fold--flow">
+      </details><details class="fold fold--flow" open>
         <summary class="fold__sum">
           <span class="ico ico--sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M7 21h10M4 7h16M8 7l-4 6h8zM16 7l4 6h-8z"/></svg></span>
           <span class="fold__t">Litigation</span>
@@ -299,14 +308,12 @@
         </div>
       </details></div>
     </article><article class="svc-detail reveal" id="security">
-      <div class="svc-detail__head">
-        <span class="svc-detail__num">2</span>
-        <h2 class="h2">Corporate security</h2>
-      </div>
       <figure class="svc-detail__hero">
         <div class="ncard__img">
           <img src="../assets/img/services/biznes-bezopasnost.jpg" alt="" loading="lazy" decoding="async">
         </div>
+        <span class="svc-detail__n" aria-hidden="true">2</span>
+        <h2 class="svc-detail__title">Corporate security</h2>
         <figcaption class="svc-detail__intro">Vlasta Consulting holding company offers complex solutions in the field of economic security. Twenty years of experience have made us a top-tier team, and our clients trust us with solving any issues in business protection.</figcaption>
       </figure>
       <div class="fold-list">
@@ -320,7 +327,7 @@
           <p>We know the risks foreign companies meet in Russia, the CIS and Eastern Europe, and we prepare screening to American and European standards.</p>
           <ul class="dir__l"><li>KYC / AML conformity</li><li>Full due diligence to FCPA / UKBA</li><li>Identification of politically exposed persons</li><li>Sanctions risk assessment</li></ul>
         </div>
-      </details><details class="fold" id="security-users">
+      </details><details class="fold" id="security-users" open>
         <summary class="fold__sum">
           <span class="ico ico--sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.4"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16.5 5.2a3.4 3.4 0 0 1 0 5.6M18 14.4a6.5 6.5 0 0 1 3.5 5.6"/></svg></span>
           <span class="fold__t">Background screening</span>
@@ -330,7 +337,7 @@
           <p>However spotless a CV looks, a new relationship can still carry real risk. Screening closes off conflicts of interest, criminal ties and hidden episodes in a history.</p>
           <ul class="dir__l"><li>Reputational material in open sources</li><li>Registration data and business connections</li><li>Wanted-persons databases and sanctions lists</li><li>Regulator registers and court records</li><li>Source enquiries and interviews</li></ul>
         </div>
-      </details><details class="fold" id="security-search">
+      </details><details class="fold" id="security-search" open>
         <summary class="fold__sum">
           <span class="ico ico--sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></span>
           <span class="fold__t">Corporate investigations</span>
@@ -340,7 +347,7 @@
           <p>Suspicions of fraud, embezzlement or collusion are rarely something a company can unpick from the inside. The schemes we have uncovered had cost clients profit measured in billions of roubles.</p>
           <ul class="dir__l"><li>Investigation of fraud</li><li>Detection of asset misappropriation</li><li>Breaches of business ethics</li><li>Due diligence in mergers and acquisitions</li></ul>
         </div>
-      </details><details class="fold" id="security-scales">
+      </details><details class="fold" id="security-scales" open>
         <summary class="fold__sum">
           <span class="ico ico--sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M7 21h10M4 7h16M8 7l-4 6h8zM16 7l4 6h-8z"/></svg></span>
           <span class="fold__t">Corporate disputes</span>
@@ -350,7 +357,7 @@
           <p>Threats to corporate governance come from outside and from within, particularly where unscrupulous players are used to working around the law and business ethics.</p>
           <ul class="dir__l"><li>Countering blackmail and extortion</li><li>Shutting down defamation campaigns</li><li>Precautions against greenmail</li><li>Countering manipulation of financial reporting</li></ul>
         </div>
-      </details><details class="fold" id="security-shield">
+      </details><details class="fold" id="security-shield" open>
         <summary class="fold__sum">
           <span class="ico ico--sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 3v5.5c0 4.8-3.2 8-7.5 9.5-4.3-1.5-7.5-4.7-7.5-9.5V6z"/><path d="M9 12l2 2 4-4"/></svg></span>
           <span class="fold__t">Personal security</span>
@@ -360,7 +367,7 @@
           <p>Personal security of VIP guests is arranged by involving professional bodyguards. We specialize in obtaining specialists with an analytical mindset, English and a representative appearance. Depending on the risk profile, it is possible to involve armed or unarmed guards.</p>
           <ul class="dir__l"><li>Obtaining specialists for principals and company guests</li><li>The detail is sized to the risk profile</li><li>English-speaking coordinators on call 24/7</li></ul>
         </div>
-      </details><details class="fold" id="security-car">
+      </details><details class="fold" id="security-car" open>
         <summary class="fold__sum">
           <span class="ico ico--sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 15.4h18M4.8 15.4v2.3M19.2 15.4v2.3"/><path d="m4.9 15.4 1.5-6.6a2 2 0 0 1 2-1.5h7.2a2 2 0 0 1 2 1.5l1.5 6.6"/><circle cx="8" cy="15.4" r="1.5"/><circle cx="16" cy="15.4" r="1.5"/></svg></span>
           <span class="fold__t">Transport security</span>
@@ -370,7 +377,7 @@
           <p>A car with a professional driver is assigned to the client — from Meet &amp; Greet through to details running several days. The class of vehicle is matched to the assignment; in high-risk cases we may offer the use of armoured vehicles and drivers trained in evasive driving.</p>
           <ul class="dir__l"><li>A premium saloon for the principal, escort SUVs alongside</li><li>A Mercedes-Benz V-class shuttle for groups</li><li>In high-risk cases — the option of armoured vehicles</li></ul>
         </div>
-      </details><details class="fold" id="security-event">
+      </details><details class="fold" id="security-event" open>
         <summary class="fold__sum">
           <span class="ico ico--sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/><circle cx="12" cy="15.4" r="2.1"/></svg></span>
           <span class="fold__t">Event security</span>
@@ -380,7 +387,7 @@
           <p>At events covered by the press, even a minor incident is a reputational risk for the organisers. This is where a seamless security perimeter earns its place.</p>
           <ul class="dir__l"><li>Screening of the guest and participant lists</li><li>Venue assessment, evacuation routes, response to incidents</li><li>Travel logistics, passes, coordination of contractors</li><li>Security at places of residence, hotels included</li></ul>
         </div>
-      </details><details class="fold" id="security-layers">
+      </details><details class="fold" id="security-layers" open>
         <summary class="fold__sum">
           <span class="ico ico--sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 3 8l9 5 9-5z"/><path d="m3 13 9 5 9-5M3 18l9 5 9-5"/></svg></span>
           <span class="fold__t">Integrated security</span>
@@ -395,14 +402,12 @@
       
       
     </article><article class="svc-detail reveal" id="intelligence">
-      <div class="svc-detail__head">
-        <span class="svc-detail__num">3</span>
-        <h2 class="h2">Intelligence and analysis</h2>
-      </div>
       <figure class="svc-detail__hero">
         <div class="ncard__img">
           <img src="../assets/img/services/strukturirovaniy-analiz.jpg" alt="" loading="lazy" decoding="async">
         </div>
+        <span class="svc-detail__n" aria-hidden="true">3</span>
+        <h2 class="svc-detail__title">Intelligence and analysis</h2>
         <figcaption class="svc-detail__intro">Our team of highly qualified professionals provides services that combine in-depth analytics and the ability to obtain information from trusted sources — in the countries of the former Eastern Bloc and beyond — to help our clients build business strategies that minimize risks and consolidate their position in the region.</figcaption>
       </figure>
       <div class="fold-list">
@@ -416,7 +421,7 @@
           <p>Every territory carries its own set of circumstances that bear on how business is done. They are worth assessing before entry rather than after.</p>
           <ul class="dir__l"><li>National and religious character of the environment</li><li>Political risk and its effect on the business climate</li><li>Crime levels in the region and in the sector</li><li>Corruption levels and the lawful ways of dealing with state bodies</li><li>The terrorist threat in the region</li></ul>
         </div>
-      </details><details class="fold" id="intelligence-growth">
+      </details><details class="fold" id="intelligence-growth" open>
         <summary class="fold__sum">
           <span class="ico ico--sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18"/><path d="M6 20v-5M11 20v-9M16 20v-6M21 20V7"/><path d="m14 4 3.4 1.2L16.2 8.6"/></svg></span>
           <span class="fold__t">Market and sector analysis</span>
@@ -426,7 +431,7 @@
           <p>Entering a new industry calls for the whole picture: market dynamics, the balance of power between the players, where each is strong and weak. The depth is set by the scale of operations planned, from a broad survey to one narrow question.</p>
           
         </div>
-      </details><details class="fold" id="intelligence-radar">
+      </details><details class="fold" id="intelligence-radar" open>
         <summary class="fold__sum">
           <span class="ico ico--sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1.8"/><path d="m12 12 5.6-5.6"/><path d="M15.9 8.1a5.5 5.5 0 1 1-7.8 0"/><path d="M19.1 4.9a10 10 0 1 1-14.2 0"/></svg></span>
           <span class="fold__t">Threat monitoring</span>
@@ -436,7 +441,7 @@
           <p>The safety of an operation depends on how clean its information flow is. That flow is distorted both by hidden parties probing for weak points and by staff acting in bad faith.</p>
           <ul class="dir__l"><li>Open-source collection and content analysis</li><li>Reputational enquiries and interviews</li><li>Measures to reduce the risks identified</li></ul>
         </div>
-      </details><details class="fold" id="intelligence-legal">
+      </details><details class="fold" id="intelligence-legal" open>
         <summary class="fold__sum">
           <span class="ico ico--sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16v12H4z"/><path d="M8 10h8M8 14h5"/></svg></span>
           <span class="fold__t">Insurance claim investigation</span>
@@ -446,7 +451,7 @@
           <p>According to the Association of European Investigators, roughly one insurance claim in ten turns out to be fraudulent.</p>
           <ul class="dir__l"><li>Assessment of the claims submitted</li><li>Verification of the documents provided</li><li>Field investigation at the scene</li></ul>
         </div>
-      </details><details class="fold" id="intelligence-layers">
+      </details><details class="fold" id="intelligence-layers" open>
         <summary class="fold__sum">
           <span class="ico ico--sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 3 8l9 5 9-5z"/><path d="m3 13 9 5 9-5M3 18l9 5 9-5"/></svg></span>
           <span class="fold__t">Structured analysis</span>
@@ -461,14 +466,12 @@
       
       
     </article><article class="svc-detail reveal" id="consulting">
-      <div class="svc-detail__head">
-        <span class="svc-detail__num">4</span>
-        <h2 class="h2">Consulting</h2>
-      </div>
       <figure class="svc-detail__hero">
         <div class="ncard__img">
           <img src="../assets/img/services/konsalting.jpg" alt="" loading="lazy" decoding="async">
         </div>
+        <span class="svc-detail__n" aria-hidden="true">4</span>
+        <h2 class="svc-detail__title">Consulting</h2>
         <figcaption class="svc-detail__intro">The overall mission of our company is to provide comprehensive protection against risks (“one window” format) and is reflected in our security consulting services.</figcaption>
       </figure>
       <div class="fold-list">
@@ -482,7 +485,7 @@
           <p>In addition to advising on the provision of security and transportation, we are also able to further strengthen this area both on the part of information (checking for negative information and unreliability) and on the part of a comprehensive risk assessment of a specific location.</p>
           <ul class="dir__l"><li>Advice on security arrangements</li><li>Information checks and reliability assessment</li><li>Comprehensive site risk assessment</li></ul>
         </div>
-      </details><details class="fold" id="consulting-legal">
+      </details><details class="fold" id="consulting-legal" open>
         <summary class="fold__sum">
           <span class="ico ico--sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16v12H4z"/><path d="M8 10h8M8 14h5"/></svg></span>
           <span class="fold__t">Legal consulting</span>
@@ -506,8 +509,7 @@
   <div class="wrap">
     <div class="cta" data-cta>
       <div class="cta__copy">
-        <h2 class="cta__title">Contacts</h2>
-        <p class="cta__sub">Get in touch</p>
+        <h2 class="cta__title">Get in touch</h2>
         <p class="cta__lead">We will hold a confidential consultation on your brief.</p>
       </div>
       <div class="cta__aside">
@@ -519,7 +521,7 @@
           <span class="cta__lbl">Email</span>
           <span class="cta__val">info@vlasta-s.com</span>
         </a>
-        <a class="cta__go" href="../contacts.html">Contact <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="cta__go" href="contacts.html">Contact <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
     </div>
   </div>
@@ -529,7 +531,7 @@
   <div class="wrap">
     <div class="ft__top">
       <div class="ft__about">
-        <a class="brand brand--ft" href="../index.html" aria-label="Власта-Консалтинг — на главную">
+        <a class="brand brand--ft" href="index.html" aria-label="Власта-Консалтинг — на главную">
       <img class="brand__mark" src="../assets/img/logo-light.svg" alt="" width="48" height="56">
       <span class="brand__txt">
         <span class="brand__name"><span class="brand__line">VLASTA</span><span class="brand__line">CONSULTING</span></span>
@@ -540,13 +542,13 @@
       </div>
       <div class="ft__col">
         <h4 class="ft__h">Services</h4>
-        <div class="ft__ls"><a href="../services.html#brand">Intellectual property</a><a href="../services.html#security">Corporate security</a><a href="../services.html#intelligence">Intelligence and analysis</a><a href="../services.html#consulting">Consulting</a></div>
+        <div class="ft__ls"><a href="services.html#brand">Intellectual property</a><a href="services.html#security">Corporate security</a><a href="services.html#intelligence">Intelligence and analysis</a><a href="services.html#consulting">Consulting</a></div>
         <h4 class="ft__h">Documents</h4>
-        <div class="ft__ls"><a href="../privacy.html">Privacy policy</a></div>
+        <div class="ft__ls"><a href="privacy.html">Privacy policy</a></div>
       </div>
       <div class="ft__col">
         <h4 class="ft__h">Cases</h4>
-        <div class="ft__ls"><a href="../cases/rassledovanie-khishcheniy.html">Theft investigation</a><a href="../cases/tamozhnya-politsiya.html">Investigation Customs + Police</a><a href="../cases/rassledovanie-onlayn-oflayn.html">Investigation, online + offline</a><a href="../cases/reyd-na-proizvodstve.html">Raid on illegal production</a><a href="../cases/proverka-bekgraunda.html">Background screening</a><a href="../cases/podderzhka-v-sude.html">Litigation support</a><a href="../cases/strukturirovannyy-analiz.html">Structured analysis</a><a href="../cases/korporativnye-spory.html">Corporate disputes</a><a href="../cases/blokirovka-kanalov-distribucii.html">Shutting down counterfeit distribution channels</a></div>
+        <div class="ft__ls"><a href="cases/rassledovanie-khishcheniy.html">Theft investigation</a><a href="cases/tamozhnya-politsiya.html">Investigation Customs + Police</a><a href="cases/rassledovanie-onlayn-oflayn.html">Investigation, online + offline</a><a href="cases/reyd-na-proizvodstve.html">Raid on illegal production</a><a href="cases/proverka-bekgraunda.html">Background screening</a><a href="cases/podderzhka-v-sude.html">Litigation support</a><a href="cases/strukturirovannyy-analiz.html">Structured analysis</a><a href="cases/korporativnye-spory.html">Corporate disputes</a><a href="cases/blokirovka-kanalov-distribucii.html">Shutting down counterfeit distribution channels</a></div>
       </div>
       <div class="ft__col">
         <h4 class="ft__h">Information</h4>
@@ -571,7 +573,7 @@
     <span class="brand__name" style="color:#fff">Menu</span>
     <button class="mnav__x" type="button" aria-label="Close menu">&times;</button>
   </div>
-  <nav><a class="mnav__l" href="../index.html">Home</a><a class="mnav__l is-on" href="../services.html" aria-current="page">Services</a><a class="mnav__l" href="../about.html">About</a><a class="mnav__l" href="../cases.html">Cases</a><a class="mnav__l" href="../news.html">News</a><a class="mnav__l" href="../contacts.html">Contact</a></nav>
+  <nav><a class="mnav__l" href="index.html">Home</a><a class="mnav__l is-on" href="services.html" aria-current="page">Services</a><a class="mnav__l" href="about.html">About</a><a class="mnav__l" href="cases.html">Cases</a><a class="mnav__l" href="news.html">News</a><a class="mnav__l" href="contacts.html">Contact</a></nav>
   <div class="mnav__extra">
     <div class="lang"><a href="../services.html" hreflang="ru">RU</a><a href="../en/services.html" class="is-on" aria-current="true" hreflang="en">EN</a></div>
     <button class="tt" type="button" aria-label="Toggle dark theme" aria-pressed="false"><svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.4"/><path d="M12 2v2.5M12 19.5V22M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2 12h2.5M19.5 12H22M4.2 19.8 6 18M18 6l1.8-1.8"/></svg></button>
@@ -585,7 +587,7 @@
   <div class="cookie__c">
     <div class="cookie__txt">
       <h4 id="ckT">Cookies</h4>
-      <p id="ckD">By continuing to view this site, you agree with cookie files and other methods, means and tools of Internet statistics and configuration used on the site to improve the usability of the site. <a href="../privacy.html">Learn more</a></p>
+      <p id="ckD">By continuing to view this site, you agree with cookie files and other methods, means and tools of Internet statistics and configuration used on the site to improve the usability of the site. <a href="privacy.html">Learn more</a></p>
     </div>
     <div class="cookie__btns">
       <button class="btn btn--ghostline" type="button" data-ck="reject">Reject all</button>
@@ -595,6 +597,6 @@
   </div>
 </div>
 <button class="totop" type="button" aria-label="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg></button>
-<script src="../assets/js/main.js?v=e296b7a5" defer></script>
+<script src="../assets/js/main.js?v=52791b71" defer></script>
 </body>
 </html>

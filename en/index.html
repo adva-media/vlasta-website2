@@ -24,11 +24,11 @@
 <meta name="twitter:description" content="Brand protection, corporate security, personal security - Vlasta consulting">
 <meta name="twitter:image" content="https://vlasta-s.com/assets/img/og-default.jpg">
 <meta name="theme-color" content="#141428">
-<script>(function(){var r=document.documentElement;r.classList.add('js');try{var t=localStorage.getItem('vlasta-theme');if(!t)t=matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';r.setAttribute('data-theme',t)}catch(e){}})();</script>
+<script>(function(){var r=document.documentElement;r.classList.add('js');try{var t=localStorage.getItem('vlasta-theme');if(!t)t=matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';r.setAttribute('data-theme',t)}catch(e){}try{var K='vlasta-lang';var lang=(r.getAttribute('lang')||'ru').slice(0,2);if(lang!=='en')lang='ru';var pref=localStorage.getItem(K);if(pref!=='en'&&pref!=='ru'){localStorage.setItem(K,lang);document.cookie=K+'='+lang+';path=/;max-age=31536000;SameSite=Lax';return}if(pref===lang)return;var link=document.querySelector('link[rel="alternate"][hreflang="'+pref+'"]');if(!link)return;var href=link.getAttribute('href');if(!href)return;var dest=new URL(href,'https://vlasta-s.com');var leaf=(dest.pathname||'/').replace(/^\/en\//,'').replace(/^\//,'');if(!leaf||leaf.charAt(leaf.length-1)==='/')leaf='index.html';var cur=location.pathname.replace(/\\/g,'/');if(cur.slice(-1)==='/')cur+='index.html';else if(cur.slice(-3)==='/en')cur+='/index.html';var next;if(lang==='en'){var i=cur.lastIndexOf('/en/');if(i<0)return;next=cur.slice(0,i+1)+(pref==='en'?'en/'+leaf:leaf)}else{var j=cur.lastIndexOf('/'+leaf);if(j<0)return;next=cur.slice(0,j+1)+(pref==='en'?'en/'+leaf:leaf)}if(!next||next===cur)return;location.replace((location.protocol==='file:'?'file://':'')+next+location.search+location.hash)}catch(e){}})();</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200..800;1,300..600&display=swap">
-<link rel="stylesheet" href="../assets/css/style.css?v=38adffe8">
+<link rel="stylesheet" href="../assets/css/style.css?v=9c876919">
 <link rel="icon" href="../assets/img/logo-dark.svg" type="image/svg+xml">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Власта-Консалтинг","alternateName":"Vlasta Consulting","url":"https://vlasta-s.com/","logo":"https://vlasta-s.com/assets/img/logo-dark.svg","foundingDate":"2006","telephone":"+74951233336","email":"info@vlasta-s.com","address":{"@type":"PostalAddress","streetAddress":"ул. Усачёва, д. 13, помещ. 4н","addressLocality":"Москва","postalCode":"119048","addressCountry":"RU"},"areaServed":["RU","BY","KZ","UZ","KG","AM","GE"],"contactPoint":{"@type":"ContactPoint","telephone":"+74951233336","contactType":"customer service","availableLanguage":["Russian","English"]}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Власта-Консалтинг","url":"https://vlasta-s.com/","inLanguage":"ru-RU","potentialAction":{"@type":"SearchAction","target":"https://vlasta-s.com/news.html?q={q}","query-input":"required name=q"}}</script>
@@ -50,21 +50,21 @@
 </div>
 <header class="hdr">
   <div class="wrap">
-    <a class="brand" href="../index.html" aria-label="Власта-Консалтинг — на главную">
+    <a class="brand" href="index.html" aria-label="Власта-Консалтинг — на главную">
       <img class="brand__mark" src="../assets/img/logo-dark.svg" alt="" width="48" height="56">
       <span class="brand__txt">
         <span class="brand__name"><span class="brand__line">VLASTA</span><span class="brand__line">CONSULTING</span></span>
         <span class="brand__sub">Business Security</span>
       </span>
     </a>
-    <nav class="nav" aria-label="Main navigation"><a href="../index.html" class="is-on" aria-current="page">Home</a><a href="../services.html">Services</a><a href="../about.html">About</a><a href="../cases.html">Cases</a><a href="../news.html">News</a></nav>
+    <nav class="nav" aria-label="Main navigation"><a href="index.html" class="is-on" aria-current="page">Home</a><a href="services.html">Services</a><a href="about.html">About</a><a href="cases.html">Cases</a><a href="news.html">News</a></nav>
     <div class="hdr__cta">
       <div class="hdr__contact">
         <div class="hdr__tools">
           <div class="lang"><a href="../index.html" hreflang="ru">RU</a></div>
           <button class="tt" type="button" aria-label="Toggle dark theme" aria-pressed="false"><svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.4"/><path d="M12 2v2.5M12 19.5V22M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2 12h2.5M19.5 12H22M4.2 19.8 6 18M18 6l1.8-1.8"/></svg></button>
         </div>
-        <a href="../contacts.html" class="btn btn--glass">Contact</a>
+        <a href="contacts.html" class="hdr__talk">Get in touch</a>
       </div>
       <button class="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mnav"><span></span><span></span><span></span></button>
     </div>
@@ -80,6 +80,8 @@
 
 <div class="glasszone">
 <section class="hero">
+  <!-- Soft V flare: same PNG + ~10% opacity approach as vlasta-s.com .flare -->
+  <div class="hero__flare" aria-hidden="true"></div>
   <div class="wrap hero__inner">
     <h1 class="hero__t rise">Business security<br>in reliable hands</h1>
     <a class="scrollcue rise" data-d="2" href="#intro" aria-label="Scroll to the introduction">
@@ -121,173 +123,100 @@
         <div class="shead__x"><a href="services.html" class="seeall"><span class="seeall__l">All services</span><span class="seeall__r"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div>
       </div>
     </div>
-    <div class="svc-tabs reveal" data-svc-tabs>
-      <div class="svc-tabs__shell">
-        <div class="svc-tabs__planes" aria-hidden="true">
-          <div
-              class="svc-tabs__plane is-on"
-              data-svc-plane="brand"
-              data-svc-bg="brand">
-            <img src="../assets/img/services/tab-brand.png" alt="" width="1600" height="900" decoding="async">
-            <div class="svc-tabs__wash"></div>
-          </div><div
-              class="svc-tabs__plane"
-              data-svc-plane="security"
-              data-svc-bg="security">
-            <img src="../assets/img/services/tab-security.png" alt="" width="1600" height="900" decoding="async">
-            <div class="svc-tabs__wash"></div>
-          </div><div
-              class="svc-tabs__plane"
-              data-svc-plane="intelligence"
-              data-svc-bg="intelligence">
-            <img src="../assets/img/services/tab-intelligence.png" alt="" width="1600" height="900" decoding="async">
-            <div class="svc-tabs__wash"></div>
-          </div><div
-              class="svc-tabs__plane"
-              data-svc-plane="consulting"
-              data-svc-bg="consulting">
-            <img src="../assets/img/services/tab-consulting.png" alt="" width="1600" height="900" decoding="async">
-            <div class="svc-tabs__wash"></div>
+    <div class="svc-rail reveal" tabindex="0" role="group" aria-label="Our services">
+      <article class="svc-card" data-svc-bg="brand">
+        <div class="svc-card__media" aria-hidden="true">
+          <img class="svc-card__shot" src="../assets/img/services/tab-brand.png" alt="" width="1600" height="900" decoding="async">
+          <div class="svc-card__wash"></div>
+          <div class="svc-card__wash svc-card__wash--reveal"></div>
+          <img class="svc-card__shot svc-card__shot--lit" src="../assets/img/services/tab-brand.png" alt="" width="1600" height="900" decoding="async">
+          <div class="svc-card__chrome">
+            <span class="svc-card__n">1</span>
+            <span class="svc-card__mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 11.5 12.5 3.5a2 2 0 0 0-1.4-.6H4.5A1.5 1.5 0 0 0 3 4.4v6.6a2 2 0 0 0 .6 1.4l8 8a1.5 1.5 0 0 0 2.1 0l6.8-6.8a1.5 1.5 0 0 0 0-2.1z"/><circle cx="7.8" cy="7.8" r="1.4"/></svg></span>
           </div>
         </div>
-        <div class="svc-tabs__bar" role="tablist" aria-label="Our services">
-          <button type="button"
-              class="svc-tabs__tab is-on"
-              role="tab"
-              id="svc-tab-brand"
-              aria-selected="true"
-              aria-controls="svc-panel-brand"
-              tabindex="0"
-              data-svc-tab="brand">
-            <span class="svc-tabs__tab-media" aria-hidden="true" data-svc-bg="brand">
-              <img src="../assets/img/services/tab-brand.png" alt="" width="640" height="360" decoding="async">
-              <span class="svc-tabs__tab-wash"></span>
-            </span>
-            <span class="svc-tabs__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 11.5 12.5 3.5a2 2 0 0 0-1.4-.6H4.5A1.5 1.5 0 0 0 3 4.4v6.6a2 2 0 0 0 .6 1.4l8 8a1.5 1.5 0 0 0 2.1 0l6.8-6.8a1.5 1.5 0 0 0 0-2.1z"/><circle cx="7.8" cy="7.8" r="1.4"/></svg></span>
-            <span class="svc-tabs__lab">Intellectual property</span>
-          </button><button type="button"
-              class="svc-tabs__tab"
-              role="tab"
-              id="svc-tab-security"
-              aria-selected="false"
-              aria-controls="svc-panel-security"
-              tabindex="-1"
-              data-svc-tab="security">
-            <span class="svc-tabs__tab-media" aria-hidden="true" data-svc-bg="security">
-              <img src="../assets/img/services/tab-security.png" alt="" width="640" height="360" decoding="async">
-              <span class="svc-tabs__tab-wash"></span>
-            </span>
-            <span class="svc-tabs__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 3v5.5c0 4.8-3.2 8-7.5 9.5-4.3-1.5-7.5-4.7-7.5-9.5V6z"/><path d="M9 12l2 2 4-4"/></svg></span>
-            <span class="svc-tabs__lab">Corporate security</span>
-          </button><button type="button"
-              class="svc-tabs__tab"
-              role="tab"
-              id="svc-tab-intelligence"
-              aria-selected="false"
-              aria-controls="svc-panel-intelligence"
-              tabindex="-1"
-              data-svc-tab="intelligence">
-            <span class="svc-tabs__tab-media" aria-hidden="true" data-svc-bg="intelligence">
-              <img src="../assets/img/services/tab-intelligence.png" alt="" width="640" height="360" decoding="async">
-              <span class="svc-tabs__tab-wash"></span>
-            </span>
-            <span class="svc-tabs__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></span>
-            <span class="svc-tabs__lab">Intelligence and analysis</span>
-          </button><button type="button"
-              class="svc-tabs__tab"
-              role="tab"
-              id="svc-tab-consulting"
-              aria-selected="false"
-              aria-controls="svc-panel-consulting"
-              tabindex="-1"
-              data-svc-tab="consulting">
-            <span class="svc-tabs__tab-media" aria-hidden="true" data-svc-bg="consulting">
-              <img src="../assets/img/services/tab-consulting.png" alt="" width="640" height="360" decoding="async">
-              <span class="svc-tabs__tab-wash"></span>
-            </span>
-            <span class="svc-tabs__ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M7 21h10M4 7h16M8 7l-4 6h8zM16 7l4 6h-8z"/></svg></span>
-            <span class="svc-tabs__lab">Consulting</span>
-          </button>
-        </div>
-        <svg class="svc-tabs__contour" aria-hidden="true" focusable="false" preserveAspectRatio="none">
-          <path></path>
-        </svg>
-        <div class="svc-tabs__stage">
-          <div
-              class="svc-tabs__panel is-on"
-              role="tabpanel"
-              id="svc-panel-brand"
-              aria-labelledby="svc-tab-brand"
-              data-svc-panel="brand"
-              >
-            <div class="svc-tabs__body">
-              <div class="svc-tabs__main">
-                <span class="svc-tabs__n" aria-hidden="true">1</span>
-                <h3 class="svc-tabs__title">Intellectual property</h3>
-                <p class="svc-tabs__tag">Systematic trademark protection against all types of infringement — identity, confusing similarity, unfair competition.</p>
-                <a class="svc-tabs__more arrow-link" href="services.html#brand">
-                  <span class="svc-tabs__more-l">Learn more</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-                </a>
-              </div>
-              <ul class="svc-tabs__hl"><li><a href="services.html#brand-cert"><b>Trademark registration</b></a></li><li><a href="services.html#brand-raid"><b>Customs registers</b> and border control</a></li><li><a href="services.html#brand-raid">Raids together with police and customs</a></li><li><a href="services.html#brand-laptop"><b>Online Brand Protection System</b></a></li></ul>
+        <div class="svc-card__body">
+          <div class="svc-card__copy">
+            <div class="svc-card__main">
+              <h3 class="svc-card__title">Intellectual property</h3>
+              <p class="svc-card__tag">Systematic trademark protection against all types of infringement — identity, confusing similarity, unfair competition.</p>
+              <a class="svc-card__more arrow-link" href="services.html#brand">
+                <span class="svc-card__more-l">Learn more</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
             </div>
-          </div><div
-              class="svc-tabs__panel"
-              role="tabpanel"
-              id="svc-panel-security"
-              aria-labelledby="svc-tab-security"
-              data-svc-panel="security"
-              aria-hidden="true" inert>
-            <div class="svc-tabs__body">
-              <div class="svc-tabs__main">
-                <span class="svc-tabs__n" aria-hidden="true">2</span>
-                <h3 class="svc-tabs__title">Corporate security</h3>
-                <p class="svc-tabs__tag">Integrated solutions in the field of economic security of business.</p>
-                <a class="svc-tabs__more arrow-link" href="services.html#security">
-                  <span class="svc-tabs__more-l">Learn more</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-                </a>
-              </div>
-              <ul class="svc-tabs__hl"><li><a href="services.html#security-check"><b>KYC / AML</b> and <b>FCPA / UKBA</b> compliance</a></li><li><a href="services.html#security-search"><b>Corporate investigations</b></a></li><li><a href="services.html#security-shield"><b>Personal security</b> of VIP guests</a></li></ul>
-            </div>
-          </div><div
-              class="svc-tabs__panel"
-              role="tabpanel"
-              id="svc-panel-intelligence"
-              aria-labelledby="svc-tab-intelligence"
-              data-svc-panel="intelligence"
-              aria-hidden="true" inert>
-            <div class="svc-tabs__body">
-              <div class="svc-tabs__main">
-                <span class="svc-tabs__n" aria-hidden="true">3</span>
-                <h3 class="svc-tabs__title">Intelligence<br class="br-d">and analysis</h3>
-                <p class="svc-tabs__tag">Business intelligence and analysis: information from trusted sources for strategies that minimise risk.</p>
-                <a class="svc-tabs__more arrow-link" href="services.html#intelligence">
-                  <span class="svc-tabs__more-l">Learn more</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-                </a>
-              </div>
-              <ul class="svc-tabs__hl"><li><a href="services.html#security-check">Counterparty screening and <b>due diligence</b></a></li><li><a href="services.html#intelligence-growth"><b>Market analysis</b> before entry</a></li><li><a href="services.html#intelligence-layers"><b>Structured analysis</b> and profiling</a></li></ul>
-            </div>
-          </div><div
-              class="svc-tabs__panel"
-              role="tabpanel"
-              id="svc-panel-consulting"
-              aria-labelledby="svc-tab-consulting"
-              data-svc-panel="consulting"
-              aria-hidden="true" inert>
-            <div class="svc-tabs__body">
-              <div class="svc-tabs__main">
-                <span class="svc-tabs__n" aria-hidden="true">4</span>
-                <h3 class="svc-tabs__title">Consulting</h3>
-                <p class="svc-tabs__tag">Security consulting in a one-window format.</p>
-                <a class="svc-tabs__more arrow-link" href="services.html#consulting">
-                  <span class="svc-tabs__more-l">Learn more</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-                </a>
-              </div>
-              <ul class="svc-tabs__hl"><li><a href="services.html#consulting-coord">Advice on <b>security arrangements</b></a></li><li><a href="services.html#consulting-legal"><b>Litigation support</b></a></li><li><a href="services.html#consulting-legal"><b>Corporate disputes</b></a></li></ul>
-            </div>
+            <ul class="svc-card__hl"><li><a href="services.html#brand-cert"><b>Trademark registration</b></a></li><li><a href="services.html#brand-raid"><b>Customs registers</b> and border control</a></li><li><a href="services.html#brand-raid">Raids together with police and customs</a></li><li><a href="services.html#brand-laptop"><b>Online Brand Protection System</b></a></li></ul>
           </div>
         </div>
-      </div>
+      </article><article class="svc-card" data-svc-bg="security">
+        <div class="svc-card__media" aria-hidden="true">
+          <img class="svc-card__shot" src="../assets/img/services/tab-security.png" alt="" width="1600" height="900" decoding="async">
+          <div class="svc-card__wash"></div>
+          <div class="svc-card__wash svc-card__wash--reveal"></div>
+          <img class="svc-card__shot svc-card__shot--lit" src="../assets/img/services/tab-security.png" alt="" width="1600" height="900" decoding="async">
+          <div class="svc-card__chrome">
+            <span class="svc-card__n">2</span>
+            <span class="svc-card__mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 3v5.5c0 4.8-3.2 8-7.5 9.5-4.3-1.5-7.5-4.7-7.5-9.5V6z"/><path d="M9 12l2 2 4-4"/></svg></span>
+          </div>
+        </div>
+        <div class="svc-card__body">
+          <div class="svc-card__copy">
+            <div class="svc-card__main">
+              <h3 class="svc-card__title">Corporate security</h3>
+              <p class="svc-card__tag">Integrated solutions in the field of economic security of business.</p>
+              <a class="svc-card__more arrow-link" href="services.html#security">
+                <span class="svc-card__more-l">Learn more</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+            </div>
+            <ul class="svc-card__hl"><li><a href="services.html#security-check"><b>KYC / AML</b> and <b>FCPA / UKBA</b> compliance</a></li><li><a href="services.html#security-search"><b>Corporate investigations</b></a></li><li><a href="services.html#security-shield"><b>Personal security</b> of VIP guests</a></li></ul>
+          </div>
+        </div>
+      </article><article class="svc-card" data-svc-bg="intelligence">
+        <div class="svc-card__media" aria-hidden="true">
+          <img class="svc-card__shot" src="../assets/img/services/tab-intelligence.png" alt="" width="1600" height="900" decoding="async">
+          <div class="svc-card__wash"></div>
+          <div class="svc-card__wash svc-card__wash--reveal"></div>
+          <img class="svc-card__shot svc-card__shot--lit" src="../assets/img/services/tab-intelligence.png" alt="" width="1600" height="900" decoding="async">
+          <div class="svc-card__chrome">
+            <span class="svc-card__n">3</span>
+            <span class="svc-card__mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></span>
+          </div>
+        </div>
+        <div class="svc-card__body">
+          <div class="svc-card__copy">
+            <div class="svc-card__main">
+              <h3 class="svc-card__title">Intelligence<br class="br-d">and analysis</h3>
+              <p class="svc-card__tag">Business intelligence and analysis: information from trusted sources for strategies that minimise risk.</p>
+              <a class="svc-card__more arrow-link" href="services.html#intelligence">
+                <span class="svc-card__more-l">Learn more</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+            </div>
+            <ul class="svc-card__hl"><li><a href="services.html#security-check">Counterparty screening and <b>due diligence</b></a></li><li><a href="services.html#intelligence-growth"><b>Market analysis</b> before entry</a></li><li><a href="services.html#intelligence-layers"><b>Structured analysis</b> and profiling</a></li></ul>
+          </div>
+        </div>
+      </article><article class="svc-card" data-svc-bg="consulting">
+        <div class="svc-card__media" aria-hidden="true">
+          <img class="svc-card__shot" src="../assets/img/services/tab-consulting.png" alt="" width="1600" height="900" decoding="async">
+          <div class="svc-card__wash"></div>
+          <div class="svc-card__wash svc-card__wash--reveal"></div>
+          <img class="svc-card__shot svc-card__shot--lit" src="../assets/img/services/tab-consulting.png" alt="" width="1600" height="900" decoding="async">
+          <div class="svc-card__chrome">
+            <span class="svc-card__n">4</span>
+            <span class="svc-card__mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M7 21h10M4 7h16M8 7l-4 6h8zM16 7l4 6h-8z"/></svg></span>
+          </div>
+        </div>
+        <div class="svc-card__body">
+          <div class="svc-card__copy">
+            <div class="svc-card__main">
+              <h3 class="svc-card__title">Consulting</h3>
+              <p class="svc-card__tag">Security consulting in a one-window format.</p>
+              <a class="svc-card__more arrow-link" href="services.html#consulting">
+                <span class="svc-card__more-l">Learn more</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+            </div>
+            <ul class="svc-card__hl"><li><a href="services.html#consulting-coord">Advice on <b>security arrangements</b></a></li><li><a href="services.html#consulting-legal"><b>Litigation support</b></a></li><li><a href="services.html#consulting-legal"><b>Corporate disputes</b></a></li></ul>
+          </div>
+        </div>
+      </article>
     </div>
   </div>
 </section>
@@ -296,8 +225,8 @@
   <div class="mq__l">Trusted by leading Russian and international brands</div>
   <div class="mq__vp">
     <div class="mq__band">
-      <div class="mq__tr mq__tr--a"><span class="mq__i"><img src="../assets/img/clients/rehau.svg" alt="REHAU" loading="lazy" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/mazda.webp" alt="Mazda" loading="lazy" decoding="async" style="--logo-scale:1.3"></span><span class="mq__i"><img src="../assets/img/clients/mercedes.svg" alt="Mercedes-Benz" loading="lazy" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/henkel.png" alt="Henkel" loading="lazy" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/pmi.svg" alt="Philip Morris International" loading="lazy" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/nissan.svg" alt="Nissan" loading="lazy" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/peugeot.svg" alt="Peugeot" loading="lazy" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/eucerin.svg" alt="Eucerin" loading="lazy" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/idemitsu.svg" alt="Idemitsu" loading="lazy" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/pepsico.png" alt="PepsiCo" loading="lazy" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/gillette.png" alt="Gillette" loading="lazy" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/reckitt.png" alt="Reckitt Benckiser" loading="lazy" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/egoiste.png" alt="Egoiste Café" loading="lazy" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/zielinski-rozen.png" alt="Zielinski &amp; Rozen" loading="lazy" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/chernaya-karta.png" alt="Чёрная Карта" loading="lazy" decoding="async" style="--logo-scale:1.2"></span><span class="mq__i"><img src="../assets/img/clients/rehau.svg" alt="REHAU" loading="lazy" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/mazda.webp" alt="Mazda" loading="lazy" decoding="async" style="--logo-scale:1.3"></span><span class="mq__i"><img src="../assets/img/clients/mercedes.svg" alt="Mercedes-Benz" loading="lazy" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/henkel.png" alt="Henkel" loading="lazy" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/pmi.svg" alt="Philip Morris International" loading="lazy" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/nissan.svg" alt="Nissan" loading="lazy" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/peugeot.svg" alt="Peugeot" loading="lazy" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/eucerin.svg" alt="Eucerin" loading="lazy" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/idemitsu.svg" alt="Idemitsu" loading="lazy" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/pepsico.png" alt="PepsiCo" loading="lazy" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/gillette.png" alt="Gillette" loading="lazy" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/reckitt.png" alt="Reckitt Benckiser" loading="lazy" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/egoiste.png" alt="Egoiste Café" loading="lazy" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/zielinski-rozen.png" alt="Zielinski &amp; Rozen" loading="lazy" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/chernaya-karta.png" alt="Чёрная Карта" loading="lazy" decoding="async" style="--logo-scale:1.2"></span></div>
-      <div class="mq__tr mq__tr--b"><span class="mq__i"><img src="../assets/img/clients/pg.svg" alt="Procter &amp; Gamble" loading="lazy" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/redbull.svg" alt="Red Bull" loading="lazy" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/shell.svg" alt="Shell" loading="lazy" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/adidas.svg" alt="Adidas" loading="lazy" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/exxon.svg" alt="ExxonMobil" loading="lazy" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/renault.svg" alt="Renault" loading="lazy" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/nivea.svg" alt="NIVEA" loading="lazy" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/motul.svg" alt="Motul" loading="lazy" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/splat.png" alt="SPLAT" loading="lazy" decoding="async" style="--logo-scale:1.12"></span><span class="mq__i"><img src="../assets/img/clients/unilever.png" alt="Unilever" loading="lazy" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/bushido.png" alt="Bushido" loading="lazy" decoding="async" style="--logo-scale:1.15"></span><span class="mq__i"><img src="../assets/img/clients/lab-industries.png" alt="LAB Industries" loading="lazy" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/straumann.png" alt="Straumann" loading="lazy" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/poxipol.png" alt="POXIPOL" loading="lazy" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/jacobs.png" alt="Jacobs" loading="lazy" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/pg.svg" alt="Procter &amp; Gamble" loading="lazy" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/redbull.svg" alt="Red Bull" loading="lazy" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/shell.svg" alt="Shell" loading="lazy" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/adidas.svg" alt="Adidas" loading="lazy" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/exxon.svg" alt="ExxonMobil" loading="lazy" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/renault.svg" alt="Renault" loading="lazy" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/nivea.svg" alt="NIVEA" loading="lazy" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/motul.svg" alt="Motul" loading="lazy" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/splat.png" alt="SPLAT" loading="lazy" decoding="async" style="--logo-scale:1.12"></span><span class="mq__i"><img src="../assets/img/clients/unilever.png" alt="Unilever" loading="lazy" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/bushido.png" alt="Bushido" loading="lazy" decoding="async" style="--logo-scale:1.15"></span><span class="mq__i"><img src="../assets/img/clients/lab-industries.png" alt="LAB Industries" loading="lazy" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/straumann.png" alt="Straumann" loading="lazy" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/poxipol.png" alt="POXIPOL" loading="lazy" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/jacobs.png" alt="Jacobs" loading="lazy" decoding="async"></span></div>
+      <div class="mq__tr mq__tr--a"><span class="mq__i"><img src="../assets/img/clients/rehau.svg" alt="REHAU" loading="eager" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/mazda.webp" alt="Mazda" loading="eager" decoding="async" style="--logo-scale:1.3"></span><span class="mq__i"><img src="../assets/img/clients/mercedes.svg" alt="Mercedes-Benz" loading="eager" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/henkel.png" alt="Henkel" loading="eager" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/pmi.svg" alt="Philip Morris International" loading="eager" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/nissan.svg" alt="Nissan" loading="eager" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/peugeot.svg" alt="Peugeot" loading="eager" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/eucerin.svg" alt="Eucerin" loading="eager" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/idemitsu.svg" alt="Idemitsu" loading="eager" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/pepsico.png" alt="PepsiCo" loading="eager" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/gillette.png" alt="Gillette" loading="eager" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/reckitt.png" alt="Reckitt Benckiser" loading="eager" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/egoiste.png" alt="Egoiste Café" loading="eager" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/zielinski-rozen.png" alt="Zielinski &amp; Rozen" loading="eager" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/chernaya-karta.png" alt="Чёрная Карта" loading="eager" decoding="async" style="--logo-scale:1.2"></span><span class="mq__i"><img src="../assets/img/clients/rehau.svg" alt="REHAU" loading="eager" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/mazda.webp" alt="Mazda" loading="eager" decoding="async" style="--logo-scale:1.3"></span><span class="mq__i"><img src="../assets/img/clients/mercedes.svg" alt="Mercedes-Benz" loading="eager" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/henkel.png" alt="Henkel" loading="eager" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/pmi.svg" alt="Philip Morris International" loading="eager" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/nissan.svg" alt="Nissan" loading="eager" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/peugeot.svg" alt="Peugeot" loading="eager" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/eucerin.svg" alt="Eucerin" loading="eager" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/idemitsu.svg" alt="Idemitsu" loading="eager" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/pepsico.png" alt="PepsiCo" loading="eager" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/gillette.png" alt="Gillette" loading="eager" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/reckitt.png" alt="Reckitt Benckiser" loading="eager" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/egoiste.png" alt="Egoiste Café" loading="eager" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/zielinski-rozen.png" alt="Zielinski &amp; Rozen" loading="eager" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/chernaya-karta.png" alt="Чёрная Карта" loading="eager" decoding="async" style="--logo-scale:1.2"></span></div>
+      <div class="mq__tr mq__tr--b"><span class="mq__i"><img src="../assets/img/clients/pg.svg" alt="Procter &amp; Gamble" loading="eager" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/redbull.svg" alt="Red Bull" loading="eager" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/shell.svg" alt="Shell" loading="eager" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/adidas.svg" alt="Adidas" loading="eager" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/exxon.svg" alt="ExxonMobil" loading="eager" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/renault.svg" alt="Renault" loading="eager" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/nivea.svg" alt="NIVEA" loading="eager" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/motul.svg" alt="Motul" loading="eager" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/splat.png" alt="SPLAT" loading="eager" decoding="async" style="--logo-scale:1.12"></span><span class="mq__i"><img src="../assets/img/clients/unilever.png" alt="Unilever" loading="eager" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/bushido.png" alt="Bushido" loading="eager" decoding="async" style="--logo-scale:1.15"></span><span class="mq__i"><img src="../assets/img/clients/lab-industries.png" alt="LAB Industries" loading="eager" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/straumann.png" alt="Straumann" loading="eager" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/poxipol.png" alt="POXIPOL" loading="eager" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/jacobs.png" alt="Jacobs" loading="eager" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/pg.svg" alt="Procter &amp; Gamble" loading="eager" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/redbull.svg" alt="Red Bull" loading="eager" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/shell.svg" alt="Shell" loading="eager" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/adidas.svg" alt="Adidas" loading="eager" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/exxon.svg" alt="ExxonMobil" loading="eager" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/renault.svg" alt="Renault" loading="eager" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/nivea.svg" alt="NIVEA" loading="eager" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/motul.svg" alt="Motul" loading="eager" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/splat.png" alt="SPLAT" loading="eager" decoding="async" style="--logo-scale:1.12"></span><span class="mq__i"><img src="../assets/img/clients/unilever.png" alt="Unilever" loading="eager" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/bushido.png" alt="Bushido" loading="eager" decoding="async" style="--logo-scale:1.15"></span><span class="mq__i"><img src="../assets/img/clients/lab-industries.png" alt="LAB Industries" loading="eager" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/straumann.png" alt="Straumann" loading="eager" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/poxipol.png" alt="POXIPOL" loading="eager" decoding="async"></span><span class="mq__i"><img src="../assets/img/clients/jacobs.png" alt="Jacobs" loading="eager" decoding="async"></span></div>
     </div>
   </div>
 </section>
@@ -305,87 +234,71 @@
 <div class="glasszone">
 <section class="sec" id="approach">
   <div class="wrap">
-    <div class="appr-hex reveal" id="apprHex" aria-label="Our services">
-  <div class="appr-hex__shell">
-  <div class="appr-hex__mesh" aria-hidden="true">
-    <canvas class="appr-hex__field"></canvas>
-    <div class="appr-hex__blur"></div>
-  </div>
-  <div class="appr-hex__copy" id="apprHexCopy">
-    <span class="kick">Approach and record</span>
-    <h2 class="h2" id="apprHexTitle">All departments — one system</h2>
-    <p class="lead appr-hex__lead" id="apprHexLead">Our departments work together — from analytics and advice through to legal support. Coordinating them provides an integrated approach to the client’s business security tasks.</p>
-  </div>
-  <div class="appr-hex__stage">
-    <div class="appr-hex__grid"><button type="button" class="appr-hex__cell" data-i="0" style="--x:-2;--y:0" aria-pressed="false">
-      <span class="appr-hex__shape">
-        <span class="appr-hex__frost" aria-hidden="true"></span>
-<svg class="appr-hex__plate" viewBox="0 0 173 200" aria-hidden="true" focusable="false">
-  <path class="appr-hex__body" d="M100.3 8 159.2 42Q173 50 173 66V134Q173 150 159.2 158L100.3 192Q86.5 200 72.7 192L13.8 158Q0 150 0 134V66Q0 50 13.8 42L72.7 8Q86.5 0 100.3 8Z" fill="none"/>
-</svg>
-        <span class="appr-hex__in">
-          <span class="ico appr-hex__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></span>
-          <span class="appr-hex__lb">Analytics</span>
-        </span>
-      </span>
-    </button><button type="button" class="appr-hex__cell" data-i="1" style="--x:-1;--y:1" aria-pressed="false">
-      <span class="appr-hex__shape">
-        <span class="appr-hex__frost" aria-hidden="true"></span>
-<svg class="appr-hex__plate" viewBox="0 0 173 200" aria-hidden="true" focusable="false">
-  <path class="appr-hex__body" d="M100.3 8 159.2 42Q173 50 173 66V134Q173 150 159.2 158L100.3 192Q86.5 200 72.7 192L13.8 158Q0 150 0 134V66Q0 50 13.8 42L72.7 8Q86.5 0 100.3 8Z" fill="none"/>
-</svg>
-        <span class="appr-hex__in">
-          <span class="ico appr-hex__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16v12H4z"/><path d="M8 10h8M8 14h5"/></svg></span>
-          <span class="appr-hex__lb">Legal</span>
-        </span>
-      </span>
-    </button><button type="button" class="appr-hex__cell" data-i="2" style="--x:0;--y:2" aria-pressed="false">
-      <span class="appr-hex__shape">
-        <span class="appr-hex__frost" aria-hidden="true"></span>
-<svg class="appr-hex__plate" viewBox="0 0 173 200" aria-hidden="true" focusable="false">
-  <path class="appr-hex__body" d="M100.3 8 159.2 42Q173 50 173 66V134Q173 150 159.2 158L100.3 192Q86.5 200 72.7 192L13.8 158Q0 150 0 134V66Q0 50 13.8 42L72.7 8Q86.5 0 100.3 8Z" fill="none"/>
-</svg>
-        <span class="appr-hex__in">
-          <span class="ico appr-hex__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18"/><path d="M12 3v18"/><path d="M5 5l14 14M19 5 5 19"/></svg></span>
-          <span class="appr-hex__lb">Operations</span>
-        </span>
-      </span>
-    </button><button type="button" class="appr-hex__cell" data-i="3" style="--x:1;--y:1" aria-pressed="false">
-      <span class="appr-hex__shape">
-        <span class="appr-hex__frost" aria-hidden="true"></span>
-<svg class="appr-hex__plate" viewBox="0 0 173 200" aria-hidden="true" focusable="false">
-  <path class="appr-hex__body" d="M100.3 8 159.2 42Q173 50 173 66V134Q173 150 159.2 158L100.3 192Q86.5 200 72.7 192L13.8 158Q0 150 0 134V66Q0 50 13.8 42L72.7 8Q86.5 0 100.3 8Z" fill="none"/>
-</svg>
-        <span class="appr-hex__in">
-          <span class="ico appr-hex__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M3 12h18"/><circle cx="12" cy="12" r="6"/></svg></span>
-          <span class="appr-hex__lb">Coordination</span>
-        </span>
-      </span>
-    </button><button type="button" class="appr-hex__cell" data-i="4" style="--x:2;--y:0" aria-pressed="false">
-      <span class="appr-hex__shape">
-        <span class="appr-hex__frost" aria-hidden="true"></span>
-<svg class="appr-hex__plate" viewBox="0 0 173 200" aria-hidden="true" focusable="false">
-  <path class="appr-hex__body" d="M100.3 8 159.2 42Q173 50 173 66V134Q173 150 159.2 158L100.3 192Q86.5 200 72.7 192L13.8 158Q0 150 0 134V66Q0 50 13.8 42L72.7 8Q86.5 0 100.3 8Z" fill="none"/>
-</svg>
-        <span class="appr-hex__in">
-          <span class="ico appr-hex__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16v10H4z"/><path d="M8 11h8M8 15h5"/></svg></span>
-          <span class="appr-hex__lb">IT / Online</span>
-        </span>
-      </span>
-    </button><button type="button" class="appr-hex__cell" data-i="5" style="--x:0;--y:0" aria-pressed="false">
-      <span class="appr-hex__shape">
-        <span class="appr-hex__frost" aria-hidden="true"></span>
-<svg class="appr-hex__plate" viewBox="0 0 173 200" aria-hidden="true" focusable="false">
-  <path class="appr-hex__body" d="M100.3 8 159.2 42Q173 50 173 66V134Q173 150 159.2 158L100.3 192Q86.5 200 72.7 192L13.8 158Q0 150 0 134V66Q0 50 13.8 42L72.7 8Q86.5 0 100.3 8Z" fill="none"/>
-</svg>
-        <span class="appr-hex__in">
-          <span class="ico appr-hex__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
-          <span class="appr-hex__lb">Offline</span>
-        </span>
-      </span>
+    <div class="appr reveal" id="appr">
+  <div class="appr__shell">
+    <header class="appr__head">
+      <div class="appr__intro">
+        <span class="kick">Approach and record</span>
+        <h2 class="h2">Departments built into one system</h2>
+      </div>
+      <p class="lead appr__lead">Our departments work together — from analytics and advice through to legal support. Coordinating them provides an integrated approach to the client’s business security tasks.</p>
+    </header>
+    <div class="appr__browser">
+      <div class="appr__tabs" role="tablist" aria-label="Departments"><button type="button" class="appr__tab is-on" role="tab" id="appr-tab-0"
+      aria-selected="true" aria-controls="appr-panel-0" tabindex="0" data-i="0">
+      <span class="ico appr__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></span>
+      <span class="appr__lb">Analytics</span>
+    </button><button type="button" class="appr__tab" role="tab" id="appr-tab-1"
+      aria-selected="false" aria-controls="appr-panel-1" tabindex="-1" data-i="1">
+      <span class="ico appr__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16v12H4z"/><path d="M8 10h8M8 14h5"/></svg></span>
+      <span class="appr__lb">Legal</span>
+    </button><button type="button" class="appr__tab" role="tab" id="appr-tab-2"
+      aria-selected="false" aria-controls="appr-panel-2" tabindex="-1" data-i="2">
+      <span class="ico appr__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18"/><path d="M12 3v18"/><path d="M5 5l14 14M19 5 5 19"/></svg></span>
+      <span class="appr__lb">Operations</span>
+    </button><button type="button" class="appr__tab" role="tab" id="appr-tab-3"
+      aria-selected="false" aria-controls="appr-panel-3" tabindex="-1" data-i="3">
+      <span class="ico appr__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M3 12h18"/><circle cx="12" cy="12" r="6"/></svg></span>
+      <span class="appr__lb">Coordination</span>
+    </button><button type="button" class="appr__tab" role="tab" id="appr-tab-4"
+      aria-selected="false" aria-controls="appr-panel-4" tabindex="-1" data-i="4">
+      <span class="ico appr__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16v10H4z"/><path d="M8 11h8M8 15h5"/></svg></span>
+      <span class="appr__lb">IT / Online</span>
+    </button><button type="button" class="appr__tab" role="tab" id="appr-tab-5"
+      aria-selected="false" aria-controls="appr-panel-5" tabindex="-1" data-i="5">
+      <span class="ico appr__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+      <span class="appr__lb">Offline</span>
     </button></div>
-  </div>
-  <div class="appr-hex__kpi"><p class="appr-hex__kpi-h">Key figures for the year</p><div class="res"><div class="res__c reveal">
+      <div class="appr__panels"><div class="appr__panel is-on" role="tabpanel" id="appr-panel-0"
+      aria-labelledby="appr-tab-0" aria-hidden="false">
+      <h3 class="appr__panel-t">Analytics department</h3>
+      <p class="appr__panel-d">The analytics department collects, verifies and processes information and analyses companies, individuals and markets. We identify risks and violations, producing structured materials for management and legal decisions.</p>
+    </div><div class="appr__panel" role="tabpanel" id="appr-panel-1"
+      aria-labelledby="appr-tab-1" aria-hidden="true">
+      <h3 class="appr__panel-t">Legal department</h3>
+      <p class="appr__panel-d">The legal department provides legal support at every stage of a project — advisory work, litigation, and legal strategies designed to protect the client's interests.</p>
+    </div><div class="appr__panel" role="tabpanel" id="appr-panel-2"
+      aria-labelledby="appr-tab-2" aria-hidden="true">
+      <h3 class="appr__panel-t">Operations department</h3>
+      <p class="appr__panel-d">The operations department coordinates work with law enforcement across Moscow, Russia's regions and the CIS. The team provides expert and advisory support during raids and seizures and documents outcomes within anti-counterfeit projects.</p>
+    </div><div class="appr__panel" role="tabpanel" id="appr-panel-3"
+      aria-labelledby="appr-tab-3" aria-hidden="true">
+      <h3 class="appr__panel-t">Project coordination</h3>
+      <p class="appr__panel-d">The project coordination department organises and monitors every stage of work — managing timelines, quality and cross-department communication, and keeping processes transparent for the client.</p>
+    </div><div class="appr__panel" role="tabpanel" id="appr-panel-4"
+      aria-labelledby="appr-tab-4" aria-hidden="true">
+      <h3 class="appr__panel-t">IT / Online department</h3>
+      <p class="appr__panel-d">The IT and online department handles digital assignments — marketplaces, online checks, monitoring and OSINT analysis of internet activity, and remote or contract-based project delivery.</p>
+    </div><div class="appr__panel" role="tabpanel" id="appr-panel-5"
+      aria-labelledby="appr-tab-5" aria-hidden="true">
+      <h3 class="appr__panel-t">Offline department</h3>
+      <p class="appr__panel-d">The offline and field department works in physical channels — test purchases, retail and wholesale monitoring, warehouse and outlet checks. Specialists gather on-the-ground evidence across Russia and the EAEU, complementing digital checks and enforcement operations.</p>
+    </div></div>
+    </div>
+    <div class="appr__kpi">
+      <p class="appr__kpi-h">Key figures for the year</p>
+      <p class="appr__kpi-note">Best practice</p>
+      <div class="res"><div class="res__c reveal">
         <div class="res__head">
           <span class="res__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l6.5 6.5 4-4L21 17"/><path d="M15 17h6v-6"/></svg></span>
           <div class="res__n" data-count="95">
@@ -408,7 +321,7 @@
             <span class="res__pre"></span><span class="res__v">60</span><span class="res__u">%</span>
           </div>
         </div>
-        <p class="res__l"><b>Of programme costs returned</b> to the rights holder</p>
+        <p class="res__l"><b>Of programme costs returned</b> to the rights holder via GI</p>
       </div><div class="res__c reveal" data-d="3">
         <div class="res__head">
           <span class="res__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 3v5.2c0 4.6-3.1 7.8-7.5 9.3-4.4-1.5-7.5-4.7-7.5-9.3V6z"/><path d="M12 8.4v4.2M12 15.4h.01"/></svg></span>
@@ -417,9 +330,9 @@
           </div>
         </div>
         <p class="res__l"><b>Raids a week</b> with our specialists directly involved</p>
-      </div></div></div>
+      </div></div>
+    </div>
   </div>
-  <script type="application/json" id="apprHexData">{"title":"All departments — one system","lead":"Our departments work together — from analytics and advice through to legal support. Coordinating them provides an integrated approach to the client’s business security tasks.","items":[{"title":"Analytics department","text":"The analytics department collects, verifies and processes information and analyses companies, individuals and markets. We identify risks and violations, producing structured materials for management and legal decisions."},{"title":"Legal department","text":"The legal department provides legal support at every stage of a project — advisory work, litigation, and legal strategies designed to protect the client's interests."},{"title":"Operations department","text":"The operations department coordinates work with law enforcement across Moscow, Russia's regions and the CIS. The team provides expert and advisory support during raids and seizures and documents outcomes within anti-counterfeit projects."},{"title":"Project coordination","text":"The project coordination department organises and monitors every stage of work — managing timelines, quality and cross-department communication, and keeping processes transparent for the client."},{"title":"IT / Online department","text":"The IT and online department handles digital assignments — marketplaces, online checks, monitoring and analysis of internet activity, and remote or contract-based project delivery."},{"title":"Offline department","text":"The offline and field department works in physical channels — test purchases, retail and wholesale monitoring, warehouse and outlet checks. Specialists gather on-the-ground evidence across Russia and the EAEU, complementing digital checks and enforcement operations."}]}</script>
 </div>
   </div>
 </section>
@@ -427,11 +340,11 @@
 
 <section class="sec" id="cases">
   <div class="wrap">
-    <div class="shead shead--split shead--cta reveal">
+    <div class="shead shead--split shead--cta shead--banner reveal">
       <div class="shead__t"><span class="kick">Cases</span><h2 class="h2">How we solve client problems</h2></div>
       <div class="shead__x"><a href="cases.html" class="seeall"><span class="seeall__l">All cases</span><span class="seeall__r"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div>
     </div>
-    <div class="case-rail" tabindex="0" role="group" aria-label="How we solve client problems"><a class="card case reveal" href="../cases/blokirovka-kanalov-distribucii.html">
+    <div class="case-rail" tabindex="0" role="group" aria-label="How we solve client problems"><a class="card case reveal" href="cases/blokirovka-kanalov-distribucii.html">
         <div class="case__img"><img src="../assets/img/cases/blokirovka-kanalov.jpg" alt="Shutting down counterfeit distribution channels" loading="lazy" decoding="async"></div>
         <div class="case__b">
           <span class="case__cat">Brand protection</span>
@@ -443,7 +356,7 @@
             <span class="case__go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
           </div>
         </div>
-      </a><a class="card case reveal" href="../cases/issledovanie-kanalov-postavok.html">
+      </a><a class="card case reveal" href="cases/issledovanie-kanalov-postavok.html">
         <div class="case__img"><img src="../assets/img/cases/kanaly-postavok.jpg" alt="Investigation: mapping the supply channels" loading="lazy" decoding="async"></div>
         <div class="case__b">
           <span class="case__cat">Business intelligence</span>
@@ -455,7 +368,7 @@
             <span class="case__go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
           </div>
         </div>
-      </a><a class="card case reveal" href="../cases/strukturirovannyy-analiz.html">
+      </a><a class="card case reveal" href="cases/strukturirovannyy-analiz.html">
         <div class="case__img"><img src="../assets/img/cases/strukturirovannyy-analiz.jpg" alt="Structured analysis" loading="lazy" decoding="async"></div>
         <div class="case__b">
           <span class="case__cat">Risk analytics</span>
@@ -467,7 +380,7 @@
             <span class="case__go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
           </div>
         </div>
-      </a><a class="card case reveal" href="../cases/podderzhka-v-sude.html">
+      </a><a class="card case reveal" href="cases/podderzhka-v-sude.html">
         <div class="case__img"><img src="../assets/img/cases/podderzhka-v-sude.jpg" alt="Litigation support" loading="lazy" decoding="async"></div>
         <div class="case__b">
           <span class="case__cat">Litigation support</span>
@@ -479,7 +392,7 @@
             <span class="case__go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
           </div>
         </div>
-      </a><a class="card case reveal" href="../cases/reyd-na-proizvodstve.html">
+      </a><a class="card case reveal" href="cases/reyd-na-proizvodstve.html">
         <div class="case__img"><img src="../assets/img/cases/6.jpg" alt="Raid on illegal production" loading="lazy" decoding="async"></div>
         <div class="case__b">
           <span class="case__cat">Brand protection</span>
@@ -491,7 +404,7 @@
             <span class="case__go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
           </div>
         </div>
-      </a><a class="card case reveal" href="../cases/rabota-po-eaes.html">
+      </a><a class="card case reveal" href="cases/rabota-po-eaes.html">
         <div class="case__img"><img src="../assets/img/cases/rabota-eaes.jpg" alt="Working across the EAEU: protecting a market from cross-border counterfeit" loading="lazy" decoding="async"></div>
         <div class="case__b">
           <span class="case__cat">Brand protection</span>
@@ -503,7 +416,7 @@
             <span class="case__go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
           </div>
         </div>
-      </a><a class="card case reveal" href="../cases/rassledovanie-khishcheniy.html">
+      </a><a class="card case reveal" href="cases/rassledovanie-khishcheniy.html">
         <div class="case__img"><img src="../assets/img/cases/2.jpg" alt="Theft investigation" loading="lazy" decoding="async"></div>
         <div class="case__b">
           <span class="case__cat">Corporate security</span>
@@ -515,7 +428,7 @@
             <span class="case__go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
           </div>
         </div>
-      </a><a class="card case reveal" href="../cases/tamozhnya-politsiya.html">
+      </a><a class="card case reveal" href="cases/tamozhnya-politsiya.html">
         <div class="case__img"><img src="../assets/img/cases/4.jpg" alt="Investigation Customs + Police" loading="lazy" decoding="async"></div>
         <div class="case__b">
           <span class="case__cat">Brand protection</span>
@@ -527,7 +440,7 @@
             <span class="case__go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
           </div>
         </div>
-      </a><a class="card case reveal" href="../cases/rassledovanie-onlayn-oflayn.html">
+      </a><a class="card case reveal" href="cases/rassledovanie-onlayn-oflayn.html">
         <div class="case__img"><img src="../assets/img/cases/rassledovanie-onlayn-oflayn.jpg" alt="Investigation, online + offline" loading="lazy" decoding="async"></div>
         <div class="case__b">
           <span class="case__cat">Brand protection</span>
@@ -539,7 +452,7 @@
             <span class="case__go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
           </div>
         </div>
-      </a><a class="card case reveal" href="../cases/proverka-bekgraunda.html">
+      </a><a class="card case reveal" href="cases/proverka-bekgraunda.html">
         <div class="case__img"><img src="../assets/img/cases/8.jpg" alt="Background screening" loading="lazy" decoding="async"></div>
         <div class="case__b">
           <span class="case__cat">Due diligence</span>
@@ -551,7 +464,7 @@
             <span class="case__go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
           </div>
         </div>
-      </a><a class="card case reveal" href="../cases/korporativnye-spory.html">
+      </a><a class="card case reveal" href="cases/korporativnye-spory.html">
         <div class="case__img"><img src="../assets/img/cases/7.jpg" alt="Corporate disputes" loading="lazy" decoding="async"></div>
         <div class="case__b">
           <span class="case__cat">Corporate security</span>
@@ -571,7 +484,7 @@
   <div class="wrap geo">
     <div class="reveal">
       <span class="kick">Geography</span>
-      <h2 class="h2" style="margin-top:15px">Russia, the CIS and the EAEU</h2>
+      <h2 class="h2" style="margin-top:15px">We protect our clients’ business</h2>
       <p class="lead" style="margin-top:18px">We work and provide services in Russia and the CIS, as well as in Europe, North and South America, Africa and Southeast Asia. Cooperation with foreign partners, together with membership of specialised international associations, enables us to represent clients’ interests, including brand protection in the EAEU.</p>
       <div class="geo__bar"><div class="geo__t" style="--i:0">
           <b class="geo__n" data-count="7"><span class="geo__v">7</span></b>
@@ -607,7 +520,9 @@
       <div class="shead__t"><span class="kick">Company history</span><h2 class="h2"><span class="h2__line">A record marked by</span><span class="h2__line">international recognition</span></h2></div>
     </div>
   </div>
-  <div class="road" style="--yh0:78;--yh1:32;--ahead:0.15">
+  <div class="road" data-road-drive="arrows" style="--yh0:78;--yh1:32;--ahead:0.15">
+      <button class="road__nav road__nav--prev" type="button" aria-label="Previous milestone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      <button class="road__nav road__nav--next" type="button" aria-label="Next milestone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
       <div class="road__body" tabindex="0" role="region" aria-label="A record marked by international recognition">
         <div class="road__htrack">
           <div class="road__arcWrap" aria-hidden="true">
@@ -619,69 +534,62 @@
                   <stop offset="100%" stop-color="#141428"/>
                 </linearGradient>
               </defs>
-              <path class="road__arcGlow" d="M0.0,78.00L10.4,77.52L20.8,77.04L31.3,76.56L41.7,76.08L52.1,75.60L62.5,75.13L72.9,74.65L83.3,74.17L93.8,73.69L104.2,73.21L114.6,72.73L125.0,72.25L135.4,71.77L145.8,71.29L156.3,70.81L166.7,70.33L177.1,69.85L187.5,69.38L197.9,68.90L208.3,68.42L218.8,67.94L229.2,67.46L239.6,66.98L250.0,66.50L260.4,66.02L270.8,65.54L281.3,65.06L291.7,64.58L302.1,64.10L312.5,63.63L322.9,63.15L333.3,62.67L343.8,62.19L354.2,61.71L364.6,61.23L375.0,60.75L385.4,60.27L395.8,59.79L406.3,59.31L416.7,58.83L427.1,58.35L437.5,57.88L447.9,57.40L458.3,56.92L468.8,56.44L479.2,55.96L489.6,55.48L500.0,55.00L510.4,54.52L520.8,54.04L531.3,53.56L541.7,53.08L552.1,52.60L562.5,52.13L572.9,51.65L583.3,51.17L593.8,50.69L604.2,50.21L614.6,49.73L625.0,49.25L635.4,48.77L645.8,48.29L656.3,47.81L666.7,47.33L677.1,46.85L687.5,46.38L697.9,45.90L708.3,45.42L718.8,44.94L729.2,44.46L739.6,43.98L750.0,43.50L760.4,43.02L770.8,42.54L781.3,42.06L791.7,41.58L802.1,41.10L812.5,40.63L822.9,40.15L833.3,39.67L843.8,39.19L854.2,38.71L864.6,38.23L875.0,37.75L885.4,37.27L895.8,36.79L906.3,36.31L916.7,35.83L927.1,35.35L937.5,34.88L947.9,34.40L958.3,33.92L968.8,33.44L979.2,32.96L989.6,32.48L1000.0,32.00" data-d-rise="M0.0,78.00L10.4,77.52L20.8,77.04L31.3,76.56L41.7,76.08L52.1,75.60L62.5,75.13L72.9,74.65L83.3,74.17L93.8,73.69L104.2,73.21L114.6,72.73L125.0,72.25L135.4,71.77L145.8,71.29L156.3,70.81L166.7,70.33L177.1,69.85L187.5,69.38L197.9,68.90L208.3,68.42L218.8,67.94L229.2,67.46L239.6,66.98L250.0,66.50L260.4,66.02L270.8,65.54L281.3,65.06L291.7,64.58L302.1,64.10L312.5,63.63L322.9,63.15L333.3,62.67L343.8,62.19L354.2,61.71L364.6,61.23L375.0,60.75L385.4,60.27L395.8,59.79L406.3,59.31L416.7,58.83L427.1,58.35L437.5,57.88L447.9,57.40L458.3,56.92L468.8,56.44L479.2,55.96L489.6,55.48L500.0,55.00L510.4,54.52L520.8,54.04L531.3,53.56L541.7,53.08L552.1,52.60L562.5,52.13L572.9,51.65L583.3,51.17L593.8,50.69L604.2,50.21L614.6,49.73L625.0,49.25L635.4,48.77L645.8,48.29L656.3,47.81L666.7,47.33L677.1,46.85L687.5,46.38L697.9,45.90L708.3,45.42L718.8,44.94L729.2,44.46L739.6,43.98L750.0,43.50L760.4,43.02L770.8,42.54L781.3,42.06L791.7,41.58L802.1,41.10L812.5,40.63L822.9,40.15L833.3,39.67L843.8,39.19L854.2,38.71L864.6,38.23L875.0,37.75L885.4,37.27L895.8,36.79L906.3,36.31L916.7,35.83L927.1,35.35L937.5,34.88L947.9,34.40L958.3,33.92L968.8,33.44L979.2,32.96L989.6,32.48L1000.0,32.00" data-d-flat="M0,50L1000,50"/>
-              <path class="road__arcBase" d="M0.0,78.00L10.4,77.52L20.8,77.04L31.3,76.56L41.7,76.08L52.1,75.60L62.5,75.13L72.9,74.65L83.3,74.17L93.8,73.69L104.2,73.21L114.6,72.73L125.0,72.25L135.4,71.77L145.8,71.29L156.3,70.81L166.7,70.33L177.1,69.85L187.5,69.38L197.9,68.90L208.3,68.42L218.8,67.94L229.2,67.46L239.6,66.98L250.0,66.50L260.4,66.02L270.8,65.54L281.3,65.06L291.7,64.58L302.1,64.10L312.5,63.63L322.9,63.15L333.3,62.67L343.8,62.19L354.2,61.71L364.6,61.23L375.0,60.75L385.4,60.27L395.8,59.79L406.3,59.31L416.7,58.83L427.1,58.35L437.5,57.88L447.9,57.40L458.3,56.92L468.8,56.44L479.2,55.96L489.6,55.48L500.0,55.00L510.4,54.52L520.8,54.04L531.3,53.56L541.7,53.08L552.1,52.60L562.5,52.13L572.9,51.65L583.3,51.17L593.8,50.69L604.2,50.21L614.6,49.73L625.0,49.25L635.4,48.77L645.8,48.29L656.3,47.81L666.7,47.33L677.1,46.85L687.5,46.38L697.9,45.90L708.3,45.42L718.8,44.94L729.2,44.46L739.6,43.98L750.0,43.50L760.4,43.02L770.8,42.54L781.3,42.06L791.7,41.58L802.1,41.10L812.5,40.63L822.9,40.15L833.3,39.67L843.8,39.19L854.2,38.71L864.6,38.23L875.0,37.75L885.4,37.27L895.8,36.79L906.3,36.31L916.7,35.83L927.1,35.35L937.5,34.88L947.9,34.40L958.3,33.92L968.8,33.44L979.2,32.96L989.6,32.48L1000.0,32.00" data-d-rise="M0.0,78.00L10.4,77.52L20.8,77.04L31.3,76.56L41.7,76.08L52.1,75.60L62.5,75.13L72.9,74.65L83.3,74.17L93.8,73.69L104.2,73.21L114.6,72.73L125.0,72.25L135.4,71.77L145.8,71.29L156.3,70.81L166.7,70.33L177.1,69.85L187.5,69.38L197.9,68.90L208.3,68.42L218.8,67.94L229.2,67.46L239.6,66.98L250.0,66.50L260.4,66.02L270.8,65.54L281.3,65.06L291.7,64.58L302.1,64.10L312.5,63.63L322.9,63.15L333.3,62.67L343.8,62.19L354.2,61.71L364.6,61.23L375.0,60.75L385.4,60.27L395.8,59.79L406.3,59.31L416.7,58.83L427.1,58.35L437.5,57.88L447.9,57.40L458.3,56.92L468.8,56.44L479.2,55.96L489.6,55.48L500.0,55.00L510.4,54.52L520.8,54.04L531.3,53.56L541.7,53.08L552.1,52.60L562.5,52.13L572.9,51.65L583.3,51.17L593.8,50.69L604.2,50.21L614.6,49.73L625.0,49.25L635.4,48.77L645.8,48.29L656.3,47.81L666.7,47.33L677.1,46.85L687.5,46.38L697.9,45.90L708.3,45.42L718.8,44.94L729.2,44.46L739.6,43.98L750.0,43.50L760.4,43.02L770.8,42.54L781.3,42.06L791.7,41.58L802.1,41.10L812.5,40.63L822.9,40.15L833.3,39.67L843.8,39.19L854.2,38.71L864.6,38.23L875.0,37.75L885.4,37.27L895.8,36.79L906.3,36.31L916.7,35.83L927.1,35.35L937.5,34.88L947.9,34.40L958.3,33.92L968.8,33.44L979.2,32.96L989.6,32.48L1000.0,32.00" data-d-flat="M0,50L1000,50"/>
-              <path class="road__arcDone" d="M0.0,78.00L10.4,77.52L20.8,77.04L31.3,76.56L41.7,76.08L52.1,75.60L62.5,75.13L72.9,74.65L83.3,74.17L93.8,73.69L104.2,73.21L114.6,72.73L125.0,72.25L135.4,71.77L145.8,71.29L156.3,70.81L166.7,70.33L177.1,69.85L187.5,69.38L197.9,68.90L208.3,68.42L218.8,67.94L229.2,67.46L239.6,66.98L250.0,66.50L260.4,66.02L270.8,65.54L281.3,65.06L291.7,64.58L302.1,64.10L312.5,63.63L322.9,63.15L333.3,62.67L343.8,62.19L354.2,61.71L364.6,61.23L375.0,60.75L385.4,60.27L395.8,59.79L406.3,59.31L416.7,58.83L427.1,58.35L437.5,57.88L447.9,57.40L458.3,56.92L468.8,56.44L479.2,55.96L489.6,55.48L500.0,55.00L510.4,54.52L520.8,54.04L531.3,53.56L541.7,53.08L552.1,52.60L562.5,52.13L572.9,51.65L583.3,51.17L593.8,50.69L604.2,50.21L614.6,49.73L625.0,49.25L635.4,48.77L645.8,48.29L656.3,47.81L666.7,47.33L677.1,46.85L687.5,46.38L697.9,45.90L708.3,45.42L718.8,44.94L729.2,44.46L739.6,43.98L750.0,43.50L760.4,43.02L770.8,42.54L781.3,42.06L791.7,41.58L802.1,41.10L812.5,40.63L822.9,40.15L833.3,39.67L843.8,39.19L854.2,38.71L864.6,38.23L875.0,37.75L885.4,37.27L895.8,36.79L906.3,36.31L916.7,35.83L927.1,35.35L937.5,34.88L947.9,34.40L958.3,33.92L968.8,33.44L979.2,32.96L989.6,32.48L1000.0,32.00" data-d-rise="M0.0,78.00L10.4,77.52L20.8,77.04L31.3,76.56L41.7,76.08L52.1,75.60L62.5,75.13L72.9,74.65L83.3,74.17L93.8,73.69L104.2,73.21L114.6,72.73L125.0,72.25L135.4,71.77L145.8,71.29L156.3,70.81L166.7,70.33L177.1,69.85L187.5,69.38L197.9,68.90L208.3,68.42L218.8,67.94L229.2,67.46L239.6,66.98L250.0,66.50L260.4,66.02L270.8,65.54L281.3,65.06L291.7,64.58L302.1,64.10L312.5,63.63L322.9,63.15L333.3,62.67L343.8,62.19L354.2,61.71L364.6,61.23L375.0,60.75L385.4,60.27L395.8,59.79L406.3,59.31L416.7,58.83L427.1,58.35L437.5,57.88L447.9,57.40L458.3,56.92L468.8,56.44L479.2,55.96L489.6,55.48L500.0,55.00L510.4,54.52L520.8,54.04L531.3,53.56L541.7,53.08L552.1,52.60L562.5,52.13L572.9,51.65L583.3,51.17L593.8,50.69L604.2,50.21L614.6,49.73L625.0,49.25L635.4,48.77L645.8,48.29L656.3,47.81L666.7,47.33L677.1,46.85L687.5,46.38L697.9,45.90L708.3,45.42L718.8,44.94L729.2,44.46L739.6,43.98L750.0,43.50L760.4,43.02L770.8,42.54L781.3,42.06L791.7,41.58L802.1,41.10L812.5,40.63L822.9,40.15L833.3,39.67L843.8,39.19L854.2,38.71L864.6,38.23L875.0,37.75L885.4,37.27L895.8,36.79L906.3,36.31L916.7,35.83L927.1,35.35L937.5,34.88L947.9,34.40L958.3,33.92L968.8,33.44L979.2,32.96L989.6,32.48L1000.0,32.00" data-d-flat="M0,50L1000,50"/>
+              <path class="road__arcGlow" d="M0.0,78.00L10.4,77.52L20.8,77.04L31.3,76.56L41.7,76.08L52.1,75.60L62.5,75.13L72.9,74.65L83.3,74.17L93.8,73.69L104.2,73.21L114.6,72.73L125.0,72.25L135.4,71.77L145.8,71.29L156.3,70.81L166.7,70.33L177.1,69.85L187.5,69.38L197.9,68.90L208.3,68.42L218.8,67.94L229.2,67.46L239.6,66.98L250.0,66.50L260.4,66.02L270.8,65.54L281.3,65.06L291.7,64.58L302.1,64.10L312.5,63.63L322.9,63.15L333.3,62.67L343.8,62.19L354.2,61.71L364.6,61.23L375.0,60.75L385.4,60.27L395.8,59.79L406.3,59.31L416.7,58.83L427.1,58.35L437.5,57.88L447.9,57.40L458.3,56.92L468.8,56.44L479.2,55.96L489.6,55.48L500.0,55.00L510.4,54.52L520.8,54.04L531.3,53.56L541.7,53.08L552.1,52.60L562.5,52.13L572.9,51.65L583.3,51.17L593.8,50.69L604.2,50.21L614.6,49.73L625.0,49.25L635.4,48.77L645.8,48.29L656.3,47.81L666.7,47.33L677.1,46.85L687.5,46.38L697.9,45.90L708.3,45.42L718.8,44.94L729.2,44.46L739.6,43.98L750.0,43.50L760.4,43.02L770.8,42.54L781.3,42.06L791.7,41.58L802.1,41.10L812.5,40.63L822.9,40.15L833.3,39.67L843.8,39.19L854.2,38.71L864.6,38.23L875.0,37.75L885.4,37.27L895.8,36.79L906.3,36.31L916.7,35.83L927.1,35.35L937.5,34.88L947.9,34.40L958.3,33.92L968.8,33.44L979.2,32.96L989.6,32.48L1000.0,32.00" data-d-rise="M0.0,78.00L10.4,77.52L20.8,77.04L31.3,76.56L41.7,76.08L52.1,75.60L62.5,75.13L72.9,74.65L83.3,74.17L93.8,73.69L104.2,73.21L114.6,72.73L125.0,72.25L135.4,71.77L145.8,71.29L156.3,70.81L166.7,70.33L177.1,69.85L187.5,69.38L197.9,68.90L208.3,68.42L218.8,67.94L229.2,67.46L239.6,66.98L250.0,66.50L260.4,66.02L270.8,65.54L281.3,65.06L291.7,64.58L302.1,64.10L312.5,63.63L322.9,63.15L333.3,62.67L343.8,62.19L354.2,61.71L364.6,61.23L375.0,60.75L385.4,60.27L395.8,59.79L406.3,59.31L416.7,58.83L427.1,58.35L437.5,57.88L447.9,57.40L458.3,56.92L468.8,56.44L479.2,55.96L489.6,55.48L500.0,55.00L510.4,54.52L520.8,54.04L531.3,53.56L541.7,53.08L552.1,52.60L562.5,52.13L572.9,51.65L583.3,51.17L593.8,50.69L604.2,50.21L614.6,49.73L625.0,49.25L635.4,48.77L645.8,48.29L656.3,47.81L666.7,47.33L677.1,46.85L687.5,46.38L697.9,45.90L708.3,45.42L718.8,44.94L729.2,44.46L739.6,43.98L750.0,43.50L760.4,43.02L770.8,42.54L781.3,42.06L791.7,41.58L802.1,41.10L812.5,40.63L822.9,40.15L833.3,39.67L843.8,39.19L854.2,38.71L864.6,38.23L875.0,37.75L885.4,37.27L895.8,36.79L906.3,36.31L916.7,35.83L927.1,35.35L937.5,34.88L947.9,34.40L958.3,33.92L968.8,33.44L979.2,32.96L989.6,32.48L1000.0,32.00" data-d-flat="M0.0,58.00L10.4,57.85L20.8,57.71L31.3,57.56L41.7,57.42L52.1,57.27L62.5,57.13L72.9,56.98L83.3,56.83L93.8,56.69L104.2,56.54L114.6,56.40L125.0,56.25L135.4,56.10L145.8,55.96L156.3,55.81L166.7,55.67L177.1,55.52L187.5,55.38L197.9,55.23L208.3,55.08L218.8,54.94L229.2,54.79L239.6,54.65L250.0,54.50L260.4,54.35L270.8,54.21L281.3,54.06L291.7,53.92L302.1,53.77L312.5,53.63L322.9,53.48L333.3,53.33L343.8,53.19L354.2,53.04L364.6,52.90L375.0,52.75L385.4,52.60L395.8,52.46L406.3,52.31L416.7,52.17L427.1,52.02L437.5,51.88L447.9,51.73L458.3,51.58L468.8,51.44L479.2,51.29L489.6,51.15L500.0,51.00L510.4,50.85L520.8,50.71L531.3,50.56L541.7,50.42L552.1,50.27L562.5,50.13L572.9,49.98L583.3,49.83L593.8,49.69L604.2,49.54L614.6,49.40L625.0,49.25L635.4,49.10L645.8,48.96L656.3,48.81L666.7,48.67L677.1,48.52L687.5,48.38L697.9,48.23L708.3,48.08L718.8,47.94L729.2,47.79L739.6,47.65L750.0,47.50L760.4,47.35L770.8,47.21L781.3,47.06L791.7,46.92L802.1,46.77L812.5,46.63L822.9,46.48L833.3,46.33L843.8,46.19L854.2,46.04L864.6,45.90L875.0,45.75L885.4,45.60L895.8,45.46L906.3,45.31L916.7,45.17L927.1,45.02L937.5,44.88L947.9,44.73L958.3,44.58L968.8,44.44L979.2,44.29L989.6,44.15L1000.0,44.00"/>
+              <path class="road__arcBase" d="M0.0,78.00L10.4,77.52L20.8,77.04L31.3,76.56L41.7,76.08L52.1,75.60L62.5,75.13L72.9,74.65L83.3,74.17L93.8,73.69L104.2,73.21L114.6,72.73L125.0,72.25L135.4,71.77L145.8,71.29L156.3,70.81L166.7,70.33L177.1,69.85L187.5,69.38L197.9,68.90L208.3,68.42L218.8,67.94L229.2,67.46L239.6,66.98L250.0,66.50L260.4,66.02L270.8,65.54L281.3,65.06L291.7,64.58L302.1,64.10L312.5,63.63L322.9,63.15L333.3,62.67L343.8,62.19L354.2,61.71L364.6,61.23L375.0,60.75L385.4,60.27L395.8,59.79L406.3,59.31L416.7,58.83L427.1,58.35L437.5,57.88L447.9,57.40L458.3,56.92L468.8,56.44L479.2,55.96L489.6,55.48L500.0,55.00L510.4,54.52L520.8,54.04L531.3,53.56L541.7,53.08L552.1,52.60L562.5,52.13L572.9,51.65L583.3,51.17L593.8,50.69L604.2,50.21L614.6,49.73L625.0,49.25L635.4,48.77L645.8,48.29L656.3,47.81L666.7,47.33L677.1,46.85L687.5,46.38L697.9,45.90L708.3,45.42L718.8,44.94L729.2,44.46L739.6,43.98L750.0,43.50L760.4,43.02L770.8,42.54L781.3,42.06L791.7,41.58L802.1,41.10L812.5,40.63L822.9,40.15L833.3,39.67L843.8,39.19L854.2,38.71L864.6,38.23L875.0,37.75L885.4,37.27L895.8,36.79L906.3,36.31L916.7,35.83L927.1,35.35L937.5,34.88L947.9,34.40L958.3,33.92L968.8,33.44L979.2,32.96L989.6,32.48L1000.0,32.00" data-d-rise="M0.0,78.00L10.4,77.52L20.8,77.04L31.3,76.56L41.7,76.08L52.1,75.60L62.5,75.13L72.9,74.65L83.3,74.17L93.8,73.69L104.2,73.21L114.6,72.73L125.0,72.25L135.4,71.77L145.8,71.29L156.3,70.81L166.7,70.33L177.1,69.85L187.5,69.38L197.9,68.90L208.3,68.42L218.8,67.94L229.2,67.46L239.6,66.98L250.0,66.50L260.4,66.02L270.8,65.54L281.3,65.06L291.7,64.58L302.1,64.10L312.5,63.63L322.9,63.15L333.3,62.67L343.8,62.19L354.2,61.71L364.6,61.23L375.0,60.75L385.4,60.27L395.8,59.79L406.3,59.31L416.7,58.83L427.1,58.35L437.5,57.88L447.9,57.40L458.3,56.92L468.8,56.44L479.2,55.96L489.6,55.48L500.0,55.00L510.4,54.52L520.8,54.04L531.3,53.56L541.7,53.08L552.1,52.60L562.5,52.13L572.9,51.65L583.3,51.17L593.8,50.69L604.2,50.21L614.6,49.73L625.0,49.25L635.4,48.77L645.8,48.29L656.3,47.81L666.7,47.33L677.1,46.85L687.5,46.38L697.9,45.90L708.3,45.42L718.8,44.94L729.2,44.46L739.6,43.98L750.0,43.50L760.4,43.02L770.8,42.54L781.3,42.06L791.7,41.58L802.1,41.10L812.5,40.63L822.9,40.15L833.3,39.67L843.8,39.19L854.2,38.71L864.6,38.23L875.0,37.75L885.4,37.27L895.8,36.79L906.3,36.31L916.7,35.83L927.1,35.35L937.5,34.88L947.9,34.40L958.3,33.92L968.8,33.44L979.2,32.96L989.6,32.48L1000.0,32.00" data-d-flat="M0.0,58.00L10.4,57.85L20.8,57.71L31.3,57.56L41.7,57.42L52.1,57.27L62.5,57.13L72.9,56.98L83.3,56.83L93.8,56.69L104.2,56.54L114.6,56.40L125.0,56.25L135.4,56.10L145.8,55.96L156.3,55.81L166.7,55.67L177.1,55.52L187.5,55.38L197.9,55.23L208.3,55.08L218.8,54.94L229.2,54.79L239.6,54.65L250.0,54.50L260.4,54.35L270.8,54.21L281.3,54.06L291.7,53.92L302.1,53.77L312.5,53.63L322.9,53.48L333.3,53.33L343.8,53.19L354.2,53.04L364.6,52.90L375.0,52.75L385.4,52.60L395.8,52.46L406.3,52.31L416.7,52.17L427.1,52.02L437.5,51.88L447.9,51.73L458.3,51.58L468.8,51.44L479.2,51.29L489.6,51.15L500.0,51.00L510.4,50.85L520.8,50.71L531.3,50.56L541.7,50.42L552.1,50.27L562.5,50.13L572.9,49.98L583.3,49.83L593.8,49.69L604.2,49.54L614.6,49.40L625.0,49.25L635.4,49.10L645.8,48.96L656.3,48.81L666.7,48.67L677.1,48.52L687.5,48.38L697.9,48.23L708.3,48.08L718.8,47.94L729.2,47.79L739.6,47.65L750.0,47.50L760.4,47.35L770.8,47.21L781.3,47.06L791.7,46.92L802.1,46.77L812.5,46.63L822.9,46.48L833.3,46.33L843.8,46.19L854.2,46.04L864.6,45.90L875.0,45.75L885.4,45.60L895.8,45.46L906.3,45.31L916.7,45.17L927.1,45.02L937.5,44.88L947.9,44.73L958.3,44.58L968.8,44.44L979.2,44.29L989.6,44.15L1000.0,44.00"/>
+              <path class="road__arcDone" d="M0.0,78.00L10.4,77.52L20.8,77.04L31.3,76.56L41.7,76.08L52.1,75.60L62.5,75.13L72.9,74.65L83.3,74.17L93.8,73.69L104.2,73.21L114.6,72.73L125.0,72.25L135.4,71.77L145.8,71.29L156.3,70.81L166.7,70.33L177.1,69.85L187.5,69.38L197.9,68.90L208.3,68.42L218.8,67.94L229.2,67.46L239.6,66.98L250.0,66.50L260.4,66.02L270.8,65.54L281.3,65.06L291.7,64.58L302.1,64.10L312.5,63.63L322.9,63.15L333.3,62.67L343.8,62.19L354.2,61.71L364.6,61.23L375.0,60.75L385.4,60.27L395.8,59.79L406.3,59.31L416.7,58.83L427.1,58.35L437.5,57.88L447.9,57.40L458.3,56.92L468.8,56.44L479.2,55.96L489.6,55.48L500.0,55.00L510.4,54.52L520.8,54.04L531.3,53.56L541.7,53.08L552.1,52.60L562.5,52.13L572.9,51.65L583.3,51.17L593.8,50.69L604.2,50.21L614.6,49.73L625.0,49.25L635.4,48.77L645.8,48.29L656.3,47.81L666.7,47.33L677.1,46.85L687.5,46.38L697.9,45.90L708.3,45.42L718.8,44.94L729.2,44.46L739.6,43.98L750.0,43.50L760.4,43.02L770.8,42.54L781.3,42.06L791.7,41.58L802.1,41.10L812.5,40.63L822.9,40.15L833.3,39.67L843.8,39.19L854.2,38.71L864.6,38.23L875.0,37.75L885.4,37.27L895.8,36.79L906.3,36.31L916.7,35.83L927.1,35.35L937.5,34.88L947.9,34.40L958.3,33.92L968.8,33.44L979.2,32.96L989.6,32.48L1000.0,32.00" data-d-rise="M0.0,78.00L10.4,77.52L20.8,77.04L31.3,76.56L41.7,76.08L52.1,75.60L62.5,75.13L72.9,74.65L83.3,74.17L93.8,73.69L104.2,73.21L114.6,72.73L125.0,72.25L135.4,71.77L145.8,71.29L156.3,70.81L166.7,70.33L177.1,69.85L187.5,69.38L197.9,68.90L208.3,68.42L218.8,67.94L229.2,67.46L239.6,66.98L250.0,66.50L260.4,66.02L270.8,65.54L281.3,65.06L291.7,64.58L302.1,64.10L312.5,63.63L322.9,63.15L333.3,62.67L343.8,62.19L354.2,61.71L364.6,61.23L375.0,60.75L385.4,60.27L395.8,59.79L406.3,59.31L416.7,58.83L427.1,58.35L437.5,57.88L447.9,57.40L458.3,56.92L468.8,56.44L479.2,55.96L489.6,55.48L500.0,55.00L510.4,54.52L520.8,54.04L531.3,53.56L541.7,53.08L552.1,52.60L562.5,52.13L572.9,51.65L583.3,51.17L593.8,50.69L604.2,50.21L614.6,49.73L625.0,49.25L635.4,48.77L645.8,48.29L656.3,47.81L666.7,47.33L677.1,46.85L687.5,46.38L697.9,45.90L708.3,45.42L718.8,44.94L729.2,44.46L739.6,43.98L750.0,43.50L760.4,43.02L770.8,42.54L781.3,42.06L791.7,41.58L802.1,41.10L812.5,40.63L822.9,40.15L833.3,39.67L843.8,39.19L854.2,38.71L864.6,38.23L875.0,37.75L885.4,37.27L895.8,36.79L906.3,36.31L916.7,35.83L927.1,35.35L937.5,34.88L947.9,34.40L958.3,33.92L968.8,33.44L979.2,32.96L989.6,32.48L1000.0,32.00" data-d-flat="M0.0,58.00L10.4,57.85L20.8,57.71L31.3,57.56L41.7,57.42L52.1,57.27L62.5,57.13L72.9,56.98L83.3,56.83L93.8,56.69L104.2,56.54L114.6,56.40L125.0,56.25L135.4,56.10L145.8,55.96L156.3,55.81L166.7,55.67L177.1,55.52L187.5,55.38L197.9,55.23L208.3,55.08L218.8,54.94L229.2,54.79L239.6,54.65L250.0,54.50L260.4,54.35L270.8,54.21L281.3,54.06L291.7,53.92L302.1,53.77L312.5,53.63L322.9,53.48L333.3,53.33L343.8,53.19L354.2,53.04L364.6,52.90L375.0,52.75L385.4,52.60L395.8,52.46L406.3,52.31L416.7,52.17L427.1,52.02L437.5,51.88L447.9,51.73L458.3,51.58L468.8,51.44L479.2,51.29L489.6,51.15L500.0,51.00L510.4,50.85L520.8,50.71L531.3,50.56L541.7,50.42L552.1,50.27L562.5,50.13L572.9,49.98L583.3,49.83L593.8,49.69L604.2,49.54L614.6,49.40L625.0,49.25L635.4,49.10L645.8,48.96L656.3,48.81L666.7,48.67L677.1,48.52L687.5,48.38L697.9,48.23L708.3,48.08L718.8,47.94L729.2,47.79L739.6,47.65L750.0,47.50L760.4,47.35L770.8,47.21L781.3,47.06L791.7,46.92L802.1,46.77L812.5,46.63L822.9,46.48L833.3,46.33L843.8,46.19L854.2,46.04L864.6,45.90L875.0,45.75L885.4,45.60L895.8,45.46L906.3,45.31L916.7,45.17L927.1,45.02L937.5,44.88L947.9,44.73L958.3,44.58L968.8,44.44L979.2,44.29L989.6,44.15L1000.0,44.00"/>
               <ellipse class="road__arcTip" cx="0" cy="78" rx="3.2" ry="3.2"/>
             </svg>
           </div>
-          <ol class="road__list" style="--n:8">
+          <ol class="road__list" style="--n:7">
             <li class="road__i reveal reveal--fade"
-                style="--yh:75.18;--tone:#646E96;--fg:#FFFFFF;--tone-d:#646694;--fg-d:#FFFFFF">
+                style="--yh:74.78;--yhm:57.02;--tone:#646E96;--fg:#FFFFFF;--tone-d:#646694;--fg-d:#FFFFFF">
               <span class="road__peg">
                 <b class="road__yr">2006</b>
                 <span class="road__mark" aria-hidden="true"><img class="road__logo" src="../assets/img/logo-mark.svg" alt="" decoding="async"></span>
               </span>
-              <div class="road__c"><h3>The company is founded</h3><p>Operations begin in Moscow in business security and brand protection.</p></div>
+              <div class="road__c"><p>The company is founded; operations begin in Moscow in business security and brand protection. Development of law-enforcement practice under the “counterfeit” articles of the Russian Code of Administrative Offences and Criminal Code.</p></div>
             </li><li class="road__i reveal reveal--fade"
-                style="--yh:69.53;--tone:#535D86;--fg:#FFFFFF;--tone-d:#72749E;--fg-d:#FFFFFF">
+                style="--yh:68.35;--yhm:55.06;--tone:#535D86;--fg:#FFFFFF;--tone-d:#72749E;--fg-d:#FFFFFF">
               <span class="road__peg">
                 <b class="road__yr">2010</b>
                 <span class="road__mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18 14 14 0 0 1 0-18z"/></svg></span>
               </span>
-              <div class="road__c"><h3>International recognition</h3><p>CEO Vladimir Solomanidin elected head of the World Association of Detectives (WAD, founded 1925).</p></div>
+              <div class="road__c"><p>More than 10 successful brand-protection programmes and further development of the practice of shutting down illegal production. CEO Vladimir Solomanidin is elected head of the World Association of Detectives (WAD, founded in 1925).</p></div>
             </li><li class="road__i reveal reveal--fade"
-                style="--yh:63.89;--tone:#4C4C7A;--fg:#FFFFFF;--tone-d:#8082A8;--fg-d:#141428">
+                style="--yh:61.92;--yhm:53.10;--tone:#4C4C7A;--fg:#FFFFFF;--tone-d:#8082A8;--fg-d:#141428">
               <span class="road__peg">
-                <b class="road__yr">2014</b>
-                <span class="road__mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h10v6a5 5 0 0 1-10 0z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/><path d="M12 14v4M9 21h6M10 18h4"/></svg></span>
+                <b class="road__yr">2014–15</b>
+                <span class="road__mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 3v5.2c0 4.6-3.1 7.8-7.5 9.3-4.4-1.5-7.5-4.7-7.5-9.3V6z"/><path d="M12 8.4v4.2M12 15.4h.01"/></svg></span>
               </span>
-              <div class="road__c"><h3>The Norman J. Sloan Award</h3><p>A commemorative award presented by the Association of Detectives to Vladimir Solomanidin for long and distinguished service in investigations and security.</p></div>
+              <div class="road__c"><p>The decade’s largest raid on illegal production — seizure of more than 100 truckloads of finished counterfeit goods. The company team exceeds 50 people. Company leadership is recognised with two awards at once (the Norman J. Sloan Award from WAD, and the V.V. Leontief medal “For Achievements in Economics”).</p></div>
             </li><li class="road__i reveal reveal--fade"
-                style="--yh:58.25;--tone:#404068;--fg:#FFFFFF;--tone-d:#8E90B2;--fg-d:#141428">
-              <span class="road__peg">
-                <b class="road__yr">2015</b>
-                <span class="road__mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7.4 2 3.2 5.5M16.6 2l-3.2 5.5"/><circle cx="12" cy="15" r="6.5"/><path d="m12 11.8 1 2 2.2.3-1.6 1.5.4 2.2-2-1-2 1 .4-2.2L8.8 14l2.2-.3z"/></svg></span>
-              </span>
-              <div class="road__c"><h3>The V.V. Leontief medal</h3><p>Vladimir Solomanidin awarded the medal “For Achievements in Economics”.</p></div>
-            </li><li class="road__i reveal reveal--fade"
-                style="--yh:52.60;--tone:#343454;--fg:#FFFFFF;--tone-d:#9C9EBC;--fg-d:#141428">
+                style="--yh:55.48;--yhm:51.15;--tone:#404068;--fg:#FFFFFF;--tone-d:#8E90B2;--fg-d:#141428">
               <span class="road__peg">
                 <b class="road__yr">2020</b>
                 <span class="road__mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 11.5 12.5 3.5a2 2 0 0 0-1.4-.6H4.5A1.5 1.5 0 0 0 3 4.4v6.6a2 2 0 0 0 .6 1.4l8 8a1.5 1.5 0 0 0 2.1 0l6.8-6.8a1.5 1.5 0 0 0 0-2.1z"/><circle cx="7.8" cy="7.8" r="1.4"/></svg></span>
               </span>
-              <div class="road__c"><h3>Brand protection at scale</h3><p>The company passed 80 brands under protection, consolidating its position as a market leader.</p></div>
+              <div class="road__c"><p>Reaching a rate of 15 illegal production sites closed per year. The company portfolio exceeds 80 brands; active work begins against illicit excise goods. An online practice across a number of foreign jurisdictions.</p></div>
             </li><li class="road__i reveal reveal--fade"
-                style="--yh:46.96;--tone:#282844;--fg:#FFFFFF;--tone-d:#AAACC6;--fg-d:#141428">
+                style="--yh:49.05;--yhm:49.19;--tone:#282844;--fg:#FFFFFF;--tone-d:#AAACC6;--fg-d:#141428">
               <span class="road__peg">
                 <b class="road__yr">2022</b>
                 <span class="road__mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.4"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16.5 5.2a3.4 3.4 0 0 1 0 5.6M18 14.4a6.5 6.5 0 0 1 3.5 5.6"/></svg></span>
               </span>
-              <div class="road__c"><h3>President of W.A.D.</h3><p>Alexey Solomanidin became the youngest president in WAD history.</p></div>
+              <div class="road__c"><p>A contribution pivotal for Russia’s law-enforcement system to sustaining market protection against illicit goods under sanctions pressure. Alexey Solomanidin becomes the youngest president in WAD history.</p></div>
             </li><li class="road__i reveal reveal--fade"
-                style="--yh:41.31;--tone:#1E1E38;--fg:#FFFFFF;--tone-d:#B8BAD0;--fg-d:#141428">
+                style="--yh:42.62;--yhm:47.23;--tone:#1E1E38;--fg:#FFFFFF;--tone-d:#B8BAD0;--fg-d:#141428">
               <span class="road__peg">
                 <b class="road__yr">2024</b>
                 <span class="road__mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 3 8l9 5 9-5z"/><path d="m3 13 9 5 9-5M3 18l9 5 9-5"/></svg></span>
               </span>
-              <div class="road__c"><h3>A new practice area</h3><p>Launch of a practice against unfair competition, broadening the range of services for clients.</p></div>
+              <div class="road__c"><p>Active development of practices against threats in the online environment and against unfair competition. Co-authorship of a number of specialist initiatives and legislative amendments.</p></div>
             </li><li class="road__i road__i--hi reveal reveal--fade"
-                style="--yh:35.67;--tone:#141428;--fg:#FFFFFF;--tone-d:#C6C8DA;--fg-d:#141428">
+                style="--yh:36.18;--yhm:45.27;--tone:#141428;--fg:#FFFFFF;--tone-d:#C6C8DA;--fg-d:#141428">
               <span class="road__peg">
                 <b class="road__yr">2025</b>
                 <span class="road__mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18"/><path d="M6 20v-5M11 20v-9M16 20v-6M21 20V7"/><path d="m14 4 3.4 1.2L16.2 8.6"/></svg></span>
               </span>
-              <div class="road__c"><h3>IPA medal and EAEU expansion</h3><p>CEO Vladimir Solomanidin was awarded the “Police Solidarity” medal by the All-Russian Police Association (IPA). Operations expanded across the Eurasian Economic Union with full brand protection programmes on new markets.</p></div>
+              <div class="road__c"><p>A return to “peak” performance; the geography of operations expands to the Eurasian Economic Union countries with the launch of comprehensive brand-protection programmes on new markets. Prevented damage for rights holders — more than €125,000,000 a year. CEO Vladimir Solomanidin is awarded a medal by the All-Russian Police Association (MPA).</p></div>
             </li>
           </ol>
           <span class="road__ahead" aria-hidden="true"></span>
@@ -692,522 +600,522 @@
 
 <section class="sec" id="news">
   <div class="wrap">
-    <div class="shead shead--split shead--cta reveal">
+    <div class="shead shead--split shead--cta shead--banner reveal">
       <div class="shead__t"><span class="kick">News</span><h2 class="h2">The company in the public eye</h2></div>
       <div class="shead__x"><a href="news.html" class="seeall"><span class="seeall__l">All news</span><span class="seeall__r"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div>
     </div>
-    <div class="news-rail" tabindex="0" role="group" aria-label="The company in the public eye"><a class="card ncard reveal" href="../news/vladimir-chocolate-raid.html">
+    <div class="news-rail" tabindex="0" role="group" aria-label="The company in the public eye"><a class="card ncard reveal" href="news/vladimir-chocolate-raid.html">
         <div class="ncard__img"><img src="../assets/img/news/vladimir-chocolate-raid.jpg" alt="Large-Scale Counterfeit Chocolate Production Halted in Vladimir Region" loading="eager" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2026-02-17">February 17, 2026</time><span class="dot"></span><span class="cl">Brand protection &amp; IP</span></div>
           <h3>Large-Scale Counterfeit Chocolate Production Halted in Vladimir Region</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/solomanidin-ard-conference-2025.html">
+      </a><a class="card ncard reveal" href="news/solomanidin-ard-conference-2025.html">
         <div class="ncard__img"><img src="../assets/img/news/15122025.png" alt="Alexey Solomanidin Participates in a Key Conference of Russia's Detective Community" loading="eager" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2025-11-25">November 25, 2025</time><span class="dot"></span><span class="cl">Corporate security</span></div>
           <h3>Alexey Solomanidin Participates in a Key Conference of Russia's Detective Community</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/customs-value-conference-2025.html">
+      </a><a class="card ncard reveal" href="news/customs-value-conference-2025.html">
         <div class="ncard__img"><img src="../assets/img/news/291020253.jpg" alt="Customs Value: New Challenges — New Solutions" loading="eager" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2025-10-21">October 21, 2025</time><span class="dot"></span><span class="cl">Risk management</span></div>
           <h3>Customs Value: New Challenges — New Solutions</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/anticounterfeit-forum-transnational-task-force.html">
+      </a><a class="card ncard reveal" href="news/anticounterfeit-forum-transnational-task-force.html">
         <div class="ncard__img"><img src="../assets/img/news/291020251.png" alt="Vlasta-Consulting Proposes Key Initiative at Anti-Counterfeit Forum" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2025-10-06">October 6, 2025</time><span class="dot"></span><span class="cl">Brand protection &amp; IP</span></div>
           <h3>Vlasta-Consulting Proposes Key Initiative at Anti-Counterfeit Forum</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/philip-morris-izhora-25th-anniversary.html">
+      </a><a class="card ncard reveal" href="news/philip-morris-izhora-25th-anniversary.html">
         <div class="ncard__img"><img src="../assets/img/news/291020252.png" alt="Vlasta-Consulting Joins 25th Anniversary of Philip Morris Izhora Plant" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2025-09-23">September 23, 2025</time><span class="dot"></span><span class="cl">Brand protection &amp; IP</span></div>
           <h3>Vlasta-Consulting Joins 25th Anniversary of Philip Morris Izhora Plant</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/wad-100th-anniversary-chicago.html">
+      </a><a class="card ncard reveal" href="news/wad-100th-anniversary-chicago.html">
         <div class="ncard__img"><img src="../assets/img/news/260920251.png" alt="From Moscow to Chicago: &quot;Vlasta-Consulting&quot; Supported the Centennial Anniversary of the WAD Detectives Association" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2025-09-02">September 2, 2025</time><span class="dot"></span><span class="cl">Corporate security</span></div>
           <h3>From Moscow to Chicago: &quot;Vlasta-Consulting&quot; Supported the Centennial Anniversary of the WAD Detectives Association</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/publichno-chastnoe-partnerstvo-eksperty-vlasta-konsalting-pomogli-likv.html">
+      </a><a class="card ncard reveal" href="news/publichno-chastnoe-partnerstvo-eksperty-vlasta-konsalting-pomogli-likv.html">
         <div class="ncard__img"><img src="../assets/img/news/260920255.png" alt="Public-Private Partnership: “Vlasta-Consulting” Experts Assist in Bust of Illegal Oil Operation" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2025-07-30">July 30, 2025</time><span class="dot"></span><span class="cl">Brand protection &amp; IP</span></div>
           <h3>Public-Private Partnership: “Vlasta-Consulting” Experts Assist in Bust of Illegal Oil Operation</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/fts-eaes-tobacco-illicit-trade-meeting.html">
+      </a><a class="card ncard reveal" href="news/fts-eaes-tobacco-illicit-trade-meeting.html">
         <div class="ncard__img"><img src="../assets/img/news/25072025.jpeg" alt="FCS Meeting: Combating Illicit Tobacco Trade in the EAEU" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2025-07-25">July 25, 2025</time><span class="dot"></span><span class="cl">Brand protection &amp; IP</span></div>
           <h3>FCS Meeting: Combating Illicit Tobacco Trade in the EAEU</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/auto-parts-counterfeit-russia1-investigation.html">
+      </a><a class="card ncard reveal" href="news/auto-parts-counterfeit-russia1-investigation.html">
         <div class="ncard__img"><img src="../assets/img/news/280720252.png" alt="40% of Counterfeit Parts in the Auto Market: How to Avoid Fakes and Prevent Double Spending" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2025-07-21">July 21, 2025</time><span class="dot"></span><span class="cl">Brand protection &amp; IP</span></div>
           <h3>40% of Counterfeit Parts in the Auto Market: How to Avoid Fakes and Prevent Double Spending</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/aeb-30th-anniversary-summer-reception.html">
+      </a><a class="card ncard reveal" href="news/aeb-30th-anniversary-summer-reception.html">
         <div class="ncard__img"><img src="../assets/img/news/03072025.jpg" alt="Vlasta Consulting at AEB’s 30th Anniversary Summer Reception" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2025-07-03">July 3, 2025</time><span class="dot"></span><span class="cl">Corporate security</span></div>
           <h3>Vlasta Consulting at AEB’s 30th Anniversary Summer Reception</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/eea-customs-tobacco-illicit-trade-measures.html">
+      </a><a class="card ncard reveal" href="news/eea-customs-tobacco-illicit-trade-measures.html">
         <div class="ncard__img"><img src="../assets/img/news/02072025.jpg" alt="Combating Illegal Tobacco Trade: Vlasta-Consulting Proposes New Anti-Smuggling Measures at EEC Meeting" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2025-07-02">July 2, 2025</time><span class="dot"></span><span class="cl">Brand protection &amp; IP</span></div>
           <h3>Combating Illegal Tobacco Trade: Vlasta-Consulting Proposes New Anti-Smuggling Measures at EEC Meeting</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/aeb-annual-meeting-lavrov.html">
+      </a><a class="card ncard reveal" href="news/aeb-annual-meeting-lavrov.html">
         <div class="ncard__img"><img src="../assets/img/news/01072025.jpg" alt="Vlasta-Consulting Participates in AEB Annual Meeting with Sergey Lavrov" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2025-07-01">July 1, 2025</time><span class="dot"></span><span class="cl">Corporate security</span></div>
           <h3>Vlasta-Consulting Participates in AEB Annual Meeting with Sergey Lavrov</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/russia-china-customs-trois-ip-protection.html">
+      </a><a class="card ncard reveal" href="news/russia-china-customs-trois-ip-protection.html">
         <div class="ncard__img"><img src="../assets/img/news/18062025.jpg" alt="The Key to Combating Counterfeiting: Russian and Chinese Customs Authorities Urge Businesses to Register Trademarks in TRoIS" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2025-06-18">June 18, 2025</time><span class="dot"></span><span class="cl">Brand protection &amp; IP</span></div>
           <h3>The Key to Combating Counterfeiting: Russian and Chinese Customs Authorities Urge Businesses to Register Trademarks in TRoIS</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/opora-russia-irkutsk-ip-antitrolling.html">
+      </a><a class="card ncard reveal" href="news/opora-russia-irkutsk-ip-antitrolling.html">
         <div class="ncard__img"><img src="../assets/img/news/05032025.jpg" alt="'OPORA RUSSIA' Leaders Congress in Irkutsk Region" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2025-03-05">March 5, 2025</time><span class="dot"></span><span class="cl">Brand protection &amp; IP</span></div>
           <h3>'OPORA RUSSIA' Leaders Congress in Irkutsk Region</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/mpa-police-association-cooperation-agreement.html">
+      </a><a class="card ncard reveal" href="news/mpa-police-association-cooperation-agreement.html">
         <div class="ncard__img"><img src="../assets/img/news/040320251.jpg" alt="Vlasta-Consulting LLC and the All-Russian Police Association IPA Sign Cooperation Agreement" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2025-02-27">February 27, 2025</time><span class="dot"></span><span class="cl">Brand protection &amp; IP</span></div>
           <h3>Vlasta-Consulting LLC and the All-Russian Police Association IPA Sign Cooperation Agreement</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/syzran-illegal-shampoo-production-raid.html">
+      </a><a class="card ncard reveal" href="news/syzran-illegal-shampoo-production-raid.html">
         <div class="ncard__img"><img src="../assets/img/news/1702253.jpg" alt="Over 30,000 counterfeit shampoos were seized at the illegal production facility in Syzran" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2024-12-27">December 27, 2024</time><span class="dot"></span><span class="cl">Brand protection &amp; IP</span></div>
           <h3>Over 30,000 counterfeit shampoos were seized at the illegal production facility in Syzran</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/penza-opg-counterfeit-household-chemicals.html">
+      </a><a class="card ncard reveal" href="news/penza-opg-counterfeit-household-chemicals.html">
         <div class="ncard__img"><img src="../assets/img/news/1702252.jpg" alt="In Penza, members of an organized crime group were convicted for producing counterfeit household chemicals for over three years and distributing them across the country" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2024-12-23">December 23, 2024</time><span class="dot"></span><span class="cl">Brand protection &amp; IP</span></div>
           <h3>In Penza, members of an organized crime group were convicted for producing counterfeit household chemicals for over three years and distributing them across the country</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/novosibirsk-illegal-cigarettes-seizure.html">
+      </a><a class="card ncard reveal" href="news/novosibirsk-illegal-cigarettes-seizure.html">
         <div class="ncard__img"><img src="../assets/img/news/1702254.jpg" alt="A man with 200,000 illicit cigarettes was detained in Novosibirsk" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2024-10-15">October 15, 2024</time><span class="dot"></span><span class="cl">Brand protection &amp; IP</span></div>
           <h3>A man with 200,000 illicit cigarettes was detained in Novosibirsk</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/wad-99th-conference-kuala-lumpur.html">
+      </a><a class="card ncard reveal" href="news/wad-99th-conference-kuala-lumpur.html">
         <div class="ncard__img"><img src="../assets/img/news/01091024.jpeg" alt="99th World Detective Association Conference Held in Kuala Lumpur" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2024-10-09">October 9, 2024</time><span class="dot"></span><span class="cl">Corporate security</span></div>
           <h3>99th World Detective Association Conference Held in Kuala Lumpur</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/kaliningrad-3-tons-counterfeit-household-chemicals.html">
+      </a><a class="card ncard reveal" href="news/kaliningrad-3-tons-counterfeit-household-chemicals.html">
         <div class="ncard__img"><img src="../assets/img/news/1702251.jpg" alt="An offense case has been initiated in the Kaliningrad region for the sale of 3 tons of counterfeit household chemicals" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2024-08-28">August 28, 2024</time><span class="dot"></span><span class="cl">Brand protection &amp; IP</span></div>
           <h3>An offense case has been initiated in the Kaliningrad region for the sale of 3 tons of counterfeit household chemicals</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/aeb-agm-2024-vlasta-consulting-participation.html">
+      </a><a class="card ncard reveal" href="news/aeb-agm-2024-vlasta-consulting-participation.html">
         <div class="ncard__img"><img src="../assets/img/news/10150524.jpeg" alt="Management of Vlasta-Consultıng company take part in the Annual General Meeting (AGM) of the Association of European Businesses" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2024-04-25">April 25, 2024</time><span class="dot"></span><span class="cl">Corporate security</span></div>
           <h3>Management of Vlasta-Consultıng company take part in the Annual General Meeting (AGM) of the Association of European Businesses</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/wad-interim-meeting-panama-2024.html">
+      </a><a class="card ncard reveal" href="news/wad-interim-meeting-panama-2024.html">
         <div class="ncard__img"><img src="../assets/img/news/8150524.jpg" alt="The executive director of Vlasta-Consulting took part in the WAD conference in Panama" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2024-04-14">April 14, 2024</time><span class="dot"></span><span class="cl">Corporate security</span></div>
           <h3>The executive director of Vlasta-Consulting took part in the WAD conference in Panama</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/mvd-training-counterfeit-fight-vlasta.html">
+      </a><a class="card ncard reveal" href="news/mvd-training-counterfeit-fight-vlasta.html">
         <div class="ncard__img"><img src="../assets/img/news/7150524.png" alt="A training session on combating counterfeiting was conducted at the Ministry of Internal Affairs." loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2024-03-15">March 15, 2024</time><span class="dot"></span><span class="cl">Industry news</span></div>
           <h3>A training session on combating counterfeiting was conducted at the Ministry of Internal Affairs.</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/hse-open-lecture-ip-protection.html">
+      </a><a class="card ncard reveal" href="news/hse-open-lecture-ip-protection.html">
         <div class="ncard__img"><img src="../assets/img/news/5150524.jpeg" alt="An open lecture was held at the Higher School of Economics on issues of intellectual property protection." loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2024-03-14">March 14, 2024</time><span class="dot"></span><span class="cl">Brand protection &amp; IP</span></div>
           <h3>An open lecture was held at the Higher School of Economics on issues of intellectual property protection.</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/counterfeit-engine-oils-market-2024.html">
+      </a><a class="card ncard reveal" href="news/counterfeit-engine-oils-market-2024.html">
         <div class="ncard__img"><img src="../assets/img/news/9150524.png" alt="Current situation on the counterfeit oil market in 2024." loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2024-03-11">March 11, 2024</time><span class="dot"></span><span class="cl">Brand protection &amp; IP</span></div>
           <h3>Current situation on the counterfeit oil market in 2024.</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/wad-virtual-conference-2024.html">
+      </a><a class="card ncard reveal" href="news/wad-virtual-conference-2024.html">
         <div class="ncard__img"><img src="../assets/img/news/4150524.jpeg" alt="WAD VIRTUAL CONFERENCE HAS BEEN ORGANISED BY ALEKSEY SOLOMANIDIN" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2024-03-05">March 5, 2024</time><span class="dot"></span><span class="cl">Corporate security</span></div>
           <h3>WAD VIRTUAL CONFERENCE HAS BEEN ORGANISED BY ALEKSEY SOLOMANIDIN</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/kyrgyz-antimonopoly-meeting-2024.html">
+      </a><a class="card ncard reveal" href="news/kyrgyz-antimonopoly-meeting-2024.html">
         <div class="ncard__img"><img src="../assets/img/news/3150524.jpeg" alt="Meeting with the State Agency for Antimonopoly Regulation under the Government of the Kyrgyz Republic" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2024-02-27">February 27, 2024</time><span class="dot"></span><span class="cl">Brand protection &amp; IP</span></div>
           <h3>Meeting with the State Agency for Antimonopoly Regulation under the Government of the Kyrgyz Republic</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/kyrgyzpatent-meeting-ip-protection-2024.html">
+      </a><a class="card ncard reveal" href="news/kyrgyzpatent-meeting-ip-protection-2024.html">
         <div class="ncard__img"><img src="../assets/img/news/2150524.jpeg" alt="A meeting was held with the State Service of Intellectual Property and Innovation under the Government of the Kyrgyz Republic “Kyrgyzpatent”" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2024-02-23">February 23, 2024</time><span class="dot"></span><span class="cl">Brand protection &amp; IP</span></div>
           <h3>A meeting was held with the State Service of Intellectual Property and Innovation under the Government of the Kyrgyz Republic “Kyrgyzpatent”</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/vladimir-fake-footwear-factory-raid.html">
+      </a><a class="card ncard reveal" href="news/vladimir-fake-footwear-factory-raid.html">
         <div class="ncard__img"><img src="../assets/img/news/6150524.png" alt="Law enforcement agencies, together with specialists of Vlasta-Consulting company suppressed the activities of a counterfeit shoe factory in the Vladimir region" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2023-11-28">November 28, 2023</time><span class="dot"></span><span class="cl">Brand protection &amp; IP</span></div>
           <h3>Law enforcement agencies, together with specialists of Vlasta-Consulting company suppressed the activities of a counterfeit shoe factory in the Vladimir region</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/opora-russia-grozny-2023-summit.html">
+      </a><a class="card ncard reveal" href="news/opora-russia-grozny-2023-summit.html">
         <div class="ncard__img"><img src="../assets/img/news/240420241.jpeg" alt="SPECIALISTS OF VLASTA CONSULTING LLC TOOK PART IN THE CONGRESS OF OPORA ROSSII." loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2023-11-23">November 23, 2023</time><span class="dot"></span><span class="cl">Brand protection &amp; IP</span></div>
           <h3>SPECIALISTS OF VLASTA CONSULTING LLC TOOK PART IN THE CONGRESS OF OPORA ROSSII.</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/belarus-ip-seminar-2023.html">
+      </a><a class="card ncard reveal" href="news/belarus-ip-seminar-2023.html">
         <div class="ncard__img"><img src="../assets/img/news/17112302.jpg" alt="The international seminar concerning the protection and commercialization of the intellectual property objects in Belarus." loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2023-10-16">October 16, 2023</time><span class="dot"></span><span class="cl">Brand protection &amp; IP</span></div>
           <h3>The international seminar concerning the protection and commercialization of the intellectual property objects in Belarus.</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/anticounterfeit-forum-2023-st-petersburg.html">
+      </a><a class="card ncard reveal" href="news/anticounterfeit-forum-2023-st-petersburg.html">
         <div class="ncard__img"><img src="../assets/img/news/17112301.jpg" alt="The specialists of LLC “Vlasta-Consulting” participated in XI International Forum “Anticounterfeit - 2023”." loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2023-10-15">October 15, 2023</time><span class="dot"></span><span class="cl">Brand protection &amp; IP</span></div>
           <h3>The specialists of LLC “Vlasta-Consulting” participated in XI International Forum “Anticounterfeit - 2023”.</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/volgograd-counterfeit-household-chemicals-raid.html">
+      </a><a class="card ncard reveal" href="news/volgograd-counterfeit-household-chemicals-raid.html">
         <div class="ncard__img"><img src="../assets/img/news/2250823.jpeg" alt="In Volgograd oblast, the police supressed the production of counterfeit household chemicals" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2023-08-25">August 25, 2023</time><span class="dot"></span><span class="cl">Brand protection &amp; IP</span></div>
           <h3>In Volgograd oblast, the police supressed the production of counterfeit household chemicals</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/penza-counterfeit-household-chemicals-raid.html">
+      </a><a class="card ncard reveal" href="news/penza-counterfeit-household-chemicals-raid.html">
         <div class="ncard__img"><img src="../assets/img/news/1250823.jpeg" alt="In Penza oblast, law enforcement agencies terminated the illegal production of household chemicals" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2023-08-25">August 25, 2023</time><span class="dot"></span><span class="cl">Brand protection &amp; IP</span></div>
           <h3>In Penza oblast, law enforcement agencies terminated the illegal production of household chemicals</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/wad-prague-2023-conference.html">
+      </a><a class="card ncard reveal" href="news/wad-prague-2023-conference.html">
         <div class="ncard__img"><img src="../assets/img/news/30523.jpeg" alt="W.A.D. International conference – Prague, 2023" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2023-06-03">June 3, 2023</time><span class="dot"></span><span class="cl">Corporate security</span></div>
           <h3>W.A.D. International conference – Prague, 2023</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/moscow-police-baranov-meeting-2023.html">
+      </a><a class="card ncard reveal" href="news/moscow-police-baranov-meeting-2023.html">
         <div class="ncard__img"><img src="../assets/img/news/190523.jpg" alt="Meeting with Oleg Baranov (head of the Main directorate of the Ministry of Internal Affairs of Russia in Moscow)" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2023-05-19">May 19, 2023</time><span class="dot"></span><span class="cl">Brand protection &amp; IP</span></div>
           <h3>Meeting with Oleg Baranov (head of the Main directorate of the Ministry of Internal Affairs of Russia in Moscow)</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/mvd-budget-counterfeit-auto-parts.html">
+      </a><a class="card ncard reveal" href="news/mvd-budget-counterfeit-auto-parts.html">
         <div class="ncard__img"><img src="../assets/img/news/3051150.jpeg" alt="The Ministry of Internal Affairs was asked to allocate a  budget for ensuring the temporary storage of seized counterfeit products" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2023-05-03">May 3, 2023</time><span class="dot"></span><span class="cl">Brand protection &amp; IP</span></div>
           <h3>The Ministry of Internal Affairs was asked to allocate a  budget for ensuring the temporary storage of seized counterfeit products</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/responsibility-illegal-tobacco-courts-study.html">
+      </a><a class="card ncard reveal" href="news/responsibility-illegal-tobacco-courts-study.html">
         <div class="ncard__img"><img src="../assets/img/news/2004.jpg" alt="Is there a liability for dealing with illicit tobacco?" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2022-07-06">July 6, 2022</time><span class="dot"></span><span class="cl">Brand protection &amp; IP</span></div>
           <h3>Is there a liability for dealing with illicit tobacco?</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/nizhny-novgorod-illegal-production-raid.html">
+      </a><a class="card ncard reveal" href="news/nizhny-novgorod-illegal-production-raid.html">
         <div class="ncard__img"><img src="../assets/img/news/18253.png" alt="The police suppressed illegal production of chemical products in Nizhniy Novgorod" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2022-04-28">April 28, 2022</time><span class="dot"></span><span class="cl">Brand protection &amp; IP</span></div>
           <h3>The police suppressed illegal production of chemical products in Nizhniy Novgorod</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/alexey-solomanidin-elected-wad-president-2021.html">
+      </a><a class="card ncard reveal" href="news/alexey-solomanidin-elected-wad-president-2021.html">
         <div class="ncard__img"><img src="../assets/img/news/1113.jpeg" alt="Executive Director of Vlasta-Consulting Ltd.  Alexey Solomanidin was named President of the World Association of Detectives" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2021-10-29">October 29, 2021</time><span class="dot"></span><span class="cl">Corporate security</span></div>
           <h3>Executive Director of Vlasta-Consulting Ltd.  Alexey Solomanidin was named President of the World Association of Detectives</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/moscow-illegal-motor-oil-household-chemicals-raid.html">
+      </a><a class="card ncard reveal" href="news/moscow-illegal-motor-oil-household-chemicals-raid.html">
         <div class="ncard__img"><img src="../assets/img/news/111.png" alt="The activities of illegal production of motor oil and household chemicals was suppressed by police officers in Moscow" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2021-10-27">October 27, 2021</time><span class="dot"></span><span class="cl">Brand protection &amp; IP</span></div>
           <h3>The activities of illegal production of motor oil and household chemicals was suppressed by police officers in Moscow</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/disposable-vapes-teen-trend-risks.html">
+      </a><a class="card ncard reveal" href="news/disposable-vapes-teen-trend-risks.html">
         <div class="ncard__img"><img src="../assets/img/news/1112.png" alt="The threat of the vaping (new teens' trend) and how to combat it" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2021-10-25">October 25, 2021</time><span class="dot"></span><span class="cl">Consumers &amp; regulation</span></div>
           <h3>The threat of the vaping (new teens' trend) and how to combat it</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/taldom-counterfeit-engine-oil-raid.html">
+      </a><a class="card ncard reveal" href="news/taldom-counterfeit-engine-oil-raid.html">
         <div class="ncard__img"><img src="../assets/img/news/40.jpg" alt="More than 50 tons of petroleum products were found and seized." loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2021-08-20">August 20, 2021</time><span class="dot"></span><span class="cl">Brand protection &amp; IP</span></div>
           <h3>More than 50 tons of petroleum products were found and seized.</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/security-in-modern-world-conference-2021.html">
+      </a><a class="card ncard reveal" href="news/security-in-modern-world-conference-2021.html">
         <div class="ncard__img"><img src="../assets/img/news/41.jpeg" alt="Specialists of Vlasta-Consulting took part in the III All-Russian scientific and practical conference with international participation «Security in the modern world»." loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2021-08-02">August 2, 2021</time><span class="dot"></span><span class="cl">Corporate security</span></div>
           <h3>Specialists of Vlasta-Consulting took part in the III All-Russian scientific and practical conference with international participation «Security in the modern world».</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/fake-vaccination-certificates-covid19-russia24.html">
+      </a><a class="card ncard reveal" href="news/fake-vaccination-certificates-covid19-russia24.html">
         <div class="ncard__img"><img src="../assets/img/news/covid-face-certificates.jpg" alt="Impact of Covid-19: Fake certificates are gaining momentum." loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2021-05-15">May 15, 2021</time><span class="dot"></span><span class="cl">Consumers &amp; regulation</span></div>
           <h3>Impact of Covid-19: Fake certificates are gaining momentum.</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/tabak-3-investigation-eduard-petrov.html">
+      </a><a class="card ncard reveal" href="news/tabak-3-investigation-eduard-petrov.html">
         <div class="ncard__img"><img src="../assets/img/news/tabak-case-3.jpg" alt="Investigation of Eduard Petrov &quot;The Tabak Case - 3&quot;" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2021-05-13">May 13, 2021</time><span class="dot"></span><span class="cl">Brand protection &amp; IP</span></div>
           <h3>Investigation of Eduard Petrov &quot;The Tabak Case - 3&quot;</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/opora-annual-meeting-2021-vlasta.html">
+      </a><a class="card ncard reveal" href="news/opora-annual-meeting-2021-vlasta.html">
         <div class="ncard__img"><img src="../assets/img/news/ko5.jpg" alt="General Director of Vlasta-Consulting took part in the XII regular general meeting of the Association &quot;OPORA&quot;" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2021-03-02">March 2, 2021</time><span class="dot"></span><span class="cl">Corporate security</span></div>
           <h3>General Director of Vlasta-Consulting took part in the XII regular general meeting of the Association &quot;OPORA&quot;</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/cigarette-import-restrictions-2021.html">
+      </a><a class="card ncard reveal" href="news/cigarette-import-restrictions-2021.html">
         <div class="ncard__img"><img src="../assets/img/news/101.jpg" alt="There is a ban, there is no punishment: the essence of restrictions on the import of cigarettes from abroad" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2021-01-28">January 28, 2021</time><span class="dot"></span><span class="cl">Brand protection &amp; IP</span></div>
           <h3>There is a ban, there is no punishment: the essence of restrictions on the import of cigarettes from abroad</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/moskovsky-patrul-counterfeit-tobacco-analysis-2020.html">
+      </a><a class="card ncard reveal" href="news/moskovsky-patrul-counterfeit-tobacco-analysis-2020.html">
         <div class="ncard__img"><img src="../assets/img/news/7ec61739.jpg" alt="&quot;Moscow Patrol&quot;, together with &quot;Vlasta-Consulting&quot; specialists, conducted a market analysis of illicit tobacco products" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2020-12-17">December 17, 2020</time><span class="dot"></span><span class="cl">Brand protection &amp; IP</span></div>
           <h3>&quot;Moscow Patrol&quot;, together with &quot;Vlasta-Consulting&quot; specialists, conducted a market analysis of illicit tobacco products</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/destruction-counterfeit-engine-oils-krasnodar.html">
+      </a><a class="card ncard reveal" href="news/destruction-counterfeit-engine-oils-krasnodar.html">
         <div class="ncard__img"><img src="../assets/img/news/1c48e54e.jpg" alt="The process of destruction of seized products (engine oils)" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2020-12-04">December 4, 2020</time><span class="dot"></span><span class="cl">Brand protection &amp; IP</span></div>
           <h3>The process of destruction of seized products (engine oils)</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/training-uvd-sao-counterfeit-tobacco-2020.html">
+      </a><a class="card ncard reveal" href="news/training-uvd-sao-counterfeit-tobacco-2020.html">
         <div class="ncard__img"><img src="../assets/img/news/32.jpg" alt="Employees of Vlasta Consulting held a training at the Department of Internal Affairs (DIA) for the Northern Administrative District in Moscow" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2020-10-30">October 30, 2020</time><span class="dot"></span><span class="cl">Brand protection &amp; IP</span></div>
           <h3>Employees of Vlasta Consulting held a training at the Department of Internal Affairs (DIA) for the Northern Administrative District in Moscow</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/bryansk-training-illegal-cigarettes-seizure-2020.html">
+      </a><a class="card ncard reveal" href="news/bryansk-training-illegal-cigarettes-seizure-2020.html">
         <div class="ncard__img"><img src="../assets/img/news/28.JPG" alt="AS A RESULT OF THE TRAININGS ON COUNTERFEITING, POLICE OFFICERS IN BRYANSK SEIZED ILLEGAL CIGARETTES" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2020-09-24">September 24, 2020</time><span class="dot"></span><span class="cl">Brand protection &amp; IP</span></div>
           <h3>AS A RESULT OF THE TRAININGS ON COUNTERFEITING, POLICE OFFICERS IN BRYANSK SEIZED ILLEGAL CIGARETTES</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/stronger-law-needed-to-beat-counterfeit-in-russia.html">
+      </a><a class="card ncard reveal" href="news/stronger-law-needed-to-beat-counterfeit-in-russia.html">
         <div class="ncard__img"><img src="../assets/img/news/27.jpg" alt="Only tightening the law will help to defeat counterfeit in Russia" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2020-08-01">August 1, 2020</time><span class="dot"></span><span class="cl">Brand protection &amp; IP</span></div>
           <h3>Only tightening the law will help to defeat counterfeit in Russia</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/illegal-engine-oil-production-raid-2020.html">
+      </a><a class="card ncard reveal" href="news/illegal-engine-oil-production-raid-2020.html">
         <div class="ncard__img"><img src="../assets/img/news/24.jpg" alt="Suppressed illegal production of motor oils with logos of known brands" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2020-03-20">March 20, 2020</time><span class="dot"></span><span class="cl">Brand protection &amp; IP</span></div>
           <h3>Suppressed illegal production of motor oils with logos of known brands</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/counterfeit-car-bulbs-seized-petersburg-2020.html">
+      </a><a class="card ncard reveal" href="news/counterfeit-car-bulbs-seized-petersburg-2020.html">
         <div class="ncard__img"><img src="../assets/img/news/25.jpg" alt="In Saint Petersburg more than 180 thousand counterfeit automotive lamps seized" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2020-01-24">January 24, 2020</time><span class="dot"></span><span class="cl">Brand protection &amp; IP</span></div>
           <h3>In Saint Petersburg more than 180 thousand counterfeit automotive lamps seized</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/rukovodstvo-kompanii-vlasta-konsalting-prinyalo-uchastie-v-mezhdunarod.html">
+      </a><a class="card ncard reveal" href="news/rukovodstvo-kompanii-vlasta-konsalting-prinyalo-uchastie-v-mezhdunarod.html">
         <div class="ncard__img"><img src="../assets/img/news/ko1.jpg" alt="Management of &quot;Vlasta Consulting&quot; company take part in the international conference &quot;Swedish law day in Russia&quot;" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2019-12-05">December 5, 2019</time><span class="dot"></span><span class="cl">Industry relations</span></div>
           <h3>Management of &quot;Vlasta Consulting&quot; company take part in the international conference &quot;Swedish law day in Russia&quot;</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/minsk-ip-forum-2019.html">
+      </a><a class="card ncard reveal" href="news/minsk-ip-forum-2019.html">
         <div class="ncard__img"><img src="../assets/img/news/ko4.JPG" alt="Vlasta-Consulting takes part in the VII Minsk international forum for the protection of intellectual property" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2019-11-26">November 26, 2019</time><span class="dot"></span><span class="cl">Industry relations</span></div>
           <h3>Vlasta-Consulting takes part in the VII Minsk international forum for the protection of intellectual property</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/xxxii-mezhdunarodnaya-konferenciya-associacii-rossiyskih-detektivov.html">
+      </a><a class="card ncard reveal" href="news/xxxii-mezhdunarodnaya-konferenciya-associacii-rossiyskih-detektivov.html">
         <div class="ncard__img"><img src="../assets/img/news/ko2.JPG" alt="XXXII international conference of the Russian detectives association" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2019-11-26">November 26, 2019</time><span class="dot"></span><span class="cl">Industry relations</span></div>
           <h3>XXXII international conference of the Russian detectives association</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/anticounterfeit-forum-2019-yerevan.html">
+      </a><a class="card ncard reveal" href="news/anticounterfeit-forum-2019-yerevan.html">
         <div class="ncard__img"><img src="../assets/img/news/ko3.jpg" alt="Management of &quot;Vlasta Consulting&quot; company take part in the VII international forum &quot;Anticontrafact-2019&quot;" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2019-11-12">November 12, 2019</time><span class="dot"></span><span class="cl">Industry relations</span></div>
           <h3>Management of &quot;Vlasta Consulting&quot; company take part in the VII international forum &quot;Anticontrafact-2019&quot;</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/counterfeit-oil-production-balashikha-2019.html">
+      </a><a class="card ncard reveal" href="news/counterfeit-oil-production-balashikha-2019.html">
         <div class="ncard__img"><img src="../assets/img/news/23.jpg" alt="Suppressed production of fake motor oil in Balashikha" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2019-06-11">June 11, 2019</time><span class="dot"></span><span class="cl">Brand protection &amp; IP</span></div>
           <h3>Suppressed production of fake motor oil in Balashikha</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/wabco-counterfeit-experience-russia.html">
+      </a><a class="card ncard reveal" href="news/wabco-counterfeit-experience-russia.html">
         <div class="ncard__img"><img src="../assets/img/news/26.jpg" alt="Experience of Wabco in combating counterfeit in Russia" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2019-06-10">June 10, 2019</time><span class="dot"></span><span class="cl">Brand protection &amp; IP</span></div>
           <h3>Experience of Wabco in combating counterfeit in Russia</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/counterfeit-cartridge-fraud-100m-2018.html">
+      </a><a class="card ncard reveal" href="news/counterfeit-cartridge-fraud-100m-2018.html">
         <div class="ncard__img"><img src="../assets/img/news/22.jpg" alt="Cartridge scam for an sum of over 100 mln rubles" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2018-12-17">December 17, 2018</time><span class="dot"></span><span class="cl">Brand protection &amp; IP</span></div>
           <h3>Cartridge scam for an sum of over 100 mln rubles</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/counterfeit-oil-factory-moscow-region-2018.html">
+      </a><a class="card ncard reveal" href="news/counterfeit-oil-factory-moscow-region-2018.html">
         <div class="ncard__img"><img src="../assets/img/news/12.jpg" alt="Moscow region, workshop producing counterfeit oil for machines closed" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2018-12-17">December 17, 2018</time><span class="dot"></span><span class="cl">Brand protection &amp; IP</span></div>
           <h3>Moscow region, workshop producing counterfeit oil for machines closed</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/counterfeit-engine-oil-irkutsk-2018.html">
+      </a><a class="card ncard reveal" href="news/counterfeit-engine-oil-irkutsk-2018.html">
         <div class="ncard__img"><img src="../assets/img/news/11.png" alt="Counterfeit engine oil sold as a global brand in Irkutsk" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2018-12-14">December 14, 2018</time><span class="dot"></span><span class="cl">Brand protection &amp; IP</span></div>
           <h3>Counterfeit engine oil sold as a global brand in Irkutsk</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/counterfeit-engine-oil-kazan-2018.html">
+      </a><a class="card ncard reveal" href="news/counterfeit-engine-oil-kazan-2018.html">
         <div class="ncard__img"><img src="../assets/img/news/9.png" alt="In Kazan eliminated large illegal production of motor oils over 80 mln rub" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2018-09-10">September 10, 2018</time><span class="dot"></span><span class="cl">Brand protection &amp; IP</span></div>
           <h3>In Kazan eliminated large illegal production of motor oils over 80 mln rub</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/counterfeit-engine-oil-samara-2017.html">
+      </a><a class="card ncard reveal" href="news/counterfeit-engine-oil-samara-2017.html">
         <div class="ncard__img"><img src="../assets/img/news/8.jpg" alt="Samara region, police officers stopped the sale of counterfeit motor oils" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2017-08-09">August 9, 2017</time><span class="dot"></span><span class="cl">Brand protection &amp; IP</span></div>
           <h3>Samara region, police officers stopped the sale of counterfeit motor oils</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/counterfeit-engine-oil-tolyatti-2017.html">
+      </a><a class="card ncard reveal" href="news/counterfeit-engine-oil-tolyatti-2017.html">
         <div class="ncard__img"><img src="../assets/img/news/7.jpg" alt="In Togliatti police employees stopped large-scale production of counterfeit motor oils" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2017-05-10">May 10, 2017</time><span class="dot"></span><span class="cl">Brand protection &amp; IP</span></div>
           <h3>In Togliatti police employees stopped large-scale production of counterfeit motor oils</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/counterfeit-coffee-production-novosibirsk-2017.html">
+      </a><a class="card ncard reveal" href="news/counterfeit-coffee-production-novosibirsk-2017.html">
         <div class="ncard__img"><img src="../assets/img/news/4.jpg" alt="In Novosibirsk police supressed illegal production of coffee beverages" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2017-04-11">April 11, 2017</time><span class="dot"></span><span class="cl">Brand protection &amp; IP</span></div>
           <h3>In Novosibirsk police supressed illegal production of coffee beverages</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/counterfeit-textile-workshop-moscow-2017.html">
+      </a><a class="card ncard reveal" href="news/counterfeit-textile-workshop-moscow-2017.html">
         <div class="ncard__img"><img src="../assets/img/news/6.jpg" alt="Law enforcement bodies supressed the activities of an underground sewing shop in the south-east of the capital. the offensers sold the products in Moscow at the trade and fair complexes" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2017-03-14">March 14, 2017</time><span class="dot"></span><span class="cl">Brand protection &amp; IP</span></div>
           <h3>Law enforcement bodies supressed the activities of an underground sewing shop in the south-east of the capital. the offensers sold the products in Moscow at the trade and fair complexes</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/counterfeit-household-chemicals-zhukovsky-2016.html">
+      </a><a class="card ncard reveal" href="news/counterfeit-household-chemicals-zhukovsky-2016.html">
         <div class="ncard__img"><img src="../assets/img/news/10.jpg" alt="Activities of illegal production of household chemicals of famous brands stopped" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2016-09-15">September 15, 2016</time><span class="dot"></span><span class="cl">Brand protection &amp; IP</span></div>
           <h3>Activities of illegal production of household chemicals of famous brands stopped</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/counterfeit-instant-coffee-factory-bryansk-2016.html">
+      </a><a class="card ncard reveal" href="news/counterfeit-instant-coffee-factory-bryansk-2016.html">
         <div class="ncard__img"><img src="../assets/img/news/5.jpg" alt="Employees of law enforcement bodies discovered and closed underground production of instant coffee in Bryansk region" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2016-09-15">September 15, 2016</time><span class="dot"></span><span class="cl">Brand protection &amp; IP</span></div>
           <h3>Employees of law enforcement bodies discovered and closed underground production of instant coffee in Bryansk region</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/counterfeit-clothing-workshops-orekhovo-zuevo-2016.html">
+      </a><a class="card ncard reveal" href="news/counterfeit-clothing-workshops-orekhovo-zuevo-2016.html">
         <div class="ncard__img"><img src="../assets/img/news/3.jpg" alt="Law enforcement authorities closed 8 workshops for sewing counterfeit clothing of famous trademarks with illegal workers" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2016-09-15">September 15, 2016</time><span class="dot"></span><span class="cl">Brand protection &amp; IP</span></div>
           <h3>Law enforcement authorities closed 8 workshops for sewing counterfeit clothing of famous trademarks with illegal workers</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/counterfeit-light-industry-production-2016.html">
+      </a><a class="card ncard reveal" href="news/counterfeit-light-industry-production-2016.html">
         <div class="ncard__img"><img src="../assets/img/news/2.jpg" alt="The large-scale production of falsified light industry goods stopped" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2016-09-15">September 15, 2016</time><span class="dot"></span><span class="cl">Brand protection &amp; IP</span></div>
           <h3>The large-scale production of falsified light industry goods stopped</h3>
           <span class="ncard__more arrow-link">Read <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
         </div>
-      </a><a class="card ncard reveal" href="../news/counterfeit-engine-oil-moscow-2015.html">
+      </a><a class="card ncard reveal" href="news/counterfeit-engine-oil-moscow-2015.html">
         <div class="ncard__img"><img src="../assets/img/news/1.jpg" alt="Underground production of motor oils with a turnover of 12 bln rubles per year closed in Moscow" loading="lazy" decoding="async"></div>
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="2015-12-15">December 15, 2015</time><span class="dot"></span><span class="cl">Brand protection &amp; IP</span></div>
@@ -1224,8 +1132,7 @@
   <div class="wrap">
     <div class="cta" data-cta>
       <div class="cta__copy">
-        <h2 class="cta__title">Contacts</h2>
-        <p class="cta__sub">Get in touch</p>
+        <h2 class="cta__title">Get in touch</h2>
         <p class="cta__lead">We will hold a confidential consultation on your brief.</p>
       </div>
       <div class="cta__aside">
@@ -1237,7 +1144,7 @@
           <span class="cta__lbl">Email</span>
           <span class="cta__val">info@vlasta-s.com</span>
         </a>
-        <a class="cta__go" href="../contacts.html">Contact <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="cta__go" href="contacts.html">Contact <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
     </div>
   </div>
@@ -1247,7 +1154,7 @@
   <div class="wrap">
     <div class="ft__top">
       <div class="ft__about">
-        <a class="brand brand--ft" href="../index.html" aria-label="Власта-Консалтинг — на главную">
+        <a class="brand brand--ft" href="index.html" aria-label="Власта-Консалтинг — на главную">
       <img class="brand__mark" src="../assets/img/logo-light.svg" alt="" width="48" height="56">
       <span class="brand__txt">
         <span class="brand__name"><span class="brand__line">VLASTA</span><span class="brand__line">CONSULTING</span></span>
@@ -1258,13 +1165,13 @@
       </div>
       <div class="ft__col">
         <h4 class="ft__h">Services</h4>
-        <div class="ft__ls"><a href="../services.html#brand">Intellectual property</a><a href="../services.html#security">Corporate security</a><a href="../services.html#intelligence">Intelligence and analysis</a><a href="../services.html#consulting">Consulting</a></div>
+        <div class="ft__ls"><a href="services.html#brand">Intellectual property</a><a href="services.html#security">Corporate security</a><a href="services.html#intelligence">Intelligence and analysis</a><a href="services.html#consulting">Consulting</a></div>
         <h4 class="ft__h">Documents</h4>
-        <div class="ft__ls"><a href="../privacy.html">Privacy policy</a></div>
+        <div class="ft__ls"><a href="privacy.html">Privacy policy</a></div>
       </div>
       <div class="ft__col">
         <h4 class="ft__h">Cases</h4>
-        <div class="ft__ls"><a href="../cases/rassledovanie-khishcheniy.html">Theft investigation</a><a href="../cases/tamozhnya-politsiya.html">Investigation Customs + Police</a><a href="../cases/rassledovanie-onlayn-oflayn.html">Investigation, online + offline</a><a href="../cases/reyd-na-proizvodstve.html">Raid on illegal production</a><a href="../cases/proverka-bekgraunda.html">Background screening</a><a href="../cases/podderzhka-v-sude.html">Litigation support</a><a href="../cases/strukturirovannyy-analiz.html">Structured analysis</a><a href="../cases/korporativnye-spory.html">Corporate disputes</a><a href="../cases/blokirovka-kanalov-distribucii.html">Shutting down counterfeit distribution channels</a></div>
+        <div class="ft__ls"><a href="cases/rassledovanie-khishcheniy.html">Theft investigation</a><a href="cases/tamozhnya-politsiya.html">Investigation Customs + Police</a><a href="cases/rassledovanie-onlayn-oflayn.html">Investigation, online + offline</a><a href="cases/reyd-na-proizvodstve.html">Raid on illegal production</a><a href="cases/proverka-bekgraunda.html">Background screening</a><a href="cases/podderzhka-v-sude.html">Litigation support</a><a href="cases/strukturirovannyy-analiz.html">Structured analysis</a><a href="cases/korporativnye-spory.html">Corporate disputes</a><a href="cases/blokirovka-kanalov-distribucii.html">Shutting down counterfeit distribution channels</a></div>
       </div>
       <div class="ft__col">
         <h4 class="ft__h">Information</h4>
@@ -1289,7 +1196,7 @@
     <span class="brand__name" style="color:#fff">Menu</span>
     <button class="mnav__x" type="button" aria-label="Close menu">&times;</button>
   </div>
-  <nav><a class="mnav__l is-on" href="../index.html" aria-current="page">Home</a><a class="mnav__l" href="../services.html">Services</a><a class="mnav__l" href="../about.html">About</a><a class="mnav__l" href="../cases.html">Cases</a><a class="mnav__l" href="../news.html">News</a><a class="mnav__l" href="../contacts.html">Contact</a></nav>
+  <nav><a class="mnav__l is-on" href="index.html" aria-current="page">Home</a><a class="mnav__l" href="services.html">Services</a><a class="mnav__l" href="about.html">About</a><a class="mnav__l" href="cases.html">Cases</a><a class="mnav__l" href="news.html">News</a><a class="mnav__l" href="contacts.html">Contact</a></nav>
   <div class="mnav__extra">
     <div class="lang"><a href="../index.html" hreflang="ru">RU</a><a href="../en/index.html" class="is-on" aria-current="true" hreflang="en">EN</a></div>
     <button class="tt" type="button" aria-label="Toggle dark theme" aria-pressed="false"><svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.4"/><path d="M12 2v2.5M12 19.5V22M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2 12h2.5M19.5 12H22M4.2 19.8 6 18M18 6l1.8-1.8"/></svg></button>
@@ -1303,7 +1210,7 @@
   <div class="cookie__c">
     <div class="cookie__txt">
       <h4 id="ckT">Cookies</h4>
-      <p id="ckD">By continuing to view this site, you agree with cookie files and other methods, means and tools of Internet statistics and configuration used on the site to improve the usability of the site. <a href="../privacy.html">Learn more</a></p>
+      <p id="ckD">By continuing to view this site, you agree with cookie files and other methods, means and tools of Internet statistics and configuration used on the site to improve the usability of the site. <a href="privacy.html">Learn more</a></p>
     </div>
     <div class="cookie__btns">
       <button class="btn btn--ghostline" type="button" data-ck="reject">Reject all</button>
@@ -1313,6 +1220,6 @@
   </div>
 </div>
 <button class="totop" type="button" aria-label="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg></button>
-<script src="../assets/js/main.js?v=e296b7a5" defer></script>
+<script src="../assets/js/main.js?v=52791b71" defer></script>
 </body>
 </html>
