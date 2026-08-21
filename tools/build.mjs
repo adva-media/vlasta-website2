@@ -1335,7 +1335,7 @@ function buildServices() {
         <span class="svc-tabs__txt">${esc(C.svcScenNav)}</span>
       </a>${site.services.map(s => `<a class="svc-tabs__tab" href="#${s.id}">
         <span class="svc-tabs__fill" aria-hidden="true"></span>
-        <span class="svc-tabs__txt"><b>${esc(s.num)}</b>${esc(t(s,'title'))}</span>
+        <span class="svc-tabs__txt"><b>${esc(s.num)}</b>${esc(t(s,'titleNav') || t(s,'title'))}</span>
       </a>`).join('')}
     </div>
   </div>

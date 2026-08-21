@@ -1779,14 +1779,11 @@ html.is-locked,html.is-locked body{overflow:hidden}
 .mq__i{flex:none;width:var(--mq-w);height:128px;border-radius:16px;background:#fff;
   border:1px solid var(--line-soft);display:flex;align-items:center;justify-content:center;padding:22px 20px}
 .mq__i img{max-width:82%;max-height:72%;width:auto;height:auto;object-fit:contain;
-  /* Logo wash OFF (full clarity). Prior wash — restore by swapping these two lines:
-     filter:grayscale(.5);opacity:.81;  (~50% less greying than grayscale(1)/.62)
-     and restore drag rule below to filter:grayscale(.5);opacity:.81 */
-  filter:none;opacity:1;transition:var(--t);
+  /* soft grey wash (~50% less greying than grayscale(1)/.62); color on hover */
+  filter:grayscale(.5);opacity:.81;transition:var(--t);
   transform:scale(var(--logo-scale,1));-webkit-user-drag:none;user-select:none;pointer-events:none}
 .mq__i:hover img{filter:none;opacity:1}
-/* Prior wash-on-drag: filter:grayscale(.5);opacity:.81 */
-.mq__vp.is-dragging .mq__i img{filter:none;opacity:1}
+.mq__vp.is-dragging .mq__i img{filter:grayscale(.5);opacity:.81}
 
 /* ---------------------------------------------------------------- cases */
 .case-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
