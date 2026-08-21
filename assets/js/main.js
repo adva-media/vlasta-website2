@@ -37,8 +37,34 @@
     }
   } catch (e) {}
 
+  /* --------------------------------------------- language preference */
+  var LANG_KEY = 'vlasta-lang';
+  function setLangPref(lang) {
+    if (lang !== 'en' && lang !== 'ru') return;
+    try { localStorage.setItem(LANG_KEY, lang); } catch (e) {}
+    try {
+      doc.cookie = LANG_KEY + '=' + lang + ';path=/;max-age=31536000;SameSite=Lax';
+    } catch (e2) {}
+  }
+  (function syncLangFromUrl() {
+    var lang = (root.getAttribute('lang') || 'ru').slice(0, 2);
+    if (lang !== 'en') lang = 'ru';
+    var pref = null;
+    try { pref = localStorage.getItem(LANG_KEY); } catch (e) {}
+    /* Head script redirects on mismatch; only sync when unset or already aligned. */
+    if (pref !== 'en' && pref !== 'ru') setLangPref(lang);
+    else if (pref === lang) setLangPref(lang);
+  })();
+  $$('.lang a[hreflang]').forEach(function (a) {
+    a.addEventListener('click', function () {
+      setLangPref(a.getAttribute('hreflang'));
+    });
+  });
+
   /* ------------------------------------------------ header + progress */
   var hdr = $('.hdr'), bar = $('.progress'), top = $('.totop');
+  /* Services page uses section fills in .svc-tabs — skip the sitewide top bar. */
+  if (doc.body.classList.contains('page-services')) bar = null;
   function onScroll() {
     var y = window.scrollY || 0;
     // over a photo hero the bar only materialises once the page moves
@@ -113,6 +139,47 @@
 
   /* -------- Fabric mesh: MST graph + traveling pulses (CTA band + approach hex) */
   var FABRIC_TAU = Math.PI * 2;
+  var fabricLogoCache = {};
+
+  function loadFabricLogos(srcs, cb) {
+    var unique = [];
+    var seen = {};
+    var i, src, im;
+    for (i = 0; i < srcs.length; i++) {
+      src = srcs[i];
+      if (!src || seen[src]) continue;
+      seen[src] = 1;
+      unique.push(src);
+    }
+    if (!unique.length) { cb([]); return; }
+    var left = unique.length;
+    function tick() {
+      left--;
+      if (left > 0) return;
+      var out = [];
+      for (i = 0; i < unique.length; i++) {
+        im = fabricLogoCache[unique[i]];
+        if (im && im.naturalWidth) out.push(im);
+      }
+      cb(out);
+    }
+    for (i = 0; i < unique.length; i++) {
+      src = unique[i];
+      if (!fabricLogoCache[src]) {
+        im = fabricLogoCache[src] = new Image();
+        im.decoding = 'async';
+        im.src = src;
+      }
+    }
+    for (i = 0; i < unique.length; i++) {
+      im = fabricLogoCache[unique[i]];
+      if (im.complete) tick();
+      else {
+        im.addEventListener('load', tick);
+        im.addEventListener('error', tick);
+      }
+    }
+  }
 
   function bootFabricMesh(host, opts) {
     if (!host) return;
@@ -137,7 +204,13 @@
     var pulseBoost = opts.pulseBoost == null ? 1 : opts.pulseBoost;
     var pingAmp = opts.pingAmp == null ? 1 : opts.pingAmp;
     var hubChance = opts.hubChance == null ? 0.18 : opts.hubChance;
+    var depthMode = !!opts.depthMode;
     var softDrift = driftStyle === 'soft';
+    var glyphSvgs = opts.glyphSvgs || [];
+    var logoPool = [];
+    var brandSrc = opts.brandSrc || '';
+    var brandSvg = opts.brandSvg || '';
+    var brandImg = null;
 
     var canvas = host.querySelector('.' + fieldClass);
     if (!canvas) {
@@ -204,6 +277,20 @@
       return 'rgba(' + r + ',' + g + ',' + b + ',' + a + ')';
     }
 
+    function isCtaDesk() {
+      return typeof matchMedia === 'function' && matchMedia('(min-width:820px)').matches;
+    }
+
+    function inCopyZone(nx, ny) {
+      if (isCtaDesk()) return nx > 0.03 && nx < 0.48 && ny > 0.08 && ny < 0.9;
+      return ny < 0.5;
+    }
+
+    function inAsideZone(nx, ny) {
+      if (isCtaDesk()) return nx > 0.62 && ny > 0.05 && ny < 0.95;
+      return ny > 0.55;
+    }
+
     /* Soften under copy / panel zones (section-local coords). */
     function zoneQuiet(x, y) {
       if (typeof opts.quietZone === 'function') {
@@ -211,7 +298,8 @@
       }
       var nx = (x - bleedX) / Math.max(1, sw);
       var ny = (y - bleedY) / Math.max(1, sh);
-      if (nx > 0.06 && nx < 0.58 && ny > 0.16 && ny < 0.84) return 0.5;
+      if (inCopyZone(nx, ny)) return 0.34;
+      if (inAsideZone(nx, ny)) return 0.1;
       return 1;
     }
 
@@ -265,8 +353,126 @@
         breathSpeed: 0.45 + Math.random() * 0.55,
         breathPhase2: Math.random() * FABRIC_TAU,
         energy: 0,
-        ping: 0
+        ping: 0,
+        logoImg: null,
+        logoMul: 1,
+        z: 0.5,
+        depthStamped: false
       };
+    }
+
+    function stampDepth() {
+      var i, n, r;
+      if (!depthMode) return;
+      for (i = 0; i < nodes.length; i++) {
+        n = nodes[i];
+        if (n.depthStamped) continue;
+        if (n.brandHub) n.z = 0.94;
+        else if (n.preferFront) n.z = Math.max(n.z || 0.5, 0.58 + Math.random() * 0.32);
+        else {
+          r = Math.random();
+          if (r < 0.34) n.z = 0.06 + Math.random() * 0.2;
+          else if (r < 0.76) n.z = 0.36 + Math.random() * 0.3;
+          else n.z = 0.76 + Math.random() * 0.22;
+        }
+        n.orbitR *= 0.36 + n.z * 1.25;
+        n.speedMul *= 0.4 + n.z * 1.05;
+        n.depthStamped = true;
+      }
+    }
+
+    function nodeZ(n) {
+      return n && n.z != null ? n.z : 0.5;
+    }
+
+    function fogA(z) {
+      return 0.28 + z * 0.72;
+    }
+
+    function persp(z) {
+      return 0.46 + z * 0.7;
+    }
+
+    /* Screen-space lift only — physics and zoneQuiet stay on logical x/y. */
+    function screenY(n) {
+      return n.y + (0.5 - nodeZ(n)) * 16;
+    }
+
+    function shuffleInPlace(arr) {
+      var i, j, tmp;
+      for (i = arr.length - 1; i > 0; i--) {
+        j = (Math.random() * (i + 1)) | 0;
+        tmp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = tmp;
+      }
+      return arr;
+    }
+
+    /* Turn a subset of nodes into recycled brand marks. Sizes span 1×–4×. */
+    function attachLogos() {
+      var i, n, nx, ny, cands, count, chosen, muls, t, img;
+      if (!logoPool.length || !nodes.length) return;
+      cands = [];
+      for (i = 0; i < nodes.length; i++) {
+        n = nodes[i];
+        if (n.brandHub) continue;
+        n.logoImg = null;
+        n.logoMul = 1;
+        nx = (n.x - bleedX) / Math.max(1, sw);
+        ny = (n.y - bleedY) / Math.max(1, sh);
+        /* Keep glyphs off the title and the contact column. */
+        if (inBand(n.x, n.y) && (inCopyZone(nx, ny) || inAsideZone(nx, ny))) continue;
+        cands.push(i);
+      }
+      if (!cands.length) return;
+      shuffleInPlace(cands);
+      count = Math.round(nodes.length * 0.34);
+      count = Math.max(4, Math.min(count, logoPool.length, Math.floor(nodes.length * 0.42), cands.length));
+      chosen = cands.slice(0, count);
+      muls = [];
+      for (i = 0; i < count; i++) {
+        t = count === 1 ? 1 : i / (count - 1);
+        muls.push(1 + 2 * t * t);
+      }
+      muls.sort(function (a, b) { return b - a; });
+      img = shuffleInPlace(logoPool.slice());
+      for (i = 0; i < count; i++) {
+        n = nodes[chosen[i]];
+        n.logoImg = img[i % img.length];
+        n.logoMul = muls[i];
+        n.size = Math.max(n.size, 1.2 + n.logoMul * 0.9);
+        if (depthMode && n.logoMul >= 1.4) {
+          n.preferFront = true;
+          n.z = Math.max(n.z, 0.58 + Math.random() * 0.32);
+        }
+        if (!n.glyphLocked) {
+          n.orbitR *= 0.52 + 0.22 / n.logoMul;
+          n.speedMul *= 0.7;
+          n.glyphLocked = true;
+        }
+      }
+    }
+
+    function placeBrandHub() {
+      var i, hx, hy, hub;
+      if (!brandImg || !brandImg.naturalWidth || !nodes.length) return false;
+      for (i = 0; i < nodes.length; i++) {
+        if (nodes[i].brandHub) {
+          nodes[i].logoImg = brandImg;
+          nodes[i].logoMul = 3;
+          return false;
+        }
+      }
+      hx = bleedX + sw * 0.5;
+      hy = bleedY + sh * 0.5;
+      hub = makeNode(hx, hy, 2.6, 0.45);
+      hub.logoImg = brandImg;
+      hub.logoMul = 3;
+      hub.brandHub = true;
+      hub.orbitR *= 0.45;
+      nodes.push(hub);
+      return true;
     }
 
     function sampleNodes(count, spacing) {
@@ -274,7 +480,7 @@
       var pad = Math.max(6, spacing * 0.12);
       var attempts = 0;
       var maxAttempts = count * 90;
-      var x, y, ok, i, dx, dy, need, needSq, wantExt, p, sz;
+      var x, y, ok, i, dx, dy, need, needSq, wantExt, p, sz, nx, ny;
       var exteriorQuota = Math.max(0, Math.round(count * exteriorRatio));
       var exteriorCount = 0;
       while (pts.length < count && attempts < maxAttempts) {
@@ -300,6 +506,11 @@
         }
         if (!ok) continue;
         if (!inBand(x, y)) exteriorCount++;
+        if (depthMode && inBand(x, y)) {
+          nx = (x - bleedX) / Math.max(1, sw);
+          ny = (y - bleedY) / Math.max(1, sh);
+          if (inAsideZone(nx, ny) || inCopyZone(nx, ny)) sz = Math.min(sz, 0.8);
+        }
         pts.push(makeNode(x, y, sz, 1));
       }
       if (!pinBottom) return pts;
@@ -467,6 +678,9 @@
       if (useBleedY || useBleedX) minDist = Math.max(minDist, useBleedX ? 62 : 75);
 
       nodes = sampleNodes(target, minDist);
+      placeBrandHub();
+      attachLogos();
+      stampDepth();
       edges = buildConnectedGraph(nodes, Math.max(5, Math.round(target * 0.42)));
       pulses = [];
       spawnAcc = 0.4;
@@ -684,7 +898,13 @@
 
     function spawnPulse(forceStrong) {
       if (!edges.length) return;
-      var ei = (Math.random() * edges.length) | 0;
+      var li, logoEdges = [];
+      for (li = 0; li < edges.length; li++) {
+        if (nodes[edges[li].a].logoImg || nodes[edges[li].b].logoImg) logoEdges.push(li);
+      }
+      var ei = (logoEdges.length && Math.random() < 0.44)
+        ? logoEdges[(Math.random() * logoEdges.length) | 0]
+        : (Math.random() * edges.length) | 0;
       var forward = Math.random() < 0.5;
       var strong = forceStrong || Math.random() < (0.16 * pulseBoost);
       var base = strong ? 0.4 : 0.26;
@@ -703,7 +923,9 @@
 
     function updatePulses(dt) {
       var i, p, ed, arrived;
-      var targetLive = Math.max(2, Math.min(5, Math.round(edges.length * 0.18 * (0.85 + 0.2 * pulseBoost))));
+      var targetLive = depthMode
+        ? Math.max(3, Math.min(7, Math.round(edges.length * 0.26 * (0.85 + 0.2 * pulseBoost))))
+        : Math.max(2, Math.min(5, Math.round(edges.length * 0.18 * (0.85 + 0.2 * pulseBoost))));
       var spawnGap = softDrift ? 0.75 : 0.55;
 
       spawnAcc += dt * pulseBoost;
@@ -773,10 +995,10 @@
       }
       for (i = 0; i < nodes.length; i++) {
         if (nodes[i].energy > 0) {
-          nodes[i].energy = Math.max(0, nodes[i].energy - dt * 1.35);
+          nodes[i].energy = Math.max(0, nodes[i].energy - dt * (nodes[i].logoImg ? 0.78 : 1.35));
         }
         if (nodes[i].ping > 0) {
-          nodes[i].ping = Math.max(0, nodes[i].ping - dt * 2.4);
+          nodes[i].ping = Math.max(0, nodes[i].ping - dt * (nodes[i].logoImg ? 1.05 : 2.4));
         }
       }
     }
@@ -846,10 +1068,108 @@
       }
     }
 
+    function glyphDataUri(svg) {
+      var color = isDark() ? '#D7DEEE' : '#535D86';
+      var s = String(svg || '');
+      if (!s) return '';
+      if (s.indexOf('xmlns') === -1) s = s.replace('<svg', '<svg xmlns="http://www.w3.org/2000/svg"');
+      if (s.indexOf('stroke-width') === -1) s = s.replace('<svg', '<svg stroke-width="1.7"');
+      s = s.replace(/currentColor/g, color);
+      return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(s);
+    }
+
+    function bindMeshMarks() {
+      var srcs = glyphSvgs.map(glyphDataUri).filter(Boolean);
+      var hubUri = brandSvg ? glyphDataUri(brandSvg) : '';
+      var loadList = srcs.slice();
+      if (hubUri) loadList.push(hubUri);
+      else if (brandSrc) loadList.push(brandSrc);
+      loadFabricLogos(loadList, function (imgs) {
+        var i, im, out = [];
+        brandImg = null;
+        for (i = 0; i < imgs.length; i++) {
+          im = imgs[i];
+          if (hubUri && i >= srcs.length) brandImg = im;
+          else if (!hubUri && brandSrc && im.src && (
+            im.src.indexOf('logo-mark') !== -1 ||
+            im.src.indexOf(brandSrc.split('/').pop()) !== -1
+          )) brandImg = im;
+          else out.push(im);
+        }
+        logoPool = out;
+        if (placeBrandHub()) {
+          edges = buildConnectedGraph(nodes, Math.max(5, Math.round(nodes.length * 0.42)));
+          pulses = [];
+        }
+        attachLogos();
+        stampDepth();
+      });
+    }
+
+    function drawLogoMark(n, animate, t) {
+      var img = n.logoImg;
+      if (!img || !img.naturalWidth) return false;
+      var z = depthMode ? nodeZ(n) : 0.5;
+      var x = n.x;
+      var y = depthMode ? screenY(n) : n.y;
+      var en = n.energy;
+      var ping = n.ping || 0;
+      var breath = animate
+        ? sizeAmp * (
+            0.72 * Math.sin(t * n.breathSpeed + n.phase) +
+            0.28 * Math.sin(t * n.breathSpeed * 0.37 + n.breathPhase2)
+          )
+        : 0;
+      var side = 18 * n.logoMul * (1 + breath * 0.32);
+      if (depthMode) side *= persp(z);
+      if (sw < 640) side *= 0.84;
+      var q = zoneQuiet(n.x, n.y);
+      var alpha = (0.88 + en * 0.1 + ping * 0.08) * Math.max(0.45, q);
+      if (depthMode) alpha *= fogA(z);
+      var r = side * 0.52;
+      var iw, ih, pad, box, k, dw, dh, halo, ring;
+
+      ctx.save();
+      ctx.globalAlpha = alpha;
+      if (en > 0.08 || ping > 0.1) {
+        halo = ctx.createRadialGradient(x, y, 0, x, y, r * (2.4 + ping * 1.1));
+        halo.addColorStop(0, violet(0.24 * Math.max(en, ping * 0.85), true));
+        halo.addColorStop(1, violet(0, true));
+        ctx.fillStyle = halo;
+        ctx.beginPath();
+        ctx.arc(x, y, r * (2.4 + ping * 1.1), 0, FABRIC_TAU);
+        ctx.fill();
+      }
+      if (ping > 0.04) {
+        ring = r * (1.35 + (1 - ping) * 1.6);
+        ctx.beginPath();
+        ctx.arc(x, y, ring, 0, FABRIC_TAU);
+        ctx.strokeStyle = violet(0.3 * ping * q, true);
+        ctx.lineWidth = 1.1 + ping * 0.9;
+        ctx.stroke();
+      }
+
+      iw = img.naturalWidth;
+      ih = img.naturalHeight;
+      pad = n.brandHub ? side * 0.08 : side * 0.14;
+      box = Math.max(4, side - pad * 2);
+      k = Math.min(box / iw, box / ih);
+      dw = iw * k;
+      dh = ih * k;
+      ctx.imageSmoothingEnabled = true;
+      if (ctx.imageSmoothingQuality) ctx.imageSmoothingQuality = 'high';
+      if (n.brandHub && dark && !brandSvg) ctx.filter = 'brightness(0) invert(1)';
+      ctx.drawImage(img, x - dw * 0.5, y - dh * 0.5, dw, dh);
+      ctx.filter = 'none';
+      ctx.restore();
+      return true;
+    }
+
     function drawNodes(animate, t) {
       var i, n, sc, alpha, en, baseR, r, breath, ping, ring;
       for (i = 0; i < nodes.length; i++) {
         n = nodes[i];
+        if (n.logoImg && drawLogoMark(n, animate, t)) continue;
         en = n.energy;
         ping = n.ping || 0;
         /* Slow dual-frequency organic size breath — not strobe */
@@ -892,6 +1212,241 @@
       }
     }
 
+    function fillLitSphere(x, y, r, alpha, z, bright) {
+      var a = Math.max(0, Math.min(1, alpha));
+      var rr = Math.max(0.45, r);
+      var hx = x - rr * 0.36;
+      var hy = y - rr * 0.4;
+      var g = ctx.createRadialGradient(hx, hy, Math.max(0.2, rr * 0.06), x + rr * 0.16, y + rr * 0.2, rr);
+      if (dark) {
+        g.addColorStop(0, 'rgba(228,234,248,' + (0.96 * a) + ')');
+        g.addColorStop(0.22, violet(0.84 * a, true));
+        g.addColorStop(0.62, violet((bright ? 0.64 : 0.5) * a, !!bright));
+        g.addColorStop(1, 'rgba(40,46,76,' + (0.94 * a) + ')');
+      } else {
+        g.addColorStop(0, 'rgba(255,255,255,' + (0.98 * a) + ')');
+        g.addColorStop(0.2, 'rgba(236,240,248,' + (0.94 * a) + ')');
+        g.addColorStop(0.55, violet((bright ? 0.58 : 0.44) * a, !!bright));
+        g.addColorStop(1, 'rgba(83,93,134,' + (0.8 * a) + ')');
+      }
+      ctx.fillStyle = g;
+      ctx.beginPath();
+      ctx.arc(x, y, rr, 0, FABRIC_TAU);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(x - rr * 0.32, y - rr * 0.36, Math.max(0.35, rr * 0.2), 0, FABRIC_TAU);
+      ctx.fillStyle = dark
+        ? 'rgba(240,244,255,' + ((z > 0.55 ? 0.55 : 0.38) * a) + ')'
+        : 'rgba(255,255,255,' + ((z > 0.55 ? 0.7 : 0.5) * a) + ')';
+      ctx.fill();
+    }
+
+    function drawDepthNodeBody(x, y, r, z, alpha, en, ping) {
+      var fog = fogA(z);
+      var dof = 1 - z;
+      var a = Math.max(0, alpha);
+      var haloR, halo, ring;
+
+      if (z > 0.4) {
+        ctx.save();
+        ctx.translate(x + r * 0.28, y + r * 0.62);
+        ctx.scale(1.08, 0.34);
+        ctx.beginPath();
+        ctx.arc(0, 0, r * (0.92 + z * 0.14), 0, FABRIC_TAU);
+        ctx.fillStyle = dark
+          ? 'rgba(6,8,20,' + (0.3 * z * a) + ')'
+          : 'rgba(48,56,90,' + (0.2 * z * a) + ')';
+        ctx.fill();
+        ctx.restore();
+      }
+
+      haloR = r * (2.15 + dof * 2.7 + ping * 1.3 + (en > 0.08 ? 0.85 : 0.15));
+      halo = ctx.createRadialGradient(x, y, 0, x, y, haloR);
+      halo.addColorStop(0, violet((0.09 + dof * 0.09 + Math.max(en, ping * 0.85) * 0.24) * fog * Math.max(0.35, a), true));
+      halo.addColorStop(0.42, violet((0.035 + dof * 0.055) * fog * a, true));
+      halo.addColorStop(1, violet(0, true));
+      ctx.fillStyle = halo;
+      ctx.beginPath();
+      ctx.arc(x, y, haloR, 0, FABRIC_TAU);
+      ctx.fill();
+
+      if (ping > 0.04) {
+        ring = r * (1.42 + (1 - ping) * 1.85) * (0.9 + z * 0.14);
+        ctx.beginPath();
+        ctx.arc(x, y, ring, 0, FABRIC_TAU);
+        ctx.strokeStyle = violet(0.2 * ping * fog * Math.max(0.45, a), true);
+        ctx.lineWidth = (0.6 + ping * 0.65) * persp(z);
+        ctx.stroke();
+      }
+
+      fillLitSphere(x, y, r, a * fog, z, en > 0.18 || ping > 0.2 || z > 0.78);
+    }
+
+    function nodeDrawRadius(n, animate, t) {
+      var en = n.energy;
+      var ping = n.ping || 0;
+      var breath = animate
+        ? sizeAmp * (
+            0.72 * Math.sin(t * n.breathSpeed + n.phase) +
+            0.28 * Math.sin(t * n.breathSpeed * 0.37 + n.breathPhase2)
+          )
+        : 0;
+      var sc = n.size * (1 + breath + en * 0.95 + ping * 0.35);
+      var baseR = 4.9 * sc;
+      return Math.min(baseR, minDist * 0.34 * n.size) * persp(nodeZ(n));
+    }
+
+    function drawDepthEdge(item, t, animate) {
+      var ed = item.ed;
+      var a = item.a;
+      var b = item.b;
+      var za = nodeZ(a);
+      var zb = nodeZ(b);
+      var zm = (za + zb) * 0.5;
+      var ax = a.x;
+      var ay = screenY(a);
+      var bx = b.x;
+      var by = screenY(b);
+      var q = (zoneQuiet(a.x, a.y) + zoneQuiet(b.x, b.y)) * 0.5;
+      var mid = Math.min(1, Math.max(0.35, 1 - ed.len / (minDist * 5.5)));
+      var breath = animate
+        ? (1 + lineBreathe * Math.sin(t * 0.38 + (ed.phase || 0)))
+        : 1;
+      var baseA = (0.11 + mid * 0.1 + ed.glow * 0.14) * q * breath;
+      var alphaA = baseA * fogA(za);
+      var alphaB = baseA * fogA(zb);
+      var lw, bright, grad;
+      if (alphaA < 0.012 && alphaB < 0.012) return;
+      lw = (1.05 + mid * 0.35 + ed.glow * 0.4) * (0.92 + 0.08 * breath);
+      lw *= 0.5 + persp(zm) * 0.82;
+      bright = ed.glow > 0.3;
+      ctx.lineCap = 'round';
+      if (zm > 0.45) {
+        ctx.lineWidth = lw * (3.05 + (zm - 0.45) * 2.5);
+        ctx.strokeStyle = violet(Math.max(alphaA, alphaB) * 0.22 * zm, bright);
+        ctx.beginPath();
+        ctx.moveTo(ax, ay);
+        ctx.lineTo(bx, by);
+        ctx.stroke();
+      }
+      if (Math.abs(ax - bx) < 0.02 && Math.abs(ay - by) < 0.02) {
+        ctx.strokeStyle = violet((alphaA + alphaB) * 0.5, bright);
+      } else {
+        grad = ctx.createLinearGradient(ax, ay, bx, by);
+        grad.addColorStop(0, violet(alphaA, bright || za > 0.72));
+        grad.addColorStop(1, violet(alphaB, bright || zb > 0.72));
+        ctx.strokeStyle = grad;
+      }
+      ctx.lineWidth = lw;
+      ctx.beginPath();
+      ctx.moveTo(ax, ay);
+      ctx.lineTo(bx, by);
+      ctx.stroke();
+    }
+
+    function drawDepthPulse(item) {
+      var p = item.p;
+      var a = item.a;
+      var b = item.b;
+      var pow = p.power || 1;
+      var tt = Math.max(0, Math.min(1, p.t));
+      var za = nodeZ(a);
+      var zb = nodeZ(b);
+      var ax = a.x;
+      var ay = screenY(a);
+      var bx = b.x;
+      var by = screenY(b);
+      var dx = bx - ax;
+      var dy = by - ay;
+      var len = Math.sqrt(dx * dx + dy * dy) || 1;
+      var hz = za + (zb - za) * tt;
+      var half = Math.min(0.22, (18 * Math.min(1.35, pow)) / len);
+      var t0p = Math.max(0, tt - half);
+      var t1 = Math.min(1, tt + half * 0.35);
+      var x0 = ax + dx * t0p;
+      var y0 = ay + dy * t0p;
+      var x1 = ax + dx * t1;
+      var y1 = ay + dy * t1;
+      var hx = ax + dx * tt;
+      var hy = ay + dy * tt;
+      var q = zoneQuiet(a.x + (b.x - a.x) * tt, a.y + (b.y - a.y) * tt);
+      var fog = fogA(hz);
+      var sc = 0.72 + persp(hz) * 0.4;
+      var cap;
+      if (q < 0.08) return;
+
+      ctx.lineCap = 'round';
+      ctx.strokeStyle = violet(0.2 * q * fog * Math.min(1.25, pow), true);
+      ctx.lineWidth = 3.8 * Math.min(1.4, pow) * sc;
+      ctx.beginPath();
+      ctx.moveTo(x0, y0);
+      ctx.lineTo(x1, y1);
+      ctx.stroke();
+
+      ctx.strokeStyle = violet(0.72 * q * fog * Math.min(1.2, pow), true);
+      ctx.lineWidth = 2.2 * Math.min(1.35, pow) * sc;
+      ctx.beginPath();
+      ctx.moveTo(x0, y0);
+      ctx.lineTo(x1, y1);
+      ctx.stroke();
+
+      cap = 1.55 * Math.min(1.3, pow) * sc;
+      ctx.beginPath();
+      ctx.arc(hx, hy, cap, 0, FABRIC_TAU);
+      ctx.fillStyle = violet(0.82 * q * fog * Math.min(1.2, pow), true);
+      ctx.fill();
+    }
+
+    function drawDepthNode(n, animate, t) {
+      var z = nodeZ(n);
+      var x = n.x;
+      var y = screenY(n);
+      var en = n.energy;
+      var ping = n.ping || 0;
+      var r, alpha;
+      if (n.logoImg && drawLogoMark(n, animate, t)) return;
+      r = nodeDrawRadius(n, animate, t);
+      alpha = (0.42 + en * 0.4 + ping * 0.16) * zoneQuiet(n.x, n.y);
+      if (alpha < 0.04 && ping < 0.05) return;
+      drawDepthNodeBody(x, y, r, z, alpha, en, ping);
+    }
+
+    function paintDepth(t, animate) {
+      var items = [];
+      var i, ed, a, b, p, n, zm, tt, pz;
+      for (i = 0; i < edges.length; i++) {
+        ed = edges[i];
+        a = nodes[ed.a];
+        b = nodes[ed.b];
+        if (!a || !b) continue;
+        zm = (nodeZ(a) + nodeZ(b)) * 0.5;
+        items.push({ kind: 'edge', z: zm - 0.045, ed: ed, a: a, b: b });
+      }
+      if (animate) {
+        for (i = 0; i < pulses.length; i++) {
+          p = pulses[i];
+          ed = edges[p.e];
+          if (!ed) continue;
+          a = nodes[ed.a];
+          b = nodes[ed.b];
+          if (!a || !b) continue;
+          tt = Math.max(0, Math.min(1, p.t));
+          pz = nodeZ(a) + (nodeZ(b) - nodeZ(a)) * tt;
+          items.push({ kind: 'pulse', z: pz + 0.012, p: p, ed: ed, a: a, b: b });
+        }
+      }
+      for (i = 0; i < nodes.length; i++) {
+        n = nodes[i];
+        items.push({ kind: 'node', z: nodeZ(n), n: n });
+      }
+      items.sort(function (u, v) { return u.z - v.z; });
+      for (i = 0; i < items.length; i++) {
+        if (items[i].kind === 'edge') drawDepthEdge(items[i], t, animate);
+        else if (items[i].kind === 'pulse') drawDepthPulse(items[i]);
+        else drawDepthNode(items[i].n, animate, t);
+      }
+    }
+
     function paint(t, animate, dt) {
       dark = isDark();
       ctx.clearRect(0, 0, w, h);
@@ -901,9 +1456,13 @@
       } else {
         syncEdgeLens();
       }
-      drawEdges(t, animate);
-      if (animate) drawPulses();
-      drawNodes(animate, t);
+      if (depthMode) {
+        paintDepth(t, animate);
+      } else {
+        drawEdges(t, animate);
+        if (animate) drawPulses();
+        drawNodes(animate, t);
+      }
     }
 
     function frame(now) {
@@ -970,67 +1529,31 @@
 
     var mo = new MutationObserver(function () {
       dark = isDark();
+      if (glyphSvgs.length) bindMeshMarks();
     });
     mo.observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+
+    if (glyphSvgs.length || brandSrc || brandSvg) bindMeshMarks();
   }
 
+  /* CTA mesh: circle nodes only — no glyphs, hub mark, or brand image. */
   $$('.sec--cta').forEach(function (sec) {
     bootFabricMesh(sec, {
       fieldClass: 'cta__field',
       blurClass: 'cta__blur',
-      sizeAmp: 0.1,
+      sizeAmp: 0.12,
       driftStyle: 'orbit',
-      driftAmp: 1.08,
+      driftAmp: 1.12,
       flowAmp: 1.05,
       lineBreathe: 0.12,
-      pulseBoost: 1.15,
+      pulseBoost: 1.35,
       pingAmp: 1.1,
-      hubChance: 0.2
+      hubChance: 0.2,
+      depthMode: true
     });
   });
 
-  (function () {
-    var mesh = doc.querySelector('#apprHex .appr-hex__mesh');
-    if (!mesh) return;
-    var shell = mesh.closest('.appr-hex__shell') || mesh;
-    bootFabricMesh(mesh, {
-      fieldClass: 'appr-hex__field',
-      blurClass: 'appr-hex__blur',
-      /* Overscan canvas inside overflow:hidden shell — exterior nodes clip mid-edge. */
-      bleedX: true,
-      bleedY: true,
-      exteriorRatio: 0.46,
-      pinBottom: false,
-      alphaScale: 0.74,
-      /* Softer under frost — impressive but must not overpower hexes/text. */
-      sizeAmp: 0.055,
-      driftStyle: 'soft',
-      driftAmp: 0.78,
-      flowAmp: 0.7,
-      repelAmp: 0.85,
-      lineBreathe: 0.06,
-      pulseBoost: 0.82,
-      pingAmp: 0.75,
-      hubChance: 0.14,
-      /* Size + visibility track the full white plate, not just the hex column. */
-      observeEl: shell,
-      quietZone: function (x, y, sw, sh, bleedX, bleedY) {
-        var nx = (x - (bleedX || 0)) / Math.max(1, sw);
-        var ny = (y - (bleedY || 0)) / Math.max(1, sh);
-        var desk = typeof matchMedia === 'function' && matchMedia('(min-width:900px)').matches;
-        if (desk) {
-          /* Soften on the copy half; keep density toward the hex column. */
-          if (nx < 0.42) return 0.22 + nx * 0.55;
-          if (nx > 0.28 && nx < 0.72 && ny > 0.12 && ny < 0.58) return 0.38;
-          return 0.85;
-        }
-        /* Mobile stack: quiet under copy, mesh readable behind the hex V. */
-        if (ny < 0.36) return 0.16 + ny * 0.55;
-        if (ny < 0.5) return 0.36 + (ny - 0.36) * 2.4;
-        return 0.88;
-      }
-    });
-  })();
+
 
 
   /* Open a service fold when linked as #service-icon (homepage bullets). */
@@ -1042,6 +1565,111 @@
   }
   openHashFold();
   window.addEventListener('hashchange', openHashFold);
+
+  /* Services page: sticky subnav + section scroll-progress fills */
+  (function initSvcTabs() {
+    var jump = $('.svc-jump');
+    if (!jump) return;
+    var tabs = $$('.svc-tabs__tab', jump);
+    if (!tabs.length) return;
+    var sections = [];
+    tabs.forEach(function (tab) {
+      var id = (tab.getAttribute('href') || '').replace(/^#/, '');
+      var sec = id ? doc.getElementById(id) : null;
+      sections.push(sec);
+    });
+    if (!sections.some(Boolean)) return;
+
+    var ticking = false;
+    var lastActive = -1;
+
+    function measure() {
+      var hh = hdr ? hdr.offsetHeight : 80;
+      var th = jump.offsetHeight || 52;
+      root.style.setProperty('--hdr-h', hh + 'px');
+      root.style.setProperty('--svc-tabs-h', th + 'px');
+      return { hh: hh, th: th, stack: hh + th };
+    }
+
+    function setProgress(tab, p) {
+      tab.style.setProperty('--progress', String(Math.max(0, Math.min(1, p))));
+    }
+
+    function update() {
+      var m = measure();
+      var stack = m.stack;
+      var active = -1;
+      var i, rect, p;
+
+      for (i = 0; i < sections.length; i++) {
+        if (!sections[i]) continue;
+        rect = sections[i].getBoundingClientRect();
+        if (rect.top <= stack + 2) active = i;
+      }
+
+      for (i = 0; i < tabs.length; i++) {
+        var tab = tabs[i];
+        var sec = sections[i];
+        if (!sec || active < 0) {
+          setProgress(tab, 0);
+          tab.classList.remove('is-on', 'is-done');
+          tab.removeAttribute('aria-current');
+          continue;
+        }
+        rect = sec.getBoundingClientRect();
+        if (i < active) p = 1;
+        else if (i > active) p = 0;
+        else p = (stack - rect.top) / Math.max(rect.height, 1);
+        setProgress(tab, p);
+        tab.classList.toggle('is-on', i === active);
+        tab.classList.toggle('is-done', i < active);
+        if (i === active) tab.setAttribute('aria-current', 'true');
+        else tab.removeAttribute('aria-current');
+      }
+
+      if (active !== lastActive) {
+        lastActive = active;
+        var on = active >= 0 ? tabs[active] : null;
+        /* Fully reveal the active tab inside .svc-tabs (nearest can leave edge labels mid-word). */
+        if (on) {
+          var scroller = on.closest ? on.closest('.svc-tabs') : jump.querySelector('.svc-tabs');
+          if (scroller) {
+            var sRect = scroller.getBoundingClientRect();
+            var tRect = on.getBoundingClientRect();
+            var pad = 12;
+            if (tRect.left < sRect.left + pad) {
+              scroller.scrollLeft += tRect.left - sRect.left - pad;
+            } else if (tRect.right > sRect.right - pad) {
+              scroller.scrollLeft += tRect.right - sRect.right + pad;
+            }
+          }
+        }
+      }
+    }
+
+    function onFrame() {
+      ticking = false;
+      update();
+    }
+    function requestUpdate() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(onFrame);
+    }
+
+    window.addEventListener('scroll', requestUpdate, { passive: true });
+    window.addEventListener('resize', requestUpdate);
+    window.addEventListener('hashchange', function () {
+      requestUpdate();
+      setTimeout(requestUpdate, 60);
+    });
+    tabs.forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        setTimeout(requestUpdate, reduce ? 0 : 80);
+      });
+    });
+    update();
+  })();
 
   /* ------------------------------- practice figures count up on first view */
   var figures = $$('[data-count]');
@@ -1286,7 +1914,8 @@
      do not telegraph into the pulse. On ≤640px the path flattens to y=50. */
   var roadFlatMq = typeof matchMedia === 'function' ? matchMedia('(max-width:640px)') : null;
   var roadTipRaf = 0;
-  var ROAD_TIP_LERP = 0.22;
+  var ROAD_TIP_LERP = 0.14;
+  var ROAD_NAV_MS = 980;
   var ROAD_FADE_R_MIN = 28;
 
   function roadIsFlat() {
@@ -1312,7 +1941,7 @@
 
   var roads = $$('.road').map(function (road) {
     var body = $('.road__body', road);
-    if (!body || reduce) return null;
+    if (!body) return null;
     var doneEl = $('.road__arcH .road__arcDone', road);
     var tipEl = $('.road__arcH .road__arcTip', road);
     var glowEl = $('.road__arcH .road__arcGlow', road);
@@ -1330,26 +1959,133 @@
     doneEl.style.strokeDashoffset = String(len);
     doneEl.classList.add('is-live');
     if (tipEl) tipEl.classList.add('is-live');
-    body.addEventListener('scroll', function () { paintRoads(); }, { passive: true });
+    var scrolly = road.closest('.road-scrolly');
+    var pin = scrolly ? $('.road-scrolly__pin', scrolly) : null;
+    var drive = (scrolly && scrolly.getAttribute('data-road-drive')) ||
+      road.getAttribute('data-road-drive') || '';
     var rec = { body: body, list: list, svg: svg, done: doneEl, tip: tipEl,
              glow: glowEl, base: baseEl, len: len, marks: marks, last: -1,
-             dRise: dRise, dFlat: dFlat, pathMode: '', target: 0, progress: 0 };
+             dRise: dRise, dFlat: dFlat, pathMode: '', target: 0, progress: 0,
+             idx: 0, navLock: 0, navTimer: 0, navAnim: 0, followScroll: 0,
+             road: road, scrolly: scrolly, pin: pin, drive: drive,
+             prevBtn: $('.road__nav--prev', road), nextBtn: $('.road__nav--next', road) };
+    body._roadRec = rec;
     roadApplyPathMode(rec);
+    /* Scroll-drive maps progress from the page; arrows/swipe sync from the rail. */
+    if (drive !== 'scroll') {
+      body.addEventListener('scroll', function () { paintRoads(); }, { passive: true });
+    }
     return rec;
   }).filter(Boolean);
 
-  function roadMarkMids(r) {
-    var svg = r.svg;
-    if (!svg) {
-      return r.marks.map(function (_, i) { return (i + .5) / r.marks.length; });
-    }
-    var sr = svg.getBoundingClientRect();
-    var w = sr.width || 1;
-    return r.marks.map(function (m) {
-      var mr = m.getBoundingClientRect();
-      var x = (mr.left + mr.width * .5 - sr.left) / w;
-      return x < 0 ? 0 : x > 1 ? 1 : x;
+  function roadClamp01(p) {
+    return p < 0 ? 0 : p > 1 ? 1 : p;
+  }
+
+  /* Pulse sits on the SVG path. Marks and the path share the same scrolling
+     track, so their relative x is stable and independent of scrollLeft. */
+  function roadPathStops(r) {
+    var n = r.marks.length;
+    var ahead = 0.08;
+    var fallback = r.marks.map(function (_, i) {
+      return n < 2 ? 0 : (i / (n - 1)) * (1 - ahead);
     });
+    if (!r.svg || n < 1) return fallback;
+    var sr = r.svg.getBoundingClientRect();
+    var w = sr.width || 0;
+    if (w < 10) return fallback;
+    var stops = r.marks.map(function (m) {
+      var el = m.querySelector('.road__mark') || m;
+      var mr = el.getBoundingClientRect();
+      return roadClamp01((mr.left + mr.width * 0.5 - sr.left) / w);
+    });
+    if (n > 1 && Math.abs(stops[n - 1] - stops[0]) < 0.04) return fallback;
+    return stops;
+  }
+
+  /* A little past the newest year, into the ahead runway. */
+  function roadAheadP(r) {
+    var stops = roadPathStops(r);
+    var last = stops.length ? stops[stops.length - 1] : 0.92;
+    var svg = r.svg;
+    var ahead = r.body && r.body.querySelector('.road__ahead');
+    if (svg && ahead) {
+      var sr = svg.getBoundingClientRect();
+      var w = sr.width || 1;
+      var ar = ahead.getBoundingClientRect();
+      var x = (ar.left + ar.width * 0.55 - sr.left) / w;
+      if (x === x && x > last + 0.01) return roadClamp01(x);
+    }
+    return roadClamp01(last + (1 - last) * 0.62);
+  }
+
+  /* Scroll so checkpoint i sits where checkpoint 0 sits at rest. */
+  function roadScrollStops(r) {
+    var max = Math.max(0, r.body.scrollWidth - r.body.clientWidth);
+    var first = r.marks[0];
+    if (!first) return r.marks.map(function () { return 0; });
+    var origin = first.getBoundingClientRect().left;
+    return r.marks.map(function (m) {
+      var left = m.getBoundingClientRect().left - origin;
+      return left < 0 ? 0 : left > max ? max : left;
+    });
+  }
+
+  /* Prefer viewport-centering the active mark (clamped at the ends). */
+  function roadScrollCenters(r) {
+    var max = Math.max(0, r.body.scrollWidth - r.body.clientWidth);
+    var body = r.body;
+    var bw = body.clientWidth;
+    if (!r.marks.length || bw < 1) return r.marks.map(function () { return 0; });
+    var br = body.getBoundingClientRect();
+    var sl = body.scrollLeft;
+    return r.marks.map(function (m) {
+      var el = m.querySelector('.road__mark') || m;
+      var mr = el.getBoundingClientRect();
+      var mid = sl + (mr.left - br.left) + mr.width * 0.5;
+      var left = mid - bw * 0.5;
+      return left < 0 ? 0 : left > max ? max : left;
+    });
+  }
+
+  function roadLerpAlong(stops, xStops, x) {
+    var n = xStops.length;
+    if (!n) return { p: 0, i: 0 };
+    if (x <= xStops[0] + 0.5) return { p: stops[0], i: 0 };
+    if (x >= xStops[n - 1] - 0.5) return { p: stops[n - 1], i: n - 1 };
+    var i;
+    for (i = 0; i < n - 1; i++) {
+      var a = xStops[i];
+      var b = xStops[i + 1];
+      if (x <= b || i === n - 2) {
+        var span = b - a;
+        var t = span < 1 ? 0 : (x - a) / span;
+        if (t < 0) t = 0;
+        if (t > 1) t = 1;
+        return {
+          p: stops[i] + t * (stops[i + 1] - stops[i]),
+          i: t < 0.5 ? i : i + 1
+        };
+      }
+    }
+    return { p: stops[n - 1], i: n - 1 };
+  }
+
+  function roadUnlockNav(r) {
+    r.navLock = 0;
+    if (r.navTimer) { clearTimeout(r.navTimer); r.navTimer = 0; }
+    r.body.classList.remove('is-nav');
+  }
+
+  function roadEaseInOut(t) {
+    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  }
+
+  function roadUserScroll(r) {
+    if (!r) return;
+    r.followScroll = 1;
+    if (r.navAnim) { cancelAnimationFrame(r.navAnim); r.navAnim = 0; }
+    if (r.navLock) roadUnlockNav(r);
   }
 
   /* Soft edge fades only on the overflowing side — start stays fully readable;
@@ -1393,21 +2129,268 @@
     roadRails.forEach(roadEdgeFade);
   });
 
-  function roadProgress(r) {
-    var body = r.body;
-    /* Include the ahead stretch past the last year so the tip keeps moving. */
-    var maxBody = body.scrollWidth - body.clientWidth;
-    if (maxBody <= 1) return 1;
-    if (body.scrollLeft >= maxBody - 2) return 1;
-    var p = body.scrollLeft / maxBody;
-    return p < 0 ? 0 : p > 1 ? 1 : p;
+  function roadSetTip(r, p) {
+    p = roadClamp01(p);
+    r.target = p;
+    if (reduce) {
+      r.progress = p;
+      roadPaintTip(r, p);
+      roadEdgeFade(r.body);
+      roadLit(r, r.idx);
+      roadSyncArrows(r);
+      return;
+    }
+    roadWakeTipLerp();
+    roadSyncArrows(r);
   }
+
+  function roadScrollTo(r, left, smooth) {
+    var max = Math.max(0, r.body.scrollWidth - r.body.clientWidth);
+    if (left < 0) left = 0;
+    if (left > max) left = max;
+    if (smooth && !reduce && typeof r.body.scrollTo === 'function') {
+      r.body.scrollTo({ left: left, behavior: 'smooth' });
+    } else {
+      r.body.scrollLeft = left;
+    }
+  }
+
+  /* Page-scroll drive: 0–1 maps onto pulse + rail, keyed to checkpoint stops
+     with the active mark kept roughly centered in the rail viewport. */
+  function roadSetProgress(r, p, smoothBody) {
+    p = roadClamp01(p);
+    var path = roadPathStops(r);
+    var rails = roadScrollCenters(r);
+    var n = path.length;
+    if (!n) {
+      roadSetTip(r, p);
+      return;
+    }
+    var last = n - 1;
+    var ahead = roadAheadP(r);
+    var tipP;
+    var left;
+    var idx;
+    if (n === 1) {
+      tipP = path[0] + p * (ahead - path[0]);
+      left = rails[0] || 0;
+      idx = 0;
+    } else {
+      var u = p * last;
+      idx = Math.round(u);
+      if (idx < 0) idx = 0;
+      if (idx > last) idx = last;
+      var i = Math.min(last - 1, Math.floor(u));
+      var frac = u - i;
+      if (frac < 0) frac = 0;
+      if (frac > 1) frac = 1;
+      if (p >= 0.999) {
+        tipP = ahead;
+        left = rails[last];
+        idx = last;
+      } else {
+        tipP = path[i] + frac * (path[i + 1] - path[i]);
+        left = rails[i] + frac * (rails[i + 1] - rails[i]);
+      }
+    }
+    r.idx = idx;
+    roadScrollTo(r, left, smoothBody);
+    roadSetTip(r, tipP);
+  }
+
+  function roadHdrOffset() {
+    var hdr = $('.hdr');
+    var h = hdr ? hdr.getBoundingClientRect().height : 72;
+    return Math.max(48, Math.round(h));
+  }
+
+  function roadSizeScrolly(r) {
+    if (!r.scrolly || !r.pin || r.drive !== 'scroll' || reduce) return;
+    var pinH = r.pin.offsetHeight;
+    var vh = window.innerHeight || root.clientHeight;
+    /* Extra travel ≈ one viewport slice per checkpoint so L→R progress feels paced. */
+    var step = (window.innerWidth || root.clientWidth) < 700 ? 0.55 : 0.7;
+    var extra = Math.max(vh * 1.2, r.marks.length * step * vh);
+    r.scrolly.style.setProperty('--road-pin-top', roadHdrOffset() + 'px');
+    r.scrolly.style.setProperty('--road-scroll-h', Math.round(pinH + extra) + 'px');
+  }
+
+  function roadLit(r, i) {
+    if (i === r.last) return;
+    r.marks.forEach(function (m, k) { m.classList.toggle('is-lit', k === i); });
+    r.last = i;
+  }
+
+  function roadSyncArrows(r) {
+    var last = r.marks.length - 1;
+    var i = r.idx;
+    if (i == null || i < 0) i = 0;
+    if (r.prevBtn) {
+      r.prevBtn.classList.toggle('is-off', i <= 0);
+      r.prevBtn.toggleAttribute('disabled', i <= 0);
+    }
+    if (r.nextBtn) {
+      r.nextBtn.classList.toggle('is-off', i >= last);
+      r.nextBtn.toggleAttribute('disabled', i >= last);
+    }
+  }
+
+  function roadGoMark(r, i) {
+    var last = r.marks.length - 1;
+    i = Math.max(0, Math.min(last, i | 0));
+    r.idx = i;
+    r.followScroll = 0;
+    var path = roadPathStops(r);
+    var rails = roadScrollStops(r);
+    var toP = path[i];
+    if (toP == null || toP !== toP) toP = last < 1 ? 0 : i / last * 0.92;
+    /* Last year: sit a little past 2025 on the ahead stretch. */
+    if (i >= last) toP = roadAheadP(r);
+    roadLit(r, i);
+    roadSyncArrows(r);
+    r.target = toP;
+    if (reduce) {
+      r.progress = toP;
+      r.body.scrollLeft = rails[i];
+      roadPaintTip(r, toP);
+      roadEdgeFade(r.body);
+      return;
+    }
+    r.navLock = 1;
+    r.body.classList.add('is-nav');
+    if (r.navTimer) clearTimeout(r.navTimer);
+    r.navTimer = setTimeout(function () { roadUnlockNav(r); }, ROAD_NAV_MS + 80);
+    roadScrollTo(r, rails[i], true);
+    roadAnimatePulse(r, toP, ROAD_NAV_MS);
+  }
+
+  function roadAnimatePulse(r, toP, ms) {
+    var fromP = r.progress;
+    if (fromP !== fromP) fromP = 0;
+    if (r.navAnim) cancelAnimationFrame(r.navAnim);
+    var t0 = performance.now();
+    function step(now) {
+      var t = (now - t0) / ms;
+      if (t >= 1) {
+        r.navAnim = 0;
+        r.progress = toP;
+        r.target = toP;
+        roadPaintTip(r, toP);
+        return;
+      }
+      var p = fromP + (toP - fromP) * roadEaseInOut(t);
+      r.progress = p;
+      r.target = toP;
+      roadPaintTip(r, p);
+      r.navAnim = requestAnimationFrame(step);
+    }
+    r.navAnim = requestAnimationFrame(step);
+  }
+
+  function roadSyncFromRail(r) {
+    if (r.navLock || !r.followScroll) return;
+    var path = roadPathStops(r);
+    var n = path.length;
+    if (!n) return;
+    var max = Math.max(0, r.body.scrollWidth - r.body.clientWidth);
+    var t = max < 1 ? 0 : r.body.scrollLeft / max;
+    if (t < 0) t = 0;
+    if (t > 1) t = 1;
+    var ahead = roadAheadP(r);
+    var p;
+    var idx;
+    /* Map the full swipe (0→max) across every year and into the ahead tail,
+       so the pulse can reach past 2025 instead of stalling on a mid year. */
+    var u = t * n;
+    if (t >= 0.985) {
+      p = ahead;
+      idx = n - 1;
+    } else {
+      var i = Math.min(n - 1, Math.floor(u));
+      var frac = u - i;
+      var a = path[i];
+      var b = i >= n - 1 ? ahead : path[i + 1];
+      p = a + frac * (b - a);
+      idx = frac < 0.5 ? i : Math.min(n - 1, i + 1);
+    }
+    r.idx = idx;
+    if (reduce) {
+      r.progress = p;
+      r.target = p;
+      roadPaintTip(r, p);
+      roadEdgeFade(r.body);
+      roadLit(r, idx);
+      roadSyncArrows(r);
+      return;
+    }
+    r.target = p;
+    roadWakeTipLerp();
+    roadLit(r, idx);
+    roadSyncArrows(r);
+  }
+
+  /* Sticky scrub: section travel → progress 0..1. Pin releases naturally at
+     both ends (no permanent is-done), so scroll-up reverses the timeline. */
+  function roadDriveFromPage(r) {
+    if (r.drive !== 'scroll' || reduce || !r.scrolly || !r.pin) return;
+    var sec = r.scrolly;
+    var pinH = r.pin.offsetHeight;
+    var travel = sec.offsetHeight - pinH;
+    if (travel < 8) return;
+    var stuck = roadHdrOffset();
+    var top = sec.getBoundingClientRect().top;
+    var p = (stuck - top) / travel;
+    if (p < 0) p = 0;
+    if (p > 1) p = 1;
+    roadSetProgress(r, p);
+  }
+
+  roads.forEach(function (r) {
+    roadSizeScrolly(r);
+    r.idx = 0;
+    r.followScroll = 0;
+    roadLit(r, 0);
+    roadSyncArrows(r);
+    var start = roadPathStops(r)[0] || 0;
+    r.target = start;
+    r.progress = start;
+    roadPaintTip(r, start);
+    /* Arrow + keyboard stepping (disabled only in scroll-drive). */
+    if (r.drive !== 'scroll') {
+      if (r.prevBtn) {
+        r.prevBtn.addEventListener('click', function (e) {
+          e.preventDefault();
+          roadGoMark(r, r.idx - 1);
+        });
+      }
+      if (r.nextBtn) {
+        r.nextBtn.addEventListener('click', function (e) {
+          e.preventDefault();
+          roadGoMark(r, r.idx + 1);
+        });
+      }
+      r.body.addEventListener('keydown', function (e) {
+        if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight' && e.key !== 'Home' && e.key !== 'End') return;
+        e.preventDefault();
+        if (e.key === 'Home') roadGoMark(r, 0);
+        else if (e.key === 'End') roadGoMark(r, r.marks.length - 1);
+        else if (e.key === 'ArrowLeft') roadGoMark(r, r.idx - 1);
+        else roadGoMark(r, r.idx + 1);
+      });
+    }
+    r.body.addEventListener('scrollend', function () {
+      if (r.navLock) roadUnlockNav(r);
+    });
+  });
 
   function roadPaintTip(r, p) {
     if (!r.len) return;
+    if (p !== p || p < 0) p = 0;
+    if (p > 1) p = 1;
     r.done.style.strokeDashoffset = String(r.len * (1 - p));
     if (r.tip && typeof r.done.getPointAtLength === 'function') {
       var pt = r.done.getPointAtLength(Math.max(0, Math.min(r.len, p * r.len)));
+      if (!pt || pt.x !== pt.x || pt.y !== pt.y) return;
       r.tip.setAttribute('cx', pt.x);
       r.tip.setAttribute('cy', pt.y);
       /* preserveAspectRatio=none stretches the viewBox — compensate so the tip
@@ -1423,6 +2406,13 @@
     roadTipRaf = 0;
     var need = false;
     roads.forEach(function (r) {
+      if (r.navLock || r.navAnim) {
+        if (!r.navAnim) roadPaintTip(r, r.progress);
+        roadEdgeFade(r.body);
+        roadLit(r, r.idx);
+        roadSyncArrows(r);
+        return;
+      }
       var diff = r.target - r.progress;
       if (Math.abs(diff) < 0.0008) r.progress = r.target;
       else {
@@ -1431,16 +2421,8 @@
       }
       roadPaintTip(r, r.progress);
       roadEdgeFade(r.body);
-      var mids = roadMarkMids(r);
-      var near = -1, best = .55 / r.marks.length;
-      mids.forEach(function (a, i) {
-        var d = Math.abs(a - r.progress);
-        if (d < best) { best = d; near = i; }
-      });
-      if (near !== r.last) {
-        r.marks.forEach(function (m, i) { m.classList.toggle('is-lit', i === near); });
-        r.last = near;
-      }
+      roadLit(r, r.idx);
+      roadSyncArrows(r);
     });
     if (need) roadTipRaf = requestAnimationFrame(roadTickTips);
   }
@@ -1451,19 +2433,11 @@
   }
 
   function paintRoads() {
-    var vh = window.innerHeight || root.clientHeight;
     roads.forEach(function (r) {
       roadApplyPathMode(r);
-      var p = roadProgress(r);
-      /* Page-scroll fallback only when the rail truly does not overflow. */
-      if (r.body.scrollWidth <= r.body.clientWidth + 12) {
-        var b = r.body.getBoundingClientRect();
-        p = (vh * .55 - b.top) / Math.max(1, b.height + vh * .2);
-        p = p < 0 ? 0 : p > 1 ? 1 : p;
-      }
-      r.target = p;
+      if (r.drive === 'scroll' && !reduce) roadDriveFromPage(r);
+      else roadSyncFromRail(r);
     });
-    roadWakeTipLerp();
   }
 
   if (roadFlatMq) {
@@ -1495,80 +2469,156 @@
     geoBar.style.setProperty('--sweep', p.toFixed(3));
   }
 
-  /* ------------------------------------- the article hero pans down its photo */
-  /* It opens on the top edge of the picture and travels toward the bottom while
-     the visitor scrolls from the hero into the article body, so a face near the
-     top is never cropped off on the first screen. Landscape heroes still sweep
-     the full frame (--bgy 0→100). Very vertical photos (height/width above
-     PHERO_PORTRAIT_RATIO) cap travel at PHERO_PORTRAIT_TRAVEL so the scrub
-     covers roughly half of the image instead of racing head-to-toe. Override with
-     data-portrait-travel="0.5"–"1" (or 50–100) on .phero--photo if needed. */
-  var phero = reduce ? null : $('.phero--photo');
+  /* ------------------------------------- the article / case / services hero pans its photo */
+  /* Opens on the top edge (faces stay visible on first paint) and slides down as
+     the visitor scrolls. Progress is linear from page scroll 0 until the hero
+     bottom leaves the viewport — no dead zone while the hero top is still below
+     the fold, and no short steep ramp after it. Landscape heroes still sweep the
+     full parallaxable range (--bgy 0→100). Tall photos (natural height/width above
+     PHERO_PORTRAIT_RATIO, or cover overflow past the box) cap travel at
+     PHERO_PORTRAIT_TRAVEL (~50% of the overflow / image travel). Override with
+     data-portrait-travel="0.5"–"1" (or 50–100) on the hero if needed.
+     News/cases (.phero--photo) drive background-position; services
+     (.svc-detail__hero) drive object-position on the inner photo and a CSS
+     translateY on .svc-detail__n — same --bgy. */
+  var pheros = reduce ? [] : $$('.phero--photo, .svc-detail__hero');
   var PHERO_PORTRAIT_RATIO = 1.2;
   var PHERO_PORTRAIT_TRAVEL = 0.5;
-  var pheroMax = 100;
 
-  function resolvePheroMax() {
-    if (!phero) return;
-    var override = phero.getAttribute('data-portrait-travel');
+  function pheroBox(el) {
+    /* Services crop inside .ncard__img; news/cases use the section itself. */
+    return $('.ncard__img', el) || el;
+  }
+
+  function applyPheroMax(state) {
+    var el = state.el;
+    if (state.travelOverride != null) {
+      state.max = state.travelOverride;
+      if (state.max < 100) el.setAttribute('data-portrait', '');
+      else el.removeAttribute('data-portrait');
+      return;
+    }
+    state.max = 100;
+    el.removeAttribute('data-portrait');
+    var w = state.imgW, h = state.imgH;
+    if (w <= 0 || h <= 0) return;
+    var box = pheroBox(el);
+    var boxW = box.clientWidth || 0;
+    var boxH = box.clientHeight || 0;
+    var tallByRatio = h / w > PHERO_PORTRAIT_RATIO;
+    var tallByCover = false;
+    if (boxW > 0 && boxH > 0) {
+      /* cover scale: vertical overflow means the photo can pan inside the box */
+      var scale = Math.max(boxW / w, boxH / h);
+      var overflow = h * scale - boxH;
+      tallByCover = overflow > boxH * 0.35;
+    }
+    if (tallByRatio || tallByCover) {
+      state.max = PHERO_PORTRAIT_TRAVEL * 100;
+      el.setAttribute('data-portrait', '');
+    }
+  }
+
+  function resolvePheroMax(state) {
+    var el = state.el;
+    var override = el.getAttribute('data-portrait-travel');
     if (override != null && override !== '') {
       var t = parseFloat(override);
       if (!isNaN(t) && t > 0) {
-        pheroMax = t <= 1 ? t * 100 : Math.min(100, t);
-        if (pheroMax < 100) phero.setAttribute('data-portrait', '');
+        state.travelOverride = t <= 1 ? t * 100 : Math.min(100, t);
+        applyPheroMax(state);
         return;
       }
     }
-    var bg = getComputedStyle(phero).backgroundImage;
-    var m = /url\(\s*["']?([^"')]+)["']?\s*\)/.exec(bg);
-    if (!m) return;
+    var url = null;
+    var photo = $('img', el);
+    if (photo && (photo.currentSrc || photo.src)) {
+      url = photo.currentSrc || photo.src;
+    } else {
+      var bg = getComputedStyle(el).backgroundImage;
+      var m = /url\(\s*["']?([^"')]+)["']?\s*\)/.exec(bg);
+      if (m) url = m[1];
+    }
+    if (!url) return;
     var img = new Image();
     img.onload = function () {
-      var w = img.naturalWidth || 0, h = img.naturalHeight || 0;
-      if (w > 0 && h / w > PHERO_PORTRAIT_RATIO) {
-        pheroMax = PHERO_PORTRAIT_TRAVEL * 100;
-        phero.setAttribute('data-portrait', '');
-      }
-      paintPhero();
+      state.imgW = img.naturalWidth || 0;
+      state.imgH = img.naturalHeight || 0;
+      applyPheroMax(state);
+      paintPhero(state);
     };
-    img.src = m[1];
+    img.src = url;
   }
 
-  function paintPhero() {
-    if (!phero) return;
-    var b = phero.getBoundingClientRect();
-    /* A shorter travel distance means the same scroll covers more of the photo —
-       the pan finishes while the hero is still partly on screen. */
-    var p = -b.top / Math.max(1, b.height * .48);
+  function paintPhero(state) {
+    var el = state.el;
+    var b = el.getBoundingClientRect();
+    var sy = window.pageYOffset || root.scrollTop || 0;
+    /* Document Y of the hero top is stable; map scroll from 0 → hero fully gone
+       past the viewport top. Starts moving on the first scroll pixel. */
+    var docTop = b.top + sy;
+    var range = Math.max(1, docTop + b.height);
+    var p = sy / range;
     p = p < 0 ? 0 : p > 1 ? 1 : p;
-    phero.style.setProperty('--bgy', (p * pheroMax).toFixed(1));
+    el.style.setProperty('--bgy', (p * state.max).toFixed(1));
   }
-  resolvePheroMax();
 
-  if (roads.length || geoBar || phero) {
+  var pheroStates = pheros.map(function (el) {
+    return { el: el, max: 100, imgW: 0, imgH: 0, travelOverride: null };
+  });
+  pheroStates.forEach(resolvePheroMax);
+
+  if (roads.length || geoBar || pheroStates.length) {
     var queued = false;
     var onPaintScroll = function () {
       if (queued) return;
       queued = true;
       requestAnimationFrame(function () {
-        queued = false; paintRoads(); paintGeo(); paintPhero();
+        queued = false;
+        roads.forEach(roadSizeScrolly);
+        paintRoads(); paintGeo();
+        pheroStates.forEach(paintPhero);
       });
     };
+    var onPaintResize = function () {
+      pheroStates.forEach(applyPheroMax);
+      onPaintScroll();
+    };
     window.addEventListener('scroll', onPaintScroll, { passive: true });
-    window.addEventListener('resize', onPaintScroll);
+    window.addEventListener('resize', onPaintResize);
     paintRoads();
     paintGeo();
-    paintPhero();
+    pheroStates.forEach(paintPhero);
   }
 
-  /* --------------------------- drag + wheel scrolling for horizontal rails */
-  $$('.case-rail,.letters-rail,.assoc-rail,.news-rail').forEach(function (rail) {
-    var down = false, moved = false, sx = 0, sl = 0, pid = null;
+  /* --------------------------- drag + wheel scrolling for horizontal rails
+     Mouse/pen: press-hold grab → 1:1 horizontal scroll. Touch stays native.
+     Threshold before drag so stretched svc-card links still click. */
+  $$('.case-rail,.letters-rail,.assoc-rail,.news-rail,.svc-rail').forEach(function (rail) {
+    var DRAG_THRESH = 6;
+    var down = false, moved = false, sx = 0, sy = 0, sl = 0, pid = null;
+    var snapTimer = 0;
+
+    /* Scroll-snap must be off while we apply X deltas — proximity/mandatory
+       otherwise snaps mid-gesture back to the current card (trackpad feels dead). */
+    function hushSnap() {
+      rail.classList.add('is-xscroll');
+      if (snapTimer) window.clearTimeout(snapTimer);
+      snapTimer = window.setTimeout(function () {
+        snapTimer = 0;
+        if (!rail.classList.contains('is-drag')) rail.classList.remove('is-xscroll');
+      }, 140);
+    }
 
     rail.addEventListener('pointerdown', function (e) {
       if (e.pointerType === 'touch') return;   // native touch scrolling is better
       if (e.button !== 0) return;
-      down = true; moved = false; sx = e.clientX; sl = rail.scrollLeft; pid = e.pointerId;
+      /* Leave real controls alone (nested highlight links still drag the rail
+         when the user swipes; a still click navigates). */
+      if (e.target.closest && e.target.closest('button,input,textarea,select,label')) return;
+      down = true; moved = false;
+      sx = e.clientX; sy = e.clientY;
+      sl = rail.scrollLeft; pid = e.pointerId;
       /* Deliberately NOT capturing here. Capturing on pointerdown sends the
          following pointerup to the rail instead of the card, so the browser
          never raises a click on the link and the cards stop working. Capture
@@ -1576,25 +2626,54 @@
     });
 
     rail.addEventListener('pointermove', function (e) {
-      if (!down) return;
+      if (!down || (pid != null && e.pointerId !== pid)) return;
       var dx = e.clientX - sx;
+      var dy = e.clientY - sy;
       if (!moved) {
-        if (Math.abs(dx) <= 4) return;         // still a click, leave it alone
+        var adx = Math.abs(dx), ady = Math.abs(dy);
+        /* Vertical page-scroll intent — abandon before we capture. */
+        if (ady > DRAG_THRESH && ady > adx) {
+          down = false; pid = null;
+          return;
+        }
+        if (adx <= DRAG_THRESH) return;       // still a click, leave it alone
         moved = true;
         rail.classList.add('is-drag');
+        hushSnap();
         try { rail.setPointerCapture(pid); } catch (err) {}
       }
       rail.scrollLeft = sl - dx;
-    });
+      if (e.cancelable) e.preventDefault();
+    }, { passive: false });
 
-    function end() {
-      if (moved) { try { rail.releasePointerCapture(pid); } catch (err) {} }
+    function endDrag() {
+      if (!down) return;
+      var wasMoved = moved;
+      var releaseId = pid;
       down = false; pid = null;
       rail.classList.remove('is-drag');
+      if (wasMoved) {
+        try { if (releaseId != null) rail.releasePointerCapture(releaseId); } catch (err) {}
+        hushSnap();
+      } else {
+        rail.classList.remove('is-xscroll');
+      }
     }
-    ['pointerup', 'pointercancel', 'pointerleave'].forEach(function (ev) {
-      rail.addEventListener(ev, end);
+    ['pointerup', 'pointercancel'].forEach(function (ev) {
+      rail.addEventListener(ev, endDrag);
     });
+    /* pointerleave used to call endDrag unconditionally. setPointerCapture
+       synthesises a leave on the rail and aborted the drag on the first move.
+       Only cancel an uncommitted press (same pattern as .road__body). */
+    rail.addEventListener('pointerleave', function () {
+      if (down && !moved) { down = false; pid = null; }
+    });
+    rail.addEventListener('lostpointercapture', function (e) {
+      if (down && pid != null && e.pointerId === pid) endDrag();
+    });
+
+    /* Native link/image drag would steal the gesture on desktop. */
+    rail.addEventListener('dragstart', function (e) { e.preventDefault(); });
 
     // swallow the click that ends a drag, so dragging never opens a card
     rail.addEventListener('click', function (e) {
@@ -1603,19 +2682,71 @@
       moved = false;
     }, true);
 
-    /* No wheel hijacking. Turning vertical wheel into horizontal scroll meant
-       the page stopped moving whenever the cursor was over a rail, and only
-       resumed once the rail hit its end — which read as the scroll jamming. */
+    /* Arrow keys when the rail itself is focused — step by one card. */
+    rail.addEventListener('keydown', function (e) {
+      if (e.target !== rail) return;
+      var max = Math.max(0, rail.scrollWidth - rail.clientWidth);
+      var item = rail.firstElementChild;
+      var cs = window.getComputedStyle(rail);
+      var gap = parseFloat(cs.columnGap || cs.gap) || 0;
+      var step = item ? Math.round(item.getBoundingClientRect().width + gap) : Math.round(rail.clientWidth * .8);
+      var next = rail.scrollLeft;
+      if (e.key === 'ArrowRight') next += step;
+      else if (e.key === 'ArrowLeft') next -= step;
+      else if (e.key === 'Home') next = 0;
+      else if (e.key === 'End') next = max;
+      else return;
+      e.preventDefault();
+      hushSnap();
+      next = next < 0 ? 0 : next > max ? max : next;
+      if (typeof rail.scrollTo === 'function') {
+        rail.scrollTo({ left: next, behavior: reduce ? 'auto' : 'smooth' });
+      } else {
+        rail.scrollLeft = next;
+      }
+    });
+
+    /* Keep vertical wheel native. Intercept only clear horizontal intent
+       (trackpad X, mouse tilt, or Shift+wheel reported as deltaY). */
+    rail.addEventListener('wheel', function (e) {
+      var dx = e.deltaX;
+      var dy = e.deltaY;
+      if (e.shiftKey && Math.abs(dx) <= Math.abs(dy)) {
+        dx = dy;
+        dy = 0;
+      }
+      if (Math.abs(dx) <= Math.abs(dy)) return;
+      if (!dx) return;
+      e.preventDefault();
+      hushSnap();
+      var step = dx;
+      if (e.deltaMode === 1) step *= 16;
+      else if (e.deltaMode === 2) step *= rail.clientWidth;
+      rail.scrollLeft += step;
+    }, { passive: false });
   });
 
-  /* -------- roadmap: lerped scroll + long coast (buttery, soft edges) */
+  /* -------- roadmap: mouse grab-drag (1:1) + coast on release
+     Skip only in scroll-drive — page scroll owns progress there.
+     arrows mode keeps swipe/drag/wheel-X on the rail. */
   $$('.road__body').forEach(function (rail) {
+    /* Block native text selection on every rail (scroll-drive + arrows). */
+    rail.addEventListener('selectstart', function (e) {
+      if (e.target.closest && e.target.closest('button,input,textarea,select,label,.road__nav')) return;
+      e.preventDefault();
+    });
+    if (rail.closest('[data-road-drive="scroll"]')) return;
+    var DRAG_THRESH = 6;
     var down = false, moved = false, dragging = false;
-    var sx = 0, sl = 0, pid = null;
+    var sx = 0, sy = 0, sl = 0, pid = null;
     var lastX = 0, lastT = 0, vel = 0;
     var target = rail.scrollLeft;
     var raf = 0;
 
+    function clearRoadSelection() {
+      var sel = window.getSelection && window.getSelection();
+      if (sel && sel.removeAllRanges) sel.removeAllRanges();
+    }
     function maxScroll() {
       return Math.max(0, rail.scrollWidth - rail.clientWidth);
     }
@@ -1627,44 +2758,61 @@
       if (raf || reduce) return;
       raf = requestAnimationFrame(tick);
     }
+    rail.addEventListener('scroll', function () {
+      if (!rail.classList.contains('is-nav')) return;
+      target = rail.scrollLeft;
+      vel = 0;
+    }, { passive: true });
     function tick() {
       raf = 0;
+      if (rail.classList.contains('is-nav')) {
+        target = rail.scrollLeft;
+        vel = 0;
+        return;
+      }
+      /* While the pointer is held, scrollLeft is set directly in pointermove. */
+      if (dragging) return;
       var max = maxScroll();
       var x = rail.scrollLeft;
       var zone = Math.min(220, max * .3);
 
-      if (!dragging) {
-        if (Math.abs(vel) > 0.03) {
-          var damp = 1;
-          if (target < zone) damp = 0.08 + 0.92 * Math.pow(Math.max(0, target) / zone, 1.75);
-          else if (target > max - zone) damp = 0.08 + 0.92 * Math.pow(Math.max(0, max - target) / zone, 1.75);
-          /* Higher friction — leisurely coast, less runaway. */
-          vel *= 0.948 * damp;
-          target = clamp(target + vel);
-        } else {
-          vel = 0;
-          if (target < 6) target = 0;
-          else if (target > max - 6) target = max;
-        }
+      if (Math.abs(vel) > 0.03) {
+        var damp = 1;
+        if (target < zone) damp = 0.08 + 0.92 * Math.pow(Math.max(0, target) / zone, 1.75);
+        else if (target > max - zone) damp = 0.08 + 0.92 * Math.pow(Math.max(0, max - target) / zone, 1.75);
+        /* Higher friction — leisurely coast, less runaway. */
+        vel *= 0.948 * damp;
+        target = clamp(target + vel);
+      } else {
+        vel = 0;
+        if (target < 6) target = 0;
+        else if (target > max - 6) target = max;
       }
 
       var dest = clamp(target);
-      /* Follow slowly while coasting; a bit snappier while dragging. */
-      var follow = dragging ? 0.10 : 0.045;
+      var follow = 0.045;
       if (x < zone || x > max - zone || dest < zone || dest > max - zone) follow *= 0.5;
 
       var next = x + (dest - x) * follow;
       var still = Math.abs(dest - next) < 0.2 && Math.abs(vel) < 0.03;
-      rail.scrollLeft = still && !dragging ? dest : next;
+      rail.scrollLeft = still ? dest : next;
 
-      if (dragging || !still || Math.abs(vel) >= 0.03) wake();
+      if (!still || Math.abs(vel) >= 0.03) wake();
     }
+
+    rail.addEventListener('touchstart', function () {
+      if (rail._roadRec) roadUserScroll(rail._roadRec);
+    }, { passive: true });
 
     rail.addEventListener('pointerdown', function (e) {
       if (e.pointerType === 'touch') return;
       if (e.button !== 0) return;
+      if (e.target.closest && e.target.closest('button,input,textarea,select,label,.road__nav')) return;
+      if (rail._roadRec) roadUserScroll(rail._roadRec);
+      clearRoadSelection();
       down = true; moved = false; dragging = false;
       sx = lastX = e.clientX;
+      sy = e.clientY;
       sl = target = rail.scrollLeft;
       pid = e.pointerId;
       lastT = performance.now();
@@ -1672,42 +2820,49 @@
     });
 
     rail.addEventListener('pointermove', function (e) {
-      if (!down) return;
+      if (!down || (pid != null && e.pointerId !== pid)) return;
       var now = performance.now();
       var dx = e.clientX - sx;
+      var dy = e.clientY - sy;
       if (!moved) {
-        if (Math.abs(dx) <= 2) return;
+        var adx = Math.abs(dx), ady = Math.abs(dy);
+        if (ady > DRAG_THRESH && ady > adx) {
+          down = false; pid = null;
+          return;
+        }
+        if (adx <= DRAG_THRESH) return;
         moved = true;
         dragging = true;
+        clearRoadSelection();
         rail.classList.add('is-drag');
         try { rail.setPointerCapture(pid); } catch (err) {}
-        wake();
       }
-      /* ~0.42× drag travel — less distance per swipe. */
-      var sense = 0.42;
-      var proposed = sl - dx * sense;
+      /* 1:1 grab while held — rubber-band slightly near the ends. */
+      var proposed = sl - dx;
       var max = maxScroll();
       var zone = Math.min(220, max * .3);
       if (zone > 10) {
-        if (proposed < zone) {
+        if (proposed < 0) proposed *= 0.28;
+        else if (proposed > max) proposed = max + (proposed - max) * 0.28;
+        else if (proposed < zone) {
           var tl = Math.max(0, proposed) / zone;
-          proposed = sl - dx * sense * (0.12 + 0.88 * tl * tl);
+          proposed = sl - dx * (0.35 + 0.65 * tl * tl);
         } else if (proposed > max - zone) {
           var tr = Math.max(0, max - proposed) / zone;
-          proposed = sl - dx * sense * (0.12 + 0.88 * tr * tr);
+          proposed = sl - dx * (0.35 + 0.65 * tr * tr);
         }
       }
       target = clamp(proposed);
-      if (reduce) rail.scrollLeft = target;
+      rail.scrollLeft = target;
 
       var dt = now - lastT;
       if (dt > 0 && dt < 80) {
-        var inst = -(e.clientX - lastX) / dt * 16.7 * sense;
+        var inst = -(e.clientX - lastX) / dt * 16.7;
         vel = vel * 0.72 + inst * 0.28;
       }
       lastX = e.clientX; lastT = now;
-      wake();
-    });
+      if (e.cancelable) e.preventDefault();
+    }, { passive: false });
 
     function endDrag() {
       if (!down) return;
@@ -1734,6 +2889,11 @@
     rail.addEventListener('pointerleave', function () {
       if (down && !moved) { down = false; pid = null; }
     });
+    rail.addEventListener('lostpointercapture', function (e) {
+      if (down && pid != null && e.pointerId === pid) endDrag();
+    });
+
+    rail.addEventListener('dragstart', function (e) { e.preventDefault(); });
 
     rail.addEventListener('click', function (e) {
       if (!moved) return;
@@ -1744,6 +2904,8 @@
     /* Trackpad: route horizontal deltas through the same lerp for creamier stops. */
     if (!reduce) {
       rail.addEventListener('wheel', function (e) {
+        if (rail._roadRec) roadUserScroll(rail._roadRec);
+        if (rail.classList.contains('is-nav')) return;
         if (Math.abs(e.deltaX) < 0.5 || Math.abs(e.deltaX) < Math.abs(e.deltaY) * 0.9) return;
         e.preventDefault();
         dragging = false;
@@ -1819,353 +2981,47 @@
   var yr = $('#yr');
   if (yr) yr.textContent = new Date().getFullYear();
 
-  /* --------------------------------------------- homepage services tabs */
-  $$('[data-svc-tabs]').forEach(function (root) {
-    var tabs = $$('[data-svc-tab]', root);
-    var panels = $$('[data-svc-panel]', root);
-    var planes = $$('[data-svc-plane]', root);
-    var bar = $('.svc-tabs__bar', root);
-    var shell = $('.svc-tabs__shell', root);
-    var contour = $('.svc-tabs__contour path', root);
-    var svg = $('.svc-tabs__contour', root);
-    if (!tabs.length || !panels.length || !shell) return;
+  /* ---------------------------------------- approach department tabs
+     Click / arrow keys select a department tile; panel below crossfades. */
+  var appr = $('#appr');
+  if (appr) {
+    var tabs = $$('[role="tab"]', appr);
+    var panels = $$('[role="tabpanel"]', appr);
+    var active = 0;
 
-    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
-    var anim = 0;
-    var from = null;
-    var to = null;
-
-    function ease(t) {
-      return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-    }
-
-    function lerp(a, b, t) { return a + (b - a) * t; }
-
-    function roundedPoly(pts) {
-      var d = '';
-      var n = pts.length;
-      for (var i = 0; i < n; i++) {
-        var prev = pts[(i + n - 1) % n];
-        var cur = pts[i];
-        var next = pts[(i + 1) % n];
-        var vx1 = cur.x - prev.x, vy1 = cur.y - prev.y;
-        var vx2 = next.x - cur.x, vy2 = next.y - cur.y;
-        var len1 = Math.hypot(vx1, vy1) || 1;
-        var len2 = Math.hypot(vx2, vy2) || 1;
-        var r = Math.min(cur.r || 0, len1 / 2 - .25, len2 / 2 - .25);
-        if (r < 0) r = 0;
-        var p1x = cur.x - vx1 / len1 * r;
-        var p1y = cur.y - vy1 / len1 * r;
-        var p2x = cur.x + vx2 / len2 * r;
-        var p2y = cur.y + vy2 / len2 * r;
-        d += (i ? 'L' : 'M') + p1x.toFixed(2) + ',' + p1y.toFixed(2);
-        if (r > .6) {
-          /* SVG Y grows down — pick sweep from turn so outer corners stay convex */
-          var sweep = (vx1 * vy2 - vy1 * vx2) < 0 ? 0 : 1;
-          d += 'A' + r.toFixed(2) + ',' + r.toFixed(2) + ' 0 0 ' + sweep + ' ' +
-            p2x.toFixed(2) + ',' + p2y.toFixed(2);
-        } else {
-          d += 'L' + cur.x.toFixed(2) + ',' + cur.y.toFixed(2);
-        }
-      }
-      return d + 'Z';
-    }
-
-    function measure(tab) {
-      var cs = window.getComputedStyle(shell);
-      var bw = parseFloat(cs.borderLeftWidth) || 0;
-      var bh = parseFloat(cs.borderTopWidth) || 0;
-      var w = shell.clientWidth;
-      var h = shell.clientHeight;
-      var sr = shell.getBoundingClientRect();
-      var ox = sr.left + shell.clientLeft;
-      var oy = sr.top + shell.clientTop;
-      var tr = tab.getBoundingClientRect();
-      var shellR = parseFloat(cs.borderTopLeftRadius) || 22;
-      /* overflow clips the padding box; inner radius shrinks by the border */
-      var clipR = Math.max(0, shellR - Math.max(bw, bh));
-      var inset = 2;
-      var R = Math.max(4, clipR - inset);
-      return {
-        w: w,
-        h: h,
-        xL: inset,
-        xR: w - inset,
-        yT: inset,
-        yB: h - inset,
-        yS: Math.max(inset + 8, Math.min(tr.bottom - oy, h - inset)),
-        tL: Math.max(inset, tr.left - ox),
-        tR: Math.min(w - inset, tr.right - ox),
-        R: R,
-        r: Math.min(8, R * .45)
-      };
-    }
-
-    function pathFrom(m) {
-      if (!m || m.w < 8 || m.h < 8) return '';
-      var tL = Math.min(m.tL, m.tR - 24);
-      var tR = Math.max(m.tR, tL + 24);
-      tL = Math.max(m.xL, tL);
-      tR = Math.min(m.xR, tR);
-      var first = tL <= m.xL + 1.5;
-      var last = tR >= m.xR - 1.5;
-      var pts = [];
-      function add(x, y, r) {
-        var prev = pts[pts.length - 1];
-        if (prev && Math.hypot(x - prev.x, y - prev.y) < 1.25) {
-          prev.r = Math.max(prev.r, r);
-          prev.x = x;
-          prev.y = y;
-          return;
-        }
-        pts.push({ x: x, y: y, r: r });
-      }
-      add(m.xL, m.yB, m.R);
-      add(m.xR, m.yB, m.R);
-      if (last) {
-        add(m.xR, m.yT, m.R);
-      } else {
-        add(m.xR, m.yS, 0);
-        add(tR, m.yS, m.r);
-        add(tR, m.yT, m.r);
-      }
-      if (first) {
-        add(m.xL, m.yT, m.R);
-      } else {
-        add(tL, m.yT, m.r);
-        add(tL, m.yS, m.r);
-        add(m.xL, m.yS, 0);
-      }
-      return roundedPoly(pts);
-    }
-
-    function mix(a, b, t) {
-      var o = {};
-      Object.keys(b).forEach(function (k) { o[k] = lerp(a[k], b[k], t); });
-      return o;
-    }
-
-    function paint(m) {
-      if (!contour || !svg || !m) return;
-      svg.setAttribute('viewBox', '0 0 ' + m.w + ' ' + m.h);
-      svg.setAttribute('width', String(m.w));
-      svg.setAttribute('height', String(m.h));
-      contour.setAttribute('d', pathFrom(m));
-    }
-
-    function activeTab() {
-      return tabs.find(function (tab) { return tab.classList.contains('is-on'); }) || tabs[0];
-    }
-
-    function draw(animate) {
-      var next = measure(activeTab());
-      to = next;
-      if (!from) from = next;
-      if (!animate || reduce.matches || !from) {
-        from = next;
-        paint(next);
+    function setTab(i, focus) {
+      if (i < 0 || i >= tabs.length) return;
+      if (i === active) {
+        if (focus && tabs[i]) tabs[i].focus();
         return;
       }
-      if (anim) cancelAnimationFrame(anim);
-      var t0 = performance.now();
-      var start = from;
-      function tick(now) {
-        var t = Math.min(1, (now - t0) / 520);
-        var m = mix(start, next, ease(t));
-        from = m;
-        paint(m);
-        if (t < 1) anim = requestAnimationFrame(tick);
-        else { from = next; paint(next); }
-      }
-      anim = requestAnimationFrame(tick);
-    }
-
-    function activate(id, focusTab) {
-      tabs.forEach(function (tab) {
-        var on = tab.getAttribute('data-svc-tab') === id;
+      active = i;
+      tabs.forEach(function (tab, j) {
+        var on = j === i;
         tab.classList.toggle('is-on', on);
         tab.setAttribute('aria-selected', on ? 'true' : 'false');
         tab.tabIndex = on ? 0 : -1;
-        if (on && focusTab) tab.focus();
-        if (on && bar && typeof tab.scrollIntoView === 'function') {
-          try {
-            tab.scrollIntoView({ inline: 'nearest', block: 'nearest', behavior: 'smooth' });
-          } catch (err) {
-            tab.scrollIntoView(false);
-          }
-        }
       });
-      planes.forEach(function (plane) {
-        plane.classList.toggle('is-on', plane.getAttribute('data-svc-plane') === id);
-      });
-      panels.forEach(function (panel) {
-        var on = panel.getAttribute('data-svc-panel') === id;
-        panel.classList.toggle('is-on', on);
-        if (on) {
-          panel.removeAttribute('aria-hidden');
-          panel.removeAttribute('inert');
-        } else {
-          panel.setAttribute('aria-hidden', 'true');
-          panel.setAttribute('inert', '');
-        }
-      });
-      draw(true);
-    }
-
-    tabs.forEach(function (tab) {
-      tab.addEventListener('click', function () {
-        activate(tab.getAttribute('data-svc-tab'), false);
-      });
-      tab.addEventListener('keydown', function (e) {
-        var i = tabs.indexOf(tab);
-        var nextI = -1;
-        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') nextI = (i + 1) % tabs.length;
-        else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') nextI = (i - 1 + tabs.length) % tabs.length;
-        else if (e.key === 'Home') nextI = 0;
-        else if (e.key === 'End') nextI = tabs.length - 1;
-        if (nextI < 0) return;
-        e.preventDefault();
-        activate(tabs[nextI].getAttribute('data-svc-tab'), true);
-      });
-    });
-
-    if (bar) bar.addEventListener('scroll', function () { draw(false); }, { passive: true });
-    if (window.ResizeObserver) {
-      var ro = new ResizeObserver(function () { draw(false); });
-      ro.observe(shell);
-    } else {
-      window.addEventListener('resize', function () { draw(false); });
-    }
-    requestAnimationFrame(function () { draw(false); });
-  });
-
-  /* ---------------------------------------- approach hex (homepage)
-     Hover/focus a department hex → swap the left title + paragraph.
-     Hex V stays in place (no centre explanation hub / edge docking). */
-  var apprHex = $('#apprHex');
-  if (apprHex) {
-    var stage = $('.appr-hex__stage', apprHex);
-    var cells = $$('.appr-hex__cell', apprHex);
-    var copyEl = $('#apprHexCopy', apprHex) || $('.appr-hex__copy', apprHex);
-    var titleEl = $('#apprHexTitle', apprHex);
-    var leadEl = $('#apprHexLead', apprHex);
-    var dataEl = $('#apprHexData', apprHex);
-    var active = -1;
-    var offTimer = 0;
-    var swapTimer = 0;
-    var fine = matchMedia('(hover: hover) and (pointer: fine)');
-    var narrow = matchMedia('(max-width:899px)');
-    var data = { title: '', lead: '', items: [] };
-    try {
-      if (dataEl) data = JSON.parse(dataEl.textContent);
-    } catch (e) {}
-    if (!data.title && titleEl) data.title = titleEl.textContent;
-    if (!data.lead && leadEl) data.lead = leadEl.textContent;
-    if (!Array.isArray(data.items)) data.items = [];
-
-    /* Lock copy column to the tallest title+lead so hover swaps don't resize
-       the white plate or bounce «Подход и практика». Skip on narrow: the locked
-       min-height leaves a large empty gap above the hex V on phones. */
-    function lockCopyHeight() {
-      if (!copyEl || !titleEl || !leadEl) return;
-      copyEl.style.minHeight = '';
-      if (narrow.matches) return;
-      var prevT = titleEl.textContent;
-      var prevL = leadEl.textContent;
-      var wasSwap = copyEl.classList.contains('is-swap');
-      copyEl.classList.remove('is-swap');
-      var max = 0;
-      var variants = [{ title: data.title, text: data.lead }].concat(data.items);
-      var i;
-      for (i = 0; i < variants.length; i++) {
-        var v = variants[i];
-        if (!v) continue;
-        titleEl.textContent = v.title || '';
-        leadEl.textContent = v.text || '';
-        max = Math.max(max, copyEl.offsetHeight);
-      }
-      titleEl.textContent = prevT;
-      leadEl.textContent = prevL;
-      if (wasSwap) copyEl.classList.add('is-swap');
-      if (max > 0) copyEl.style.minHeight = max + 'px';
-    }
-    lockCopyHeight();
-    var lockTimer = 0;
-    addEventListener('resize', function () {
-      clearTimeout(lockTimer);
-      lockTimer = setTimeout(lockCopyHeight, 120);
-    }, { passive: true });
-
-    function paintCopy(i) {
-      if (!titleEl || !leadEl) return;
-      var item = i >= 0 ? data.items[i] : null;
-      var nextTitle = item && item.title ? item.title : data.title;
-      var nextLead = item && item.text ? item.text : data.lead;
-      if (titleEl.textContent === nextTitle && leadEl.textContent === nextLead) return;
-
-      function apply() {
-        titleEl.textContent = nextTitle;
-        leadEl.textContent = nextLead;
-        if (copyEl) copyEl.classList.remove('is-swap');
-      }
-      if (reduce || !copyEl) {
-        apply();
-        return;
-      }
-      clearTimeout(swapTimer);
-      copyEl.classList.add('is-swap');
-      swapTimer = setTimeout(apply, 160);
-    }
-
-    function setActive(i) {
-      if (i === active) return;
-      clearTimeout(offTimer);
-      active = i;
-      apprHex.classList.toggle('is-dim', i >= 0);
-      cells.forEach(function (c, j) {
+      panels.forEach(function (panel, j) {
         var on = j === i;
-        c.classList.toggle('is-active', on);
-        c.setAttribute('aria-pressed', on ? 'true' : 'false');
+        panel.classList.toggle('is-on', on);
+        panel.setAttribute('aria-hidden', on ? 'false' : 'true');
       });
-      paintCopy(i);
+      if (focus && tabs[i]) tabs[i].focus();
     }
 
-    function scheduleOff() {
-      clearTimeout(offTimer);
-      offTimer = setTimeout(function () { setActive(-1); }, 140);
-    }
-
-    cells.forEach(function (cell, i) {
-      cell.addEventListener('pointerenter', function () {
-        if (!fine.matches || narrow.matches) return;
-        clearTimeout(offTimer);
-        setActive(i);
+    tabs.forEach(function (tab, i) {
+      tab.addEventListener('click', function () { setTab(i, false); });
+      tab.addEventListener('keydown', function (e) {
+        var next = -1;
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next = (i + 1) % tabs.length;
+        else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') next = (i - 1 + tabs.length) % tabs.length;
+        else if (e.key === 'Home') next = 0;
+        else if (e.key === 'End') next = tabs.length - 1;
+        if (next < 0) return;
+        e.preventDefault();
+        setTab(next, true);
       });
-      cell.addEventListener('focus', function () {
-        clearTimeout(offTimer);
-        setActive(i);
-      });
-      cell.addEventListener('blur', function () {
-        if (!cell.matches(':focus')) scheduleOff();
-      });
-      cell.addEventListener('click', function () {
-        /* Touch / coarse pointer: tap toggles the department copy. */
-        if (fine.matches && !narrow.matches) return;
-        setActive(active === i ? -1 : i);
-      });
-    });
-    if (stage) {
-      stage.addEventListener('pointerleave', function (e) {
-        if (!fine.matches || narrow.matches) return;
-        if (!stage.contains(e.relatedTarget)) scheduleOff();
-      });
-      stage.addEventListener('pointerenter', function () {
-        if (fine.matches && !narrow.matches) clearTimeout(offTimer);
-      });
-    }
-    doc.addEventListener('pointerdown', function (e) {
-      if (!narrow.matches || active < 0 || !stage) return;
-      if (!stage.contains(e.target)) setActive(-1);
     });
   }
 
