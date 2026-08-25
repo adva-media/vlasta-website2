@@ -1292,7 +1292,8 @@ body.over-hero .hero{
   --shot-size:cover;
   --shot-x:50%;
   --shot-y:14;
-  --shot-o:.79}
+  --shot-o:.79;
+  --shot-blur:6px}
 @media (min-width:700px){
   .appr__grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
@@ -1323,27 +1324,31 @@ body.over-hero .hero{
    resolves against the same box everywhere and each card clips its own window
    onto one continuous frame. The steel diagonals therefore run from tile to
    tile across the gaps.
-   Photo on the element + wash on ::before + --bgy driving background-position
-   is the .phero--photo idiom, reused so the parallax and its reduced-motion
-   fallback behave the same as the news / case / services heroes. --bgy is set
-   once on the grid, so all six windows pan in lockstep. */
+   Photo on ::after (slightly oversized so the blur kernel doesn't fade the
+   clip edge) + wash on ::before + --bgy driving background-position is the
+   .phero--photo idiom, reused so the parallax and its reduced-motion fallback
+   behave the same as the news / case / services heroes. --bgy is set once on
+   the grid, so all six windows pan in lockstep. */
 .appr__shot{position:absolute;top:0;left:0;z-index:0;pointer-events:none;
-  width:var(--grid-w);height:var(--grid-h);
+  width:var(--grid-w);height:var(--grid-h);overflow:hidden;
   transform:translate3d(calc(-1 * var(--cx,0px)),calc(-1 * var(--cy,0px)),0);
-  background-image:url(../img/approach-bg.jpg);
-  background-repeat:no-repeat;
-  background-size:var(--shot-size);
-  background-position:var(--shot-x) calc((var(--shot-y) + var(--bgy,34)) * 1%);
   opacity:0;transition:opacity .5s var(--ease)}
 .appr__grid.is-lit .appr__shot{opacity:var(--shot-o)}
 /* Pressed cards sink out of the light, so the backdrop sinks with them. */
 .appr__dept.is-open .appr__shot{opacity:calc(var(--shot-o) * .34)}
+.appr__shot::after{content:"";position:absolute;inset:calc(var(--shot-blur) * -3);
+  z-index:0;pointer-events:none;
+  background-image:url(../img/approach-bg.jpg);
+  background-repeat:no-repeat;
+  background-size:var(--shot-size);
+  background-position:var(--shot-x) calc((var(--shot-y) + var(--bgy,34)) * 1%);
+  filter:blur(var(--shot-blur))}
 /* Blue wash: same two-layer recipe as .phero--photo::before, retuned so the
    pale sky lands back in the --appr-blue family. Alphas are the loosest that
    still hold white type at AA across every breakpoint and the whole pan range
    (measured worst case 5.08:1) — the sky is the brightest thing in the frame,
    so it sets the ceiling and anything lighter trades legibility for nothing. */
-.appr__shot::before{content:"";position:absolute;inset:0;background:
+.appr__shot::before{content:"";position:absolute;inset:0;z-index:1;background:
   linear-gradient(180deg,rgba(56,64,112,.43),rgba(44,52,94,.55)),
   linear-gradient(100deg,rgba(83,93,134,.46),rgba(83,93,134,.2) 62%,transparent)}
 
@@ -1441,7 +1446,7 @@ body.over-hero .hero{
   .appr__pm::after,.appr__body,.appr__body-in,.appr__shot{transition:none!important}
   .appr__dept:hover,.appr__dept.is-open{transform:none}
   /* No pan — pin the crop mid-travel, as .phero--photo does. */
-  .appr__shot{background-position:var(--shot-x) calc((var(--shot-y) + 34) * 1%)}
+  .appr__shot::after{background-position:var(--shot-x) calc((var(--shot-y) + 34) * 1%)}
 }
 
 /* ============================================================ BEGIN
