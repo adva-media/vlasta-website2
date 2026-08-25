@@ -1475,13 +1475,13 @@ body.over-hero .hero{
   /* Weights, all in one place. The whole set scales together — pads and
      travelling dots are sized off the trace so the parts stay in balance
      if --wire-w is retuned. The corner fillet is RAD in initApprWire. */
-  --wire-w:4.4;
-  --wire-pad:6.2;
-  --wire-pad-rim:1.6;
-  --wire-tip-w:7;
-  --wire-tip-halo:18;
-  --wire-pulse-w:6;
-  --wire-pulse-halo:17}
+  --wire-w:3.8;
+  --wire-pad:5.6;
+  --wire-pad-rim:1.5;
+  --wire-tip-w:6.2;
+  --wire-tip-halo:16;
+  --wire-pulse-w:5.4;
+  --wire-pulse-halo:15}
 .appr__wire{position:absolute;inset:0;z-index:0;pointer-events:none;
   margin:0;padding:0;list-style:none}
 .appr__wire-svg{display:block;width:100%;height:100%;overflow:visible}
@@ -1552,7 +1552,7 @@ body.over-hero .hero{
      gaps. Almost nothing is left to carry the effect, so the little that
      shows gets a shade more weight, and the ambient pulse goes: a second
      travelling dot in a 16px gutter is clutter, not atmosphere. */
-  #approach{--wire-c:rgba(93,104,160,.66);--wire-w:4.6;--wire-pad:5.8}
+  #approach{--wire-c:rgba(93,104,160,.66);--wire-w:4;--wire-pad:5.2}
   .appr__wire-p,.appr__wire-pg{display:none}
 }
 @media (prefers-reduced-motion:reduce){
