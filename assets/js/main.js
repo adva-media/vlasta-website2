@@ -1220,63 +1220,10 @@
       }
     }
 
-    function fillLitSphere(x, y, r, alpha, z, bright) {
-      var a = Math.max(0, Math.min(1, alpha));
-      var rr = Math.max(0.45, r);
-      var hx = x - rr * 0.36;
-      var hy = y - rr * 0.4;
-      var g = ctx.createRadialGradient(hx, hy, Math.max(0.2, rr * 0.06), x + rr * 0.16, y + rr * 0.2, rr);
-      if (dark) {
-        g.addColorStop(0, 'rgba(228,234,248,' + (0.96 * a) + ')');
-        g.addColorStop(0.22, violet(0.84 * a, true));
-        g.addColorStop(0.62, violet((bright ? 0.64 : 0.5) * a, !!bright));
-        g.addColorStop(1, 'rgba(40,46,76,' + (0.94 * a) + ')');
-      } else {
-        g.addColorStop(0, 'rgba(255,255,255,' + (0.98 * a) + ')');
-        g.addColorStop(0.2, 'rgba(236,240,248,' + (0.94 * a) + ')');
-        g.addColorStop(0.55, violet((bright ? 0.58 : 0.44) * a, !!bright));
-        g.addColorStop(1, 'rgba(83,93,134,' + (0.8 * a) + ')');
-      }
-      ctx.fillStyle = g;
-      ctx.beginPath();
-      ctx.arc(x, y, rr, 0, FABRIC_TAU);
-      ctx.fill();
-      ctx.beginPath();
-      ctx.arc(x - rr * 0.32, y - rr * 0.36, Math.max(0.35, rr * 0.2), 0, FABRIC_TAU);
-      ctx.fillStyle = dark
-        ? 'rgba(240,244,255,' + ((z > 0.55 ? 0.55 : 0.38) * a) + ')'
-        : 'rgba(255,255,255,' + ((z > 0.55 ? 0.7 : 0.5) * a) + ')';
-      ctx.fill();
-    }
-
     function drawDepthNodeBody(x, y, r, z, alpha, en, ping) {
       var fog = fogA(z);
-      var dof = 1 - z;
       var a = Math.max(0, alpha);
-      var haloR, halo, ring;
-
-      if (z > 0.4) {
-        ctx.save();
-        ctx.translate(x + r * 0.28, y + r * 0.62);
-        ctx.scale(1.08, 0.34);
-        ctx.beginPath();
-        ctx.arc(0, 0, r * (0.92 + z * 0.14), 0, FABRIC_TAU);
-        ctx.fillStyle = dark
-          ? 'rgba(6,8,20,' + (0.3 * z * a) + ')'
-          : 'rgba(48,56,90,' + (0.2 * z * a) + ')';
-        ctx.fill();
-        ctx.restore();
-      }
-
-      haloR = r * (2.15 + dof * 2.7 + ping * 1.3 + (en > 0.08 ? 0.85 : 0.15));
-      halo = ctx.createRadialGradient(x, y, 0, x, y, haloR);
-      halo.addColorStop(0, violet((0.09 + dof * 0.09 + Math.max(en, ping * 0.85) * 0.24) * fog * Math.max(0.35, a), true));
-      halo.addColorStop(0.42, violet((0.035 + dof * 0.055) * fog * a, true));
-      halo.addColorStop(1, violet(0, true));
-      ctx.fillStyle = halo;
-      ctx.beginPath();
-      ctx.arc(x, y, haloR, 0, FABRIC_TAU);
-      ctx.fill();
+      var ring, bright;
 
       if (ping > 0.04) {
         ring = r * (1.42 + (1 - ping) * 1.85) * (0.9 + z * 0.14);
@@ -1287,7 +1234,11 @@
         ctx.stroke();
       }
 
-      fillLitSphere(x, y, r, a * fog, z, en > 0.18 || ping > 0.2 || z > 0.78);
+      bright = en > 0.18 || ping > 0.25;
+      ctx.beginPath();
+      ctx.arc(x, y, Math.max(0.45, r), 0, FABRIC_TAU);
+      ctx.fillStyle = violet(Math.min(0.82, a * fog), bright);
+      ctx.fill();
     }
 
     function nodeDrawRadius(n, animate, t) {
