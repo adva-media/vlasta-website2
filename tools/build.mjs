@@ -793,7 +793,6 @@ const approachBlock = () => {
     if (APPR_WIDE[i]) cls.push('appr__dept--wide');
     if (i === 0) cls.push('appr__dept--lead');
     const delay = Math.min(i, 4);
-    const num = String(i + 1).padStart(2, '0');
     return `<li class="${cls.join(' ')}"${delay ? ` data-d="${delay}"` : ''}>
         <span class="appr__shot" aria-hidden="true"></span>
         <h3 class="appr__dept-h">
@@ -806,7 +805,6 @@ const approachBlock = () => {
         </h3>
         <div class="appr__body" id="appr-p-${i}" role="region" aria-labelledby="appr-t-${i}">
           <div class="appr__body-in">
-            <p class="appr__tag"><span class="appr__num">${num}</span>${esc(t(d, 'short'))}</p>
             <p class="appr__dept-d">${esc(t(d, 'text'))}</p>
           </div>
         </div>

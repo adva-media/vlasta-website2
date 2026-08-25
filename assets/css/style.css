@@ -1425,11 +1425,6 @@ body.over-hero .hero{
   opacity:0;transform:translateY(-7px);
   transition:opacity .34s var(--ease),transform .34s var(--ease)}
 .appr__dept.is-open .appr__body-in{opacity:1;transform:none;transition-delay:.08s}
-.appr__tag{display:flex;align-items:baseline;gap:9px;min-width:0;margin:0 0 9px;
-  font-size:11px;font-weight:700;letter-spacing:.14em;line-height:1.25;
-  text-transform:uppercase;color:rgba(255,255,255,.85);overflow-wrap:anywhere}
-.appr__num{flex:none;padding-right:9px;color:rgba(255,255,255,.5);
-  border-right:1px solid rgba(255,255,255,.28);font-variant-numeric:tabular-nums}
 .appr__dept-d,.appr__shell .appr__dept-d{margin:0;max-width:74ch;font-weight:400;
   color:rgba(255,255,255,.88);font-size:clamp(14px,1vw,15.5px);line-height:1.55}
 
@@ -1996,11 +1991,7 @@ html.is-locked,html.is-locked body{overflow:hidden}
 .mq__i{flex:none;width:var(--mq-w);height:128px;border-radius:16px;background:#fff;
   border:1px solid var(--line-soft);display:flex;align-items:center;justify-content:center;padding:22px 20px}
 .mq__i img{max-width:82%;max-height:72%;width:auto;height:auto;object-fit:contain;
-  /* soft grey wash (~50% less greying than grayscale(1)/.62); color on hover */
-  filter:grayscale(.5);opacity:.81;transition:var(--t);
   transform:scale(var(--logo-scale,1));-webkit-user-drag:none;user-select:none;pointer-events:none}
-.mq__i:hover img{filter:none;opacity:1}
-.mq__vp.is-dragging .mq__i img{filter:grayscale(.5);opacity:.81}
 
 /* ---------------------------------------------------------------- cases */
 .case-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
@@ -2677,8 +2668,7 @@ html.is-locked,html.is-locked body{overflow:hidden}
 [data-theme="dark"] .client,[data-theme="dark"] .assoc__logo,
 [data-theme="dark"] .mq__i,[data-theme="dark"] .modal__logo,
 [data-theme="dark"] .letter__th{background:#F2F2F8}
-[data-theme="dark"] .client img,[data-theme="dark"] .assoc__logo img,
-[data-theme="dark"] .mq__i img{opacity:.72}
+[data-theme="dark"] .client img,[data-theme="dark"] .assoc__logo img{opacity:.72}
 [data-theme="dark"] .nm-grat line{stroke:var(--accent);stroke-opacity:.22}
 [data-theme="dark"] .btn--light{background:var(--accent);color:#0C0C1C}
 [data-theme="dark"] .geo__bar b{color:#fff}
@@ -2877,9 +2867,8 @@ section[id]{scroll-margin-top:96px}
 .rail-fade::after{
   right:calc(var(--gutter) * -1);width:clamp(28px,4.8vw,72px);
   background:linear-gradient(90deg,transparent,var(--rail-fade-c))}
-#services .rail-fade{--rail-fade-c:rgba(228,228,240,.94)}
+#services .rail-fade::before,#services .rail-fade::after{content:none;display:none;width:0}
 [data-theme="dark"] .rail-fade{--rail-fade-c:var(--paper)}
-[data-theme="dark"] #services .rail-fade{--rail-fade-c:rgba(16,16,40,.92)}
 
 /* =========================================================================
    Mobile pass over everything added in this round
