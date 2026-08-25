@@ -823,9 +823,8 @@ const approachBlock = () => {
     </header>
     <ul class="appr__grid" role="list" aria-label="${deptsLabel}" data-portrait-travel="0.42"><li class="appr__wire" aria-hidden="true"><svg class="appr__wire-svg" focusable="false" aria-hidden="true"></svg></li>${cards}</ul>
     <div class="appr__figs">
-      <p class="appr__kpi-h">${esc(C.apprKpiHead)}</p>
-      <p class="appr__kpi-note">${esc(C.apprKpiNote)}</p>
       <div class="stats stats--appr reveal reveal--fade">${figs}</div>
+      <p class="appr__kpi-cap">${esc(C.apprKpiHead)} · ${esc(C.apprKpiNote)}</p>
     </div>
     </div>
   </div>

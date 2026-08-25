@@ -1225,11 +1225,13 @@ body.over-hero .hero{
 .chip.is-on b{color:rgba(255,255,255,.7)}
 
 /* ------------------------------------------------------------- approach */
-/* Pale-blue plate. Department cards carry the see-all pill blue with a darker
-   contour. Closed cards sit raised off the plate; the open one is pressed into
-   it (inset shadow, darker fill, no drop shade).
-   The plate is deliberately light in both themes, so the fills are literal —
-   aliasing --accent would flip them to lavender under [data-theme="dark"]. */
+/* Pale-blue plate in light theme. Department cards carry the see-all pill
+   blue with a darker contour. Closed cards sit raised off the plate; the
+   open one is pressed into it (inset shadow, darker fill, no drop shade).
+   Card fills are literal hex, not --accent — that token flips to lavender
+   under [data-theme="dark"]. The plate itself does go dark with the theme
+   so heading, lead, and KPI type (all --ink / --body / --steel) stay
+   readable. */
 #approach{
   --appr-bg:#F4F6FC;
   --appr-blue:#535D86;              /* the ВСЕ КЕЙСЫ / All cases pill */
@@ -1273,7 +1275,7 @@ body.over-hero .hero{
 }
 
 /* Department cards: each one a disclosure that starts closed. Widths alternate
-   on the 3-column grid so no two rows read the same; card 01 keeps a deeper
+   on the desktop grid so no two rows read the same; card 01 keeps a deeper
    fill as the entry point. align-items:start keeps a card's siblings at their
    own height when it opens, so only the opened row grows. */
 .appr__grid{position:relative;display:grid;grid-template-columns:1fr;
@@ -1292,13 +1294,16 @@ body.over-hero .hero{
   --shot-size:cover;
   --shot-x:50%;
   --shot-y:14;
-  --shot-o:.79}
+  --shot-o:.79;
+  --shot-blur:6px}
 @media (min-width:700px){
   .appr__grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media (min-width:1100px){
-  .appr__grid{grid-template-columns:repeat(3,minmax(0,1fr))}
-  .appr__dept--wide{grid-column:span 2}
+  /* 5 equal tracks → wide 3/5 (60%), narrow 2/5 (40%). */
+  .appr__grid{grid-template-columns:repeat(5,minmax(0,1fr))}
+  .appr__dept--wide{grid-column:span 3}
+  .appr__dept:not(.appr__dept--wide){grid-column:span 2}
 }
 .appr__dept{position:relative;display:flex;flex-direction:column;min-width:0;
   overflow:hidden;isolation:isolate;
@@ -1307,43 +1312,51 @@ body.over-hero .hero{
   border:1px solid var(--appr-edge);
   box-shadow:var(--appr-raise);
   transition:background .34s var(--ease),border-color .34s var(--ease),
-    box-shadow .34s var(--ease),transform .34s var(--ease)}
+    box-shadow .34s var(--ease),transform .34s var(--ease),
+    outline-color .34s var(--ease)}
 .appr__dept--lead{background:var(--appr-blue-lo);border-color:var(--appr-edge-lo)}
 /* Raised → lifts a touch further into the light on hover. */
 .appr__dept:not(.is-open):hover{background:var(--appr-blue-hi);border-color:#4B5480;
   box-shadow:var(--appr-raise-hi);transform:translateY(-3px)}
 .appr__dept--lead:not(.is-open):hover{background:#48517A;border-color:#39406A}
-/* Pressed → sunk into the plate: darker fill, inner shade, no cast, hair smaller. */
-.appr__dept.is-open{background:var(--appr-press);border-color:#2F3559;
-  box-shadow:var(--appr-press-shade);transform:scale(.995)}
-.appr__dept--lead.is-open{background:var(--appr-press-lo);border-color:#252B47}
+/* Pressed → sunk into the plate, with a shiny white contour so the open card
+   reads as the chosen one against its neighbours. */
+.appr__dept.is-open{background:var(--appr-press);border-color:rgba(255,255,255,.95);
+  outline:1.5px solid rgba(255,255,255,.72);outline-offset:1px;
+  box-shadow:var(--appr-press-shade),inset 0 0 0 1px rgba(255,255,255,.55),
+    0 0 16px rgba(255,255,255,.22);transform:scale(.995)}
+.appr__dept--lead.is-open{background:var(--appr-press-lo)}
 
 /* One photograph across all six cards: the layer is sized to the whole grid and
    shifted back by the card's own grid offset (--cx/--cy, set by JS), so `cover`
    resolves against the same box everywhere and each card clips its own window
    onto one continuous frame. The steel diagonals therefore run from tile to
    tile across the gaps.
-   Photo on the element + wash on ::before + --bgy driving background-position
-   is the .phero--photo idiom, reused so the parallax and its reduced-motion
-   fallback behave the same as the news / case / services heroes. --bgy is set
-   once on the grid, so all six windows pan in lockstep. */
+   Photo on ::after (slightly oversized so the blur kernel doesn't fade the
+   clip edge) + wash on ::before + --bgy driving background-position is the
+   .phero--photo idiom, reused so the parallax and its reduced-motion fallback
+   behave the same as the news / case / services heroes. --bgy is set once on
+   the grid, so all six windows pan in lockstep. */
 .appr__shot{position:absolute;top:0;left:0;z-index:0;pointer-events:none;
-  width:var(--grid-w);height:var(--grid-h);
+  width:var(--grid-w);height:var(--grid-h);overflow:hidden;
   transform:translate3d(calc(-1 * var(--cx,0px)),calc(-1 * var(--cy,0px)),0);
-  background-image:url(../img/approach-bg.jpg);
-  background-repeat:no-repeat;
-  background-size:var(--shot-size);
-  background-position:var(--shot-x) calc((var(--shot-y) + var(--bgy,34)) * 1%);
   opacity:0;transition:opacity .5s var(--ease)}
 .appr__grid.is-lit .appr__shot{opacity:var(--shot-o)}
 /* Pressed cards sink out of the light, so the backdrop sinks with them. */
 .appr__dept.is-open .appr__shot{opacity:calc(var(--shot-o) * .34)}
+.appr__shot::after{content:"";position:absolute;inset:calc(var(--shot-blur) * -3);
+  z-index:0;pointer-events:none;
+  background-image:url(../img/approach-bg.jpg);
+  background-repeat:no-repeat;
+  background-size:var(--shot-size);
+  background-position:var(--shot-x) calc((var(--shot-y) + var(--bgy,34)) * 1%);
+  filter:blur(var(--shot-blur))}
 /* Blue wash: same two-layer recipe as .phero--photo::before, retuned so the
    pale sky lands back in the --appr-blue family. Alphas are the loosest that
    still hold white type at AA across every breakpoint and the whole pan range
    (measured worst case 5.08:1) — the sky is the brightest thing in the frame,
    so it sets the ceiling and anything lighter trades legibility for nothing. */
-.appr__shot::before{content:"";position:absolute;inset:0;background:
+.appr__shot::before{content:"";position:absolute;inset:0;z-index:1;background:
   linear-gradient(180deg,rgba(56,64,112,.43),rgba(44,52,94,.55)),
   linear-gradient(100deg,rgba(83,93,134,.46),rgba(83,93,134,.2) 62%,transparent)}
 
@@ -1404,16 +1417,35 @@ body.over-hero .hero{
 .appr__dept-d,.appr__shell .appr__dept-d{margin:0;max-width:74ch;font-weight:400;
   color:rgba(255,255,255,.88);font-size:clamp(14px,1vw,15.5px);line-height:1.55}
 
-/* KPI figures: the hero .stats atom on plain paper — see #intro .stats. */
-.appr__figs{margin-top:clamp(12px,1.8vw,26px);padding-top:clamp(18px,2.4vw,34px);
+/* KPI figures: the hero .stats atom on plain paper — see #intro .stats.
+   Numbers sit tight under the department grid; both captions share one
+   small line tucked under the figures. */
+.appr__figs{margin-top:clamp(6px,1vw,12px);padding-top:clamp(10px,1.4vw,16px);
   border-top:1px solid var(--line)}
-.appr__kpi-h,.appr__shell .appr__kpi-h{margin:0;text-align:center;color:var(--accent);
-  font-size:12px;font-weight:600;letter-spacing:.16em;line-height:1.35;text-transform:uppercase}
-.appr__kpi-note,.appr__shell .appr__kpi-note{margin:5px 0 0;text-align:center;
-  font-size:11.5px;font-weight:500;letter-spacing:.04em;color:var(--steel)}
-.stats--appr{margin-top:clamp(20px,2.6vw,34px)}
+.appr__kpi-cap,.appr__shell .appr__kpi-cap{margin:6px 0 0;text-align:center;
+  font-size:11.5px;font-weight:500;letter-spacing:.04em;line-height:1.4;color:var(--steel)}
+.stats--appr{margin-top:0;padding-bottom:0}
 .stats--appr .stat__l{max-width:19em}
 .stats--appr .stat__l b,.stats--appr .stat__l strong{color:var(--ink);font-weight:700}
+
+/* Dark theme: the plate follows the page, not the light-mode pale wash.
+   Otherwise --ink / --steel flip to near-white on #F4F6FC and the KPI
+   row (and the heading above the tiles) vanish. Shadows go to black so
+   the raised cards still lift off a dark navy ground; the wire brightens
+   a step so the gutters still read. */
+[data-theme="dark"] #approach{
+  --appr-bg:#16162C;
+  --appr-raise:0 1px 2px rgba(0,0,0,.45),0 12px 24px -8px rgba(0,0,0,.58),
+    0 32px 56px -18px rgba(0,0,0,.55);
+  --appr-raise-hi:0 1px 2px rgba(0,0,0,.5),0 16px 28px -8px rgba(0,0,0,.62),
+    0 40px 68px -20px rgba(0,0,0,.6);
+  --appr-press-shade:inset 0 2px 6px rgba(0,0,0,.55),inset 0 10px 22px -8px rgba(0,0,0,.48),
+    inset 0 -1px 0 rgba(255,255,255,.08),0 1px 0 rgba(255,255,255,.1);
+  --wire-c:rgba(168,176,220,.42);
+  --wire-tip:#C4CAE8;
+  --wire-halo:rgba(180,188,230,.2);
+  --wire-node:#9AA4D0;
+  --wire-pulse:#D4D8F0}
 
 @media (max-width:899px){
   .appr__inner{gap:clamp(12px,3vw,18px)}
@@ -1441,7 +1473,7 @@ body.over-hero .hero{
   .appr__pm::after,.appr__body,.appr__body-in,.appr__shot{transition:none!important}
   .appr__dept:hover,.appr__dept.is-open{transform:none}
   /* No pan — pin the crop mid-travel, as .phero--photo does. */
-  .appr__shot{background-position:var(--shot-x) calc((var(--shot-y) + 34) * 1%)}
+  .appr__shot::after{background-position:var(--shot-x) calc((var(--shot-y) + 34) * 1%)}
 }
 
 /* ============================================================ BEGIN
@@ -1518,14 +1550,14 @@ body.over-hero .hero{
   animation:apprWireNode .34s var(--ease) var(--wdel) both}
 @keyframes apprWireNode{from{opacity:0;transform:scale(.25)}to{opacity:1;transform:none}}
 
-/* One slow pulse keeps walking the longest run of the net once it has settled —
-   a single dot, on a long cycle, so it stays ambient rather than busy. Its track
-   is stitched in JS from the drawn edges' own `d`, so it rides the visible line
-   exactly; see setRay/stitch in initApprWire. */
+/* Ambient pulse walks the longest run of the net once it has settled —
+   a single pass, then gone. Its track is stitched in JS from the drawn
+   edges' own `d`, so it rides the visible line exactly; see setRay/stitch
+   in initApprWire. */
 .appr__wire-pg{stroke:var(--wire-halo);stroke-width:var(--wire-pulse-halo)}
 .appr__wire-p{stroke:var(--wire-pulse);stroke-width:var(--wire-pulse-w)}
 .appr__wire-p,.appr__wire-pg{opacity:0;
-  animation:apprWirePulse var(--pcyc) linear var(--pdel) infinite}
+  animation:apprWirePulse var(--pcyc) linear var(--pdel) both}
 @keyframes apprWirePulse{
   0%{stroke-dashoffset:0;opacity:0}
   7%{opacity:.85}

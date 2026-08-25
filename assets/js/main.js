@@ -3281,16 +3281,17 @@
         if (e.t0 + e.dur > last) last = e.t0 + e.dur;
       });
 
-      /* Ambient pulse walks the longest trunk→branch run of the net. Its track
-         is stitched from those edges' own `d`, and re-stitched by patch(), so it
-         always sits exactly on the drawn line. It also picks up straight off the
-         back of the sweep, so it reads as the trace staying live rather than as
-         a second event arriving out of nowhere. */
+      /* Ambient pulse walks the longest trunk→branch run of the net once,
+         then stops. Its track is stitched from those edges' own `d`, and
+         re-stitched by patch(), so it always sits exactly on the drawn line.
+         It also picks up straight off the back of the sweep, so it reads as
+         the trace staying live rather than as a second event arriving out
+         of nowhere. */
       rayIdx = reduce ? null : spine(list);
       if (rayIdx) {
         ray = ['appr__wire-pg', 'appr__wire-p'].map(function (cls) {
           var p = mk('path', cls);
-          p.style.setProperty('--pcyc', '6.2s');
+          p.style.setProperty('--pcyc', '2.48s');
           p.style.setProperty('--pdel', ms(last + 0.2));
           g.appendChild(p);
           return p;
