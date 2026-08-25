@@ -42,6 +42,16 @@
   --glass-line:rgba(255,255,255,.75);
   --glass-dark:rgba(20,20,40,.42);
   --glass-dark-line:rgba(255,255,255,.14);
+  /* Cool navy liquid glass — translucent so the alive mesh reads through */
+  --glass-blue:
+    linear-gradient(165deg,rgba(120,135,190,.22),rgba(80,90,140,.16) 42%,rgba(22,22,48,.28)),
+    linear-gradient(120deg,rgba(180,195,240,.12),transparent 58%);
+  --glass-blue-on:
+    linear-gradient(165deg,rgba(140,155,210,.28),rgba(80,90,140,.2) 40%,rgba(18,18,42,.34)),
+    linear-gradient(120deg,rgba(200,210,245,.14),transparent 55%);
+  --glass-blue-line:rgba(190,205,245,.28);
+  --glass-blue-ink:#F4F5FB;
+  --glass-blue-body:rgba(232,236,252,.82);
 
   /* Wider wrap on laptop/desk; gutters stay modest until the cap so a 13"
      Air is not padded 64px a side. Ultrawide keeps a 1760 reading stage. */
@@ -734,14 +744,14 @@ body.over-hero .hero{
   --svc-card-border:rgba(20,20,40,.1);
   --svc-card-bg:var(--paper-alt);
   --svc-photo-filter:saturate(.55) contrast(1.05) brightness(.97) hue-rotate(-6deg);
-  /* Rest: solid white with LR peek (~65% hold). Hover shifts stops earlier (~55%). */
-  --svc-wash-a:65%;
-  --svc-wash-b:70%;
-  --svc-wash-c:75%;
-  --svc-wash-d:80%;
-  --svc-wash-e:85%;
-  --svc-wash-f:90%;
-  --svc-wash-g:95%;
+  /* Rest: white hold ~72% (pulled back from 80%). Hover creeps to ~62%. */
+  --svc-wash-a:72%;
+  --svc-wash-b:77%;
+  --svc-wash-c:82%;
+  --svc-wash-d:86%;
+  --svc-wash-e:90%;
+  --svc-wash-f:94%;
+  --svc-wash-g:97%;
   --svc-photo-wash:linear-gradient(to bottom right,
     #fff 0%,
     #fff var(--svc-wash-a),
@@ -761,7 +771,7 @@ body.over-hero .hero{
     rgba(0,0,0,.38) var(--svc-wash-d),rgba(0,0,0,.58) var(--svc-wash-e),
     rgba(0,0,0,.78) var(--svc-wash-f),rgba(0,0,0,.92) var(--svc-wash-g),#000 100%);
   --svc-wash-ease:cubic-bezier(.22,.7,.25,1);
-  --svc-wash-dur:.9s;
+  --svc-wash-dur:2.4s;
   transition:
     --svc-wash-a var(--svc-wash-dur) var(--svc-wash-ease),
     --svc-wash-b var(--svc-wash-dur) var(--svc-wash-ease),
@@ -776,13 +786,14 @@ body.over-hero .hero{
 }
 .svc-card:not(.svc-card--ink):hover,
 .svc-card:not(.svc-card--ink):focus-within{
-  --svc-wash-a:55%;
-  --svc-wash-b:61%;
-  --svc-wash-c:67%;
-  --svc-wash-d:73%;
-  --svc-wash-e:79%;
-  --svc-wash-f:85%;
-  --svc-wash-g:92%;
+  --svc-wash-dur:3s;
+  --svc-wash-a:62%;
+  --svc-wash-b:68%;
+  --svc-wash-c:73%;
+  --svc-wash-d:79%;
+  --svc-wash-e:84%;
+  --svc-wash-f:89%;
+  --svc-wash-g:94%;
 }
 /* Dark ink scheme — previous look. Activate: class="svc-card svc-card--ink" */
 .svc-card--ink{
@@ -1082,12 +1093,14 @@ body.over-hero .hero{
 /* service detail block (services page) */
 .svc-detail{scroll-margin-top:calc(var(--hdr-h) + var(--svc-tabs-h) + 16px)}
 .svc-detail+.svc-detail{margin-top:clamp(46px,6vw,80px)}
-.svc-detail__hero{position:relative;margin-bottom:24px;border-radius:var(--r-md);overflow:hidden}
+.svc-detail__hero{position:relative;margin-bottom:24px;overflow:visible}
+.svc-detail__frame{position:relative;border-radius:var(--r-md);overflow:hidden}
 .svc-detail__hero .ncard__img{aspect-ratio:16/5;margin:0;overflow:hidden}
 /* Same --bgy pan as .phero--photo (background-position), via object-position on
-   the photo — title / intro / wash stay frame-fixed; numeral tracks --bgy too. */
+   the photo — title / intro / wash stay frame-fixed; numeral tracks --bgy too.
+   Unset --bgy (no-JS / reduced-motion) crops to center, not the top edge. */
 .svc-detail__hero .ncard__img img{
-  object-position:50% calc(var(--bgy,0) * 1%);
+  object-position:50% calc(var(--bgy,50) * 1%);
   filter:var(--svc-hero-photo-filter)}
 .svc-detail__hero .ncard__img::after{
   opacity:1;
@@ -1102,7 +1115,7 @@ body.over-hero .hero{
   font-family:var(--ui);font-size:clamp(140px,22vw,280px);font-weight:700;line-height:1;letter-spacing:-.06em;
   font-variant-numeric:tabular-nums;color:rgba(255,255,255,.12);
   pointer-events:none;user-select:none;
-  transform:translateY(calc(var(--bgy,0) * -0.65px))}
+  transform:translateY(calc(var(--bgy,50) * -0.65px))}
 .svc-detail__title{position:absolute;z-index:3;left:0;right:0;top:0;margin:0;
   padding:clamp(28px,5vw,52px);padding-bottom:0;
   font-family:var(--ui);font-size:clamp(32px,4.4vw,52px);font-weight:700;letter-spacing:-.02em;line-height:1.15;
@@ -1212,191 +1225,347 @@ body.over-hero .hero{
 .chip.is-on b{color:rgba(255,255,255,.7)}
 
 /* ------------------------------------------------------------- approach */
-/* Compact composition: split head (title | lead) → browser tabs → KPIs */
-#approach{background:transparent;padding-block:clamp(44px,5.5vw,80px)}
+/* Pale-blue plate. Department cards carry the see-all pill blue with a darker
+   contour. Closed cards sit raised off the plate; the open one is pressed into
+   it (inset shadow, darker fill, no drop shade).
+   The plate is deliberately light in both themes, so the fills are literal —
+   aliasing --accent would flip them to lavender under [data-theme="dark"]. */
+#approach{
+  --appr-bg:#F4F6FC;
+  --appr-blue:#535D86;              /* the ВСЕ КЕЙСЫ / All cases pill */
+  --appr-blue-hi:#646E96;           /* hover */
+  --appr-blue-lo:#3E4668;           /* lead card */
+  --appr-press:#474F76;             /* open card — sunk a step below the fill */
+  --appr-press-lo:#363D5C;
+  --appr-edge:#39406A;
+  --appr-edge-lo:#2A3054;
+  --appr-rim:rgba(255,255,255,.26);
+  --appr-line:rgba(255,255,255,.16);
+  /* Raised: tight contact shadow + wide ambient cast on the pale plate. */
+  --appr-raise:0 1px 2px rgba(28,32,58,.14),0 10px 20px -8px rgba(28,32,58,.42),
+    0 28px 52px -20px rgba(28,32,58,.42);
+  --appr-raise-hi:0 1px 2px rgba(28,32,58,.16),0 16px 28px -8px rgba(28,32,58,.48),
+    0 40px 68px -22px rgba(28,32,58,.48);
+  /* Pressed: light from above catches the top wall of the recess. */
+  --appr-press-shade:inset 0 2px 6px rgba(14,16,34,.46),inset 0 10px 22px -8px rgba(14,16,34,.4),
+    inset 0 -1px 0 rgba(255,255,255,.09),0 1px 0 rgba(255,255,255,.5);
+  background:var(--appr-bg);padding-block:clamp(48px,6vw,92px);overflow:hidden}
 .appr{display:grid}
-.appr__shell{position:relative;display:grid;gap:clamp(14px,1.8vw,20px);
-  padding:clamp(16px,2.2vw,26px) clamp(16px,2.6vw,30px);
-  border-radius:var(--r-lg);overflow:hidden;color:var(--ink);
-  background:var(--paper);border:1px solid var(--line);box-shadow:var(--sh-sm)}
-.appr__head{display:grid;gap:10px;min-width:0;max-width:none}
+.appr__shell{position:relative;z-index:1;overflow:visible;
+  padding:clamp(4px,1vw,8px) 0;background:transparent;border:0;border-radius:0;
+  box-shadow:none;color:inherit}
+.appr__inner{position:relative;z-index:1;display:grid;gap:clamp(14px,1.8vw,20px)}
+/* The intro needs air before the first card row — the .appr__inner row gap
+   alone reads cramped against six raised cards. Stacks on top of that gap. */
+.appr__head{display:grid;gap:10px;min-width:0;max-width:none;
+  margin-bottom:clamp(14px,2.8vw,38px)}
 .appr__intro{min-width:0;max-width:36ch}
-.appr__shell .kick,.glasszone .appr__shell .kick{color:#6B6E86}
-.appr__shell .h2,.glasszone .appr__shell .h2,
-.appr__shell h2,.glasszone .appr__shell h2{color:var(--ink);margin-top:8px}
-.appr__lead,.glasszone .appr__shell .lead,.glasszone .appr__shell p.lead{
+.appr__head .h2,.appr__head h2{color:var(--ink);margin-top:8px}
+.appr__lead,.appr__shell .lead,.appr__shell p.lead{
   margin:0;max-width:none;font-weight:400;color:var(--body);
   font-size:clamp(15.5px,1.15vw,17.5px);line-height:1.55}
 @media (min-width:900px){
-  /* Narrower title col, wider lead — less dead space between H2 and copy */
   .appr__head{grid-template-columns:minmax(0,.78fr) minmax(0,1.35fr);
     gap:12px 18px;align-items:end}
   .appr__intro{max-width:none}
-  .appr__lead,.glasszone .appr__shell .lead,.glasszone .appr__shell p.lead{
+  .appr__lead,.appr__shell .lead,.appr__shell p.lead{
     justify-self:stretch;align-self:end;max-width:none}
 }
 
-/* Folder-tab contour: inactive tabs stay separate; active tab + panel share one outline.
-   Drop-shadow on the browser lifts the whole silhouette from the approach plate. */
-.appr__browser{display:grid;gap:0;min-width:0;background:transparent;border:0;border-radius:0;
-  overflow:visible;
-  filter:drop-shadow(0 2px 4px rgba(20,20,40,.06)) drop-shadow(0 10px 22px rgba(20,20,40,.12))}
-.appr__tabs{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:4px;
-  position:relative;z-index:1;min-width:0;padding:0;margin:0;
-  background:transparent;border:0}
-.appr__tab{display:flex;flex-direction:row;align-items:center;justify-content:center;gap:8px;
-  position:relative;z-index:0;margin:0;padding:10px 8px 11px;min-width:0;
-  cursor:pointer;color:var(--ink);font:inherit;text-align:left;
-  border-radius:12px 12px 0 0;
-  background:var(--paper);
-  border:1px solid rgba(83,93,134,.26);
-  box-shadow:none;
-  transition:background .28s var(--ease),border-color .28s var(--ease),
-    box-shadow .28s var(--ease),color .28s var(--ease),margin .28s var(--ease)}
-.appr__tab:hover{background:#FAFBFE;
-  border-color:rgba(83,93,134,.36)}
-.appr__tab:focus-visible{outline:2px solid var(--accent);outline-offset:2px;z-index:3}
-.appr__ico,.glasszone .appr__shell .appr__ico{width:30px;height:30px;border-radius:9px;flex:none;
-  background:#fff;border:1px solid rgba(83,93,134,.22);color:var(--accent);
-  transition:background .28s var(--ease),border-color .28s var(--ease),color .28s var(--ease)}
-.appr__ico svg{width:15px;height:15px;stroke-width:1.5}
-.appr__lb{font-size:11.5px;font-weight:700;letter-spacing:.055em;line-height:1.2;
-  text-transform:uppercase;color:var(--ink);min-width:0;max-width:100%;overflow-wrap:anywhere}
-/* Active tab: same fill as panel, bottom seam open, overlaps panel top border */
-.appr__tab.is-on{z-index:2;margin-bottom:-1px;background:var(--paper-alt);
-  border-color:rgba(83,93,134,.32);border-bottom-color:var(--paper-alt);
-  color:var(--ink);box-shadow:none}
-.appr__tab.is-on .appr__lb{color:var(--ink)}
-.appr__tab.is-on .appr__ico,.glasszone .appr__shell .appr__tab.is-on .appr__ico{
-  background:#fff;border-color:rgba(83,93,134,.28);color:var(--accent);
-  box-shadow:0 0 0 1px rgba(83,93,134,.06)}
-
-/* Panel owns sides+bottom+top; active tab covers the top edge under itself */
-.appr__panels{display:grid;position:relative;z-index:0;min-width:0;
-  padding:clamp(14px,1.6vw,18px) clamp(14px,1.8vw,20px) clamp(12px,1.5vw,16px);
-  border:1px solid rgba(83,93,134,.32);border-radius:0 0 var(--r-md) var(--r-md);
-  background:var(--paper-alt)}
-.appr__panel{grid-area:1/1;min-width:0;opacity:0;visibility:hidden;
-  pointer-events:none;transition:opacity .28s var(--ease),visibility .28s}
-.appr__panel.is-on{opacity:1;visibility:visible;pointer-events:auto}
-.appr__panel-t{margin:0 0 6px;font-size:clamp(15px,1.2vw,17px);font-weight:700;
-  letter-spacing:-.015em;line-height:1.3;color:var(--ink)}
-.appr__panel-d,.glasszone .appr__shell .appr__panel-d{margin:0;max-width:72ch;
-  font-size:clamp(14.5px,1.05vw,16px);line-height:1.55;color:var(--body);font-weight:400}
-@media (min-width:900px){
-  /* Tab already names the dept — keep full title in DOM, don’t stack a large H3 */
-  .appr__panel-t{position:absolute;width:1px;height:1px;padding:0;margin:-1px;
-    overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+/* Department cards: each one a disclosure that starts closed. Widths alternate
+   on the 3-column grid so no two rows read the same; card 01 keeps a deeper
+   fill as the entry point. align-items:start keeps a card's siblings at their
+   own height when it opens, so only the opened row grows. */
+.appr__grid{position:relative;display:grid;grid-template-columns:1fr;
+  column-gap:clamp(10px,1.1vw,16px);row-gap:clamp(18px,2vw,28px);align-items:start;
+  margin:0;padding:0;list-style:none;min-width:0;
+  --grid-w:0px;--grid-h:0px;
+  /* Backdrop photo. --shot-y is the base crop; the shared phero scroll painter
+     adds --bgy on top (0 → data-portrait-travel). That painter measures page
+     scroll rather than section transit, so by the time this mid-page block is
+     on screen --bgy already sits around 30–38 of its 42 — hence the low base,
+     and a --bgy fallback of 34 so the no-JS / reduced-motion crop lands mid-way
+     through the window a visitor actually sees rather than up in empty sky.
+     --shot-o is how much of the photo survives over the card fill, so each
+     card's own blue still tints it and the lead / pressed fills keep their
+     hierarchy. */
+  --shot-size:cover;
+  --shot-x:50%;
+  --shot-y:14;
+  --shot-o:.79}
+@media (min-width:700px){
+  .appr__grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
-
-/* KPI footer — calm, secondary */
-.appr__kpi{min-width:0;max-width:100%;margin:0;padding-top:clamp(2px,.6vw,6px);
-  border-top:1px solid var(--line-soft)}
-.appr__kpi-h{margin:0 0 2px;text-align:center;font-size:12px;letter-spacing:.08em;
-  text-transform:uppercase;color:var(--steel);font-weight:600}
-.appr__kpi-note,.glasszone .appr__shell .appr__kpi-note{
-  margin:0 0 10px;text-align:center;font-size:11px;letter-spacing:.04em;
-  color:var(--steel);font-weight:500}
-.appr__kpi .res{gap:6px}
-.appr__kpi .res__c{
-  min-width:0;padding:14px 16px 12px;border:0;outline:0;border-radius:0;
-  background:transparent;box-shadow:none;transform:none;
-  transition:none;pointer-events:none;cursor:default;align-items:center;text-align:center}
-.appr__kpi .res__c:hover,.appr__kpi .res__c:focus-within{
-  background:transparent;border:0;outline:0;box-shadow:none;transform:none}
-.appr__kpi .res__head{align-items:center;justify-content:center;gap:7px}
-.appr__kpi .res__ico,.glasszone .appr__shell .appr__kpi .res__ico{
-  width:clamp(40px,4.2vw,52px);height:clamp(40px,4.2vw,52px);border-radius:0;
-  background:transparent;border:0;box-shadow:none;color:var(--accent);
-  display:grid;place-items:center;flex:none}
-.appr__kpi .res__ico svg{width:72%;height:72%;stroke-width:1.45}
-.appr__kpi .res__c:hover .res__ico,.appr__kpi .res__c:focus-within .res__ico,
-.glasszone .appr__shell .appr__kpi .res__c:hover .res__ico,
-.glasszone .appr__shell .appr__kpi .res__c:focus-within .res__ico{
-  background:transparent;border:0;box-shadow:none;color:var(--accent)}
-.appr__kpi .res__n{color:var(--ink);font-size:clamp(36px,3.8vw,48px);
-  align-items:center;justify-content:center;gap:4px;line-height:1}
-.appr__kpi .res__pre,.appr__kpi .res__u{color:var(--accent);
-  font-size:.52em;font-weight:600;line-height:1;align-self:center;margin:0}
-.appr__kpi .res__u{margin-left:2px}
-.appr__kpi .res__l,.glasszone .appr__shell .appr__kpi .res__l,
-.glasszone .appr__shell .appr__kpi p.res__l{color:var(--body);font-size:16px;line-height:1.45;
-  text-align:center;max-width:22em;margin-inline:auto}
-.appr__kpi .res__l b,.appr__kpi .res__l strong,
-.glasszone .appr__shell .appr__kpi .res__l b,
-.glasszone .appr__shell .appr__kpi .res__l strong{color:var(--ink);font-weight:700}
-[data-theme="dark"] .appr__kpi .res__c:hover,
-[data-theme="dark"] .appr__kpi .res__c:focus-within{background:transparent}
-[data-theme="dark"] .appr__kpi .res__ico,
-[data-theme="dark"] .glasszone .appr__shell .appr__kpi .res__ico{
-  background:transparent;border:0;box-shadow:none;color:var(--mist)}
-[data-theme="dark"] .appr__kpi .res__c:hover .res__ico,
-[data-theme="dark"] .appr__kpi .res__c:focus-within .res__ico{
-  background:transparent;border:0;box-shadow:none;color:var(--mist)}
-[data-theme="dark"] .appr__browser{background:transparent;border:0;
-  filter:drop-shadow(0 2px 4px rgba(0,0,0,.25)) drop-shadow(0 12px 28px rgba(0,0,0,.35))}
-[data-theme="dark"] .appr__tabs{background:transparent;border:0}
-[data-theme="dark"] .appr__tab{
-  background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.18);box-shadow:none}
-[data-theme="dark"] .appr__tab:hover{background:rgba(255,255,255,.12);
-  border-color:rgba(255,255,255,.26)}
-[data-theme="dark"] .appr__tab.is-on{
-  background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.22);
-  border-bottom-color:rgba(255,255,255,.04);color:var(--ink)}
-[data-theme="dark"] .appr__tab.is-on .appr__lb{color:var(--ink)}
-[data-theme="dark"] .appr__tab.is-on .appr__ico,
-[data-theme="dark"] .glasszone .appr__shell .appr__tab.is-on .appr__ico{
-  background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.2);color:var(--mist);
-  box-shadow:none}
-[data-theme="dark"] .appr__panels{background:rgba(255,255,255,.04);
-  border-color:rgba(255,255,255,.22)}
-@media (max-width:1099px){
-  .appr__tabs{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (min-width:1100px){
+  .appr__grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .appr__dept--wide{grid-column:span 2}
 }
+.appr__dept{position:relative;display:flex;flex-direction:column;min-width:0;
+  overflow:hidden;isolation:isolate;
+  border-radius:var(--r-md);color:#fff;
+  background:var(--appr-blue);
+  border:1px solid var(--appr-edge);
+  box-shadow:var(--appr-raise);
+  transition:background .34s var(--ease),border-color .34s var(--ease),
+    box-shadow .34s var(--ease),transform .34s var(--ease)}
+.appr__dept--lead{background:var(--appr-blue-lo);border-color:var(--appr-edge-lo)}
+/* Raised → lifts a touch further into the light on hover. */
+.appr__dept:not(.is-open):hover{background:var(--appr-blue-hi);border-color:#4B5480;
+  box-shadow:var(--appr-raise-hi);transform:translateY(-3px)}
+.appr__dept--lead:not(.is-open):hover{background:#48517A;border-color:#39406A}
+/* Pressed → sunk into the plate: darker fill, inner shade, no cast, hair smaller. */
+.appr__dept.is-open{background:var(--appr-press);border-color:#2F3559;
+  box-shadow:var(--appr-press-shade);transform:scale(.995)}
+.appr__dept--lead.is-open{background:var(--appr-press-lo);border-color:#252B47}
+
+/* One photograph across all six cards: the layer is sized to the whole grid and
+   shifted back by the card's own grid offset (--cx/--cy, set by JS), so `cover`
+   resolves against the same box everywhere and each card clips its own window
+   onto one continuous frame. The steel diagonals therefore run from tile to
+   tile across the gaps.
+   Photo on the element + wash on ::before + --bgy driving background-position
+   is the .phero--photo idiom, reused so the parallax and its reduced-motion
+   fallback behave the same as the news / case / services heroes. --bgy is set
+   once on the grid, so all six windows pan in lockstep. */
+.appr__shot{position:absolute;top:0;left:0;z-index:0;pointer-events:none;
+  width:var(--grid-w);height:var(--grid-h);
+  transform:translate3d(calc(-1 * var(--cx,0px)),calc(-1 * var(--cy,0px)),0);
+  background-image:url(../img/approach-bg.jpg);
+  background-repeat:no-repeat;
+  background-size:var(--shot-size);
+  background-position:var(--shot-x) calc((var(--shot-y) + var(--bgy,34)) * 1%);
+  opacity:0;transition:opacity .5s var(--ease)}
+.appr__grid.is-lit .appr__shot{opacity:var(--shot-o)}
+/* Pressed cards sink out of the light, so the backdrop sinks with them. */
+.appr__dept.is-open .appr__shot{opacity:calc(var(--shot-o) * .34)}
+/* Blue wash: same two-layer recipe as .phero--photo::before, retuned so the
+   pale sky lands back in the --appr-blue family. Alphas are the loosest that
+   still hold white type at AA across every breakpoint and the whole pan range
+   (measured worst case 5.08:1) — the sky is the brightest thing in the frame,
+   so it sets the ceiling and anything lighter trades legibility for nothing. */
+.appr__shot::before{content:"";position:absolute;inset:0;background:
+  linear-gradient(180deg,rgba(56,64,112,.43),rgba(44,52,94,.55)),
+  linear-gradient(100deg,rgba(83,93,134,.46),rgba(83,93,134,.2) 62%,transparent)}
+
+/* Disclosure header: whole row is the control. */
+.appr__dept-h{margin:0;font:inherit;font-weight:inherit;letter-spacing:normal;
+  color:inherit;min-width:0}
+.appr__toggle{position:relative;z-index:1;display:flex;width:100%;align-items:center;
+  gap:clamp(11px,1vw,14px);min-width:0;text-align:left;cursor:pointer;
+  padding:clamp(14px,1.35vw,20px) clamp(16px,1.7vw,26px);
+  background:none;border:0;color:inherit;font:inherit;
+  border-radius:var(--r-md)}
+.appr__toggle:focus-visible{outline:2px solid #fff;outline-offset:-3px}
+.appr__ico{width:42px;height:42px;border-radius:12px;flex:none;
+  background:rgba(255,255,255,.12);
+  border:1px solid var(--appr-rim);color:#fff;box-shadow:none;
+  transition:background .34s var(--ease),border-color .34s var(--ease)}
+.appr__ico svg{width:20px;height:20px;stroke-width:1.55;stroke:currentColor}
+.appr__dept:not(.is-open):hover .appr__ico{background:rgba(255,255,255,.18);
+  border-color:rgba(255,255,255,.38)}
+.appr__dept.is-open .appr__ico{background:rgba(255,255,255,.09);
+  border-color:rgba(255,255,255,.2)}
+.appr__dept-t{flex:1 1 auto;min-width:0;margin:0;color:#fff;font-weight:700;
+  letter-spacing:.06em;line-height:1.25;font-size:clamp(13.5px,1vw,15.5px);
+  text-transform:uppercase}
+
+/* Plus that spins into a minus: the whole mark turns 180°, and the upright bar
+   turns another 90° onto the flat one. */
+.appr__pm{position:relative;flex:none;width:30px;height:30px;border-radius:50%;
+  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);
+  transition:transform .45s var(--ease),background .34s var(--ease),
+    border-color .34s var(--ease)}
+.appr__pm::before,.appr__pm::after{content:"";position:absolute;top:50%;left:50%;
+  background:#fff;border-radius:1px;
+  transition:transform .45s var(--ease),opacity .3s var(--ease)}
+.appr__pm::before{width:12px;height:1.8px;transform:translate(-50%,-50%)}
+.appr__pm::after{width:1.8px;height:12px;transform:translate(-50%,-50%)}
+.appr__dept:not(.is-open):hover .appr__pm{background:rgba(255,255,255,.18);
+  border-color:rgba(255,255,255,.4)}
+[aria-expanded="true"] .appr__pm{transform:rotate(180deg);
+  background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.18)}
+[aria-expanded="true"] .appr__pm::after{transform:translate(-50%,-50%) rotate(90deg)}
+
+/* Body: height animated in px by JS; visibility flips after the collapse so the
+   closed copy leaves the tab order and the a11y tree. */
+.appr__body{position:relative;z-index:1;height:0;overflow:hidden;visibility:hidden;
+  transition:height .42s var(--ease),visibility 0s linear .42s}
+.appr__dept.is-open>.appr__body{visibility:visible;
+  transition:height .42s var(--ease),visibility 0s linear 0s}
+.appr__body-in{padding:0 clamp(16px,1.7vw,26px) clamp(17px,1.6vw,24px);
+  opacity:0;transform:translateY(-7px);
+  transition:opacity .34s var(--ease),transform .34s var(--ease)}
+.appr__dept.is-open .appr__body-in{opacity:1;transform:none;transition-delay:.08s}
+.appr__tag{display:flex;align-items:baseline;gap:9px;min-width:0;margin:0 0 9px;
+  font-size:11px;font-weight:700;letter-spacing:.14em;line-height:1.25;
+  text-transform:uppercase;color:rgba(255,255,255,.85);overflow-wrap:anywhere}
+.appr__num{flex:none;padding-right:9px;color:rgba(255,255,255,.5);
+  border-right:1px solid rgba(255,255,255,.28);font-variant-numeric:tabular-nums}
+.appr__dept-d,.appr__shell .appr__dept-d{margin:0;max-width:74ch;font-weight:400;
+  color:rgba(255,255,255,.88);font-size:clamp(14px,1vw,15.5px);line-height:1.55}
+
+/* KPI figures: the hero .stats atom on plain paper — see #intro .stats. */
+.appr__figs{margin-top:clamp(12px,1.8vw,26px);padding-top:clamp(18px,2.4vw,34px);
+  border-top:1px solid var(--line)}
+.appr__kpi-h,.appr__shell .appr__kpi-h{margin:0;text-align:center;color:var(--accent);
+  font-size:12px;font-weight:600;letter-spacing:.16em;line-height:1.35;text-transform:uppercase}
+.appr__kpi-note,.appr__shell .appr__kpi-note{margin:5px 0 0;text-align:center;
+  font-size:11.5px;font-weight:500;letter-spacing:.04em;color:var(--steel)}
+.stats--appr{margin-top:clamp(20px,2.6vw,34px)}
+.stats--appr .stat__l{max-width:19em}
+.stats--appr .stat__l b,.stats--appr .stat__l strong{color:var(--ink);font-weight:700}
+
 @media (max-width:899px){
-  .appr__shell{gap:clamp(12px,3vw,16px)}
+  .appr__inner{gap:clamp(12px,3vw,18px)}
   .appr__intro{max-width:none}
-  .appr__lead,.glasszone .appr__shell .lead,.glasszone .appr__shell p.lead{max-width:none}
-  .appr__tabs{gap:3px}
-  .appr__tab{padding:10px 7px 11px;gap:6px;border-radius:10px 10px 0 0}
-  .appr__ico{width:26px;height:26px;border-radius:8px}
-  .appr__ico svg{width:13px;height:13px}
-  .appr__lb{font-size:10px;letter-spacing:.045em}
-  .appr__panels{padding:12px 14px 14px;border-radius:0 0 12px 12px}
-  .appr__kpi .res{grid-template-columns:repeat(2,minmax(0,1fr));gap:4px}
-  .appr__kpi .res__c{padding:12px 8px 10px}
-  .appr__kpi .res__ico{width:clamp(32px,8.5vw,42px);height:clamp(32px,8.5vw,42px)}
-  .appr__kpi .res__n{font-size:clamp(28px,7.5vw,36px)}
-  .appr__kpi .res__head{gap:6px;flex-wrap:wrap;justify-content:center}
-  .appr__kpi .res__l,
-  .glasszone .appr__shell .appr__kpi .res__l,
-  .glasszone .appr__shell .appr__kpi p.res__l{
-    margin-top:8px;font-size:13.5px;line-height:1.4;max-width:100%;
-    display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  .appr__lead,.appr__shell .lead,.appr__shell p.lead{max-width:none}
 }
-@media (max-width:520px){
-  .appr__tabs{grid-template-columns:repeat(2,minmax(0,1fr));gap:3px}
+@media (max-width:699px){
+  .appr__grid{column-gap:10px;row-gap:16px}
+  .appr__dept{border-radius:14px}
+  .appr__toggle{gap:11px;padding:13px 15px}
+  .appr__body-in{padding:0 15px 16px}
+  .appr__ico{width:40px;height:40px;border-radius:11px}
+  .appr__ico svg{width:19px;height:19px}
+  .appr__dept-t{font-size:13.5px}
+  .appr__pm{width:27px;height:27px}
+  /* Single column is portrait, so `cover` would scale by height and leave no
+     vertical overflow for the pan. Oversize the height instead: the crop keeps
+     room to travel and lands on the beams rather than the empty sky. */
+  .appr__grid{--shot-size:auto 132%;--shot-x:64%;--shot-y:30}
 }
 @media (prefers-reduced-motion:reduce){
-  .appr__tab,.appr__panel{transition-duration:.01ms!important}
+  /* No timed states at all: the disclosure snaps, so `visibility` and the
+     JS-set height take effect at once and never sit mid-transition. */
+  .appr__dept,.appr__toggle,.appr__ico,.appr__pm,.appr__pm::before,
+  .appr__pm::after,.appr__body,.appr__body-in,.appr__shot{transition:none!important}
+  .appr__dept:hover,.appr__dept.is-open{transform:none}
+  /* No pan — pin the crop mid-travel, as .phero--photo does. */
+  .appr__shot{background-position:var(--shot-x) calc((var(--shot-y) + 34) * 1%)}
 }
 
-/* -------------------------------------------------------------- results */
-/* Shared KPI atom — colours assume the white approach plate; see .appr__kpi. */
-.res{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-.res__c{padding:16px 18px 14px;text-align:left;display:flex;flex-direction:column;align-items:stretch}
-.res__head{display:flex;align-items:center;gap:12px;min-width:0}
-.res__ico{width:40px;height:40px;border-radius:0;display:grid;place-items:center;flex:none;
-  background:transparent;border:0;box-shadow:none;color:var(--accent)}
-.res__ico svg{width:20px;height:20px;stroke-width:1.5}
-/* Figure sits beside the icon; unit rides the baseline so nothing shifts */
-.res__n{display:flex;align-items:baseline;justify-content:flex-start;gap:2px;min-width:0;
-  font-size:clamp(32px,3.4vw,44px);font-weight:700;letter-spacing:-.04em;line-height:1;
-  color:var(--ink);font-variant-numeric:tabular-nums}
-.res__pre,.res__u{font-size:.46em;font-weight:600;color:var(--accent);letter-spacing:0}
-.res__u{white-space:nowrap;margin-left:3px}
-.res__l{margin-top:10px;font-size:13.5px;line-height:1.45;color:var(--body)}
-.res__l b,.res__l strong{font-weight:700;color:var(--ink)}
+/* ============================================================ BEGIN
+   approach — connector network (.appr__wire)          SELF-CONTAINED
+   ------------------------------------------------------------------
+   Opening a department card draws an orthogonal "circuit trace" out to
+   the other five. Geometry comes from JS (initApprWire in main.js); this
+   sheet only paints and times it.
+
+   The overlay is the FIRST child of .appr__grid, so it paints under the
+   six cards: the trace lives in the gutters and tucks out of sight under
+   a card face, which is why long bus runs can cross a tile without ever
+   drawing over the photography or the type.
+
+   Per element JS publishes --wlen (path length), --wdur (draw time) and
+   --wdel (start delay); the draw is a dashoffset sweep, the travelling
+   tip is a zero-length round dash riding the same path.
+
+   TO REVERT: delete this whole BEGIN…END section, the initApprWire()
+   function and the three wire.* calls in assets/js/main.js, and the
+   <li class="appr__wire"> in tools/build.mjs.
+   ================================================================== */
+#approach{
+  /* Blue, not white: the trace runs over the pale plate in the gutters,
+     so light on light would vanish. Same family as the card fills. */
+  --wire-c:rgba(99,110,165,.55);
+  --wire-tip:#6E7AB0;
+  --wire-halo:rgba(110,122,176,.17);
+  --wire-node:#5B6699;
+  --wire-pulse:#7C88C2;
+  /* Weights, all in one place. The whole set scales together — pads and
+     travelling dots are sized off the trace so the parts stay in balance
+     if --wire-w is retuned. The corner fillet is RAD in initApprWire. */
+  --wire-w:4.4;
+  --wire-pad:6.2;
+  --wire-pad-rim:1.6;
+  --wire-tip-w:7;
+  --wire-tip-halo:18;
+  --wire-pulse-w:6;
+  --wire-pulse-halo:17}
+.appr__wire{position:absolute;inset:0;z-index:0;pointer-events:none;
+  margin:0;padding:0;list-style:none}
+.appr__wire-svg{display:block;width:100%;height:100%;overflow:visible}
+.appr__wire-svg *{pointer-events:none}
+
+/* Trace. Linear, because the stagger — not per-edge easing — is what makes
+   the branching read; easing each edge would stutter at every junction. */
+.appr__wire-l{fill:none;stroke:var(--wire-c);stroke-width:var(--wire-w);
+  stroke-linecap:round;stroke-linejoin:round;
+  stroke-dasharray:var(--wlen);stroke-dashoffset:var(--wlen);
+  animation:apprWireDraw var(--wdur) linear var(--wdel) both}
+@keyframes apprWireDraw{from{stroke-dashoffset:var(--wlen)}to{stroke-dashoffset:0}}
+
+/* Travelling tip: a round cap on a hair-length dash, so shifting the dash
+   pattern past the path end walks a dot along it. Two widths = soft halo
+   under a bright core, which is cheaper than an SVG blur filter. */
+.appr__wire-t,.appr__wire-tg,.appr__wire-p,.appr__wire-pg{
+  fill:none;stroke-linecap:round;stroke-dasharray:.1 99999;stroke-dashoffset:0}
+.appr__wire-tg{stroke:var(--wire-halo);stroke-width:var(--wire-tip-halo)}
+.appr__wire-t{stroke:var(--wire-tip);stroke-width:var(--wire-tip-w)}
+.appr__wire-t,.appr__wire-tg{animation:apprWireTip var(--wdur) linear var(--wdel) both}
+@keyframes apprWireTip{
+  0%{stroke-dashoffset:0;opacity:0}
+  12%{opacity:1}
+  84%{opacity:1}
+  100%{stroke-dashoffset:calc(-1 * var(--wlen));opacity:0}
+}
+
+/* Terminal pad on each target's edge midpoint. Centred on the edge, so the
+   card clips the inner half and it reads as a solder pad, not a floating dot. */
+.appr__wire-n{r:var(--wire-pad);fill:var(--wire-node);
+  stroke:rgba(244,246,252,.86);stroke-width:var(--wire-pad-rim);
+  transform-box:fill-box;transform-origin:50% 50%;
+  animation:apprWireNode .34s var(--ease) var(--wdel) both}
+@keyframes apprWireNode{from{opacity:0;transform:scale(.25)}to{opacity:1;transform:none}}
+
+/* One slow pulse keeps walking the longest run of the net once it has settled —
+   a single dot, on a long cycle, so it stays ambient rather than busy. Its track
+   is stitched in JS from the drawn edges' own `d`, so it rides the visible line
+   exactly; see setRay/stitch in initApprWire. */
+.appr__wire-pg{stroke:var(--wire-halo);stroke-width:var(--wire-pulse-halo)}
+.appr__wire-p{stroke:var(--wire-pulse);stroke-width:var(--wire-pulse-w)}
+.appr__wire-p,.appr__wire-pg{opacity:0;
+  animation:apprWirePulse var(--pcyc) linear var(--pdel) infinite}
+@keyframes apprWirePulse{
+  0%{stroke-dashoffset:0;opacity:0}
+  7%{opacity:.85}
+  56%{stroke-dashoffset:calc(-1 * var(--wlen));opacity:.85}
+  63%,100%{stroke-dashoffset:calc(-1 * var(--wlen));opacity:0}
+}
+
+/* Retract: deepest branches recede first, so the trace un-draws back toward
+   the card that spawned it. The group fade covers the pads and the pulse. */
+.appr__wire-net.is-out{opacity:0;transition:opacity .34s var(--ease) .05s}
+.appr__wire-net.is-out .appr__wire-l{
+  animation:apprWireHide .3s var(--ease) var(--odel) both}
+@keyframes apprWireHide{from{stroke-dashoffset:0}to{stroke-dashoffset:var(--wlen)}}
+.appr__wire-net.is-out .appr__wire-t,.appr__wire-net.is-out .appr__wire-tg,
+.appr__wire-net.is-out .appr__wire-p,.appr__wire-net.is-out .appr__wire-pg{
+  animation:none;opacity:0}
+
+/* Offscreen: nothing to look at, so stop spending frames on it. */
+.appr__wire-svg.is-idle *{animation-play-state:paused}
+
+@media (max-width:699px){
+  /* Single column has no vertical gutters, so the net degenerates to a spine
+     down the card centres — and the cards hide all of it but the 16px row
+     gaps. Almost nothing is left to carry the effect, so the little that
+     shows gets a shade more weight, and the ambient pulse goes: a second
+     travelling dot in a 16px gutter is clutter, not atmosphere. */
+  #approach{--wire-c:rgba(93,104,160,.66);--wire-w:4.6;--wire-pad:5.8}
+  .appr__wire-p,.appr__wire-pg{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  /* Draw it, do not animate it: no sweep, no tip, no pulse. */
+  .appr__wire-l{stroke-dasharray:none;stroke-dashoffset:0;animation:none}
+  .appr__wire-n{animation:none}
+  .appr__wire-t,.appr__wire-tg,.appr__wire-p,.appr__wire-pg{display:none}
+  .appr__wire-net.is-out{transition:none}
+  .appr__wire-net.is-out .appr__wire-l{animation:none;opacity:0}
+}
+/* ============================================================== END
+   approach — connector network (.appr__wire)
+   ================================================================== */
 
 /* ------------------------------------------------------------- geography */
 .geo{display:grid;gap:clamp(34px,4vw,60px)}
@@ -1839,7 +2008,7 @@ html.is-locked,html.is-locked body{overflow:hidden}
   padding-block:clamp(52px,7vw,92px)}
 .case-hero__n{position:absolute;right:2%;bottom:-16%;font-size:clamp(150px,24vw,330px);
   font-weight:700;line-height:1;color:rgba(255,255,255,.045);pointer-events:none;user-select:none;z-index:0}
-.case-hero .wrap{position:relative;z-index:1}
+.case-hero .wrap{position:relative;z-index:2}
 .case-hero h1{color:#fff;max-width:min(100%,820px);margin-top:16px}
 .case-hero .lead{color:rgba(255,255,255,.76);max-width:66ch;margin-top:18px}
 .tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}
@@ -1861,6 +2030,13 @@ html.is-locked,html.is-locked body{overflow:hidden}
 .prose a{color:var(--accent);text-decoration:underline;text-underline-offset:2px;
   text-decoration-color:var(--mist);transition:var(--t)}
 .prose a:hover{text-decoration-color:var(--accent)}
+.policy-pages{display:flex;flex-direction:column;gap:22px;margin:28px auto 0;
+  max-width:820px;padding:0}
+.policy-pages img{display:block;width:100%;height:auto;background:#fff;
+  border-radius:var(--r-md);border:1px solid var(--line);
+  box-shadow:0 10px 32px -14px rgba(20,20,40,.38)}
+[data-theme="dark"] .policy-pages img{
+  box-shadow:0 12px 36px -12px rgba(0,0,0,.55);border-color:rgba(255,255,255,.08)}
 .pullquote{border-left:3px solid var(--accent);padding:6px 0 6px 28px;margin:38px 0}
 .pullquote p{font-size:clamp(19px,2.2vw,25px);font-weight:300;line-height:1.45;color:var(--ink);margin:0}
 
@@ -2246,23 +2422,44 @@ html.is-locked,html.is-locked body{overflow:hidden}
 /* -------------------------------------------------------- interior hero */
 .phero{position:relative;overflow:hidden;background-color:var(--surface-dark);color:#fff;
   padding-block:clamp(46px,6vw,86px)}
-/* The photo opens on its top edge, where the faces in a press picture almost
-   always are, and is panned down as the hero scrolls away — main.js writes
-   --bgy (0–100 for landscape; ~0–50 for tall/portrait). Without script it
-   simply stays on the top edge. News (.phero) and cases (.case-hero) both use
-   .phero--photo; services section heroes (.svc-detail__hero) share --bgy via
-   object-position on the inner img and translateY on .svc-detail__n. */
-.phero--photo{padding-block:clamp(76px,11vw,150px);
-  background-size:cover;background-position:50% calc(var(--bgy,0) * 1%);
+/* Parallax writes --bgy (0–100 landscape; ~0–50 portrait). Unset --bgy
+   (no-JS / reduced-motion / Windows) crops to center, not the top edge.
+   News (.phero) and cases (.case-hero) both use .phero--photo; services
+   section heroes share --bgy via object-position on the inner img. */
+.phero--photo{padding-block:clamp(76px,11vw,150px);isolation:isolate;
+  background-color:var(--surface-dark-2);
+  background-size:cover;background-position:50% calc(var(--bgy,50) * 1%);
   background-repeat:no-repeat;background-attachment:scroll}
 /* News photo hero: shorter band than cases so the article body starts sooner.
    Cases keep the taller .phero--photo padding above. (~32% above the original
    clamp(60px,9vw,120px) short band: +20% then +10%.) */
 .phero.phero--photo{padding-block:clamp(79px,11.9vw,158px)}
-.phero--photo::before{content:"";position:absolute;inset:0;z-index:0;background:
+.phero--photo::before{content:"";position:absolute;inset:0;z-index:1;background:
   linear-gradient(180deg,rgba(20,20,40,.74),rgba(20,20,40,.88)),
   linear-gradient(90deg,rgba(83,93,134,.55),transparent 72%)}
-.phero .wrap{position:relative;z-index:1}
+.phero .wrap{position:relative;z-index:2}
+/* Ultrawide: photo column aligns to --maxw (header chrome); navy wings + L/R
+   fade like .skyline. Not used on .svc-detail__hero (framed in .wrap). */
+@media (min-width:1441px){
+  .phero--photo{background-size:0 0}
+  .phero--photo::after{
+    content:"";position:absolute;top:0;bottom:0;left:50%;z-index:0;
+    width:min(calc(100% - 2 * var(--gutter)), calc(var(--maxw) - 2 * var(--gutter)));transform:translateX(-50%);pointer-events:none;
+    background-image:inherit;background-repeat:no-repeat;background-size:cover;
+    background-position:50% calc(var(--bgy,50) * 1%);
+    -webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 9%,#000 91%,transparent 100%);
+    mask-image:linear-gradient(90deg,transparent 0%,#000 9%,#000 91%,transparent 100%)}
+}
+@media (min-width:1800px){
+  .phero--photo::after{
+    -webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 7%,#000 93%,transparent 100%);
+    mask-image:linear-gradient(90deg,transparent 0%,#000 7%,#000 93%,transparent 100%)}
+}
+@media (prefers-reduced-motion:reduce){
+  .phero--photo,.phero--photo::after{background-position:50% 50%}
+  .svc-detail__hero .ncard__img img{object-position:50% 50%}
+  .svc-detail__n{transform:none}
+}
 .phero h1{color:#fff;max-width:min(100%,780px);margin-top:16px}
 .phero .wrap--article h1{max-width:min(100%,936px)}
 .phero .lead{color:rgba(255,255,255,.74);max-width:62ch;margin-top:18px}
@@ -2326,17 +2523,6 @@ html.is-locked,html.is-locked body{overflow:hidden}
   .fold .flow__l{grid-template-columns:repeat(2,1fr)}
   .chan__g{grid-template-columns:repeat(2,1fr)}
   .dir__l{grid-template-columns:1fr}
-  /* Stack title → intro in flow so they never collide in a short crop.
-     Photo + ghost numeral stay absolute; hero height grows with copy. */
-  .svc-detail__hero{display:flex;flex-direction:column;gap:12px;
-    padding:24px 22px;min-height:min(58vw,300px)}
-  .svc-detail__hero .ncard__img{position:absolute;inset:0;aspect-ratio:auto;
-    width:100%;height:100%;margin:0}
-  .svc-detail__title{position:relative;z-index:3;padding:0;
-    font-size:clamp(26px,7vw,36px);max-width:90%}
-  .svc-detail__intro{position:relative;inset:auto;z-index:2;display:block;
-    padding:0;max-width:100%;font-size:15px;line-height:1.5}
-  .svc-detail__n{font-size:clamp(110px,36vw,200px);bottom:-8%;right:0}
   .clients{grid-template-columns:repeat(4,1fr)}
   .geo__bar{grid-template-columns:repeat(3,1fr);gap:8px;margin-top:22px}
   .geo__t{padding:14px 10px}
@@ -2346,6 +2532,32 @@ html.is-locked,html.is-locked body{overflow:hidden}
   /* Word units may stack under the numeral when the half-width cell is tight */
   .stat__n{flex-wrap:wrap;row-gap:.08em}
   .stat__n .u--word{white-space:normal;max-width:100%}
+}
+@media (max-width:899px){
+  /* Title stays on the photo; intro becomes a glass tile below the frame. */
+  .svc-detail__hero{display:flex;flex-direction:column;gap:0;
+    padding:0;min-height:0;overflow:visible}
+  .svc-detail__frame{min-height:min(52vw,280px)}
+  .svc-detail__frame .ncard__img{position:absolute;inset:0;aspect-ratio:auto;
+    width:100%;height:100%;margin:0}
+  .svc-detail__title{position:absolute;z-index:3;padding:clamp(20px,5vw,28px);
+    font-size:clamp(24px,6.5vw,34px);max-width:90%}
+  .svc-detail__intro{position:relative;inset:auto;z-index:2;display:block;
+    margin:-22px 10px 0;padding:18px 20px 20px;max-width:none;
+    font-size:14.5px;line-height:1.55;color:var(--body);
+    background:
+      linear-gradient(165deg,rgba(255,255,255,.55),rgba(243,243,248,.92) 38%,var(--paper-alt)),
+      linear-gradient(120deg,rgba(83,93,134,.12),transparent 55%);
+    border:1px solid var(--line);border-radius:var(--r-md);
+    box-shadow:var(--sh-md),inset 0 1px 0 rgba(255,255,255,.78);
+    -webkit-backdrop-filter:blur(16px) saturate(1.45);
+    backdrop-filter:blur(16px) saturate(1.45);pointer-events:auto}
+  [data-theme="dark"] .svc-detail__intro{
+    color:rgba(255,255,255,.88);
+    background:linear-gradient(165deg,rgba(80,90,140,.28),rgba(22,22,42,.92) 50%,rgba(16,16,36,.96));
+    border-color:rgba(255,255,255,.12);
+    box-shadow:var(--sh-sm),inset 0 1px 0 rgba(255,255,255,.1)}
+  .svc-detail__n{font-size:clamp(110px,36vw,200px);bottom:-8%;right:0}
 }
 @media (max-width:680px){
   body{font-size:16px}
@@ -2365,8 +2577,6 @@ html.is-locked,html.is-locked body{overflow:hidden}
   .letters{grid-template-columns:repeat(2,1fr)}
   .assoc{flex-basis:170px}
   .values{grid-template-columns:1fr}
-  .res{grid-template-columns:1fr}
-  .appr__kpi .res{grid-template-columns:repeat(2,minmax(0,1fr))}
   .case-row{grid-template-columns:40px 1fr}
   .case-row__cat{display:none}
   .nrow{grid-template-columns:1fr;gap:10px}
@@ -2526,7 +2736,13 @@ section[id]{scroll-margin-top:96px}
 .facts--hero .fact{background:rgba(255,255,255,.04)}
 .facts--hero .fact span{color:var(--mist)}
 .facts--hero .fact strong{color:#fff}
-.taglist{margin-top:40px;padding-top:24px;border-top:1px solid var(--line)}
+/* Case topics stay in the document for indexing — they are also carried in the
+   keywords meta and the Article JSON-LD — but are clipped out of view. Clipped
+   rather than display:none so the text is not dropped, and not colour-matched
+   to the background, which reads as cloaking. Drop this rule to show them; the
+   presentational rules below still describe the visible form. */
+.taglist{position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;
+  overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 .taglist h4{font-size:12px;letter-spacing:.13em;text-transform:uppercase;
   color:var(--steel);margin-bottom:14px}
 .taglist .tag{border-color:var(--line);color:var(--accent);background:var(--paper-alt)}
@@ -2603,6 +2819,19 @@ section[id]{scroll-margin-top:96px}
 @media (hover:hover) and (pointer:fine){
   .case-rail,.letters-rail,.assoc-rail,.news-rail,.svc-rail{scroll-snap-type:none}
 }
+/* Overflowing tile rails: edge fade overlays (not a mask — grab-drag stays). */
+.rail-fade{position:relative;--rail-fade-c:var(--paper)}
+.rail-fade::before,.rail-fade::after{
+  content:"";position:absolute;top:0;bottom:0;z-index:3;pointer-events:none}
+.rail-fade::before{
+  left:calc(var(--gutter) * -1);width:clamp(16px,2.4vw,40px);
+  background:linear-gradient(90deg,var(--rail-fade-c),transparent)}
+.rail-fade::after{
+  right:calc(var(--gutter) * -1);width:clamp(28px,4.8vw,72px);
+  background:linear-gradient(90deg,transparent,var(--rail-fade-c))}
+#services .rail-fade{--rail-fade-c:rgba(228,228,240,.94)}
+[data-theme="dark"] .rail-fade{--rail-fade-c:var(--paper)}
+[data-theme="dark"] #services .rail-fade{--rail-fade-c:rgba(16,16,40,.92)}
 
 /* =========================================================================
    Mobile pass over everything added in this round

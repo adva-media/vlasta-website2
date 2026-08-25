@@ -18,6 +18,13 @@
     "addressStreet_en": "office 4N, 13, Usacheva str.",
     "addressCity_en": "Moscow"
   },
+  "privacy": {
+    "pagesDir": "assets/legal/privacy",
+    "intro": "С информацией о политике конфиденциальности можно ознакомиться ниже.",
+    "intro_en": "Please find the information about our privacy policy below.",
+    "viewerTitle": "Политика в отношении обработки персональных данных ООО «Власта-Консалтинг»",
+    "viewerTitle_en": "Personal data processing policy of Vlasta Consulting LLC"
+  },
   "stats": [
     {
       "n": "2006",

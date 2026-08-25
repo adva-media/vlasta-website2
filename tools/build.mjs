@@ -112,6 +112,11 @@ const rich = s => String(s ?? '')
 const plain = s => String(s ?? '').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
 const j = (...c) => c.filter(Boolean).join('\n');
 
+/* Figure units in a .stat__n: single-glyph marks (+, %) stay slightly stronger,
+   word units (год / млрд ₽ / нед) read quieter. Shared by the hero stats row
+   and the approach KPI row so both keep one type rhythm. */
+const uClass = (str) => (/^[+\-%‰×]$/.test(String(str).trim()) ? 'u u--mark' : 'u u--word');
+
 /* Homepage service card title: optional soft break (desktop-only <br>). */
 const svcHomeTitle = (s) => {
   const lines = t(s, 'titleBreak');
@@ -230,9 +235,9 @@ const C = {
     contactsLead:'119048, город Москва, ул. Усачёва, д. 13, помещ. 4н. Будни: 9:30 - 18:00.',
     mapTitle:'Офис «Власта-Консалтинг» на карте: Москва, ул. Усачёва, 13',
     privacyTitle:'Политика конфиденциальности — Власта-Консалтинг',
-    privacyDesc:'Политика обработки персональных данных ООО «Власта-Консалтинг»: какие данные мы собираем, цели и правовые основания обработки, сроки хранения и ваши права.',
+    privacyDesc:'Политика в отношении обработки персональных данных ООО «Власта-Консалтинг», согласованная с юридической службой. Полный текст документа — на этой странице.',
     privacyKick:'Правовая информация', privacyH1:'Политика конфиденциальности',
-    privacyEdition:'Редакция от',
+    privacyPageAlt:(i, n) => `Страница ${i} из ${n}`,
     geoMapLabel:'Карта: Россия, страны СНГ и ЕАЭС',
     videoTitle:'Видео к материалу',
   },
@@ -302,9 +307,9 @@ const C = {
     contactsLead:'office 4N, 13, Usacheva str., Moscow, 119048. Weekdays: 9:30 a.m. - 6 p.m.',
     mapTitle:'Vlasta Consulting office on the map: Usacheva 13, Moscow',
     privacyTitle:'Privacy policy — Vlasta Consulting',
-    privacyDesc:'Personal data processing policy of Vlasta Consulting LLC: what we collect, the purposes and legal basis for processing, retention periods and your rights.',
+    privacyDesc:'Personal data processing policy of Vlasta Consulting LLC as approved by counsel. The full document is published on this page.',
     privacyKick:'Legal', privacyH1:'Privacy policy',
-    privacyEdition:'Revised',
+    privacyPageAlt:(i, n) => `Page ${i} of ${n}`,
     geoMapLabel:'Map: Russia, the CIS and the EAEU',
     videoTitle:'Video for this article',
   },
@@ -756,38 +761,59 @@ const marquee = () => {
 </section>`;
 };
 
-/* Approach: department tiles (tabs) + reveal panel + KPI row. */
+/* Approach: six department cards in a staggered wide/narrow grid, each one a
+   disclosure that starts closed (icon + title + plus). WIDE drives the zigzag
+   rhythm on the 3-column desktop grid: wide+narrow / narrow+wide / wide+narrow
+   — each row fills, none repeat. A photo layer per card is aligned in grid
+   coordinates by JS (--cx/--cy) so all six clip one shared backdrop shot;
+   data-portrait-travel tunes the shared phero scroll pan down to a drift.
+   The empty .appr__wire <li> is the connector-network overlay — it paints
+   under the cards, so it is emitted first; JS fills it (see initApprWire).
+   The KPI figures below reuse the hero .stats row verbatim. */
+const APPR_WIDE = [true, false, false, true, true, false];
 const approachBlock = () => {
-  const tablistLabel = EN ? 'Departments' : 'Отделы';
-  const tabs = site.departments.map((d, i) => {
-    const id = `appr-tab-${i}`;
-    const panelId = `appr-panel-${i}`;
-    const on = i === 0;
-    return `<button type="button" class="appr__tab${on ? ' is-on' : ''}" role="tab" id="${id}"
-      aria-selected="${on ? 'true' : 'false'}" aria-controls="${panelId}" tabindex="${on ? '0' : '-1'}" data-i="${i}">
-      <span class="ico appr__ico">${I[d.icon] || I.search}</span>
-      <span class="appr__lb">${esc(t(d, 'short'))}</span>
-    </button>`;
-  }).join('');
-  const panels = site.departments.map((d, i) => {
-    const on = i === 0;
-    return `<div class="appr__panel${on ? ' is-on' : ''}" role="tabpanel" id="appr-panel-${i}"
-      aria-labelledby="appr-tab-${i}" aria-hidden="${on ? 'false' : 'true'}">
-      <h3 class="appr__panel-t">${esc(t(d, 'title'))}</h3>
-      <p class="appr__panel-d">${esc(t(d, 'text'))}</p>
-    </div>`;
-  }).join('');
-  const kpis = site.results.map((r, i) => `<div class="res__c reveal"${i ? ` data-d="${i}"` : ''}>
-        <div class="res__head">
-          <span class="res__ico">${I[r.icon] || I.shield}</span>
-          <div class="res__n" data-count="${esc(r.count)}"${r.decimals ? ` data-decimals="${r.decimals}"` : ''}>
-            <span class="res__pre">${esc(r.prefix || '')}</span><span class="res__v">${esc(r.value)}</span><span class="res__u">${esc(t(r, 'unit') || '')}</span>
+  const deptsLabel = EN ? 'Departments' : 'Отделы';
+  const cards = site.departments.map((d, i) => {
+    const cls = ['appr__dept', 'reveal'];
+    if (APPR_WIDE[i]) cls.push('appr__dept--wide');
+    if (i === 0) cls.push('appr__dept--lead');
+    const delay = Math.min(i, 4);
+    const num = String(i + 1).padStart(2, '0');
+    return `<li class="${cls.join(' ')}"${delay ? ` data-d="${delay}"` : ''}>
+        <span class="appr__shot" aria-hidden="true"></span>
+        <h3 class="appr__dept-h">
+          <button type="button" class="appr__toggle" id="appr-t-${i}"
+            aria-expanded="false" aria-controls="appr-p-${i}">
+            <span class="ico appr__ico">${I[d.icon] || I.search}</span>
+            <span class="appr__dept-t">${esc(t(d, 'title'))}</span>
+            <span class="appr__pm" aria-hidden="true"></span>
+          </button>
+        </h3>
+        <div class="appr__body" id="appr-p-${i}" role="region" aria-labelledby="appr-t-${i}">
+          <div class="appr__body-in">
+            <p class="appr__tag"><span class="appr__num">${num}</span>${esc(t(d, 'short'))}</p>
+            <p class="appr__dept-d">${esc(t(d, 'text'))}</p>
           </div>
         </div>
-        <p class="res__l">${rich(t(r, 'label'))}</p>
-      </div>`).join('');
+      </li>`;
+  }).join('');
+  /* Same atom as the hero figures row (#intro .stats) — plain white, one type
+     scale — so the KPIs read as company figures, not as a second card system. */
+  const figs = site.results.map(r => {
+    const unit = t(r, 'unit') || '';
+    const pre = r.prefix || '';
+    return `<div class="stat">
+        <div class="stat__n" data-count="${esc(r.count)}"${r.decimals ? ` data-decimals="${r.decimals}"` : ''}>${
+          pre ? `<span class="${uClass(pre)}">${esc(pre)}</span>` : ''
+        }<span class="stat__v">${esc(r.value)}</span>${
+          unit ? `<span class="${uClass(unit)}">${esc(unit)}</span>` : ''
+        }</div>
+        <div class="stat__l">${rich(t(r, 'label'))}</div>
+      </div>`;
+  }).join('');
   return `<div class="appr reveal" id="appr">
   <div class="appr__shell">
+    <div class="appr__inner">
     <header class="appr__head">
       <div class="appr__intro">
         ${kick(C.apprKicker)}
@@ -795,14 +821,12 @@ const approachBlock = () => {
       </div>
       <p class="lead appr__lead">${esc(C.apprDesc)}</p>
     </header>
-    <div class="appr__browser">
-      <div class="appr__tabs" role="tablist" aria-label="${tablistLabel}">${tabs}</div>
-      <div class="appr__panels">${panels}</div>
-    </div>
-    <div class="appr__kpi">
+    <ul class="appr__grid" role="list" aria-label="${deptsLabel}" data-portrait-travel="0.42"><li class="appr__wire" aria-hidden="true"><svg class="appr__wire-svg" focusable="false" aria-hidden="true"></svg></li>${cards}</ul>
+    <div class="appr__figs">
       <p class="appr__kpi-h">${esc(C.apprKpiHead)}</p>
       <p class="appr__kpi-note">${esc(C.apprKpiNote)}</p>
-      <div class="res">${kpis}</div>
+      <div class="stats stats--appr reveal reveal--fade">${figs}</div>
+    </div>
     </div>
   </div>
 </div>`;
@@ -1076,8 +1100,6 @@ function buildHome() {
       ${site.stats.map(s => {
         const suffix = t(s, 'suffix');
         const unit = t(s, 'unit');
-        /* Single-glyph marks (+, %) stay slightly stronger; word units quieter */
-        const uClass = (str) => (/^[\+\-%‰]$/.test(String(str).trim()) ? 'u u--mark' : 'u u--word');
         const countAttr = s.count != null
           ? ` data-count="${esc(String(s.count))}"${s.decimals ? ` data-decimals="${s.decimals}"` : ''}`
           : '';
@@ -1100,6 +1122,7 @@ function buildHome() {
       mod: 'stack',
       extra: seeall('services.html', T.allServices),
     })}
+    <div class="rail-fade">
     <div class="svc-rail reveal" tabindex="0" role="group" aria-label="${esc(C.svcTitle)}">
       ${site.services.map((s) => `<article class="svc-card" data-svc-bg="${esc(s.id)}">
         <div class="svc-card__media" aria-hidden="true">
@@ -1131,18 +1154,17 @@ function buildHome() {
         </div>
       </article>`).join('')}
     </div>
+    </div>
   </div>
 </section>
 
 ${marquee()}
 
-<div class="glasszone">
 <section class="sec" id="approach">
   <div class="wrap">
     ${approachBlock()}
   </div>
 </section>
-</div><!-- /glasszone -->
 
 <section class="sec" id="cases">
   <div class="wrap">
@@ -1150,7 +1172,7 @@ ${marquee()}
       k: C.casesKicker, h: C.casesTitle,
       extra: seeall('cases.html', T.allCases),
     })}
-    <div class="case-rail" tabindex="0" role="group" aria-label="${C.casesTitle}">${railCases.map(x => caseCard(x, 0, 0)).join('')}</div>
+    <div class="rail-fade"><div class="case-rail" tabindex="0" role="group" aria-label="${C.casesTitle}">${railCases.map(x => caseCard(x, 0, 0)).join('')}</div></div>
   </div>
 </section>
 
@@ -1192,9 +1214,9 @@ ${marquee()}
       k: C.newsKicker, h: C.newsTitle,
       extra: seeall('news.html', T.allNews),
     })}
-    <div class="news-rail" tabindex="0" role="group" aria-label="${esc(C.newsTitle)}">${
+    <div class="rail-fade"><div class="news-rail" tabindex="0" role="group" aria-label="${esc(C.newsTitle)}">${
       news.map((n, i) => newsCard(n, 0, 0, { eager: i < 3 })).join('')
-    }</div>
+    }</div></div>
   </div>
 </section>
 
@@ -1347,11 +1369,13 @@ ${scenariosBlock()}
   <div class="wrap">
     ${site.services.map(s => `<article class="svc-detail reveal" id="${s.id}">
       <figure class="svc-detail__hero">
-        <div class="ncard__img">
-          <img src="${rel(0, s.img)}" alt="" loading="lazy" decoding="async">
+        <div class="svc-detail__frame">
+          <div class="ncard__img">
+            <img src="${rel(0, s.img)}" alt="" loading="lazy" decoding="async">
+          </div>
+          <span class="svc-detail__n" aria-hidden="true">${esc(s.num)}</span>
+          <h2 class="svc-detail__title">${esc(t(s,'title'))}</h2>
         </div>
-        <span class="svc-detail__n" aria-hidden="true">${esc(s.num)}</span>
-        <h2 class="svc-detail__title">${esc(t(s,'title'))}</h2>
         <figcaption class="svc-detail__intro">${esc(t(s,'intro'))}</figcaption>
       </figure>
       <div class="fold-list">
@@ -1766,44 +1790,41 @@ function buildContacts() {
 }
 
 /* -------------------------------------------------------------- PRIVACY */
+function privacyPageFiles(dirRel) {
+  const abs = path.join(ROOT, dirRel);
+  if (!fs.existsSync(abs)) return [];
+  return fs.readdirSync(abs)
+    .filter(f => /^page-\d+\.(webp|png|jpe?g)$/i.test(f))
+    .sort((a, b) => parseInt(a.match(/\d+/)[0], 10) - parseInt(b.match(/\d+/)[0], 10))
+    .map(f => `${dirRel}/${f}`);
+}
+
 function buildPrivacy() {
   const c = chrome('', 0, 'privacy.html');
-  const S = EN ? [
-    ['General', [`This Policy sets out how ${O.legal} (the Company) processes personal data and the measures taken to keep it secure.`, 'By using the site and contacting us by phone or email, you accept the terms of this Policy.']],
-    ['What we process', ['Your name, company, phone number, email address and the content of your enquiry — only as far as you provide it yourself.', 'Technical data: IP address, browser and device type, referral source and on-site activity, in anonymised form, for statistics.']],
-    ['Purposes', ['Responding to your enquiry and providing a consultation.', 'Improving the site and the quality of our services.', 'Meeting the requirements of the law of the Russian Federation.']],
-    ['Legal basis', ['Processing is carried out on the basis of your consent and in accordance with Federal Law No. 152-FZ of 27 July 2006 “On Personal Data”.']],
-    ['Disclosure to third parties', ['The Company does not sell or pass personal data to third parties, except where the law expressly requires it or where it is necessary to act on your enquiry.']],
-    ['Retention', ['Personal data is kept no longer than the purposes of processing require, or until you withdraw your consent.']],
-    ['Cookies', ['The site uses cookies so the interface works correctly and to collect anonymised statistics. You can disable cookies in your browser settings.']],
-    ['Your rights', ['You may request information about the processing of your data, ask for it to be corrected, blocked or deleted, and withdraw your consent to processing.', `To exercise these rights, write to ${O.email}.`]],
-    ['Contact', [`${O.legal}, ${O.address}. Phone: ${O.phone}. Email: ${O.email}.`]],
-  ] : [
-
-    ['Общие положения', [`Настоящая Политика определяет порядок обработки персональных данных ${O.legal} (далее — Компания) и меры по обеспечению их безопасности.`, 'Используя сайт и обращаясь к нам по телефону или электронной почте, вы соглашаетесь с условиями настоящей Политики.']],
-    ['Какие данные мы обрабатываем', ['Имя, название компании, телефон, адрес электронной почты и содержание обращения — в объёме, который вы сообщаете нам сами.', 'Технические данные: IP-адрес, тип браузера и устройства, источник перехода, действия на сайте — в обезличенном виде для статистики.']],
-    ['Цели обработки', ['Ответ на ваше обращение и проведение консультации.', 'Улучшение работы сайта и качества услуг.', 'Исполнение требований законодательства Российской Федерации.']],
-    ['Правовые основания', ['Обработка осуществляется на основании вашего согласия, а также в соответствии с Федеральным законом от 27.07.2006 № 152-ФЗ «О персональных данных».']],
-    ['Передача третьим лицам', ['Компания не продаёт и не передаёт персональные данные третьим лицам, за исключением случаев, прямо предусмотренных законодательством, либо когда это необходимо для исполнения вашего обращения.']],
-    ['Срок хранения', ['Персональные данные хранятся не дольше, чем это необходимо для целей обработки, либо до отзыва вашего согласия.']],
-    ['Файлы cookie', ['Сайт использует файлы cookie для корректной работы интерфейса и сбора обезличенной статистики. Вы можете отключить cookie в настройках браузера.']],
-    ['Ваши права', ['Вы вправе запросить сведения об обработке ваших данных, потребовать их уточнения, блокирования или удаления, а также отозвать согласие на обработку.', `Для реализации прав направьте обращение на ${O.email}.`]],
-    ['Контакты', [`${O.legal}, ${O.address}. Телефон: ${O.phone}. E-mail: ${O.email}.`]],
-  ];
+  const pol = site.privacy || {};
+  const pagesDir = pol.pagesDir || 'assets/legal/privacy';
+  const pages = privacyPageFiles(pagesDir);
+  const viewerTitle = esc(t(pol, 'viewerTitle') || C.privacyH1);
+  const total = pages.length;
+  const stack = pages.map((src, i) => {
+    const n = i + 1;
+    const eager = i === 0;
+    return `<img src="${esc(assetRel(0, src))}" alt="${esc(C.privacyPageAlt(n, total))}" width="1240" height="1754" ${eager ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async">`;
+  }).join('\n      ');
   const html = j(
     head({
       title: C.privacyTitle,
       desc: C.privacyDesc,
       canonical: EN ? `${BASE}/en/privacy.html` : `${BASE}/privacy.html`, page: 'privacy.html',
       robots: 'index,follow',
-      jsonld: [orgLd, crumbLd([['Главная', ''], ['Политика конфиденциальности', 'privacy.html']])],
+      jsonld: [orgLd, crumbLd([[T.home, ''], [T.privacy, 'privacy.html']])],
     }),
     c.header,
     `<main>
 <section class="phero">
   ${engrave('tr', 'ph')}
   <div class="wrap">
-    <nav class="crumbs" aria-label="${T.crumbs}"><a href="index.html">${T.home}</a> / <span>Политика конфиденциальности</span></nav>
+    <nav class="crumbs" aria-label="${T.crumbs}"><a href="index.html">${T.home}</a> / <span>${T.privacy}</span></nav>
     ${kick(C.privacyKick)}
     <h1 class="h1">${C.privacyH1}</h1>
   </div>
@@ -1811,10 +1832,11 @@ function buildPrivacy() {
 <section class="sec">
   <div class="wrap wrap--narrow">
     <div class="prose">
-      ${S.map((s, i) => `<h2><span class="step">${String(i + 1).padStart(2, '0')}</span>${esc(s[0])}</h2>
-      ${s[1].map(p => `<p>${esc(p)}</p>`).join('')}`).join('')}
-      <p class="muted" style="margin-top:34px;padding-top:20px;border-top:1px solid var(--line);font-size:14px">${C.privacyEdition} ${BUILT}.</p>
+      <p>${rich(t(pol, 'intro'))}</p>
     </div>
+    <figure class="policy-pages" role="region" aria-label="${viewerTitle}">
+      ${stack}
+    </figure>
   </div>
 </section>
 </main>`,
@@ -1858,6 +1880,7 @@ ${frags.join('\n')}
   if (!EN) fs.writeFileSync(path.join(ROOT, 'robots.txt'), `User-agent: *
 Allow: /
 Disallow: /_boss-preview/
+Disallow: /content/legal/
 
 Sitemap: ${BASE}/sitemap.xml
 `, 'utf8');
