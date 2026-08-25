@@ -137,7 +137,7 @@
     bands.forEach(function (el) { cio.observe(el); });
   })();
 
-  /* -------- Fabric mesh: MST graph + traveling pulses (CTA band + approach hex) */
+  /* -------- Fabric mesh: MST graph + traveling pulses (CTA band) */
   var FABRIC_TAU = Math.PI * 2;
   var fabricLogoCache = {};
 
@@ -191,7 +191,7 @@
     var exteriorRatio = opts.exteriorRatio == null ? 0.48 : opts.exteriorRatio;
     var pinBottom = opts.pinBottom !== false;
     var useBleedY = opts.bleedY !== 0;
-    /* Horizontal overscan only when opted in (approach shell clips; CTA must not expand scrollWidth). */
+    /* Horizontal overscan only when opted in (CTA must not expand scrollWidth). */
     var useBleedX = opts.bleedX != null && opts.bleedX !== 0;
     var enabledMq = opts.enabledMq || null;
     /* Motion / size tuning — CTA defaults are bolder; approach passes softer values. */
@@ -261,11 +261,19 @@
       return root.getAttribute('data-theme') === 'dark';
     }
 
-    /* Indigo/slate — matches --accent (#535D86); avoid purple neon. */
+    /* Indigo/slate — matches --accent (#535D86); avoid purple neon.
+       paperInk: darker strokes so the graph reads on white (CTA defaults assume a dark band). */
+    var paperInk = !!opts.paperInk;
     function violet(alpha, bright) {
       var r, g, b;
       var a = alpha * alphaScale;
-      if (bright) {
+      if (paperInk) {
+        if (bright) {
+          r = 46; g = 54; b = 96;
+        } else {
+          r = 32; g = 38; b = 72;
+        }
+      } else if (bright) {
         r = dark ? 176 : 100;
         g = dark ? 186 : 112;
         b = dark ? 214 : 154;
@@ -1553,9 +1561,6 @@
     });
   });
 
-
-
-
   /* Open a service fold when linked as #service-icon (homepage bullets). */
   function openHashFold() {
     var id = (location.hash || '').slice(1);
@@ -1682,7 +1687,7 @@
     var run = function (el) {
       var target = parseFloat(el.getAttribute('data-count'));
       var dec = parseInt(el.getAttribute('data-decimals') || '0', 10);
-      var out = $('.res__v, .geo__v, .stat__v', el);
+      var out = $('.geo__v, .stat__v', el);
       if (!out || isNaN(target)) return;
       if (reduce) { out.textContent = fmt(target, dec); return; }
       var start = null, dur = 1400;
@@ -1704,7 +1709,7 @@
         });
       }, { threshold: 0.4 });
       figures.forEach(function (el) {
-        var out = $('.res__v, .geo__v, .stat__v', el);
+        var out = $('.geo__v, .stat__v', el);
         if (out) out.textContent = '0';
         fo.observe(el);
       });
@@ -2480,8 +2485,12 @@
      data-portrait-travel="0.5"–"1" (or 50–100) on the hero if needed.
      News/cases (.phero--photo) drive background-position; services
      (.svc-detail__hero) drive object-position on the inner photo and a CSS
-     translateY on .svc-detail__n — same --bgy. */
-  var pheros = reduce ? [] : $$('.phero--photo, .svc-detail__hero');
+     translateY on .svc-detail__n — same --bgy. The approach card grid rides
+     along too: --bgy lands on the grid and inherits into all six clipped photo
+     layers at once, so they pan in lockstep and stay one continuous frame. It
+     carries data-portrait-travel to cut the sweep right down — a mid-page
+     backdrop wants a hint of drift, not a hero-sized pan. */
+  var pheros = reduce ? [] : $$('.phero--photo, .svc-detail__hero, .appr__grid');
   var PHERO_PORTRAIT_RATIO = 1.2;
   var PHERO_PORTRAIT_TRAVEL = 0.5;
 
@@ -2981,49 +2990,585 @@
   var yr = $('#yr');
   if (yr) yr.textContent = new Date().getFullYear();
 
-  /* ---------------------------------------- approach department tabs
-     Click / arrow keys select a department tile; panel below crossfades. */
-  var appr = $('#appr');
-  if (appr) {
-    var tabs = $$('[role="tab"]', appr);
-    var panels = $$('[role="tabpanel"]', appr);
-    var active = 0;
+  /* ================================================================ BEGIN
+     approach — connector network (.appr__wire)            SELF-CONTAINED
+     ----------------------------------------------------------------------
+     Opening a department card draws an orthogonal trace out to the other
+     five, so the six tiles read as one wired system rather than six tiles.
 
-    function setTab(i, focus) {
-      if (i < 0 || i >= tabs.length) return;
-      if (i === active) {
-        if (focus && tabs[i]) tabs[i].focus();
-        return;
+     ROUTING. Everything rides the real layout, never fixed coordinates.
+     Cards are clustered into rows by offsetTop (the grid is
+     align-items:start, so a row shares one top). The full-width gap between
+     two rows is a horizontal corridor — the bus. The free column gaps inside
+     a row are vertical corridors. A route leaves the source at its bottom
+     (or top) edge midpoint, drops into the adjacent bus, runs along it, hops
+     down through a row's nearest vertical corridor to the next bus when it
+     has to clear a row, then finally runs to the target's centre x and pokes
+     into the target's facing edge midpoint. Where a row has no gap to hop
+     through — single-column, or a card spanning the whole row — the hop goes
+     straight through the card; the overlay paints *under* the cards, so that
+     stretch is simply hidden and the visible run stays continuous.
+
+     BRANCHING. The five routes are then made to share metal: every route is
+     split at any vertex another route lands on, the results are pushed into
+     a trie keyed on points, and single-child chains are collapsed. What comes
+     out is a trunk that forks — overlapping runs are one path, not five
+     stacked ones — and each edge inherits its parent's finish time as its
+     own start, so the draw flows outward through the junctions.
+
+     TO REVERT: delete this function, the three wire.* calls inside
+     initApproach(), the BEGIN…END connector-network section in
+     assets/css/style.css, and the <li class="appr__wire"> in tools/build.mjs.
+     ==================================================================== */
+  function initApprWire(grid) {
+    var noop = { source: function () {}, reflow: function () {} };
+    var svg = grid.querySelector('.appr__wire-svg');
+    if (!svg || !document.createElementNS || !svg.getBBox) return noop;
+
+    var NS = 'http://www.w3.org/2000/svg';
+    var RAD = 14;     /* corner fillet in px — opened up a step to stay in
+                         proportion with the heavier stroke */
+    var SPEED = 1350; /* px/s the trace advances at, so long runs take longer */
+    var LAG = 220;    /* ms: let the disclosure's height transition mostly land
+                         before measuring, so the trace is laid out on nearly
+                         final geometry and only creeps a pixel or two after */
+    var BASE = 0.06;  /* s head start on the root edge */
+    var SLACK = 1.05; /* dasharray padding: geometry still creeps a hair while
+                         the draw runs, and a dasharray shorter than the path
+                         would leave an undrawn tail */
+
+    var rects = [], src = -1;
+    var net = null, edges = [], ray = null, rayIdx = null;
+    var drawEnd = 0, buildT = 0, doneT = 0;
+    var visible = true, pending = false;
+
+    function tnow() { return window.performance ? performance.now() : Date.now(); }
+    function q(v) { return Math.round(v * 2) / 2; }
+    function n1(v) { return Math.round(v * 10) / 10; }
+    function ms(s) { return Math.round(s * 1000) / 1000 + 's'; }
+    function mk(tag, cls) {
+      var e = document.createElementNS(NS, tag);
+      e.setAttribute('class', cls);
+      return e;
+    }
+    function kOf(p) { return p[0] + '|' + p[1]; }
+    function put(a, p) {
+      var z = a[a.length - 1];
+      if (!z || z[0] !== p[0] || z[1] !== p[1]) a.push(p);
+    }
+    function polyLen(pts) {
+      var L = 0;
+      for (var i = 1; i < pts.length; i++)
+        L += Math.abs(pts[i][0] - pts[i - 1][0]) + Math.abs(pts[i][1] - pts[i - 1][1]);
+      return L;
+    }
+    /* Drop pass-through vertices: they were only there to let routes meet. */
+    function simplify(pts) {
+      var out = [pts[0]];
+      for (var i = 1; i < pts.length - 1; i++) {
+        var a = out[out.length - 1], b = pts[i], c = pts[i + 1];
+        if (!((a[0] === b[0] && b[0] === c[0]) || (a[1] === b[1] && b[1] === c[1]))) out.push(b);
       }
-      active = i;
-      tabs.forEach(function (tab, j) {
-        var on = j === i;
-        tab.classList.toggle('is-on', on);
-        tab.setAttribute('aria-selected', on ? 'true' : 'false');
-        tab.tabIndex = on ? 0 : -1;
-      });
-      panels.forEach(function (panel, j) {
-        var on = j === i;
-        panel.classList.toggle('is-on', on);
-        panel.setAttribute('aria-hidden', on ? 'false' : 'true');
-      });
-      if (focus && tabs[i]) tabs[i].focus();
+      put(out, pts[pts.length - 1]);
+      return out;
+    }
+    /* Orthogonal polyline → path with a quadratic fillet at every turn. */
+    function dOf(pts) {
+      var d = 'M' + n1(pts[0][0]) + ' ' + n1(pts[0][1]);
+      for (var i = 1; i < pts.length - 1; i++) {
+        var a = pts[i - 1], b = pts[i], c = pts[i + 1];
+        var l1 = Math.abs(b[0] - a[0]) + Math.abs(b[1] - a[1]);
+        var l2 = Math.abs(c[0] - b[0]) + Math.abs(c[1] - b[1]);
+        if (!l1 || !l2) continue;
+        var r = Math.min(RAD, l1 / 2, l2 / 2);
+        d += ' L' + n1(b[0] + (a[0] - b[0]) / l1 * r) + ' ' + n1(b[1] + (a[1] - b[1]) / l1 * r) +
+          ' Q' + n1(b[0]) + ' ' + n1(b[1]) +
+          ' ' + n1(b[0] + (c[0] - b[0]) / l2 * r) + ' ' + n1(b[1] + (c[1] - b[1]) / l2 * r);
+      }
+      return d + ' L' + n1(pts[pts.length - 1][0]) + ' ' + n1(pts[pts.length - 1][1]);
     }
 
-    tabs.forEach(function (tab, i) {
-      tab.addEventListener('click', function () { setTab(i, false); });
-      tab.addEventListener('keydown', function (e) {
-        var next = -1;
-        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next = (i + 1) % tabs.length;
-        else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') next = (i - 1 + tabs.length) % tabs.length;
-        else if (e.key === 'Home') next = 0;
-        else if (e.key === 'End') next = tabs.length - 1;
-        if (next < 0) return;
-        e.preventDefault();
-        setTab(next, true);
+    /* ---------------------------------------------- routes from real layout */
+    function routes() {
+      if (src < 0 || !rects[src] || rects.length < 2) return null;
+      var rows = [];
+      rects.forEach(function (c) {
+        var row = null;
+        for (var k = 0; k < rows.length; k++)
+          if (Math.abs(rows[k].top - c.t) < 3) { row = rows[k]; break; }
+        if (!row) { row = { top: c.t, bot: c.t + c.h, list: [] }; rows.push(row); }
+        row.top = Math.min(row.top, c.t);
+        row.bot = Math.max(row.bot, c.t + c.h);
+        row.list.push(c.i);
+      });
+      if (rows.length < 2) return null;
+      rows.sort(function (a, b) { return a.top - b.top; });
+      var rowOf = [];
+      rows.forEach(function (row, ri) { row.list.forEach(function (i) { rowOf[i] = ri; }); });
+      /* buses: mid-line of each row gap, always the full grid width */
+      var hy = [], r;
+      for (r = 0; r < rows.length - 1; r++) hy[r] = q((rows[r].bot + rows[r + 1].top) / 2);
+      /* risers: mid-line of each free column gap, per row (a --wide card
+         swallows the gap its row would otherwise have) */
+      var gaps = rows.map(function (row) {
+        var ls = row.list.slice().sort(function (a, b) { return rects[a].l - rects[b].l; });
+        var out = [], edge = null;
+        ls.forEach(function (i) {
+          var c = rects[i];
+          if (edge !== null && c.l - edge > 4) out.push(q((edge + c.l) / 2));
+          edge = edge === null ? c.l + c.w : Math.max(edge, c.l + c.w);
+        });
+        return out;
+      });
+
+      var S = rects[src], rs = rowOf[src], scx = q(S.l + S.w / 2), out = [];
+      rects.forEach(function (T) {
+        if (T.i === src) return;
+        var rt = rowOf[T.i];
+        /* same-row targets are reached from the bus below (or above, in the
+           last row) so every route shares one trunk out of the source */
+        var dir = rt > rs ? 1 : rt < rs ? -1 : (rs < rows.length - 1 ? 1 : -1);
+        var y = dir > 0 ? hy[rs] : hy[rs - 1];
+        if (y == null) return;
+        var tcx = q(T.l + T.w / 2);
+        var pts = [[scx, q(dir > 0 ? S.t + S.h : S.t)]];
+        put(pts, [scx, y]);
+        var rr = rs;
+        while (dir > 0 ? rr + 1 < rt : rr - 1 > rt) {
+          rr += dir;
+          var g = gaps[rr], x = tcx, k;
+          for (k = 0; k < g.length; k++)
+            if (!k || Math.abs(g[k] - tcx) < Math.abs(x - tcx)) x = g[k];
+          var ny = dir > 0 ? hy[rr] : hy[rr - 1];
+          if (ny == null) break;
+          put(pts, [x, y]);
+          put(pts, [x, ny]);
+          y = ny;
+        }
+        put(pts, [tcx, y]);
+        put(pts, [tcx, rt === rs ? q(dir > 0 ? T.t + T.h : T.t)
+                                 : q(dir > 0 ? T.t : T.t + T.h)]);
+        if (pts.length > 1) out.push(pts);
+      });
+      return out.length ? out : null;
+    }
+
+    /* Split every segment wherever another route has a vertex on it, so the
+       trie below can merge partial overlaps and not just whole segments. */
+    function split(list) {
+      var verts = [];
+      list.forEach(function (p) { p.forEach(function (v) { verts.push(v); }); });
+      return list.map(function (p) {
+        var out = [p[0]];
+        for (var i = 1; i < p.length; i++) {
+          var a = p[i - 1], b = p[i], vert = a[0] === b[0], mids = [], j, v;
+          if (vert || a[1] === b[1]) {
+            for (j = 0; j < verts.length; j++) {
+              v = verts[j];
+              if (vert) {
+                if (v[0] === a[0] && (v[1] - a[1]) * (v[1] - b[1]) < 0) mids.push(v[1]);
+              } else if (v[1] === a[1] && (v[0] - a[0]) * (v[0] - b[0]) < 0) mids.push(v[0]);
+            }
+            var asc = vert ? b[1] > a[1] : b[0] > a[0];
+            mids.sort(function (x, y) { return asc ? x - y : y - x; });
+            for (j = 0; j < mids.length; j++) put(out, vert ? [a[0], mids[j]] : [mids[j], a[1]]);
+          }
+          put(out, b);
+        }
+        return out;
+      });
+    }
+
+    /* Collapse single-child runs into one path, but never past a terminal: a
+       spine that continues through one card's edge midpoint on its way to the
+       next (the single-column case) still has to stop there for a pad and a
+       fresh beat of stagger. */
+    function chain(node, t0, depth, out, parent) {
+      node.kids.forEach(function (kid) {
+        var pts = [node.p, kid.p], cur = kid;
+        while (cur.kids.length === 1 && !cur.term) { cur = cur.kids[0]; pts.push(cur.p); }
+        pts = simplify(pts);
+        var len = polyLen(pts);
+        var dur = Math.min(0.72, Math.max(0.17, len / SPEED));
+        var self = out.length;
+        out.push({ pts: pts, len: len, dur: dur, t0: t0, depth: depth,
+          term: !!cur.term, end: !cur.kids.length, up: parent });
+        /* a child starts a shade before its parent finishes, so the trace
+           flows through a junction instead of stopping dead at it */
+        chain(cur, t0 + dur * 0.82 + 0.035, depth + 1, out, self);
+      });
+    }
+
+    /* A source in a middle row reaches both ways, so there can be two roots —
+       an up-trunk and a down-trunk. Each gets its own trie. */
+    function collect(list) {
+      var groups = {}, order = [], out = [];
+      list.forEach(function (p) {
+        var k = kOf(p[0]);
+        if (!groups[k]) { groups[k] = []; order.push(k); }
+        groups[k].push(p);
+      });
+      order.forEach(function (k) {
+        var root = { p: groups[k][0][0], kids: [] };
+        groups[k].forEach(function (p) {
+          var cur = root;
+          for (var i = 1; i < p.length; i++) {
+            var kk = kOf(p[i]), hit = null;
+            for (var j = 0; j < cur.kids.length; j++)
+              if (cur.kids[j].k === kk) { hit = cur.kids[j]; break; }
+            if (!hit) { hit = { p: p[i], k: kk, kids: [] }; cur.kids.push(hit); }
+            cur = hit;
+          }
+          cur.term = true;
+        });
+        chain(root, BASE, 0, out, -1);
+      });
+      return out;
+    }
+
+    /* Indices of the longest root→leaf run of edges, used as the pulse track. */
+    function spine(list) {
+      var best = null;
+      list.forEach(function (e, i) {
+        if (!e.end) return;
+        var idx = [], k = i, L = 0;
+        while (k >= 0) { idx.unshift(k); L += list[k].len; k = list[k].up; }
+        if (!best || L > best.L) best = { idx: idx, L: L };
+      });
+      return best ? best.idx : null;
+    }
+
+    /* Stitch the chosen edges' own `d` attributes into one continuous path by
+       demoting each follow-on moveto to a (zero-length) lineto. The pulse then
+       rides geometry that is byte-identical to the rendered stroke — it cannot
+       drift out of register with it, which is what went wrong before. */
+    function stitch(idx) {
+      var d = '';
+      idx.forEach(function (k, n) {
+        var s = edges[k].line.getAttribute('d');
+        d += n ? ' L' + s.slice(1) : s;
+      });
+      return d;
+    }
+
+    function setRay(idx) {
+      if (!ray || !idx) return;
+      var d = stitch(idx);
+      ray[0].setAttribute('d', d);
+      ray[1].setAttribute('d', d);
+      var L = n1(ray[1].getTotalLength()) + 'px';
+      ray[0].style.setProperty('--wlen', L);
+      ray[1].style.setProperty('--wlen', L);
+    }
+
+    function setLen(rec, L) {
+      rec.line.style.setProperty('--wlen', n1(L) + 'px');
+      if (rec.tip) {
+        rec.tip.style.setProperty('--wlen', n1(L) + 'px');
+        rec.halo.style.setProperty('--wlen', n1(L) + 'px');
+      }
+    }
+
+    /* Hand the live net over to the retract animation and let it take itself
+       out. Each outgoing group owns its own timer, so switching cards fast
+       just overlaps a couple of fades instead of dropping one on the floor. */
+    function retire() {
+      clearTimeout(buildT); buildT = 0;
+      clearTimeout(doneT); doneT = 0;
+      if (!net) return;
+      var old = net;
+      net = null; edges = []; ray = null; rayIdx = null;
+      old.setAttribute('class', 'appr__wire-net is-out');
+      setTimeout(function () {
+        if (old.parentNode) old.parentNode.removeChild(old);
+      }, reduce ? 0 : 460);
+    }
+
+    function build() {
+      buildT = 0;
+      retire();
+      if (src < 0) return;
+      if (!visible) { pending = true; return; }
+      var raw = routes();
+      if (!raw) return;
+      var pieces = split(raw);
+      var list = collect(pieces);
+      if (!list.length) return;
+
+      var g = mk('g', 'appr__wire-net'), maxD = 0, last = 0;
+      list.forEach(function (e) { if (e.depth > maxD) maxD = e.depth; });
+      edges = [];
+      list.forEach(function (e) {
+        var d = dOf(e.pts);
+        var line = mk('path', 'appr__wire-l');
+        line.setAttribute('d', d);
+        line.style.setProperty('--wdur', ms(e.dur));
+        line.style.setProperty('--wdel', ms(e.t0));
+        line.style.setProperty('--odel', ms((maxD - e.depth) * 0.055));
+        g.appendChild(line);
+        var rec = { line: line, tip: null, halo: null, node: null, n: e.pts.length, plen: e.len };
+        if (!reduce) {
+          rec.halo = mk('path', 'appr__wire-tg');
+          rec.tip = mk('path', 'appr__wire-t');
+          [rec.halo, rec.tip].forEach(function (p) {
+            p.setAttribute('d', d);
+            p.style.setProperty('--wdur', ms(e.dur));
+            p.style.setProperty('--wdel', ms(e.t0));
+            g.appendChild(p);
+          });
+        }
+        if (e.term) {
+          var z = e.pts[e.pts.length - 1];
+          rec.node = mk('circle', 'appr__wire-n');
+          rec.node.setAttribute('cx', n1(z[0]));
+          rec.node.setAttribute('cy', n1(z[1]));
+          /* radius lives in CSS (--wire-pad) so weight stays retunable there */
+          rec.node.style.setProperty('--wdel', ms(e.t0 + e.dur * 0.9));
+          g.appendChild(rec.node);
+        }
+        edges.push(rec);
+        if (e.t0 + e.dur > last) last = e.t0 + e.dur;
+      });
+
+      /* Ambient pulse walks the longest trunk→branch run of the net. Its track
+         is stitched from those edges' own `d`, and re-stitched by patch(), so it
+         always sits exactly on the drawn line. It also picks up straight off the
+         back of the sweep, so it reads as the trace staying live rather than as
+         a second event arriving out of nowhere. */
+      rayIdx = reduce ? null : spine(list);
+      if (rayIdx) {
+        ray = ['appr__wire-pg', 'appr__wire-p'].map(function (cls) {
+          var p = mk('path', cls);
+          p.style.setProperty('--pcyc', '6.2s');
+          p.style.setProperty('--pdel', ms(last + 0.2));
+          g.appendChild(p);
+          return p;
+        });
+      }
+
+      svg.appendChild(g);
+      net = g;
+      /* getTotalLength needs the node in the document, hence the late pass. */
+      edges.forEach(function (rec) {
+        rec.wlen = (rec.line.getTotalLength() || rec.plen) * SLACK;
+        setLen(rec, rec.wlen);
+      });
+      setRay(rayIdx);
+      drawEnd = tnow() + last * 1000 + 140;
+      /* One tick past the sweep: pick up anything the draw was too busy to
+         accept (a breakpoint change mid-draw) and re-glue to final geometry. */
+      doneT = setTimeout(function () {
+        doneT = 0;
+        if (pending) { pending = false; if (visible) build(); return; }
+        patch();
+      }, last * 1000 + 220);
+    }
+
+    /* Re-point an existing net at fresh geometry: same topology → rewrite the
+       `d` strings and scale the dash lengths by how far the polyline moved
+       (cheaper, and steadier, than re-measuring every path each frame). A
+       breakpoint change alters the topology, so that rebuilds instead. */
+    function patch() {
+      if (!net || !edges.length) return;
+      var raw = routes();
+      if (!raw) return;
+      var list = collect(split(raw)), i;
+      var same = list.length === edges.length;
+      for (i = 0; same && i < list.length; i++) same = list[i].pts.length === edges[i].n;
+      if (!same) {
+        if (tnow() > drawEnd) build(); else pending = true;
+        return;
+      }
+      list.forEach(function (e, k) {
+        var rec = edges[k], d = dOf(e.pts);
+        rec.line.setAttribute('d', d);
+        if (rec.tip) { rec.tip.setAttribute('d', d); rec.halo.setAttribute('d', d); }
+        if (rec.node) {
+          var z = e.pts[e.pts.length - 1];
+          rec.node.setAttribute('cx', n1(z[0]));
+          rec.node.setAttribute('cy', n1(z[1]));
+        }
+        if (rec.plen > 0 && Math.abs(e.len - rec.plen) > 1) {
+          rec.wlen *= e.len / rec.plen;
+          rec.plen = e.len;
+          setLen(rec, rec.wlen);
+        }
+      });
+      /* the pulse track is stitched from the edges above, so it has to be
+         re-stitched here too — leaving it behind is what put the dot 21px
+         off the line while the disclosure finished opening */
+      setRay(rayIdx);
+    }
+
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) {
+        es.forEach(function (en) {
+          visible = en.isIntersecting;
+          if (!visible) { svg.setAttribute('class', 'appr__wire-svg is-idle'); return; }
+          svg.setAttribute('class', 'appr__wire-svg');
+          if (pending) { pending = false; build(); }
+        });
+      }, { rootMargin: '90px 0px' }).observe(grid);
+    }
+
+    return {
+      source: function (i) {
+        if (i === src) return;
+        src = i;
+        retire();
+        if (i < 0) { pending = false; drawEnd = 0; return; }
+        buildT = setTimeout(build, reduce ? 0 : LAG);
+      },
+      reflow: function (list) {
+        rects = list;
+        if (src < 0) return;
+        if (!visible) { pending = true; return; }
+        /* a build that was deferred (offscreen, or a breakpoint change while
+           the sweep was running) gets picked up here as well as by the
+           observer, so it can never be stranded waiting for a scroll */
+        if (pending) {
+          if (!net || tnow() > drawEnd) { pending = false; build(); }
+          return;
+        }
+        patch();
+      }
+    };
+  }
+  /* ================================================================== END
+     approach — connector network
+     ==================================================================== */
+
+  /* ------------------------------------ approach department accordion
+     Six disclosures, one open at a time, all closed to start. Height is
+     animated in px (measured per open) so the reveal never jumps, then
+     released to auto so a resize or late webfont cannot clip the copy. */
+  (function initApproach() {
+    var grid = $('.appr__grid');
+    if (!grid) return;
+    var cards = $$('.appr__dept', grid);
+    if (!cards.length) return;
+
+    var items = cards.map(function (card) {
+      return {
+        card: card,
+        btn: $('.appr__toggle', card),
+        body: $('.appr__body', card),
+        open: false,
+        timer: 0
+      };
+    }).filter(function (it) { return it.btn && it.body; });
+    if (!items.length) return;
+
+    /* Connector network — see initApprWire above. Fed by measure(); told
+       which card is the source by open()/close(). Remove these three calls
+       and the whole feature is gone. */
+    var wire = initApprWire(grid);
+
+    function settle(it) {
+      clearTimeout(it.timer);
+      it.timer = setTimeout(function () {
+        /* auto only while open — a fixed px height would clip on reflow */
+        it.body.style.height = it.open ? 'auto' : '';
+        measure();
+      }, 460);
+    }
+
+    function close(it) {
+      if (!it.open) return;
+      it.open = false;
+      clearTimeout(it.timer);
+      /* pin the live height so closing from `auto` still animates, and flush
+         it with a forced reflow so the 0 lands as a transition, not a jump */
+      it.body.style.height = it.body.scrollHeight + 'px';
+      void it.body.offsetHeight;
+      it.card.classList.remove('is-open');
+      it.btn.setAttribute('aria-expanded', 'false');
+      it.body.style.height = '0px';
+      settle(it);
+      track();
+      wire.source(-1);
+    }
+
+    function open(it) {
+      items.forEach(function (other) { if (other !== it) close(other); });
+      if (it.open) return;
+      it.open = true;
+      clearTimeout(it.timer);
+      it.card.classList.add('is-open');
+      it.btn.setAttribute('aria-expanded', 'true');
+      it.body.style.height = it.body.scrollHeight + 'px';
+      settle(it);
+      track();
+      wire.source(cards.indexOf(it.card));
+    }
+
+    items.forEach(function (it) {
+      it.body.style.height = '0px';
+      it.btn.setAttribute('aria-expanded', 'false');
+      it.btn.addEventListener('click', function () {
+        if (it.open) close(it); else open(it);
+      });
+      it.body.addEventListener('transitionend', function (e) {
+        if (e.propertyName === 'height' && e.target === it.body) settle(it);
       });
     });
-  }
+
+    /* --------------------------------------- cross-card photo backdrop
+       Each card clips a photo layer that is sized to the whole grid and pushed
+       back by that card's own offset inside it, so `cover` resolves against the
+       same box everywhere and the six cards read as windows onto one frame.
+       CSS paints it; JS only republishes geometry, batching reads before
+       writes. The scroll pan comes from the shared phero painter, which writes
+       --bgy on the grid — see `pheros` above. */
+    var raf = 0, trackUntil = 0;
+    var now = function () {
+      return window.performance ? performance.now() : Date.now();
+    };
+
+    function measure() {
+      /* offsetLeft/Top ignore transforms, so the reveal slide and the hover
+         lift cannot poison the geometry. Read every value, then write. */
+      var w = grid.clientWidth, h = grid.clientHeight;
+      /* width/height ride along for the connector network, which needs the
+         whole box to find edge midpoints and the gutters between them */
+      var box = cards.map(function (card, i) {
+        return { i: i, l: card.offsetLeft, t: card.offsetTop,
+          w: card.offsetWidth, h: card.offsetHeight };
+      });
+      grid.style.setProperty('--grid-w', w + 'px');
+      grid.style.setProperty('--grid-h', h + 'px');
+      cards.forEach(function (card, i) {
+        card.style.setProperty('--cx', box[i].l + 'px');
+        card.style.setProperty('--cy', box[i].t + 'px');
+      });
+      wire.reflow(box);
+    }
+
+    /* An open/close moves the cards below it, so follow the geometry for the
+       length of one transition and then stop. Bounded, never a standing loop;
+       settle() re-measures on a timer too, so a throttled rAF cannot leave
+       the frame stranded out of alignment. Under reduced motion the height
+       lands in one frame, so a single read is enough. */
+    function track() {
+      if (reduce) { measure(); return; }
+      trackUntil = now() + 560;
+      if (raf) return;
+      (function step() {
+        measure();
+        raf = now() < trackUntil ? requestAnimationFrame(step) : 0;
+      })();
+    }
+
+    measure();
+    addEventListener('load', measure);
+    grid.classList.add('is-lit');
+
+    if ('ResizeObserver' in window) {
+      new ResizeObserver(measure).observe(grid);
+    } else {
+      addEventListener('resize', measure, { passive: true });
+    }
+  })();
 
   /* ------------------------------------------- clients logo marquee
      Two brick rows share one band. Auto-scroll at half the old CSS speed,
