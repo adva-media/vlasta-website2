@@ -25,10 +25,10 @@
 <meta name="twitter:image" content="https://vlasta-s.com/assets/img/og-default.jpg">
 <meta name="theme-color" content="#141428">
 <script>(function(){var r=document.documentElement;r.classList.add('js');try{var t=localStorage.getItem('vlasta-theme');if(!t)t=matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';r.setAttribute('data-theme',t)}catch(e){}try{var K='vlasta-lang';var lang=(r.getAttribute('lang')||'ru').slice(0,2);if(lang!=='en')lang='ru';var pref=localStorage.getItem(K);if(pref!=='en'&&pref!=='ru'){localStorage.setItem(K,lang);document.cookie=K+'='+lang+';path=/;max-age=31536000;SameSite=Lax';return}if(pref===lang)return;var link=document.querySelector('link[rel="alternate"][hreflang="'+pref+'"]');if(!link)return;var href=link.getAttribute('href');if(!href)return;var dest=new URL(href,'https://vlasta-s.com');var leaf=(dest.pathname||'/').replace(/^\/en\//,'').replace(/^\//,'');if(!leaf||leaf.charAt(leaf.length-1)==='/')leaf='index.html';var cur=location.pathname.replace(/\\/g,'/');if(cur.slice(-1)==='/')cur+='index.html';else if(cur.slice(-3)==='/en')cur+='/index.html';var next;if(lang==='en'){var i=cur.lastIndexOf('/en/');if(i<0)return;next=cur.slice(0,i+1)+(pref==='en'?'en/'+leaf:leaf)}else{var j=cur.lastIndexOf('/'+leaf);if(j<0)return;next=cur.slice(0,j+1)+(pref==='en'?'en/'+leaf:leaf)}if(!next||next===cur)return;location.replace((location.protocol==='file:'?'file://':'')+next+location.search+location.hash)}catch(e){}})();</script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200..800;1,300..600&display=swap">
-<link rel="stylesheet" href="assets/css/style.css?v=9cc1b18d">
+<link rel="preload" href="assets/fonts/montserrat-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/montserrat-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+
+<link rel="stylesheet" href="assets/css/style.min.css?v=cfac104e">
 <link rel="icon" href="assets/img/logo-dark.svg" type="image/svg+xml">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Власта-Консалтинг","alternateName":"Vlasta Consulting","url":"https://vlasta-s.com/","logo":"https://vlasta-s.com/assets/img/logo-dark.svg","foundingDate":"2006","telephone":"+74951233336","email":"info@vlasta-s.com","address":{"@type":"PostalAddress","streetAddress":"ул. Усачёва, д. 13, помещ. 4н","addressLocality":"Москва","postalCode":"119048","addressCountry":"RU"},"areaServed":["RU","BY","KZ","UZ","KG","AM","GE"],"contactPoint":{"@type":"ContactPoint","telephone":"+74951233336","contactType":"customer service","availableLanguage":["Russian","English"]}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://vlasta-s.com/"},{"@type":"ListItem","position":2,"name":"Кейсы","item":"https://vlasta-s.com/cases.html"}]}</script>
@@ -110,7 +110,7 @@
           </div>
         </div>
       </a><a class="card case reveal" href="cases/rassledovanie-onlayn-oflayn.html" data-cat="Защита бренда" data-d="2">
-        <div class="case__img"><img src="assets/img/cases/rassledovanie-onlayn-oflayn.jpg" alt="Расследование, онлайн + офлайн" loading="lazy" decoding="async"></div>
+        <div class="case__img"><img src="assets/img/cases/rassledovanie-onlayn-oflayn.webp" alt="Расследование, онлайн + офлайн" loading="lazy" decoding="async"></div>
         <div class="case__b">
           <span class="case__cat">Защита бренда</span>
           <h2 class="h3">Расследование, онлайн + офлайн</h2>
@@ -134,7 +134,7 @@
           </div>
         </div>
       </a><a class="card case reveal" href="cases/proverka-bekgraunda.html" data-cat="Due diligence" data-d="1">
-        <div class="case__img"><img src="assets/img/cases/8.jpg" alt="Проверка бэкграунда" loading="lazy" decoding="async"></div>
+        <div class="case__img"><img src="assets/img/cases/8.webp" alt="Проверка бэкграунда" loading="lazy" decoding="async"></div>
         <div class="case__b">
           <span class="case__cat">Due diligence</span>
           <h2 class="h3">Проверка бэкграунда</h2>
@@ -146,7 +146,7 @@
           </div>
         </div>
       </a><a class="card case reveal" href="cases/podderzhka-v-sude.html" data-cat="Судебная поддержка" data-d="2">
-        <div class="case__img"><img src="assets/img/cases/podderzhka-v-sude.jpg" alt="Поддержка в суде" loading="lazy" decoding="async"></div>
+        <div class="case__img"><img src="assets/img/cases/podderzhka-v-sude.webp" alt="Поддержка в суде" loading="lazy" decoding="async"></div>
         <div class="case__b">
           <span class="case__cat">Судебная поддержка</span>
           <h2 class="h3">Поддержка в суде</h2>
@@ -158,7 +158,7 @@
           </div>
         </div>
       </a><a class="card case reveal" href="cases/strukturirovannyy-analiz.html" data-cat="Аналитика рисков">
-        <div class="case__img"><img src="assets/img/cases/strukturirovannyy-analiz.jpg" alt="Структурированный анализ" loading="lazy" decoding="async"></div>
+        <div class="case__img"><img src="assets/img/cases/strukturirovannyy-analiz.webp" alt="Структурированный анализ" loading="lazy" decoding="async"></div>
         <div class="case__b">
           <span class="case__cat">Аналитика рисков</span>
           <h2 class="h3">Структурированный анализ</h2>
@@ -182,7 +182,7 @@
           </div>
         </div>
       </a><a class="card case reveal" href="cases/blokirovka-kanalov-distribucii.html" data-cat="Защита бренда" data-d="2">
-        <div class="case__img"><img src="assets/img/cases/blokirovka-kanalov.jpg" alt="Блокировка каналов дистрибуции контрафакта" loading="lazy" decoding="async"></div>
+        <div class="case__img"><img src="assets/img/cases/blokirovka-kanalov.webp" alt="Блокировка каналов дистрибуции контрафакта" loading="lazy" decoding="async"></div>
         <div class="case__b">
           <span class="case__cat">Защита бренда</span>
           <h2 class="h3">Блокировка каналов дистрибуции контрафакта</h2>
@@ -194,7 +194,7 @@
           </div>
         </div>
       </a><a class="card case reveal" href="cases/rabota-po-eaes.html" data-cat="Защита бренда">
-        <div class="case__img"><img src="assets/img/cases/rabota-eaes.jpg" alt="Работа по ЕАЭС: защита рынка от трансграничного контрафакта" loading="lazy" decoding="async"></div>
+        <div class="case__img"><img src="assets/img/cases/rabota-eaes.webp" alt="Работа по ЕАЭС: защита рынка от трансграничного контрафакта" loading="lazy" decoding="async"></div>
         <div class="case__b">
           <span class="case__cat">Защита бренда</span>
           <h2 class="h3">Работа по ЕАЭС: защита рынка от трансграничного контрафакта</h2>
@@ -206,7 +206,7 @@
           </div>
         </div>
       </a><a class="card case reveal" href="cases/issledovanie-kanalov-postavok.html" data-cat="Бизнес-разведка" data-d="1">
-        <div class="case__img"><img src="assets/img/cases/kanaly-postavok.jpg" alt="Расследование: изучение каналов поставки" loading="lazy" decoding="async"></div>
+        <div class="case__img"><img src="assets/img/cases/kanaly-postavok.webp" alt="Расследование: изучение каналов поставки" loading="lazy" decoding="async"></div>
         <div class="case__b">
           <span class="case__cat">Бизнес-разведка</span>
           <h2 class="h3">Расследование: изучение каналов поставки</h2>
@@ -317,6 +317,6 @@
   </div>
 </div>
 <button class="totop" type="button" aria-label="Наверх"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg></button>
-<script src="assets/js/main.js?v=11f8bb56" defer></script>
+<script src="assets/js/main.min.js?v=fb111feb" defer></script>
 </body>
 </html>

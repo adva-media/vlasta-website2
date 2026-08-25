@@ -13,15 +13,24 @@
 import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
+import { minifyCss, minifyJs } from './minify.mjs';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
 const rd = p => JSON.parse(fs.readFileSync(path.join(ROOT, p), 'utf8'));
 
-/* Content-hash query on CSS/JS. The host serves assets with max-age=604800,
-   so without this a returning visitor keeps the previous stylesheet. */
+/* Content-hash query on the minified CSS/JS the pages actually load.
+   The host serves assets with max-age=604800, so without this a returning
+   visitor keeps the previous stylesheet. */
+const writeMin = (srcRel, destRel, fn) => {
+  const out = fn(fs.readFileSync(path.join(ROOT, srcRel), 'utf8'));
+  fs.writeFileSync(path.join(ROOT, destRel), out);
+  return destRel;
+};
+writeMin('assets/css/style.css', 'assets/css/style.min.css', minifyCss);
+writeMin('assets/js/main.js', 'assets/js/main.min.js', minifyJs);
 const hash = p => crypto.createHash('sha1')
   .update(fs.readFileSync(path.join(ROOT, p))).digest('hex').slice(0, 8);
-const V = { css: hash('assets/css/style.css'), js: hash('assets/js/main.js') };
+const V = { css: hash('assets/css/style.min.css'), js: hash('assets/js/main.min.js') };
 
 /* ------------------------------------------------------------- locales
    RU builds to the site root, EN to /en/. Content lives in content/ and
@@ -156,7 +165,13 @@ function renderBody(body) {
 /* Page links stay inside the locale tree (/en/… or /…). Assets always live at
    the site root, so EN pages need one extra ../ to reach them. */
 const pageRel = (depth, p) => '../'.repeat(depth) + p;
-const assetRel = (depth, p) => '../'.repeat(depth + UP) + p;
+const rasterSrc = p => {
+  if (!p || typeof p !== 'string') return p;
+  const webp = p.replace(/\.(png|jpe?g)$/i, '.webp');
+  if (webp !== p && fs.existsSync(path.join(ROOT, webp))) return webp;
+  return p;
+};
+const assetRel = (depth, p) => '../'.repeat(depth + UP) + rasterSrc(p);
 const rel = assetRel; // legacy alias — prefer pageRel / assetRel at call sites
 
 function write(rp, html) {
@@ -480,7 +495,7 @@ function head({ title, desc, canonical, keywords, image, depth = 0, jsonld = [],
   const A = p => assetRel(depth, p);
   const altRu = `${BASE}/${page}`;
   const altEn = `${BASE}/en/${page}`;
-  const img = `${BASE}/${image || 'assets/img/og-default.jpg'}`;
+  const img = `${BASE}/${rasterSrc(image || 'assets/img/og-default.jpg')}`;
   return `<!DOCTYPE html>
 <html lang="${EN ? 'en' : 'ru'}" data-theme="light">
 <head>
@@ -508,10 +523,10 @@ ${keywords ? `<meta name="keywords" content="${esc(keywords)}">` : ''}
 <meta name="twitter:image" content="${img}">
 <meta name="theme-color" content="#141428">
 <script>(function(){var r=document.documentElement;r.classList.add('js');try{var t=localStorage.getItem('vlasta-theme');if(!t)t=matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';r.setAttribute('data-theme',t)}catch(e){}try{var K='vlasta-lang';var lang=(r.getAttribute('lang')||'ru').slice(0,2);if(lang!=='en')lang='ru';var pref=localStorage.getItem(K);if(pref!=='en'&&pref!=='ru'){localStorage.setItem(K,lang);document.cookie=K+'='+lang+';path=/;max-age=31536000;SameSite=Lax';return}if(pref===lang)return;var link=document.querySelector('link[rel="alternate"][hreflang="'+pref+'"]');if(!link)return;var href=link.getAttribute('href');if(!href)return;var dest=new URL(href,'https://vlasta-s.com');var leaf=(dest.pathname||'/').replace(/^\\/en\\//,'').replace(/^\\//,'');if(!leaf||leaf.charAt(leaf.length-1)==='/')leaf='index.html';var cur=location.pathname.replace(/\\\\/g,'/');if(cur.slice(-1)==='/')cur+='index.html';else if(cur.slice(-3)==='/en')cur+='/index.html';var next;if(lang==='en'){var i=cur.lastIndexOf('/en/');if(i<0)return;next=cur.slice(0,i+1)+(pref==='en'?'en/'+leaf:leaf)}else{var j=cur.lastIndexOf('/'+leaf);if(j<0)return;next=cur.slice(0,j+1)+(pref==='en'?'en/'+leaf:leaf)}if(!next||next===cur)return;location.replace((location.protocol==='file:'?'file://':'')+next+location.search+location.hash)}catch(e){}})();</script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200..800;1,300..600&display=swap">
-<link rel="stylesheet" href="${A('assets/css/style.css')}?v=${V.css}">
+<link rel="preload" href="${A('assets/fonts/montserrat-latin.woff2')}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="${A('assets/fonts/montserrat-cyrillic.woff2')}" as="font" type="font/woff2" crossorigin>
+${bodyClass && bodyClass.includes('over-hero') ? `<link rel="preload" href="${A('assets/img/hero-tower.jpg')}" as="image">` : ''}
+<link rel="stylesheet" href="${A('assets/css/style.min.css')}?v=${V.css}">
 <link rel="icon" href="${A('assets/img/logo-dark.svg')}" type="image/svg+xml">
 ${jsonld.map(o => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join('\n')}
 </head>
@@ -660,7 +675,7 @@ function chrome(active, depth = 0, pagePath = active) {
   </div>
 </div>
 <button class="totop" type="button" aria-label="${T.toTop}">${I.up}</button>
-<script src="${A('assets/js/main.js')}?v=${V.js}" defer></script>
+<script src="${A('assets/js/main.min.js')}?v=${V.js}" defer></script>
 </body>
 </html>`,
   };
@@ -731,7 +746,7 @@ const clientsGrid = () => site.clients.map(c =>
 
 const marquee = () => {
   const item = c =>
-    `<span class="mq__i"><img src="${rel(0, c.l)}" alt="${esc(c.n)}" loading="eager" decoding="async"${c.scale ? ` style="--logo-scale:${c.scale}"` : ''}></span>`;
+    `<span class="mq__i"><img src="${rel(0, c.l)}" alt="${esc(c.n)}" loading="lazy" decoding="async"${c.scale ? ` style="--logo-scale:${c.scale}"` : ''}></span>`;
   /* Two brick rows (even / odd). Pad the shorter row from the *other* row so we
      never repeat a logo inside the same track (e.g. double P&G). */
   const list = site.clients;
@@ -778,7 +793,6 @@ const approachBlock = () => {
     if (APPR_WIDE[i]) cls.push('appr__dept--wide');
     if (i === 0) cls.push('appr__dept--lead');
     const delay = Math.min(i, 4);
-    const num = String(i + 1).padStart(2, '0');
     return `<li class="${cls.join(' ')}"${delay ? ` data-d="${delay}"` : ''}>
         <span class="appr__shot" aria-hidden="true"></span>
         <h3 class="appr__dept-h">
@@ -791,7 +805,6 @@ const approachBlock = () => {
         </h3>
         <div class="appr__body" id="appr-p-${i}" role="region" aria-labelledby="appr-t-${i}">
           <div class="appr__body-in">
-            <p class="appr__tag"><span class="appr__num">${num}</span>${esc(t(d, 'short'))}</p>
             <p class="appr__dept-d">${esc(t(d, 'text'))}</p>
           </div>
         </div>
@@ -954,7 +967,7 @@ function belt(items, cls, label) {
 const assocMarquee = () => belt(
   site.associations.map((a, i) => dup =>
     `<button class="belt__i assoc" type="button" data-assoc="${i}" aria-haspopup="dialog"${dup ? ' tabindex="-1"' : ''}>
-      <span class="assoc__logo"><img src="${rel(0, a.logo)}" alt="${dup ? '' : esc(a.abbr)}" decoding="async"${a.logoScale ? ` style="--logo-scale:${a.logoScale}"` : ''}></span>
+      <span class="assoc__logo"><img src="${rel(0, a.logo)}" alt="${dup ? '' : esc(a.abbr)}" loading="lazy" decoding="async"${a.logoScale ? ` style="--logo-scale:${a.logoScale}"` : ''}></span>
       <span class="assoc__n">${esc(t(a, 'name'))}</span>
       <span class="assoc__meta">${esc(t(a, 'meta'))}</span>
     </button>`),
@@ -963,7 +976,7 @@ const assocMarquee = () => belt(
 const lettersMarquee = () => belt(
   site.letters.map(l => dup =>
     `<button class="belt__i letter" type="button" data-letter${dup ? ' tabindex="-1"' : ''}>
-      <span class="letter__th"><img src="${rel(0, l.img)}" alt="${dup ? '' : C.letterAlt + ' — ' + esc(l.name)}" decoding="async"></span>
+      <span class="letter__th"><img src="${rel(0, l.img)}" alt="${dup ? '' : C.letterAlt + ' — ' + esc(l.name)}" loading="lazy" decoding="async"></span>
       <span class="letter__n">${esc(l.name)}</span>
     </button>`),
   'belt--letters', C.lettersTitle);
@@ -1017,7 +1030,7 @@ const assocModal = () => `<div class="modal" id="assocModal" role="dialog" aria-
     </div>
     <script id="assocData" type="application/json">${JSON.stringify(site.associations.map(a => {
       const p = assocParts(a);
-      return { logo: a.logo, name: t(a,'name'), year: p.year, meta: p.meta, metaLabel: p.metaLabel, desc: t(a,'desc'), url: a.url, site: a.site };
+      return { logo: rasterSrc(a.logo), name: t(a,'name'), year: p.year, meta: p.meta, metaLabel: p.metaLabel, desc: t(a,'desc'), url: a.url, site: a.site };
     }))}</script>`;
 
 const newsCard = (n, depth = 0, d = 0, { eager = false } = {}) => `<a class="card ncard reveal" href="${pageRel(depth, `news/${n.slug}.html`)}"${d ? ` data-d="${d}"` : ''}>
@@ -1075,7 +1088,7 @@ function buildHome() {
 <!-- the tower photo is a fixed layer: sections in the glass zone below let it
      show through, so scrolling shifts what sits behind the frosted tiles -->
 <div class="skyline" aria-hidden="true">
-  <img src="${rel(0, 'assets/img/hero-tower.jpg')}" alt="" fetchpriority="high" decoding="async">
+  <img src="${rel(0, 'assets/img/hero-tower.jpg')}" alt="" width="1920" height="1281" fetchpriority="high" decoding="async">
 </div>
 
 <div class="glasszone">
@@ -1126,12 +1139,12 @@ function buildHome() {
       ${site.services.map((s) => `<article class="svc-card" data-svc-bg="${esc(s.id)}">
         <div class="svc-card__media" aria-hidden="true">
           ${s.tabImg
-            ? `<img class="svc-card__shot" src="${rel(0, s.tabImg)}" alt="" width="1600" height="900" decoding="async">`
+            ? `<img class="svc-card__shot" src="${rel(0, s.tabImg)}" alt="" width="1600" height="900" loading="lazy" decoding="async">`
             : '<div class="svc-card__ph"></div>'}
           <div class="svc-card__wash"></div>
           <div class="svc-card__wash svc-card__wash--reveal"></div>
           ${s.tabImg
-            ? `<img class="svc-card__shot svc-card__shot--lit" src="${rel(0, s.tabImg)}" alt="" width="1600" height="900" decoding="async">`
+            ? `<img class="svc-card__shot svc-card__shot--lit" src="${rel(0, s.tabImg)}" alt="" width="1600" height="900" loading="lazy" decoding="async">`
             : ''}
           <div class="svc-card__chrome">
             <span class="svc-card__n">${esc(s.num)}</span>
@@ -1419,7 +1432,7 @@ function buildAbout() {
     ${shead({ k: C.teamKicker, h: C.teamTitle, mod: 'center' })}
     <div class="team">
       ${site.team.map((m, i) => `<figure class="person reveal"${i ? ` data-d="${i}"` : ''}>
-        <div class="person__ph"><img src="${rel(0, m.img)}" alt="${esc(tt(m,'name'))} — ${esc(tt(m,'role'))}" decoding="async"></div>
+        <div class="person__ph"><img src="${rel(0, m.img)}" alt="${esc(tt(m,'name'))} — ${esc(tt(m,'role'))}" loading="lazy" decoding="async"></div>
         <figcaption class="person__c">
           <h3>${esc(tt(m,'name'))}</h3>
           <div class="person__role">${esc(tt(m,'role'))}</div>
