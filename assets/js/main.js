@@ -1495,9 +1495,11 @@
     if (glyphSvgs.length || brandSrc || brandSvg) bindMeshMarks();
   }
 
-  /* CTA mesh: circle nodes only — no glyphs, hub mark, or brand image. */
+  /* CTA mesh: circle nodes only — no glyphs, hub mark, or brand image.
+     Boot when the band is near the viewport so the homepage parse/paint is
+     not paying for a standing canvas on first load. */
   $$('.sec--cta').forEach(function (sec) {
-    bootFabricMesh(sec, {
+    var opts = {
       fieldClass: 'cta__field',
       blurClass: 'cta__blur',
       sizeAmp: 0.12,
@@ -1509,7 +1511,15 @@
       pingAmp: 1.1,
       hubChance: 0.2,
       depthMode: true
-    });
+    };
+    function start() { bootFabricMesh(sec, opts); }
+    if (!('IntersectionObserver' in window)) { start(); return; }
+    var io = new IntersectionObserver(function (es) {
+      if (!es[0] || !es[0].isIntersecting) return;
+      io.disconnect();
+      start();
+    }, { rootMargin: '280px 0px' });
+    io.observe(sec);
   });
 
   /* Open a service fold when linked as #service-icon (homepage bullets). */
