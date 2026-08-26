@@ -2072,7 +2072,7 @@
       }
     }
     if (atStart) body.style.setProperty('--fade-l', '0px');
-    else body.style.removeProperty('--fade-l');
+    else body.style.setProperty('--fade-l', 'var(--fade)');
     if (atEnd) {
       var minR = ROAD_FADE_R_MIN;
       try {
@@ -2096,18 +2096,19 @@
     roadRails.forEach(roadEdgeFade);
   });
 
-  /* Homepage services rail: same mask story as the roadmap — no left dissolve
-     at rest, then a transparency fade once the track has moved. */
-  (function initSvcEdgeFade() {
-    var wrap = $('.sec#services .rail-fade') || $('#services .rail-fade');
-    var rail = wrap && $('.svc-rail', wrap);
-    if (!wrap || !rail) return;
-    function paint() {
-      wrap.style.setProperty('--fade-l', rail.scrollLeft <= 3 ? '0px' : 'var(--fade)');
-    }
-    rail.addEventListener('scroll', paint, { passive: true });
-    window.addEventListener('resize', paint);
-    paint();
+  /* Tile rails (services, cases, news, …): same mask story as the roadmap —
+     no left dissolve at rest, then a transparency fade once the track moves. */
+  (function initRailEdgeFade() {
+    $$('.rail-fade').forEach(function (wrap) {
+      var rail = $('.svc-rail, .case-rail, .news-rail, .letters-rail, .assoc-rail', wrap);
+      if (!rail) return;
+      function paint() {
+        wrap.style.setProperty('--fade-l', rail.scrollLeft <= 3 ? '0px' : 'var(--fade)');
+      }
+      rail.addEventListener('scroll', paint, { passive: true });
+      window.addEventListener('resize', paint);
+      paint();
+    });
   })();
 
   function roadSetTip(r, p) {
