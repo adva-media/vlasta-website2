@@ -2055,8 +2055,8 @@
     if (r.navLock) roadUnlockNav(r);
   }
 
-  /* Soft edge fades only on the overflowing side — start stays fully readable;
-     the right edge always keeps a minimum fade so the trail does not hard-cut. */
+  /* Left fade only after the trail has moved; start stays fully readable.
+     The right edge always keeps a minimum fade so the trail does not hard-cut. */
   function roadEdgeFade(body) {
     if (!body) return;
     var max = Math.max(0, body.scrollWidth - body.clientWidth);
@@ -2095,6 +2095,20 @@
   window.addEventListener('resize', function () {
     roadRails.forEach(roadEdgeFade);
   });
+
+  /* Homepage services rail: same mask story as the roadmap — no left dissolve
+     at rest, then a transparency fade once the track has moved. */
+  (function initSvcEdgeFade() {
+    var wrap = $('.sec#services .rail-fade') || $('#services .rail-fade');
+    var rail = wrap && $('.svc-rail', wrap);
+    if (!wrap || !rail) return;
+    function paint() {
+      wrap.style.setProperty('--fade-l', rail.scrollLeft <= 3 ? '0px' : 'var(--fade)');
+    }
+    rail.addEventListener('scroll', paint, { passive: true });
+    window.addEventListener('resize', paint);
+    paint();
+  })();
 
   function roadSetTip(r, p) {
     p = roadClamp01(p);
