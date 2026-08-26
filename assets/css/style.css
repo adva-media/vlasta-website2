@@ -2870,13 +2870,17 @@ section[id]{scroll-margin-top:96px}
   right:calc(var(--gutter) * -1);width:clamp(28px,4.8vw,72px);
   background:linear-gradient(90deg,transparent,var(--rail-fade-c))}
 #services .rail-fade::before,#services .rail-fade::after{content:none;display:none;width:0}
-/* Dissolve the peeking next tile over the section photo — a paper-colored
-   overlay would read as a white fog. Mask the non-scrolling parent; masking
-   the overflow rail itself would put the fade at the end of the track. */
+/* Dissolve tiles over the section photo — a paper overlay would read as a
+   white fog. Mask the non-scrolling parent; masking the overflow rail
+   itself would put the fade at the end of the track.
+   --fade-l is 0 at rest (JS opens it once the rail has moved). */
 #services .rail-fade{
   margin-inline:calc(var(--gutter) * -1);
-  -webkit-mask-image:linear-gradient(90deg,#000 0,#000 calc(100% - clamp(72px,8vw,180px)),transparent);
-  mask-image:linear-gradient(90deg,#000 0,#000 calc(100% - clamp(72px,8vw,180px)),transparent)}
+  --fade:clamp(72px,8vw,180px);--fade-l:0px;--fade-r:var(--fade);
+  -webkit-mask-image:linear-gradient(90deg,
+    transparent 0,#000 var(--fade-l),#000 calc(100% - var(--fade-r)),transparent);
+  mask-image:linear-gradient(90deg,
+    transparent 0,#000 var(--fade-l),#000 calc(100% - var(--fade-r)),transparent)}
 #services .svc-rail{margin-inline:0}
 [data-theme="dark"] .rail-fade{--rail-fade-c:var(--paper)}
 
