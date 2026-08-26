@@ -1771,7 +1771,7 @@ body.over-hero .hero{
   user-select:none;-webkit-user-select:none;-moz-user-select:none}
 .road__body{--rail:clamp(108px,12vw,140px);--mk:clamp(44px,5.2vw,54px);
   --chip-room:clamp(16px,2.2vw,26px);
-  --fade:clamp(36px,7vw,80px);--fade-l:var(--fade);--fade-r:var(--fade);
+  --fade:clamp(36px,7vw,80px);--fade-l:0px;--fade-r:var(--fade);
   /* Keep a soft right fade even at scroll end (JS floors --fade-r). */
   --fade-r-min:28px;
   /* Match .wrap padding so the first mark lines up with «История компании». */
@@ -2859,30 +2859,20 @@ section[id]{scroll-margin-top:96px}
 @media (hover:hover) and (pointer:fine){
   .case-rail,.letters-rail,.assoc-rail,.news-rail,.svc-rail{scroll-snap-type:none}
 }
-/* Overflowing tile rails: edge fade overlays (not a mask — grab-drag stays). */
-.rail-fade{position:relative;--rail-fade-c:var(--paper)}
-.rail-fade::before,.rail-fade::after{
-  content:"";position:absolute;top:0;bottom:0;z-index:3;pointer-events:none}
-.rail-fade::before{
-  left:calc(var(--gutter) * -1);width:clamp(16px,2.4vw,40px);
-  background:linear-gradient(90deg,var(--rail-fade-c),transparent)}
-.rail-fade::after{
-  right:calc(var(--gutter) * -1);width:clamp(28px,4.8vw,72px);
-  background:linear-gradient(90deg,transparent,var(--rail-fade-c))}
-#services .rail-fade::before,#services .rail-fade::after{content:none;display:none;width:0}
-/* Dissolve tiles over the section photo — a paper overlay would read as a
-   white fog. Mask the non-scrolling parent; masking the overflow rail
-   itself would put the fade at the end of the track.
+/* Overflowing tile rails: dissolve into the section (transparency mask, not
+   a paper overlay). Mask the non-scrolling parent — masking the overflow
+   rail itself would put the fade at the end of the track.
    --fade-l is 0 at rest (JS opens it once the rail has moved). */
-#services .rail-fade{
+.rail-fade{
+  position:relative;
   margin-inline:calc(var(--gutter) * -1);
   --fade:clamp(72px,8vw,180px);--fade-l:0px;--fade-r:var(--fade);
   -webkit-mask-image:linear-gradient(90deg,
     transparent 0,#000 var(--fade-l),#000 calc(100% - var(--fade-r)),transparent);
   mask-image:linear-gradient(90deg,
     transparent 0,#000 var(--fade-l),#000 calc(100% - var(--fade-r)),transparent)}
-#services .svc-rail{margin-inline:0}
-[data-theme="dark"] .rail-fade{--rail-fade-c:var(--paper)}
+.rail-fade .svc-rail,.rail-fade .case-rail,.rail-fade .news-rail,
+.rail-fade .letters-rail,.rail-fade .assoc-rail{margin-inline:0}
 
 /* =========================================================================
    Mobile pass over everything added in this round
