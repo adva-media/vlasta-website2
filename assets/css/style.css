@@ -2906,6 +2906,14 @@ section[id]{scroll-margin-top:96px}
     transparent 0,#000 var(--fade-l),#000 calc(100% - var(--fade-r)),transparent)}
 .rail-fade .svc-rail,.rail-fade .case-rail,.rail-fade .news-rail,
 .rail-fade .letters-rail,.rail-fade .assoc-rail{margin-inline:0}
+/* Phones: sharp tile edges. Desktop/tablet keep the transparency dissolve. */
+@media (max-width:680px){
+  .rail-fade{
+    -webkit-mask-image:none;mask-image:none;
+    --fade-l:0px;--fade-r:0px}
+  #history .road__body{
+    -webkit-mask-image:none;mask-image:none}
+}
 
 /* =========================================================================
    Mobile pass over everything added in this round
