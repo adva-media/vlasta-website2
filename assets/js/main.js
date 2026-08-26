@@ -6,8 +6,9 @@
   var $$ = function (s, c) { return Array.prototype.slice.call((c || doc).querySelectorAll(s)); };
   /* Windows "Animation effects: Off" (common on locked-down work PCs) maps to
      prefers-reduced-motion. We still honor it for vestibular/scroll motion, but
-     ambient loops (CTA mesh, logo marquee, assoc/letter belts) keep running —
-     those are the site's intended atmosphere, not page-throwing motion. */
+     ambient loops (CTA mesh, logo marquee, assoc/letter belts) and the Approach
+     connector draw keep running — those are the site's intended atmosphere,
+     not page-throwing motion. */
   var reduceMq = matchMedia('(prefers-reduced-motion: reduce)');
   var reduce = reduceMq.matches;
   try {
@@ -3242,7 +3243,7 @@
       old.setAttribute('class', 'appr__wire-net is-out');
       setTimeout(function () {
         if (old.parentNode) old.parentNode.removeChild(old);
-      }, reduce ? 0 : 460);
+      }, 460);
     }
 
     function build() {
@@ -3268,16 +3269,14 @@
         line.style.setProperty('--odel', ms((maxD - e.depth) * 0.055));
         g.appendChild(line);
         var rec = { line: line, tip: null, halo: null, node: null, n: e.pts.length, plen: e.len };
-        if (!reduce) {
-          rec.halo = mk('path', 'appr__wire-tg');
-          rec.tip = mk('path', 'appr__wire-t');
-          [rec.halo, rec.tip].forEach(function (p) {
-            p.setAttribute('d', d);
-            p.style.setProperty('--wdur', ms(e.dur));
-            p.style.setProperty('--wdel', ms(e.t0));
-            g.appendChild(p);
-          });
-        }
+        rec.halo = mk('path', 'appr__wire-tg');
+        rec.tip = mk('path', 'appr__wire-t');
+        [rec.halo, rec.tip].forEach(function (p) {
+          p.setAttribute('d', d);
+          p.style.setProperty('--wdur', ms(e.dur));
+          p.style.setProperty('--wdel', ms(e.t0));
+          g.appendChild(p);
+        });
         if (e.term) {
           var z = e.pts[e.pts.length - 1];
           rec.node = mk('circle', 'appr__wire-n');
@@ -3297,7 +3296,7 @@
          It also picks up straight off the back of the sweep, so it reads as
          the trace staying live rather than as a second event arriving out
          of nowhere. */
-      rayIdx = reduce ? null : spine(list);
+      rayIdx = spine(list);
       if (rayIdx) {
         ray = ['appr__wire-pg', 'appr__wire-p'].map(function (cls) {
           var p = mk('path', cls);
@@ -3379,7 +3378,7 @@
         src = i;
         retire();
         if (i < 0) { pending = false; drawEnd = 0; return; }
-        buildT = setTimeout(build, reduce ? 0 : LAG);
+        buildT = setTimeout(build, LAG);
       },
       reflow: function (list) {
         rects = list;
@@ -3509,10 +3508,8 @@
     /* An open/close moves the cards below it, so follow the geometry for the
        length of one transition and then stop. Bounded, never a standing loop;
        settle() re-measures on a timer too, so a throttled rAF cannot leave
-       the frame stranded out of alignment. Under reduced motion the height
-       lands in one frame, so a single read is enough. */
+       the frame stranded out of alignment. */
     function track() {
-      if (reduce) { measure(); return; }
       trackUntil = now() + 560;
       if (raf) return;
       (function step() {

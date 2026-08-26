@@ -1478,12 +1478,9 @@ body.over-hero .hero{
   .appr__grid{--shot-size:auto 132%;--shot-x:64%;--shot-y:30}
 }
 @media (prefers-reduced-motion:reduce){
-  /* No timed states at all: the disclosure snaps, so `visibility` and the
-     JS-set height take effect at once and never sit mid-transition. */
-  .appr__dept,.appr__toggle,.appr__ico,.appr__pm,.appr__pm::before,
-  .appr__pm::after,.appr__body,.appr__body-in,.appr__shot{transition:none!important}
+  /* Windows work PCs often flip this flag for UI chrome, not the page.
+     Keep the accordion and connector draw; only pin the photo pan. */
   .appr__dept:hover,.appr__dept.is-open{transform:none}
-  /* No pan — pin the crop mid-travel, as .phero--photo does. */
   .appr__shot::after{background-position:var(--shot-x) calc((var(--shot-y) + 34) * 1%)}
 }
 
@@ -1598,14 +1595,9 @@ body.over-hero .hero{
   #approach{--wire-c:rgba(93,104,160,.66);--wire-w:4;--wire-pad:5.2}
   .appr__wire-p,.appr__wire-pg{display:none}
 }
-@media (prefers-reduced-motion:reduce){
-  /* Draw it, do not animate it: no sweep, no tip, no pulse. */
-  .appr__wire-l{stroke-dasharray:none;stroke-dashoffset:0;animation:none}
-  .appr__wire-n{animation:none}
-  .appr__wire-t,.appr__wire-tg,.appr__wire-p,.appr__wire-pg{display:none}
-  .appr__wire-net.is-out{transition:none}
-  .appr__wire-net.is-out .appr__wire-l{animation:none;opacity:0}
-}
+/* Connector draw is not gated on prefers-reduced-motion: Windows work PCs
+   map "Animation effects: Off" to that flag and would otherwise snap the
+   net on with no sweep, tip, or pulse. See the note at the top of main.js. */
 /* ============================================================== END
    approach — connector network (.appr__wire)
    ================================================================== */
@@ -1765,7 +1757,12 @@ body.over-hero .hero{
   touch-action:pan-y;
 }
 
-/* Free full-bleed rail — no card chrome; edge fades ease off at the ends. */
+/* Same stage as .wrap — ultrawide must not park 2006 on the viewport edge.
+   Checkpoints inset by --gutter so they share a left edge with the heading. */
+#history .road{
+  max-width:var(--maxw);margin-inline:auto;width:100%;
+}
+/* No card chrome; edge fades ease off at the ends of the track. */
 .road{--yh0:78;--ahead:.15;--tile:clamp(200px,24vw,248px);position:relative;margin-top:0;padding:0;border:0;
   background:none;box-shadow:none;border-radius:0;
   -webkit-backdrop-filter:none;backdrop-filter:none;
@@ -1777,8 +1774,8 @@ body.over-hero .hero{
   --fade:clamp(36px,7vw,80px);--fade-l:var(--fade);--fade-r:var(--fade);
   /* Keep a soft right fade even at scroll end (JS floors --fade-r). */
   --fade-r-min:28px;
-  /* End clearance must live in scrollable content (not the scroller padding). */
-  --road-inset:max(var(--gutter), calc(var(--fade) + 24px));
+  /* Match .wrap padding so the first mark lines up with «История компании». */
+  --road-inset:var(--gutter);
   position:relative;cursor:grab;padding:0;
   overflow-x:auto;overflow-y:hidden;scroll-snap-type:none;
   scrollbar-width:none;-ms-overflow-style:none;
@@ -1991,7 +1988,11 @@ html.is-locked,html.is-locked body{overflow:hidden}
 .mq__i{flex:none;width:var(--mq-w);height:128px;border-radius:16px;background:#fff;
   border:1px solid var(--line-soft);display:flex;align-items:center;justify-content:center;padding:22px 20px}
 .mq__i img{max-width:82%;max-height:72%;width:auto;height:auto;object-fit:contain;
+  /* soft grey wash (~50% less greying than grayscale(1)/.62); color on hover */
+  filter:grayscale(.5);opacity:.81;transition:var(--t);
   transform:scale(var(--logo-scale,1));-webkit-user-drag:none;user-select:none;pointer-events:none}
+.mq__i:hover img{filter:none;opacity:1}
+.mq__vp.is-dragging .mq__i img{filter:grayscale(.5);opacity:.81}
 
 /* ---------------------------------------------------------------- cases */
 .case-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
@@ -2668,7 +2669,8 @@ html.is-locked,html.is-locked body{overflow:hidden}
 [data-theme="dark"] .client,[data-theme="dark"] .assoc__logo,
 [data-theme="dark"] .mq__i,[data-theme="dark"] .modal__logo,
 [data-theme="dark"] .letter__th{background:#F2F2F8}
-[data-theme="dark"] .client img,[data-theme="dark"] .assoc__logo img{opacity:.72}
+[data-theme="dark"] .client img,[data-theme="dark"] .assoc__logo img,
+[data-theme="dark"] .mq__i img{opacity:.72}
 [data-theme="dark"] .nm-grat line{stroke:var(--accent);stroke-opacity:.22}
 [data-theme="dark"] .btn--light{background:var(--accent);color:#0C0C1C}
 [data-theme="dark"] .geo__bar b{color:#fff}
@@ -2868,6 +2870,14 @@ section[id]{scroll-margin-top:96px}
   right:calc(var(--gutter) * -1);width:clamp(28px,4.8vw,72px);
   background:linear-gradient(90deg,transparent,var(--rail-fade-c))}
 #services .rail-fade::before,#services .rail-fade::after{content:none;display:none;width:0}
+/* Dissolve the peeking next tile over the section photo — a paper-colored
+   overlay would read as a white fog. Mask the non-scrolling parent; masking
+   the overflow rail itself would put the fade at the end of the track. */
+#services .rail-fade{
+  margin-inline:calc(var(--gutter) * -1);
+  -webkit-mask-image:linear-gradient(90deg,#000 0,#000 calc(100% - clamp(72px,8vw,180px)),transparent);
+  mask-image:linear-gradient(90deg,#000 0,#000 calc(100% - clamp(72px,8vw,180px)),transparent)}
+#services .svc-rail{margin-inline:0}
 [data-theme="dark"] .rail-fade{--rail-fade-c:var(--paper)}
 
 /* =========================================================================
