@@ -3,7 +3,7 @@
   "slug": "rassledovanie-khishcheniy",
   "n": 2,
   "category": "Corporate security",
-  "title": "Theft investigation",
+  "title": "Establishing theft",
   "intro": "The Russian division of a company (a manufacturer of medical products, the absolute leader in its market segment) has introduced a new inventory scheme in the warehouse. As a result, theft of finished products was revealed in the amount of about 10,000,000…",
   "metric": "≈10 млн ₽ возвращено",
   "tags": [
@@ -136,7 +136,7 @@
   "slug": "rassledovanie-onlayn-oflayn",
   "n": 4,
   "category": "Brand protection",
-  "title": "Investigation, online + offline",
+  "title": "Protection: Online + Offline",
   "intro": "For one of the clients (automotive products), in addition to fulfilling offline goals (i.e. visiting sales outlets, markets, warehouses and initiating raids for the seizure of counterfeit products), Vlasta-Consulting also worked online (finding ads and…",
   "metric": "Онлайн и офлайн зачищены",
   "tags": [
@@ -561,7 +561,7 @@
   "slug": "issledovanie-kanalov-postavok",
   "n": 12,
   "category": "Business intelligence",
-  "title": "Investigation: mapping the supply channels",
+  "title": "Mapping the supply channels",
   "intro": "A foreign company suspended operations in Russia while keeping a ban on direct supply. We identified four unauthorised import channels accounting for at least 40% of all imports.",
   "metric": "40% of imports mapped",
   "tags": [
