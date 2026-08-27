@@ -6,9 +6,9 @@
   var $$ = function (s, c) { return Array.prototype.slice.call((c || doc).querySelectorAll(s)); };
   /* Windows "Animation effects: Off" (common on locked-down work PCs) maps to
      prefers-reduced-motion. We still honor it for vestibular/scroll motion, but
-     ambient loops (CTA mesh, logo marquee, assoc/letter belts) and the Approach
-     connector draw keep running — those are the site's intended atmosphere,
-     not page-throwing motion. */
+     ambient loops (CTA mesh, logo marquee, assoc/letter belts), the Approach
+     connector draw, and homepage .svc-card photo reveal keep running — those
+     are the site's intended atmosphere, not page-throwing motion. */
   var reduceMq = matchMedia('(prefers-reduced-motion: reduce)');
   var reduce = reduceMq.matches;
   try {
@@ -2460,6 +2460,8 @@
      PHERO_PORTRAIT_RATIO, or cover overflow past the box) cap travel at
      PHERO_PORTRAIT_TRAVEL (~50% of the overflow / image travel). Override with
      data-portrait-travel="0.5"–"1" (or 50–100) on the hero if needed.
+     data-bgy-base (news.json heroBgy) raises the resting crop so parallax
+     starts mid-frame (e.g. 30) instead of the top edge, then pans base→max.
      News/cases (.phero--photo) drive background-position; services
      (.svc-detail__hero) drive object-position on the inner photo and a CSS
      translateY on .svc-detail__n — same --bgy. The approach card grid rides
@@ -2541,16 +2543,26 @@
     var b = el.getBoundingClientRect();
     var sy = window.pageYOffset || root.scrollTop || 0;
     /* Document Y of the hero top is stable; map scroll from 0 → hero fully gone
-       past the viewport top. Starts moving on the first scroll pixel. */
+       past the viewport top. Starts moving on the first scroll pixel.
+       With data-bgy-base, rest at base and pan base→max (not 0→max). */
     var docTop = b.top + sy;
     var range = Math.max(1, docTop + b.height);
     var p = sy / range;
     p = p < 0 ? 0 : p > 1 ? 1 : p;
-    el.style.setProperty('--bgy', (p * state.max).toFixed(1));
+    var base = state.bgyBase || 0;
+    if (base > state.max) base = state.max;
+    var span = state.max - base;
+    el.style.setProperty('--bgy', (base + p * span).toFixed(1));
   }
 
   var pheroStates = pheros.map(function (el) {
-    return { el: el, max: 100, imgW: 0, imgH: 0, travelOverride: null };
+    var baseAttr = el.getAttribute('data-bgy-base');
+    var bgyBase = 0;
+    if (baseAttr != null && baseAttr !== '') {
+      var b = parseFloat(baseAttr);
+      if (!isNaN(b) && b > 0) bgyBase = Math.min(100, b);
+    }
+    return { el: el, max: 100, imgW: 0, imgH: 0, travelOverride: null, bgyBase: bgyBase };
   });
   pheroStates.forEach(resolvePheroMax);
 

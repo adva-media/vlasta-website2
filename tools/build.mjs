@@ -247,7 +247,7 @@ const C = {
     contactsDesc:`Свяжитесь с «${O.name}»: ${O.address}. Тел./факс ${O.phone}, e-mail ${O.email}.`,
     contactsKw:'Власта-Консалтинг контакты, Москва, Усачёва',
     contactsKick:'Контакты', contactsH1:'Свяжитесь с нами',
-    contactsLead:'119048, город Москва, ул. Усачёва, д. 13, помещ. 4н. Будни: 9:30 - 18:00.',
+    contactsLead:'',
     mapTitle:'Офис «Власта-Консалтинг» на карте: Москва, ул. Усачёва, 13',
     privacyTitle:'Политика конфиденциальности — Власта-Консалтинг',
     privacyDesc:'Политика в отношении обработки персональных данных ООО «Власта-Консалтинг», согласованная с юридической службой. Полный текст документа — на этой странице.',
@@ -319,7 +319,7 @@ const C = {
     contactsDesc:`Get in touch with Vlasta Consulting: ${O.address_en || O.address}. Tel./fax ${O.phone}, email ${O.email}.`,
     contactsKw:'Vlasta Consulting contact, Moscow, Usacheva',
     contactsKick:'Contacts', contactsH1:'Get in touch',
-    contactsLead:'office 4N, 13, Usacheva str., Moscow, 119048. Weekdays: 9:30 a.m. - 6 p.m.',
+    contactsLead:'',
     mapTitle:'Vlasta Consulting office on the map: Usacheva 13, Moscow',
     privacyTitle:'Privacy policy — Vlasta Consulting',
     privacyDesc:'Personal data processing policy of Vlasta Consulting LLC as approved by counsel. The full document is published on this page.',
@@ -1033,8 +1033,12 @@ const assocModal = () => `<div class="modal" id="assocModal" role="dialog" aria-
       return { logo: rasterSrc(a.logo), name: t(a,'name'), year: p.year, meta: p.meta, metaLabel: p.metaLabel, desc: t(a,'desc'), url: a.url, site: a.site };
     }))}</script>`;
 
+/* Per-article card crop (news.json tilePos), e.g. "50% 30%" — independent of heroBgy. */
+const ncardTileStyle = (n) => (n.tilePos != null && n.tilePos !== '')
+  ? ` style="object-position:${esc(String(n.tilePos))}"` : '';
+
 const newsCard = (n, depth = 0, d = 0, { eager = false } = {}) => `<a class="card ncard reveal" href="${pageRel(depth, `news/${n.slug}.html`)}"${d ? ` data-d="${d}"` : ''}>
-        ${n.img ? `<div class="ncard__img"><img src="${assetRel(depth, n.img)}" alt="${esc(n.title)}" loading="${eager ? 'eager' : 'lazy'}" decoding="async"></div>` : ''}
+        ${n.img ? `<div class="ncard__img"><img src="${assetRel(depth, n.img)}" alt="${esc(n.title)}" loading="${eager ? 'eager' : 'lazy'}" decoding="async"${ncardTileStyle(n)}></div>` : ''}
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="${n.dateIso}">${esc(n.dateDisp)}</time><span class="dot"></span><span class="cl">${esc(n.cluster)}</span></div>
           <h3>${esc(n.title)}</h3>
@@ -1088,7 +1092,7 @@ function buildHome() {
 <!-- the tower photo is a fixed layer: sections in the glass zone below let it
      show through, so scrolling shifts what sits behind the frosted tiles -->
 <div class="skyline" aria-hidden="true">
-  <img src="${rel(0, 'assets/img/hero-tower.jpg')}" alt="" width="1920" height="1281" fetchpriority="high" decoding="async">
+  <img src="${rel(0, 'assets/img/hero-tower.jpg')}" alt="" width="1024" height="764" fetchpriority="high" decoding="async">
 </div>
 
 <div class="glasszone">
@@ -1655,7 +1659,7 @@ function buildNews() {
     <p class="count" id="newsCount">${T.shown(INITIAL, news.length)}</p>
     <div class="news-grid" id="newsGrid" data-initial="${INITIAL}">
       ${news.map((n, i) => `<a class="card ncard reveal" href="news/${n.slug}.html" data-cat="${esc(n.cluster)}"${i >= INITIAL ? ' hidden' : ''}${i % 3 && i < INITIAL ? ` data-d="${i % 3}"` : ''}>
-        ${n.img ? `<div class="ncard__img"><img src="${rel(0, n.img)}" alt="${esc(n.title)}" loading="lazy" decoding="async"></div>` : ''}
+        ${n.img ? `<div class="ncard__img"><img src="${rel(0, n.img)}" alt="${esc(n.title)}" loading="lazy" decoding="async"${ncardTileStyle(n)}></div>` : ''}
         <div class="ncard__b">
           <div class="ncard__meta"><time datetime="${n.dateIso}">${esc(n.dateDisp)}</time><span class="dot"></span><span class="cl">${esc(n.cluster)}</span></div>
           <h2 class="h3" style="font-size:16.5px">${esc(n.title)}</h2>
@@ -1683,6 +1687,11 @@ function buildNews() {
         ? `<div class="video"><video controls preload="metadata"><source src="${esc(n.video.src)}" type="video/mp4">Ваш браузер не поддерживает видео.</video></div>`
         : `<div class="video"><iframe src="${esc(n.video.src)}" title="${C.videoTitle}: ${esc(n.title)}" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>`)
       : '';
+    const heroBgy = n.heroBgy != null && n.heroBgy !== '' && !Number.isNaN(Number(n.heroBgy))
+      ? Number(n.heroBgy) : null;
+    const heroAttrs = n.img
+      ? ` style="${heroBgy != null ? `--bgy-base:${heroBgy};` : ''}background-image:url('${rel(1, n.img)}')"${heroBgy != null ? ` data-bgy-base="${heroBgy}"` : ''}`
+      : '';
 
     const page = j(
       head({
@@ -1707,7 +1716,7 @@ function buildNews() {
       }),
       cc.header,
       `<main>
-<section class="phero${n.img ? ' phero--photo' : ''}"${n.img ? ` style="background-image:url('${rel(1, n.img)}')"` : ''}>
+<section class="phero${n.img ? ' phero--photo' : ''}"${heroAttrs}>
   ${n.img ? '' : engrave('tr', 'ph')}
   <div class="wrap wrap--article">
     <nav class="crumbs" aria-label="${T.crumbs}"><a href="../index.html">${T.home}</a> / <a href="../news.html">${NAV[4][1]}</a> / <span><time datetime="${n.dateIso}">${esc(n.dateDisp)}</time></span></nav>
@@ -1771,7 +1780,7 @@ function buildContacts() {
   <div class="wrap">
     <nav class="crumbs" aria-label="${T.crumbs}"><a href="index.html">${T.home}</a> / <span>Контакты</span></nav>
     <h1 class="h1">${C.contactsH1}</h1>
-    <p class="lead">${C.contactsLead}</p>
+    ${C.contactsLead ? `<p class="lead">${C.contactsLead}</p>` : ''}
   </div>
 </section>
 
