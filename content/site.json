@@ -185,6 +185,14 @@
           "to": "scales"
         },
         {
+          "t": "Выявление <b>уязвимостей</b> конкурентной среды",
+          "to": "radar"
+        },
+        {
+          "t": "Сопровождение <b>выхода на рынки</b>",
+          "to": "globe"
+        },
+        {
           "t": "Экспертиза <b>контрафакта</b> и M&A",
           "to": "cert"
         }
@@ -197,6 +205,14 @@
         {
           "t": "Pre-action study of the <b>defendant</b>",
           "to": "scales"
+        },
+        {
+          "t": "Finding competitive-environment <b>vulnerabilities</b>",
+          "to": "radar"
+        },
+        {
+          "t": "Support for <b>market entry</b> and launches",
+          "to": "globe"
         },
         {
           "t": "<b>Counterfeit</b> expertise and M&A",
@@ -310,6 +326,18 @@
           "to": "users"
         },
         {
+          "t": "Выявление и расследование <b>конфликтов интересов</b>",
+          "to": "search"
+        },
+        {
+          "t": "Аудит <b>экономической безопасности</b>",
+          "to": "board"
+        },
+        {
+          "t": "Диагностика <b>юридической безопасности</b>",
+          "to": "legal"
+        },
+        {
           "t": "<b>Физическая безопасность</b> объектов",
           "to": "ops"
         }
@@ -322,6 +350,18 @@
         {
           "t": "<b>Applicant</b> screening",
           "to": "users"
+        },
+        {
+          "t": "Identifying and investigating <b>conflicts of interest</b>",
+          "to": "search"
+        },
+        {
+          "t": "<b>Economic security</b> audit",
+          "to": "board"
+        },
+        {
+          "t": "<b>Legal security</b> diagnostics",
+          "to": "legal"
         },
         {
           "t": "<b>Physical security</b> of sites",
