@@ -487,12 +487,13 @@ body.over-hero .hdr.is-stuck .hdr__talk:hover{
 
 /* ------------------------------------------------- fixed tower backdrop */
 /* Fixed tower photo behind the transparent glasszone (hero).
-   Source is ~1280px wide — on ultrawide/4K, full-bleed cover looks soft.
+   Source is ~1024px wide — on ultrawide/4K, full-bleed cover looks soft.
    Cap the photo, fill the wings with tower navy, and feather the edges. */
 .skyline{position:fixed;inset:0;z-index:-2;pointer-events:none;overflow:hidden;
   display:flex;align-items:stretch;justify-content:center;
   background:var(--surface-dark-2)}
-.skyline img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 32%}
+/* Bias slightly toward the open sky V at the top of the worm’s-eye crop. */
+.skyline img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 28%}
 @media (min-width:1441px){
   .skyline img{width:min(100%,1440px);flex:none;
     /* Soft L/R dissolve into the navy wings — no hard crop line. */
@@ -1030,14 +1031,13 @@ body.over-hero .hero{
   .svc-card__tag{font-size:15px;margin-top:14px}
   .svc-card__more{margin-top:22px}
 }
+/* Photo reveal (--svc-wash-* + lit opacity) is not gated on
+   prefers-reduced-motion: Windows work PCs map "Animation effects: Off"
+   to that flag and would snap the pocket/lit shot with no sweep. Same
+   exception as Approach wires — see note at top of main.js. HL underline
+   stay instant under reduce (small chrome, not the tile atmosphere). */
 @media (prefers-reduced-motion:reduce){
   .svc-card__hl a{transition:none !important}
-  .svc-card,
-  .svc-card__shot--lit,
-  .svc-card__wash,
-  .svc-card__wash--reveal,
-  .svc-card__n,
-  .svc-card__mark{transition:none}
 }
 
 /* Legacy homepage tile rules kept inert — detail page uses .svc-detail */
@@ -2511,17 +2511,21 @@ html.is-locked,html.is-locked body{overflow:hidden}
 .phero{position:relative;overflow:hidden;background-color:var(--surface-dark);color:#fff;
   padding-block:clamp(46px,6vw,86px)}
 /* Parallax writes --bgy (0–100 landscape; ~0–50 portrait). Unset --bgy
-   (no-JS / reduced-motion / Windows) crops to center, not the top edge.
-   News (.phero) and cases (.case-hero) both use .phero--photo; services
-   section heroes share --bgy via object-position on the inner img. */
+   (no-JS / reduced-motion / Windows): cases stay center (50); news articles
+   pin to ~top 20th percentile so heads aren't cut. Services section heroes
+   share --bgy via object-position on the inner img. */
 .phero--photo{padding-block:clamp(76px,11vw,150px);isolation:isolate;
   background-color:var(--surface-dark-2);
   background-size:cover;background-position:50% calc(var(--bgy,50) * 1%);
   background-repeat:no-repeat;background-attachment:scroll}
 /* News photo hero: shorter band than cases so the article body starts sooner.
    Cases keep the taller .phero--photo padding above. (~32% above the original
-   clamp(60px,9vw,120px) short band: +20% then +10%.) */
-.phero.phero--photo{padding-block:clamp(79px,11.9vw,158px)}
+   clamp(60px,9vw,120px) short band: +20% then +10%.)
+   Fallback --bgy 20 (not 50) when JS does not set --bgy. Per-article
+   --bgy-base (from news.json heroBgy / data-bgy-base) overrides that floor
+   and is the resting crop when parallax is on. */
+.phero.phero--photo{padding-block:clamp(79px,11.9vw,158px);
+  background-position:50% calc(var(--bgy,var(--bgy-base,20)) * 1%)}
 .phero--photo::before{content:"";position:absolute;inset:0;z-index:1;background:
   linear-gradient(180deg,rgba(20,20,40,.74),rgba(20,20,40,.88)),
   linear-gradient(90deg,rgba(83,93,134,.55),transparent 72%)}
@@ -2537,6 +2541,7 @@ html.is-locked,html.is-locked body{overflow:hidden}
     background-position:50% calc(var(--bgy,50) * 1%);
     -webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 9%,#000 91%,transparent 100%);
     mask-image:linear-gradient(90deg,transparent 0%,#000 9%,#000 91%,transparent 100%)}
+  .phero.phero--photo::after{background-position:50% calc(var(--bgy,var(--bgy-base,20)) * 1%)}
 }
 @media (min-width:1800px){
   .phero--photo::after{
@@ -2545,6 +2550,7 @@ html.is-locked,html.is-locked body{overflow:hidden}
 }
 @media (prefers-reduced-motion:reduce){
   .phero--photo,.phero--photo::after{background-position:50% 50%}
+  .phero.phero--photo,.phero.phero--photo::after{background-position:50% calc(var(--bgy-base,20) * 1%)}
   .svc-detail__hero .ncard__img img{object-position:50% 50%}
   .svc-detail__n{transform:none}
 }
