@@ -761,14 +761,15 @@ body.over-hero .hero{
   --svc-card-border:rgba(20,20,40,.1);
   --svc-card-bg:var(--paper-alt);
   --svc-photo-filter:saturate(.55) contrast(1.05) brightness(.97) hue-rotate(-6deg);
-  /* Rest: white hold ~72% (pulled back from 80%). Hover creeps to ~62%. */
-  --svc-wash-a:72%;
-  --svc-wash-b:77%;
-  --svc-wash-c:82%;
-  --svc-wash-d:86%;
-  --svc-wash-e:90%;
-  --svc-wash-f:94%;
-  --svc-wash-g:97%;
+  /* Rest: white hold ~87% (was 72%; +15pp toward LR). Hover creeps to ~77%.
+     Soft edge compressed into the remaining LR span so stops stay ≤100%. */
+  --svc-wash-a:87%;
+  --svc-wash-b:90%;
+  --svc-wash-c:93%;
+  --svc-wash-d:95%;
+  --svc-wash-e:97%;
+  --svc-wash-f:98%;
+  --svc-wash-g:99%;
   --svc-photo-wash:linear-gradient(to bottom right,
     #fff 0%,
     #fff var(--svc-wash-a),
@@ -804,13 +805,13 @@ body.over-hero .hero{
 .svc-card:not(.svc-card--ink):hover,
 .svc-card:not(.svc-card--ink):focus-within{
   --svc-wash-dur:3s;
-  --svc-wash-a:62%;
-  --svc-wash-b:68%;
-  --svc-wash-c:73%;
-  --svc-wash-d:79%;
-  --svc-wash-e:84%;
-  --svc-wash-f:89%;
-  --svc-wash-g:94%;
+  --svc-wash-a:77%;
+  --svc-wash-b:83%;
+  --svc-wash-c:88%;
+  --svc-wash-d:94%;
+  --svc-wash-e:99%;
+  --svc-wash-f:100%;
+  --svc-wash-g:100%;
 }
 /* Dark ink scheme — previous look. Activate: class="svc-card svc-card--ink" */
 .svc-card--ink{
