@@ -216,10 +216,11 @@ const C = {
     aboutDesc:'Основанная в 2006 году компания Власта-Консалтинг занимает лидирующее место в сфере обеспечения безопасности бизнеса и широко известна в отечественных и иностранных бизнес-кругах.',
     aboutKw:'Власта-Консалтинг, безопасность бизнеса, защита бренда, корпоративная безопасность, интеллектуальная собственность',
     aboutKicker:'О нас', aboutH1:'О нас',
-    aboutLead:'Многолетний опыт работы позволяет нашим специалистам анализировать риски, предвидеть неблагоприятные сценарии развития событий и эффективно реагировать на критические ситуации. Мы работаем и оказываем услуги как на территории России, так и в странах СНГ, Европы, Северной и Южной Америки, Африки, Юго-Восточной Азии. Сотрудничество с зарубежными партнерами наряду с членством в профильных международных ассоциациях позволяет нам эффективно представлять в России интересы транснациональных корпораций.',
+    aboutLead:'Многолетний опыт позволяет нашим специалистам анализировать риски, предвидеть неблагоприятные сценарии и эффективно реагировать на критические ситуации. Мы работаем и оказываем услуги как на территории России, так и в странах СНГ, Европы, Северной и Южной Америки, Африки, Юго-Восточной Азии. Сотрудничество с зарубежными партнёрами наряду с членством в профильных международных ассоциациях позволяет нам эффективно представлять в России интересы транснациональных корпораций.',
     whoKicker:'Кто мы', whoTitle:'Надёжный партнёр в вопросах экономической безопасности',
     whoDesc:'Основанная в 2006 году компания Власта-Консалтинг занимает лидирующее место в сфере обеспечения безопасности бизнеса и широко известна в отечественных и иностранных бизнес-кругах. Главный принцип в работе «Власта-Консалтинг» - комплексный подход к каждому клиенту.',
-    teamKicker:'Руководство', teamTitle:'Команда, которая отвечает за результат',
+    teamKicker:'Руководство', teamTitle:'Руководители компании',
+    teamDesc:'На странице представлены руководители «Власта-Консалтинг» — не полный состав команды.',
     assocKicker:'Партнёрство', assocTitle:'Ассоциации и профессиональные сообщества',
     assocDesc:'Мы состоим в ведущих российских и международных объединениях. Нажмите на карточку, чтобы узнать об участии в каждой ассоциации.',
     assocNav:'Ассоциации — прокрутите по горизонтали',
@@ -288,10 +289,11 @@ const C = {
     aboutDesc:'Founded in 2006, Vlasta-Consulting is a leader in business security and is widely known in domestic and foreign business circles.',
     aboutKw:'Vlasta Consulting, business security, brand protection, corporate security, intellectual property',
     aboutKicker:'About us', aboutH1:'About us',
-    aboutLead:'Many years of experience allow our specialists to analyze risks, anticipate unfavorable scenarios for the development of events and effectively respond to critical situations. We work and provide services both in Russia and in the CIS countries, Europe, North and South America, Africa, and Southeast Asia. Cooperation with foreign partners, as well as membership in specialized international associations enable us to effectively represent the interests of transnational corporations in Russia.',
+    aboutLead:'Years of practice enable our specialists to analyse risks, anticipate adverse scenarios and respond effectively in critical situations. We work across Russia and the CIS, Europe, North and South America, Africa, and Southeast Asia. Cooperation with foreign partners and membership in specialised international associations enable us to represent the interests of transnational corporations in Russia.',
     whoKicker:'Who we are', whoTitle:'A dependable partner in business security',
     whoDesc:'Founded in 2006, Vlasta-Consulting is a leader in business security and is widely known in domestic and foreign business circles. The main principle in the work of Vlasta-Consulting is an integrated approach to each client.',
-    teamKicker:'Leadership', teamTitle:'The team accountable for the result',
+    teamKicker:'Leadership', teamTitle:'Company executives',
+    teamDesc:'The profiles below introduce the company’s leadership — not the full staff.',
     assocKicker:'Partnerships', assocTitle:'Associations and professional bodies',
     assocDesc:'We belong to leading Russian and international bodies. Select a card to read about our involvement in each.',
     assocNav:'Associations — scroll horizontally',
@@ -1433,7 +1435,7 @@ function buildAbout() {
 
 <section class="sec" id="team">
   <div class="wrap">
-    ${shead({ k: C.teamKicker, h: C.teamTitle, mod: 'center' })}
+    ${shead({ k: C.teamKicker, h: C.teamTitle, d: C.teamDesc, mod: 'center' })}
     <div class="team">
       ${site.team.map((m, i) => `<figure class="person reveal"${i ? ` data-d="${i}"` : ''}>
         <div class="person__ph"><img src="${rel(0, m.img)}" alt="${esc(tt(m,'name'))} — ${esc(tt(m,'role'))}" loading="lazy" decoding="async"></div>
