@@ -360,6 +360,8 @@
       "tabImg": "assets/img/services/tab-brand.png",
       "title": "Защита бренда и интеллектуальной собственности",
       "title_en": "Brand and intellectual property protection",
+      "titleBreak": ["Защита бренда и", "интеллектуальной", "собственности"],
+      "titleBreak_en": ["Brand and intellectual", "property protection"],
       "titleNav": "Защита бренда и ИС",
       "titleNav_en": "Brand & IP",
       "tagline": "Полный цикл защиты бренда — от регистрации до пресечения нарушений «под ключ» в онлайне, рознице и на таможне. <b>Противодействие недобросовестной конкуренции</b>.",
