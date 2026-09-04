@@ -965,7 +965,7 @@ body.over-hero .hero{
 .svc-card__title{
   margin:0;font-size:clamp(26px,3.2vw,40px);line-height:1.12;
   font-weight:700;letter-spacing:-.02em;color:var(--svc-fg);
-  text-wrap:balance;
+  text-wrap:balance;max-width:100%;overflow-wrap:anywhere;
 }
 .svc-card__title .br-d{display:none}
 @media (min-width:900px){.svc-card__title .br-d{display:block}}
@@ -996,7 +996,7 @@ body.over-hero .hero{
 .svc-card__more:hover .svc-card__more-l{text-decoration-color:var(--svc-chrome-hover)}
 
 .svc-card__hl{
-  margin:0;display:grid;gap:14px;align-content:center;
+  margin:0;min-width:0;display:grid;gap:14px;align-content:center;
   padding-left:22px;border-left:1px solid var(--svc-rule);
 }
 .svc-card__hl li{position:relative;padding-left:16px;
@@ -1748,6 +1748,8 @@ body.over-hero .hero{
     min-width:0;
     scroll-snap-align:none;
   }
+  /* Tighter titles in the 2×2 matrix — long words (e.g. интеллектуальной) stay in-column */
+  #services .svc-card__title{font-size:clamp(22px,2.4vw,32px)}
 }
 @media (max-width:899px){
   #services{padding-top:20px}
