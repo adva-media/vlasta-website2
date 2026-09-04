@@ -206,9 +206,9 @@ const C = {
     marquee:'Нам доверяют ведущие российские и международные бренды',
     svcPageTitle:'Наши услуги — Власта-Консалтинг',
     svcPageDesc:'Восемь направлений в четырёх блоках: анализ compliance, безопасность бизнеса, защита бренда и ИС, стратегический и юридический консалтинг.',
-    svcPageKw:'бизнес-разведка, безопасность бизнеса, защита бренда, интеллектуальная собственность, консалтинг, антиконтрафакт',
+    svcPageKw:'аналитика, комплаенс, безопасность бизнеса, защита бренда, интеллектуальная собственность, консалтинг, антиконтрафакт',
     svcH1:'Услуги для безопасности бизнеса',
-    svcLead:'Восемь направлений в четырёх ключевых блоках — от бизнес-разведки и защиты бренда до стратегического консалтинга и физической безопасности. Единая методология: анализ рисков, предупреждение угроз и сопровождение «под ключ» вплоть до защиты интересов в суде.',
+    svcLead:'Восемь направлений в четырёх ключевых блоках — от аналитики и комплаенса до защиты бренда, стратегического консалтинга и физической безопасности. Единая методология: анализ рисков, предупреждение угроз и сопровождение «под ключ» вплоть до защиты интересов в суде.',
     svcNav:'Блоки услуг',
     svcScenNav:'Сценарии клиентов',
     svcScenTo:'Перейти к разделу',
@@ -231,11 +231,11 @@ const C = {
     lettersKicker:'Отзывы', lettersTitle:'Благодарственные письма',
     lettersDesc:'Нажмите на письмо, чтобы открыть его целиком.',
     letterAlt:'Благодарственное письмо', letterDialog:'Благодарственное письмо',
-    casesPageTitle:'Кейсы: борьба с контрафактом, расследования, due diligence — Власта-Консалтинг',
-    casesPageDesc:`${cases.length} проектов из практики: блокировка каналов дистрибуции контрафакта, работа по ЕАЭС, рейды на производствах, расследования хищений, проверка контрагентов и сопровождение в суде.`,
-    casesPageKw:'кейсы борьба с контрафактом, антиконтрафактный рейд, ЕАЭС контрафакт, due diligence, корпоративное расследование, ТРОИС кейс',
-    casesKick:'Из практики', casesH1:'Кейсы: контрафакт, расследования и защита активов',
-    casesLead:'Реальные проекты по защите товарных знаков, антиконтрафактным программам, проверкам контрагентов и внутренним расследованиям. Детали обезличены в целях конфиденциальности клиентов.',
+    casesPageTitle:'Кейсы: борьба с контрафактом, аналитика, due diligence — Власта-Консалтинг',
+    casesPageDesc:`${cases.length} проектов из практики: блокировка каналов дистрибуции контрафакта, работа по ЕАЭС, мероприятия на производствах, выявление хищений, проверка контрагентов и сопровождение в суде.`,
+    casesPageKw:'кейсы борьба с контрафактом, антиконтрафакт, ЕАЭС контрафакт, due diligence, корпоративная безопасность, ТРОИС кейс',
+    casesKick:'Из практики', casesH1:'Кейсы: контрафакт, аналитика и защита активов',
+    casesLead:'Реальные проекты по защите товарных знаков, антиконтрафактным программам, проверкам контрагентов и внутренним проверкам. Детали обезличены в целях конфиденциальности клиентов.',
     caseFilter:'Фильтр по категориям', caseSuffix:'— кейс «Власта-Консалтинг»',
     newsPageTitle:'Новости: борьба с контрафактом в России и ЕАЭС — Власта-Консалтинг',
     newsPageDesc:`${news.length} материалов: антиконтрафактные операции и изъятия, инициативы на площадках ЕЭК и ФТС, участие в международных форумах по защите интеллектуальной собственности.`,
@@ -280,7 +280,7 @@ const C = {
     svcPageDesc:'Eight practice areas in four blocks: compliance analysis, business security, brand and IP protection, strategic and legal consulting.',
     svcPageKw:'compliance analysis, business security, brand protection, intellectual property, consulting, anti-counterfeit',
     svcH1:'Services for business security',
-    svcLead:'Eight practice areas in four key blocks — from business intelligence and brand protection to strategic consulting and physical security. One methodology: risk analysis, threat prevention and turnkey support through to defending your interests in court.',
+    svcLead:'Eight practice areas in four key blocks — from analytics and compliance to brand protection, strategic consulting and physical security. One methodology: risk analysis, threat prevention and turnkey support through to defending your interests in court.',
     svcNav:'Service areas',
     svcScenNav:'Client scenarios',
     svcScenTo:'Go to section',
@@ -303,11 +303,11 @@ const C = {
     lettersKicker:'References', lettersTitle:'Letters of appreciation',
     lettersDesc:'Select a letter to read it in full.',
     letterAlt:'Letter of appreciation', letterDialog:'Letter of appreciation',
-    casesPageTitle:'Cases: anti-counterfeiting, investigations, due diligence — Vlasta Consulting',
-    casesPageDesc:`${cases.length} engagements from practice: shutting down counterfeit distribution channels, EAEU programmes, raids on production sites, theft investigations, counterparty screening and litigation support.`,
-    casesPageKw:'anti-counterfeiting cases, counterfeit raid, EAEU counterfeit, due diligence, corporate investigation, customs register case',
-    casesKick:'From practice', casesH1:'Cases: counterfeiting, investigations and asset protection',
-    casesLead:'Real engagements in trademark protection, anti-counterfeiting programmes, counterparty screening and internal investigations. Details are anonymised to protect client confidentiality.',
+    casesPageTitle:'Cases: anti-counterfeiting, analytics, due diligence — Vlasta Consulting',
+    casesPageDesc:`${cases.length} engagements from practice: shutting down counterfeit distribution channels, EAEU programmes, production-site measures, theft documentation, counterparty screening and litigation support.`,
+    casesPageKw:'anti-counterfeiting cases, counterfeit enforcement, EAEU counterfeit, due diligence, corporate security, customs register case',
+    casesKick:'From practice', casesH1:'Cases: counterfeiting, analytics and asset protection',
+    casesLead:'Real engagements in trademark protection, anti-counterfeiting programmes, counterparty screening and internal reviews. Details are anonymised to protect client confidentiality.',
     caseFilter:'Filter by category', caseSuffix:'— a Vlasta Consulting case',
     newsPageTitle:'News: anti-counterfeiting across Russia and the EAEU — Vlasta Consulting',
     newsPageDesc:`${news.length} articles: anti-counterfeiting operations and seizures, initiatives at the EEC and the Federal Customs Service, and participation in international IP forums.`,
@@ -742,13 +742,13 @@ const ctaBand = (depth = 0) => `<section class="sec sec--cta">
 </section>`;
 
 const clientsGrid = () => site.clients.map(c =>
-  `<div class="client"><img src="${rel(0, c.l)}" alt="${esc(c.n)}" loading="lazy" decoding="async"${c.scale ? ` style="--logo-scale:${c.scale}"` : ''}></div>`).join('');
+  `<div class="client"><img src="${rel(0, c.l)}" alt="${esc(t(c, 'n'))}" loading="lazy" decoding="async"${c.scale ? ` style="--logo-scale:${c.scale}"` : ''}></div>`).join('');
 
 const marquee = () => {
   const item = c =>
-    `<span class="mq__i"><img src="${rel(0, c.l)}" alt="${esc(c.n)}" loading="lazy" decoding="async"${c.scale ? ` style="--logo-scale:${c.scale}"` : ''}></span>`;
+    `<span class="mq__i"><img src="${rel(0, c.l)}" alt="${esc(t(c, 'n'))}" loading="lazy" decoding="async"${c.scale ? ` style="--logo-scale:${c.scale}"` : ''}></span>`;
   /* Two brick rows (even / odd). Pad the shorter row from the *other* row so we
-     never repeat a logo inside the same track (e.g. double P&G). */
+     never repeat a logo inside the same track. */
   const list = site.clients;
   let a = list.filter((_, i) => i % 2 === 0);
   let b = list.filter((_, i) => i % 2 === 1);
@@ -976,8 +976,8 @@ const assocMarquee = () => belt(
 const lettersMarquee = () => belt(
   site.letters.map(l => dup =>
     `<button class="belt__i letter" type="button" data-letter${dup ? ' tabindex="-1"' : ''}>
-      <span class="letter__th"><img src="${rel(0, l.img)}" alt="${dup ? '' : C.letterAlt + ' — ' + esc(l.name)}" loading="lazy" decoding="async"></span>
-      <span class="letter__n">${esc(l.name)}</span>
+      <span class="letter__th"><img src="${rel(0, l.img)}" alt="${dup ? '' : esc(C.letterAlt)}" loading="lazy" decoding="async"></span>
+      <span class="letter__n">${esc(t(l, 'name'))}</span>
     </button>`),
   'belt--letters', C.lettersTitle);
 

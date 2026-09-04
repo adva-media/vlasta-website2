@@ -97,8 +97,8 @@
       "value": "4",
       "unit": "/ нед",
       "pct": 70,
-      "label": "<b>Рейда в неделю</b> с непосредственным участием наших специалистов",
-      "label_en": "<b>Raids a week</b> with our specialists directly involved",
+      "label": "<b>4+ мероприятия по пресечению нарушений</b> в неделю при участии правоохранительных органов",
+      "label_en": "<b>4+ suppression measures a week</b> with law-enforcement participation",
       "unit_en": "/ wk",
       "count": 4,
       "icon": "raid",
@@ -131,10 +131,10 @@
         },
         {
           "icon": "scales",
-          "title": "Досудебное изучение ответчика, включая поиск активов",
-          "title_en": "Pre-action study of the defendant, including asset search",
-          "text": "Сбор сведений об оппоненте и его активах до начала разбирательства: оцениваем перспективы взыскания и выстраиваем тактику.",
-          "text_en": "Gathering information on the opponent and their assets before proceedings begin: we assess recovery prospects and set the tactics.",
+          "title": "Досудебное изучение субъекта",
+          "title_en": "Pre-action subject analysis",
+          "text": "Сбор и анализ информации из открытых и иных законно доступных источников для оценки имущественного положения субъекта и перспектив взыскания.",
+          "text_en": "Collection and analysis of information from open and other lawfully available sources to assess a subject’s financial position and recovery prospects.",
           "bullets": [],
           "bullets_en": []
         },
@@ -158,10 +158,10 @@
         },
         {
           "icon": "cert",
-          "title": "Экспертиза контрафактной продукции",
-          "title_en": "Counterfeit product expertise",
-          "text": "Установление признаков контрафакта и подготовка заключений для правоохранительных органов и суда.",
-          "text_en": "Establishing signs of counterfeiting and preparing opinions for law enforcement and the courts.",
+          "title": "Исследование продукции на признаки контрафакта, координация проведения независимой экспертизы",
+          "title_en": "Product review for counterfeit indicators; coordinating independent expertise",
+          "text": "Исследование продукции на признаки контрафакта и координация проведения независимой экспертизы для последующего использования в правовых процедурах.",
+          "text_en": "Reviewing products for counterfeit indicators and coordinating independent expertise for use in subsequent legal procedures.",
           "bullets": [],
           "bullets_en": []
         },
@@ -181,7 +181,7 @@
           "to": "growth"
         },
         {
-          "t": "Досудебное изучение <b>ответчика</b>",
+          "t": "Досудебное изучение <b>субъекта</b>",
           "to": "scales"
         },
         {
@@ -193,7 +193,7 @@
           "to": "globe"
         },
         {
-          "t": "Экспертиза <b>контрафакта</b> и M&A",
+          "t": "Исследование <b>контрафакта</b> и M&A",
           "to": "cert"
         }
       ],
@@ -203,7 +203,7 @@
           "to": "growth"
         },
         {
-          "t": "Pre-action study of the <b>defendant</b>",
+          "t": "Pre-action study of the <b>subject</b>",
           "to": "scales"
         },
         {
@@ -215,7 +215,7 @@
           "to": "globe"
         },
         {
-          "t": "<b>Counterfeit</b> expertise and M&A",
+          "t": "<b>Counterfeit</b> review and M&A",
           "to": "cert"
         }
       ]
@@ -231,8 +231,8 @@
       "tagline": "Защита компании от внутренних и внешних угроз — проверка людей и контрагентов, аудит уязвимостей и <b>физическая безопасность</b>.",
       "tagline_en": "Protecting the company from internal and external threats — screening people and counterparties, auditing vulnerabilities and <b>physical security</b>.",
       "icon": "shield",
-      "intro": "Большинство угроз бизнесу — внутренние. Мы выстраиваем контур защиты от недобросовестных сотрудников и контрагентов, а также от системных уязвимостей в процессах. Профилактика дешевле расследования: ранняя проверка людей и партнёров предотвращает хищения, мошенничество и репутационные потери. Защита материальных активов, объектов и людей — основа спокойной работы компании.",
-      "intro_en": "Most threats to business are internal. We build a protective perimeter against dishonest staff and counterparties, and against systemic process vulnerabilities. Prevention costs less than investigation: early screening of people and partners prevents theft, fraud and reputational loss. Protecting physical assets, sites and people is the foundation of a company that can work calmly.",
+      "intro": "Большинство угроз бизнесу — внутренние. Мы выстраиваем контур защиты от недобросовестных сотрудников и контрагентов, а также от системных уязвимостей в процессах. Профилактика дешевле последующего реагирования: ранняя проверка людей и партнёров предотвращает хищения, мошенничество и репутационные потери. Защита материальных активов, объектов и людей — основа спокойной работы компании.",
+      "intro_en": "Most threats to business are internal. We build a protective perimeter against dishonest staff and counterparties, and against systemic process vulnerabilities. Prevention costs less than later response: early screening of people and partners prevents theft, fraud and reputational loss. Protecting physical assets, sites and people is the foundation of a company that can work calmly.",
       "directions": [
         {
           "icon": "check",
@@ -256,8 +256,8 @@
           "icon": "search",
           "title": "Конфликты интересов",
           "title_en": "Conflicts of interest",
-          "text": "Обнаружение скрытых связей сотрудников с контрагентами и расследование уже возникших конфликтов.",
-          "text_en": "Detecting hidden links between staff and counterparties, and investigating conflicts that have already arisen.",
+          "text": "Обнаружение скрытых связей сотрудников с контрагентами, минимизация и устранение рисков в уже возникших конфликтах интересов.",
+          "text_en": "Detecting hidden links between staff and counterparties, and mitigating or eliminating risks in conflicts of interest that have already arisen.",
           "bullets": [],
           "bullets_en": []
         },
@@ -290,28 +290,10 @@
         },
         {
           "icon": "ops",
-          "title": "Охрана объектов",
-          "title_en": "Site security",
-          "text": "Организация физической охраны офисов, складов и производств любого профиля.",
-          "text_en": "Arranging physical security for offices, warehouses and production sites of any profile.",
-          "bullets": [],
-          "bullets_en": []
-        },
-        {
-          "icon": "event",
-          "title": "Безопасность мероприятий",
-          "title_en": "Event security",
-          "text": "Обеспечение безопасности деловых и публичных мероприятий — от планирования до сопровождения.",
-          "text_en": "Securing business and public events — from planning through to on-site support.",
-          "bullets": [],
-          "bullets_en": []
-        },
-        {
-          "icon": "car",
-          "title": "Личная охрана",
-          "title_en": "Personal protection",
-          "text": "Конфиденциальная персональная защита руководителей, собственников и их семей.",
-          "text_en": "Confidential personal protection for executives, owners and their families.",
+          "title": "Организация безопасности",
+          "title_en": "Security organisation",
+          "text": "Организация комплексных мер безопасности с привлечением лицензированных охранных организаций — для объектов, мероприятий и обеспечения личной безопасности.",
+          "text_en": "Organising comprehensive security measures with licensed security providers — for sites, events and personal protection.",
           "bullets": [],
           "bullets_en": []
         }
@@ -326,7 +308,7 @@
           "to": "users"
         },
         {
-          "t": "Выявление и расследование <b>конфликтов интересов</b>",
+          "t": "Выявление и минимизация <b>конфликтов интересов</b>",
           "to": "search"
         },
         {
@@ -338,7 +320,7 @@
           "to": "legal"
         },
         {
-          "t": "<b>Физическая безопасность</b> объектов",
+          "t": "<b>Организация безопасности</b>",
           "to": "ops"
         }
       ],
@@ -352,7 +334,7 @@
           "to": "users"
         },
         {
-          "t": "Identifying and investigating <b>conflicts of interest</b>",
+          "t": "Identifying and mitigating <b>conflicts of interest</b>",
           "to": "search"
         },
         {
@@ -364,7 +346,7 @@
           "to": "legal"
         },
         {
-          "t": "<b>Physical security</b> of sites",
+          "t": "<b>Security organisation</b>",
           "to": "ops"
         }
       ],
@@ -415,10 +397,10 @@
         },
         {
           "icon": "raid",
-          "title": "Борьба с нарушениями «под ключ»",
-          "title_en": "Turnkey enforcement against infringement",
-          "text": "Рейды, изъятия и гражданские иски — полный цикл пресечения нарушений и юридического сопровождения.",
-          "text_en": "Raids, seizures and civil claims — a full cycle of stopping infringement and legal follow-through.",
+          "title": "Поддержка рейдовых мероприятий и гражданских исков",
+          "title_en": "Support for enforcement raids and civil claims",
+          "text": "Инициализация и комплексная поддержка рейдовых мероприятий правоохранительных органов, сопровождение изъятий и гражданских исков — полный цикл пресечения нарушений и правового сопровождения.",
+          "text_en": "Initiating and comprehensively supporting law-enforcement raid measures, assisting with seizures and civil claims — a full cycle of stopping infringement with legal follow-through.",
           "bullets": [],
           "bullets_en": []
         },
@@ -426,8 +408,8 @@
           "icon": "cart",
           "title": "Защита бренда в eCommerce",
           "title_en": "Brand protection in e-commerce",
-          "text": "Взаимодействие с маркетплейсами, блокировка нарушающих ресурсов и расследования в онлайн-торговле.",
-          "text_en": "Working with marketplaces, blocking infringing resources and investigating online trade.",
+          "text": "Мониторинг онлайн-торговли и фиксация выявленных нарушений. Взаимодействие с маркетплейсами и подготовка обращений по нарушающим ресурсам.",
+          "text_en": "Monitoring online trade and documenting identified infringements. Working with marketplaces and preparing appeals regarding infringing resources.",
           "bullets": [],
           "bullets_en": []
         },
@@ -444,8 +426,8 @@
           "icon": "ops",
           "title": "Операции online-to-offline (O2O)",
           "title_en": "Online-to-offline (O2O) operations",
-          "text": "Выявление логистики и бенефициаров преступных схем через связку онлайн- и офлайн-расследований — с пресечением и привлечением к ответственности.",
-          "text_en": "Identifying logistics and beneficiaries of criminal schemes through linked online and offline investigations — stopping the activity and bringing those responsible to account.",
+          "text": "Комплексный сбор информации о нарушениях в онлайн-среде с последующей передачей материалов в правоохранительные органы и сопровождением мер по пресечению нарушений.",
+          "text_en": "Comprehensive collection of information on online infringements, with transfer of materials to law enforcement and support for measures to stop the violations.",
           "bullets": [],
           "bullets_en": []
         },
@@ -469,28 +451,10 @@
         },
         {
           "icon": "trendDown",
-          "title": "Устранение демпинга",
-          "title_en": "Stopping dumping",
-          "text": "Выявление источников демпинга и пресечение недобросовестного ценового давления на рынок.",
-          "text_en": "Identifying sources of dumping and shutting down unfair price pressure on the market.",
-          "bullets": [],
-          "bullets_en": []
-        },
-        {
-          "icon": "growth",
-          "title": "Возврат трафика на легальные каналы",
-          "title_en": "Returning traffic to legitimate channels",
-          "text": "Перенаправление потребительского спроса от нелегальных продавцов к официальным каналам продаж.",
-          "text_en": "Redirecting consumer demand from illegal sellers to official sales channels.",
-          "bullets": [],
-          "bullets_en": []
-        },
-        {
-          "icon": "coins",
-          "title": "Снижение параллельного импорта",
-          "title_en": "Reducing parallel imports",
-          "text": "Выявление и сокращение серых поставок, нарушающих официальную дистрибуцию.",
-          "text_en": "Identifying and reducing grey imports that undermine official distribution.",
+          "title": "Осуществление мер против недобросовестной конкуренции",
+          "title_en": "Measures against unfair competition",
+          "text": "Анализ ценовой политики рынка, выявление признаков недобросовестной конкуренции и подготовка правовых мер реагирования.",
+          "text_en": "Analysis of market pricing policy, identification of signs of unfair competition and preparation of legal response measures.",
           "bullets": [],
           "bullets_en": []
         }
@@ -501,7 +465,7 @@
           "to": "cert"
         },
         {
-          "t": "Борьба с нарушениями <b>«под ключ»</b>",
+          "t": "Поддержка <b>рейдовых мероприятий</b>",
           "to": "raid"
         },
         {
@@ -509,7 +473,7 @@
           "to": "customs"
         },
         {
-          "t": "<b>Противодействие демпингу</b>",
+          "t": "<b>Меры против недобросовестной конкуренции</b>",
           "to": "trendDown"
         }
       ],
@@ -519,7 +483,7 @@
           "to": "cert"
         },
         {
-          "t": "<b>Turnkey</b> enforcement against infringement",
+          "t": "Support for <b>enforcement raids</b>",
           "to": "raid"
         },
         {
@@ -527,7 +491,7 @@
           "to": "customs"
         },
         {
-          "t": "Action against <b>dumping</b>",
+          "t": "Measures against <b>unfair competition</b>",
           "to": "trendDown"
         }
       ],
@@ -537,24 +501,24 @@
         "items": [
           {
             "icon": "raid",
-            "h": "Административный ресурс",
-            "h_en": "Administrative leverage",
-            "p": "Инициирование проверок правоохранительными органами, таможенный и налоговый контроль.",
-            "p_en": "Initiating law-enforcement inspections, plus customs and tax control."
+            "h": "Взаимодействие с уполномоченными органами",
+            "h_en": "Engagement with competent authorities",
+            "p": "Подготовка обращений и материалов, правовое сопровождение взаимодействия с правоохранительными, таможенными и иными уполномоченными органами в пределах предусмотренных законом процедур.",
+            "p_en": "Preparing appeals and materials, and providing legal support for engagement with law-enforcement, customs and other competent authorities within legally established procedures."
           },
           {
             "icon": "scales",
             "h": "Гражданско-правовые методы",
             "h_en": "Civil-law methods",
-            "p": "Иски о нарушении прав на товарные знаки и взыскание убытков.",
-            "p_en": "Claims for trademark infringement and recovery of damages."
+            "p": "Иски о нарушении прав на товарные знаки и взыскание компенсации.",
+            "p_en": "Claims for trademark infringement and recovery of compensation."
           },
           {
             "icon": "laptop",
-            "h": "Технологическое подавление",
-            "h_en": "Technological suppression",
-            "p": "Блокировка сайтов и ссылок через Роскомнадзор за нарушения и использование чужого товарного знака.",
-            "p_en": "Blocking sites and links via Roskomnadzor for infringements and use of another’s trademark."
+            "h": "Устранение нарушений в онлайн",
+            "h_en": "Remedying online infringements",
+            "p": "Подготовка обращений и действий для ограничения доступа к нарушающим ресурсам — во взаимодействии с хостинг-провайдерами, администраторами площадок и уполномоченными органами.",
+            "p_en": "Preparing appeals and actions to restrict access to infringing resources — working with hosting providers, platform administrators and competent authorities."
           },
           {
             "icon": "radar",
@@ -570,8 +534,8 @@
           "icon": "layers",
           "title": "Алгоритм программы",
           "title_en": "Programme algorithm",
-          "note": "Принцип точечного удара: мы концентрируемся на вашем сегменте рынка и интенсифицируем работу правоохранительной системы на конкретном участке. Работа может вестись без доверенности и без упоминания заказчика.",
-          "note_en": "A precision-strike principle: we focus on your market segment and intensify law-enforcement work on that specific area. Work can be carried out without a power of attorney and without naming the client.",
+          "note": "Организуем правовое взаимодействие с уполномоченными органами для пресечения выявленных нарушений. Концентрируемся на вашем сегменте рынка и обеспечиваем конфиденциальность в рамках согласованных с клиентом условий.",
+          "note_en": "We organise legal engagement with competent authorities to stop identified infringements. We focus on your market segment and maintain confidentiality under terms agreed with the client.",
           "steps": [
             {
               "h": "Сканирование рынка",
@@ -580,10 +544,10 @@
               "p_en": "We identify infringements and illegal sales channels in your segment."
             },
             {
-              "h": "Выбор целей",
-              "h_en": "Target selection",
-              "p": "Определяем приоритетные цели для отработки — конкретные бренды, площадки и нарушителей.",
-              "p_en": "We set priority targets for action — specific brands, platforms and infringers."
+              "h": "Определение приоритетных нарушений и объектов для правового реагирования",
+              "h_en": "Identifying priority infringements and targets for legal response",
+              "p": "Определяем приоритетные нарушения, площадки и объекты для правового реагирования.",
+              "p_en": "We set priority infringements, platforms and targets for legal response."
             },
             {
               "h": "Подтверждение критериев",
@@ -594,14 +558,14 @@
             {
               "h": "Запуск программы",
               "h_en": "Launching the programme",
-              "p": "Интенсифицируем работу правоохранительной системы по «обелению» целевого участка рынка.",
-              "p_en": "We intensify law-enforcement work to clean up the targeted market segment."
+              "p": "Обеспечиваем комплексную поддержку мер по пресечению нарушений на целевом сегменте рынка.",
+              "p_en": "We provide comprehensive support for measures to suppress infringements in the targeted market segment."
             },
             {
-              "h": "Блокировки и компенсации",
-              "h_en": "Blocks and compensation",
-              "p": "Блокируем ссылки нарушителей и взыскиваем компенсации с продавцов.",
-              "p_en": "We block infringers’ links and recover compensation from sellers."
+              "h": "Правовое сопровождение удаления нарушающего контента и взыскания компенсации",
+              "h_en": "Legal support for removing infringing content and recovering compensation",
+              "p": "Сопровождаем удаление нарушающего контента и взыскание компенсации с продавцов.",
+              "p_en": "We support removal of infringing content and recovery of compensation from sellers."
             }
           ]
         }
@@ -668,10 +632,10 @@
         },
         {
           "icon": "customs",
-          "title": "Консультации по праву и таможне",
-          "title_en": "Legal and customs advice",
-          "text": "Консультации по отраслевому и таможенному регулированию и взаимодействию с госорганами.",
-          "text_en": "Advice on sector and customs regulation and on dealing with state bodies.",
+          "title": "Консультации по таможенному регулированию и правам ИС",
+          "title_en": "Customs and IP rights advice",
+          "text": "Консультации по таможенному регулированию, правам интеллектуальной собственности и взаимодействию с госорганами.",
+          "text_en": "Advice on customs regulation, intellectual property rights and engagement with state bodies.",
           "bullets": [],
           "bullets_en": []
         },
@@ -679,8 +643,8 @@
           "icon": "scales",
           "title": "Представление интересов в судах",
           "title_en": "Court representation",
-          "text": "Защита интересов в судах с привлечением оценщиков и адвокатов.",
-          "text_en": "Protecting interests in court with valuers and advocates involved.",
+          "text": "Защита интересов в судах с привлечением адвокатов — правовое сопровождение до вступления решения в законную силу.",
+          "text_en": "Protecting interests in court with advocates — legal support through the judgment entering into force.",
           "bullets": [],
           "bullets_en": []
         },
@@ -803,13 +767,13 @@
             "offers": [
               {
                 "to": "security",
-                "text": "Проверка логистических контрагентов и аудит безопасности складов",
-                "text_en": "Screening logistics counterparties and warehouse security audits"
+                "text": "Проверка логистических контрагентов и мониторинг безопасности складской инфраструктуры",
+                "text_en": "Screening logistics counterparties and monitoring warehouse security posture"
               },
               {
                 "to": "brand",
-                "text": "Защита бренда на таможне (ТРОИС) и снижение параллельного импорта",
-                "text_en": "Brand protection at customs (TROIS) and reducing parallel imports"
+                "text": "Защита бренда на таможне (ТРОИС)",
+                "text_en": "Brand protection at customs (TROIS)"
               },
               {
                 "to": "consulting",
@@ -855,26 +819,26 @@
             "offers": [
               {
                 "to": "security",
-                "text": "Расследование конфликтов интересов и аудит экономической безопасности",
-                "text_en": "Conflict-of-interest investigation and economic-security audit"
+                "text": "Выявление конфликтов интересов и аудит экономической безопасности",
+                "text_en": "Identifying conflicts of interest and economic-security audit"
               },
               {
                 "to": "brand",
-                "text": "Рейды, изъятия и гражданские иски — если затронуты ИС или контрафакт",
-                "text_en": "Raids, seizures and civil claims where IP or counterfeit is involved"
+                "text": "Поддержка рейдовых мероприятий и гражданских исков — если затронуты ИС или контрафакт",
+                "text_en": "Support for enforcement raids and civil claims where IP or counterfeit is involved"
               }
             ]
           },
           {
-            "trigger": "Предложение стать потерпевшим по уголовному делу",
-            "trigger_en": "Invitation to join a criminal case as the injured party",
-            "hint": "от правоохранительных органов",
-            "hint_en": "from law-enforcement authorities",
+            "trigger": "Полиция изъяла контрафактную продукцию вашего бренда",
+            "trigger_en": "Police seized counterfeit products of your brand",
+            "hint": "на складе, в торговой точке или при проверке",
+            "hint_en": "at a warehouse, retail point or during an inspection",
             "offers": [
               {
                 "to": "compliance",
-                "text": "Досудебное изучение ответчика, поиск активов, экспертиза ущерба",
-                "text_en": "Pre-trial study of the defendant, asset tracing and damage expertise"
+                "text": "Досудебное изучение субъекта, оценка перспектив взыскания, экспертиза ущерба",
+                "text_en": "Pre-action subject analysis, recovery-prospect assessment and damage expertise"
               },
               {
                 "to": "consulting",
@@ -901,8 +865,8 @@
               },
               {
                 "to": "compliance",
-                "text": "Экспертиза контрафактной продукции для суда",
-                "text_en": "Counterfeit product expertise for court"
+                "text": "Исследование продукции на признаки контрафакта, координация независимой экспертизы",
+                "text_en": "Product review for counterfeit indicators; coordinating independent expertise"
               }
             ]
           },
@@ -980,6 +944,17 @@
   },
   "departments": [
     {
+      "icon": "coord",
+      "x": 0.18,
+      "y": 0.78,
+      "short": "Координация",
+      "title": "Отдел координации проектов",
+      "text": "Отдел координации проектов обеспечивает организацию и контроль всех этапов работы. Менеджеры сопровождают проекты, координируют взаимодействие между подразделениями, контролируют сроки и качество выполнения задач, а также обеспечивают прозрачность процессов для клиента.",
+      "title_en": "Project coordination",
+      "short_en": "Coordination",
+      "text_en": "The project coordination department organises and monitors every stage of work — managing timelines, quality and cross-department communication, and keeping processes transparent for the client."
+    },
+    {
       "icon": "search",
       "x": 0.16,
       "y": 0.24,
@@ -1005,23 +980,12 @@
       "icon": "ops",
       "x": 0.5,
       "y": 0.5,
-      "short": "Операции",
-      "title": "Оперативный отдел",
-      "text": "Оперативный отдел координирует взаимодействие с правоохранительными органами в Москве, регионах России и странах СНГ. Специалисты оказывают экспертную и консультационную помощь при рейдах и изъятиях и фиксируют результаты в рамках антиконтрафактных проектов.",
-      "title_en": "Operations department",
-      "short_en": "Operations",
-      "text_en": "The operations department coordinates work with law enforcement across Moscow, Russia's regions and the CIS. The team provides expert and advisory support during raids and seizures and documents outcomes within anti-counterfeit projects."
-    },
-    {
-      "icon": "coord",
-      "x": 0.18,
-      "y": 0.78,
-      "short": "Координация",
-      "title": "Отдел координации проектов",
-      "text": "Отдел координации проектов обеспечивает организацию и контроль всех этапов работы. Менеджеры сопровождают проекты, координируют взаимодействие между подразделениями, контролируют сроки и качество выполнения задач, а также обеспечивают прозрачность процессов для клиента.",
-      "title_en": "Project coordination",
-      "short_en": "Coordination",
-      "text_en": "The project coordination department organises and monitors every stage of work — managing timelines, quality and cross-department communication, and keeping processes transparent for the client."
+      "short": "Спецпроекты",
+      "title": "Отдел спецпроектов",
+      "text": "Отдел спецпроектов координирует взаимодействие с правоохранительными органами в Москве, регионах России и странах СНГ. Специалисты оказывают экспертную и консультационную помощь при мероприятиях по пресечению нарушений и фиксируют результаты в рамках антиконтрафактных проектов.",
+      "title_en": "Special projects department",
+      "short_en": "Special projects",
+      "text_en": "The special projects department coordinates engagement with law enforcement across Moscow, Russia’s regions and the CIS. The team provides expert and advisory support during suppression measures and documents outcomes within anti-counterfeit projects."
     },
     {
       "icon": "laptop",
@@ -1038,12 +1002,12 @@
       "icon": "pin",
       "x": 0.5,
       "y": 0.9,
-      "short": "Офлайн",
-      "title": "Офлайн-отдел",
-      "text": "Офлайн и полевой отдел работает в физических каналах — контрольные закупки, мониторинг розницы и опта, проверки складов и точек продаж. Специалисты собирают доказательства на местах по России и ЕАЭС, дополняя цифровые проверки и оперативные мероприятия.",
-      "title_en": "Offline department",
-      "short_en": "Offline",
-      "text_en": "The offline and field department works in physical channels — test purchases, retail and wholesale monitoring, warehouse and outlet checks. Specialists gather on-the-ground evidence across Russia and the EAEU, complementing digital checks and enforcement operations."
+      "short": "Мониторинг",
+      "title": "Отдел мониторинга",
+      "text": "Отдел мониторинга. Отдел работает с офлайн-каналами продаж: проводит мониторинг розничного и оптового рынка, документирует выявленные нарушения и собирает материалы в рамках согласованных с клиентом проектов. При необходимости организует проверочные закупки и взаимодействие с профильными специалистами и уполномоченными органами в соответствии с законодательством.",
+      "title_en": "Monitoring department",
+      "short_en": "Monitoring",
+      "text_en": "The monitoring department works offline sales channels: it monitors retail and wholesale markets, documents identified infringements and assembles materials within client-agreed projects. Where needed, it organises verification purchases and engagement with specialist advisers and competent authorities in accordance with the law."
     }
   ],
   "approach": [
@@ -1066,10 +1030,10 @@
     {
       "n": "3",
       "title": "Реализация",
-      "text": "Реализуем согласованные меры и сопровождаем расследования в правовом поле.",
+      "text": "Реализуем согласованные меры и обеспечиваем правовое сопровождение в рамках проекта.",
       "icon": "check",
       "title_en": "Execution",
-      "text_en": "We put agreed measures in place and support investigations within the law."
+      "text_en": "We put agreed measures in place and provide legal support throughout the project."
     },
     {
       "n": "4",
@@ -1082,9 +1046,15 @@
   ],
   "timeline": [
     {
+      "year": "2026",
+      "text": "Продолжение программ защиты брендов на рынках ЕАЭС и развитие международного экспертного сотрудничества. Усиление практики сопровождения антиконтрафактных проектов и взаимодействия с отраслевыми ассоциациями.",
+      "text_en": "Continued brand-protection programmes across EAEU markets and deeper international expert cooperation. Strengthening support for anti-counterfeit projects and engagement with industry associations.",
+      "highlight": true,
+      "icon": "growth"
+    },
+    {
       "year": "2025",
       "text": "Возврат на «пиковые» показатели, география деятельности расширена до стран Евразийского экономического союза с запуском комплексных программ защиты брендов на новых рынках. Объем предотвращённого ущерба правообладателями – более 125 000 000 евро в год. Генеральный директор Владимир Соломанидин награжден Всероссийской полицейской ассоциацией МПА медалью.",
-      "highlight": true,
       "text_en": "A return to “peak” performance; the geography of operations expands to the Eurasian Economic Union countries with the launch of comprehensive brand-protection programmes on new markets. Prevented damage for rights holders — more than €125,000,000 a year. CEO Vladimir Solomanidin is awarded a medal by the All-Russian Police Association (MPA).",
       "icon": "growth"
     },
@@ -1107,10 +1077,16 @@
       "icon": "brand"
     },
     {
-      "year": "2014–15",
-      "text": "Проведение крупнейшего за десятилетие рейда на незаконном производстве – изъятие более 100 фур готовой контрафактной продукции. Коллектив компании составляет более 50 человек. Руководитель компании отмечен сразу двумя наградами (Награда имени Нормана Дж. Слоуна от WAD, медаль В.В. Леонтьева «За достижения в экономике».)",
-      "text_en": "The decade’s largest raid on illegal production — seizure of more than 100 truckloads of finished counterfeit goods. The company team exceeds 50 people. Company leadership is recognised with two awards at once (the Norman J. Sloan Award from WAD, and the V.V. Leontief medal “For Achievements in Economics”).",
+      "year": "2015",
+      "text": "Участие в организации и информационном сопровождении одного из крупнейших мероприятий по пресечению нарушений: правоохранительными органами изъято более 100 фур готовой контрафактной продукции. Коллектив компании составляет более 50 человек. Руководитель компании отмечен медалью В.В. Леонтьева «За достижения в экономике».",
+      "text_en": "Participation in organising and providing informational support for one of the largest suppression measures: law enforcement seized more than 100 truckloads of finished counterfeit goods. The company team exceeds 50 people. Company leadership is recognised with the V.V. Leontief medal “For Achievements in Economics”.",
       "icon": "raid"
+    },
+    {
+      "year": "2014",
+      "text": "Генеральный директор Владимир Соломанидин награждён памятной наградой имени Нормана Дж. Слоуна от Всемирной ассоциации детективов (WAD) за многолетнюю профессиональную службу в сфере обеспечения безопасности бизнеса.",
+      "text_en": "CEO Vladimir Solomanidin receives the Norman J. Sloan commemorative award from the World Association of Detectives (WAD) for long-standing professional service in business security.",
+      "icon": "globe"
     },
     {
       "year": "2010",
@@ -1120,8 +1096,8 @@
     },
     {
       "year": "2006",
-      "text": "Создание компании, старт деятельности в Москве в сфере обеспечения безопасности бизнеса и защиты брендов. Создание практики работы правоохранительной системы по «контрафактным» статьям КоАп и УК РФ.",
-      "text_en": "The company is founded; operations begin in Moscow in business security and brand protection. Development of law-enforcement practice under the “counterfeit” articles of the Russian Code of Administrative Offences and Criminal Code.",
+      "text": "Создание компании, старт деятельности в Москве в сфере обеспечения безопасности бизнеса и защиты брендов. Развитие практики взаимодействия с правоохранительными органами по вопросам противодействия контрафакту.",
+      "text_en": "The company is founded; operations begin in Moscow in business security and brand protection. Development of engagement with law-enforcement authorities on countering counterfeiting.",
       "mark": "logo"
     }
   ],
@@ -1232,10 +1208,10 @@
       "name": "Константин Шестера",
       "role": "Операционный директор",
       "img": "assets/img/team/SKf.jpg",
-      "note": "Операционное управление программами защиты брендов и расследований.",
+      "note": "Операционное управление программами защиты брендов и аналитическими проектами.",
       "name_en": "Konstantin Shestera",
       "role_en": "Chief Operating Officer",
-      "note_en": "Operational leadership of brand protection programmes and investigations."
+      "note_en": "Operational leadership of brand-protection programmes and analytical projects."
     }
   ],
   "associations": [
@@ -1344,8 +1320,8 @@
       "meta": "Россия · FMCG",
       "site": "rusbrand.com",
       "url": "http://rusbrand.com/",
-      "desc": "RusБренд — российская некоммерческая ассоциация производителей брендированных потребительских товаров, направленная на развитие честной конкуренции, брендов и сотрудничества между FMCG-компаниями и ритейлом. В её состав входят ведущие международные и российские компании, включая Procter & Gamble, Unilever, Henkel, Mars, Wrigley, Valio и «Объединённые кондитеры».\n\nАссоциация способствует развитию отраслевых стандартов, маркетинга и диалога бизнеса с регуляторами. Управление осуществляется общим собранием и выборными органами из числа участников.\n\nКомпания Vlasta Consulting принимает активное участие в деятельности ассоциации, участвует в конференциях, мероприятиях и профессиональных инициативах, организуемых RusBrand.",
-      "desc_en": "RusBrand is a Russian non-profit association of manufacturers of branded consumer goods, focused on promoting fair competition, brand development, and cooperation between FMCG companies and retail networks. It brings together leading international and Russian companies in the consumer goods sector, including Procter & Gamble, Unilever, Henkel, Mars, Wrigley, Valio, and United Confectioners.\n\nThe association supports industry standards, marketing development, and dialogue between business and regulators. It is governed by a General Assembly and elected management bodies representing member companies.\n\nVlasta Consulting takes an active part in the association’s activities, regularly participating in conferences, events, and professional initiatives organized by RusBrand.",
+      "desc": "RusБренд — российская некоммерческая ассоциация производителей брендированных потребительских товаров, направленная на развитие честной конкуренции, брендов и сотрудничества между FMCG-компаниями и ритейлом. В её состав входят ведущие международные и российские компании отрасли.\n\nАссоциация способствует развитию отраслевых стандартов, маркетинга и диалога бизнеса с регуляторами. Управление осуществляется общим собранием и выборными органами из числа участников.\n\nКомпания Vlasta Consulting принимает активное участие в деятельности ассоциации, участвует в конференциях, мероприятиях и профессиональных инициативах, организуемых RusBrand.",
+      "desc_en": "RusBrand is a Russian non-profit association of manufacturers of branded consumer goods, focused on promoting fair competition, brand development, and cooperation between FMCG companies and retail networks. It brings together leading international and Russian companies in the consumer goods sector.\n\nThe association supports industry standards, marketing development, and dialogue between business and regulators. It is governed by a General Assembly and elected management bodies representing member companies.\n\nVlasta Consulting takes an active part in the association’s activities, regularly participating in conferences, events, and professional initiatives organized by RusBrand.",
       "name_en": "RusBrand",
       "meta_en": "Russia · FMCG"
     },
@@ -1364,170 +1340,210 @@
   ],
   "clients": [
     {
-      "n": "REHAU",
-      "l": "assets/img/clients/rehau.svg"
+      "n": "Клиент",
+      "n_en": "Client",
+      "l": "assets/img/clients/client-01.svg"
     },
     {
-      "n": "Procter & Gamble",
-      "l": "assets/img/clients/pg.svg"
+      "n": "Клиент",
+      "n_en": "Client",
+      "l": "assets/img/clients/client-02.svg"
     },
     {
-      "n": "Mazda",
-      "l": "assets/img/clients/mazda.webp",
+      "n": "Клиент",
+      "n_en": "Client",
+      "l": "assets/img/clients/client-03.webp",
       "scale": 1.3
     },
     {
-      "n": "Red Bull",
-      "l": "assets/img/clients/redbull.svg"
+      "n": "Клиент",
+      "n_en": "Client",
+      "l": "assets/img/clients/client-04.svg"
     },
     {
-      "n": "Mercedes-Benz",
-      "l": "assets/img/clients/mercedes.svg"
+      "n": "Клиент",
+      "n_en": "Client",
+      "l": "assets/img/clients/client-05.svg"
     },
     {
-      "n": "Shell",
-      "l": "assets/img/clients/shell.svg"
+      "n": "Клиент",
+      "n_en": "Client",
+      "l": "assets/img/clients/client-06.svg"
     },
     {
-      "n": "Henkel",
-      "l": "assets/img/clients/henkel.png"
+      "n": "Клиент",
+      "n_en": "Client",
+      "l": "assets/img/clients/client-07.webp"
     },
     {
-      "n": "Adidas",
-      "l": "assets/img/clients/adidas.svg"
+      "n": "Клиент",
+      "n_en": "Client",
+      "l": "assets/img/clients/client-08.svg"
     },
     {
-      "n": "Philip Morris International",
-      "l": "assets/img/clients/pmi.svg"
+      "n": "Клиент",
+      "n_en": "Client",
+      "l": "assets/img/clients/client-09.svg"
     },
     {
-      "n": "ExxonMobil",
-      "l": "assets/img/clients/exxon.svg"
+      "n": "Клиент",
+      "n_en": "Client",
+      "l": "assets/img/clients/client-10.svg"
     },
     {
-      "n": "Nissan",
-      "l": "assets/img/clients/nissan.svg"
+      "n": "Клиент",
+      "n_en": "Client",
+      "l": "assets/img/clients/client-11.svg"
     },
     {
-      "n": "Renault",
-      "l": "assets/img/clients/renault.svg"
+      "n": "Клиент",
+      "n_en": "Client",
+      "l": "assets/img/clients/client-12.svg"
     },
     {
-      "n": "Peugeot",
-      "l": "assets/img/clients/peugeot.svg"
+      "n": "Клиент",
+      "n_en": "Client",
+      "l": "assets/img/clients/client-13.svg"
     },
     {
-      "n": "NIVEA",
-      "l": "assets/img/clients/nivea.svg"
+      "n": "Клиент",
+      "n_en": "Client",
+      "l": "assets/img/clients/client-14.svg"
     },
     {
-      "n": "Eucerin",
-      "l": "assets/img/clients/eucerin.svg"
+      "n": "Клиент",
+      "n_en": "Client",
+      "l": "assets/img/clients/client-15.svg"
     },
     {
-      "n": "Motul",
-      "l": "assets/img/clients/motul.svg"
+      "n": "Клиент",
+      "n_en": "Client",
+      "l": "assets/img/clients/client-16.svg"
     },
     {
-      "n": "Idemitsu",
-      "l": "assets/img/clients/idemitsu.svg"
+      "n": "Клиент",
+      "n_en": "Client",
+      "l": "assets/img/clients/client-17.svg"
     },
     {
-      "n": "SPLAT",
-      "l": "assets/img/clients/splat.png",
+      "n": "Клиент",
+      "n_en": "Client",
+      "l": "assets/img/clients/client-18.webp",
       "scale": 1.12
     },
     {
-      "n": "PepsiCo",
-      "l": "assets/img/clients/pepsico.png"
+      "n": "Клиент",
+      "n_en": "Client",
+      "l": "assets/img/clients/client-19.webp"
     },
     {
-      "n": "Unilever",
-      "l": "assets/img/clients/unilever.png"
+      "n": "Клиент",
+      "n_en": "Client",
+      "l": "assets/img/clients/client-20.webp"
     },
     {
-      "n": "Gillette",
-      "l": "assets/img/clients/gillette.png"
+      "n": "Клиент",
+      "n_en": "Client",
+      "l": "assets/img/clients/client-21.webp"
     },
     {
-      "n": "Bushido",
-      "l": "assets/img/clients/bushido.png",
+      "n": "Клиент",
+      "n_en": "Client",
+      "l": "assets/img/clients/client-22.webp",
       "scale": 1.15
     },
     {
-      "n": "Reckitt Benckiser",
-      "l": "assets/img/clients/reckitt.png"
+      "n": "Клиент",
+      "n_en": "Client",
+      "l": "assets/img/clients/client-23.png"
     },
     {
-      "n": "LAB Industries",
-      "l": "assets/img/clients/lab-industries.png"
+      "n": "Клиент",
+      "n_en": "Client",
+      "l": "assets/img/clients/client-24.webp"
     },
     {
-      "n": "Egoiste Café",
-      "l": "assets/img/clients/egoiste.png"
+      "n": "Клиент",
+      "n_en": "Client",
+      "l": "assets/img/clients/client-25.webp"
     },
     {
-      "n": "Straumann",
-      "l": "assets/img/clients/straumann.png"
+      "n": "Клиент",
+      "n_en": "Client",
+      "l": "assets/img/clients/client-26.webp"
     },
     {
-      "n": "Zielinski & Rozen",
-      "l": "assets/img/clients/zielinski-rozen.png"
+      "n": "Клиент",
+      "n_en": "Client",
+      "l": "assets/img/clients/client-27.webp"
     },
     {
-      "n": "POXIPOL",
-      "l": "assets/img/clients/poxipol.png"
+      "n": "Клиент",
+      "n_en": "Client",
+      "l": "assets/img/clients/client-28.webp"
     },
     {
-      "n": "Чёрная Карта",
-      "l": "assets/img/clients/chernaya-karta.png",
+      "n": "Клиент",
+      "n_en": "Client",
+      "l": "assets/img/clients/client-29.png",
       "scale": 1.2
     },
     {
-      "n": "Jacobs",
-      "l": "assets/img/clients/jacobs.png"
+      "n": "Клиент",
+      "n_en": "Client",
+      "l": "assets/img/clients/client-30.webp"
     }
   ],
   "letters": [
     {
-      "name": "Motul",
-      "img": "assets/img/thanks/motul.jpg"
+      "name": "Клиент",
+      "name_en": "Client",
+      "img": "assets/img/thanks/letter-01.webp"
     },
     {
-      "name": "Nissan",
-      "img": "assets/img/thanks/nissan.jpg"
+      "name": "Клиент",
+      "name_en": "Client",
+      "img": "assets/img/thanks/letter-02.webp"
     },
     {
-      "name": "Renault",
-      "img": "assets/img/thanks/renault.jpg"
+      "name": "Клиент",
+      "name_en": "Client",
+      "img": "assets/img/thanks/letter-03.webp"
     },
     {
-      "name": "TRW",
-      "img": "assets/img/thanks/trw.jpg"
+      "name": "Клиент",
+      "name_en": "Client",
+      "img": "assets/img/thanks/letter-04.webp"
     },
     {
-      "name": "British American Tobacco",
-      "img": "assets/img/thanks/bat.jpg"
+      "name": "Клиент",
+      "name_en": "Client",
+      "img": "assets/img/thanks/letter-05.webp"
     },
     {
-      "name": "BAT Russia",
-      "img": "assets/img/thanks/bat-en.jpg"
+      "name": "Клиент",
+      "name_en": "Client",
+      "img": "assets/img/thanks/letter-06.webp"
     },
     {
-      "name": "Rehau",
-      "img": "assets/img/thanks/rehau.jpg"
+      "name": "Клиент",
+      "name_en": "Client",
+      "img": "assets/img/thanks/letter-07.webp"
     },
     {
-      "name": "Rasch",
-      "img": "assets/img/thanks/rasch.jpg"
+      "name": "Клиент",
+      "name_en": "Client",
+      "img": "assets/img/thanks/letter-08.webp"
     },
     {
-      "name": "Marella",
-      "img": "assets/img/thanks/marella.jpg"
+      "name": "Клиент",
+      "name_en": "Client",
+      "img": "assets/img/thanks/letter-09.webp"
     },
     {
-      "name": "Nivea · Beiersdorf",
-      "img": "assets/img/thanks/nivea.jpg"
+      "name": "Клиент",
+      "name_en": "Client",
+      "img": "assets/img/thanks/letter-10.webp"
     }
   ]
 }

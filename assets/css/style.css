@@ -1723,6 +1723,31 @@ body.over-hero .hero{
   #services{padding-top:12px}
   #services .shead,#cases .shead,#news .shead{row-gap:8px;margin-bottom:12px}
   #services .svc-rail{margin-top:0}
+  /* Desktop: 2×2 matrix (not a horizontal rail). Hide edge fades — they only
+     make sense while the track scrolls sideways on smaller viewports. */
+  #services .rail-fade{
+    margin-inline:0;
+    -webkit-mask-image:none;mask-image:none;
+    --fade-l:0px;--fade-r:0px;
+  }
+  #services .svc-rail{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:18px;
+    overflow:visible;
+    scroll-snap-type:none;
+    margin-inline:0;
+    padding-inline:0;
+    padding-bottom:0;
+    cursor:default;
+    touch-action:auto;
+  }
+  #services .svc-card{
+    flex:none;
+    width:auto;
+    min-width:0;
+    scroll-snap-align:none;
+  }
 }
 @media (max-width:899px){
   #services{padding-top:20px}
@@ -2816,15 +2841,12 @@ section[id]{scroll-margin-top:96px}
 .facts--hero .fact{background:rgba(255,255,255,.04)}
 .facts--hero .fact span{color:var(--mist)}
 .facts--hero .fact strong{color:#fff}
-/* Case topics stay in the document for indexing — they are also carried in the
-   keywords meta and the Article JSON-LD — but are clipped out of view. Clipped
-   rather than display:none so the text is not dropped, and not colour-matched
-   to the background, which reads as cloaking. Drop this rule to show them; the
-   presentational rules below still describe the visible form. */
-.taglist{position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;
-  overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+/* SEO audit: case topic tags are visible body content (not clipped / off-screen /
+   colour-matched). Same terms remain in meta keywords + Article JSON-LD. */
+.taglist{margin-top:36px}
 .taglist h4{font-size:12px;letter-spacing:.13em;text-transform:uppercase;
   color:var(--steel);margin-bottom:14px}
+.taglist .tags{margin-top:0}
 .taglist .tag{border-color:var(--line);color:var(--accent);background:var(--paper-alt)}
 
 /* =========================================================================

@@ -1,607 +1,606 @@
 [
- {
-  "slug": "rassledovanie-khishcheniy",
-  "n": 2,
-  "category": "Corporate security",
-  "title": "Establishing theft",
-  "intro": "The Russian division of a company (a manufacturer of medical products, the absolute leader in its market segment) has introduced a new inventory scheme in the warehouse. As a result, theft of finished products was revealed in the amount of about 10,000,000…",
-  "metric": "≈10 млн ₽ возвращено",
-  "tags": [
-   "хищения на складе",
-   "расследование краж",
-   "risk assessment",
-   "видеонаблюдение",
-   "внутреннее расследование",
-   "ОБЭП",
-   "безопасность склада"
-  ],
-  "img": "assets/img/cases/2.jpg",
-  "sections": [
-   {
-    "h": "Situation",
-    "p": [
-     "The Russian division of a company (a manufacturer of medical products, the absolute leader in its market segment) has introduced a new inventory scheme in the warehouse. As a result, theft of finished products was revealed in",
-     "the amount of about 10,000,000 rubles (130,000 USD)."
-    ]
-   },
-   {
-    "h": "Problem",
-    "p": [
-     "The company suspected one of the company's employees of stealing. In addition, it was clear that there was collusion between employees at several levels within the company.",
-     "Initially the idea of introducing a new inventory format was met with negative response on the part of the security management, despite the fact that the old scheme had obvious vulnerabilities.",
-     "Thus, the company could not connect internal resources for the investigation due to the risk of information leakage and the potential unreliability of those employees who will be assigned the task.",
-     "However, direct monthly damage to the company from theft from the warehouse was estimated at 500-600 thousand rubles, so the situation required an immediate solution."
-    ]
-   },
-   {
-    "h": "Solution",
-    "p": [
-     "Based on the indicated introductory notes, Vlasta-Consulting was involved in the comprehensive evidence collection and its subsequent transfer to the police.",
-     "Due to the significant damage caused to the company by the criminal activities of its employees, Vlasta-Consulting assigned 3 employees to support the case.",
-     "This allowed, in a period of about 2 weeks:",
-     "To perform a visit to the warehouse and conduct a short risk analysis (Risk Assessment)",
-     "As a result, a number of critical vulnerabilities were identified regarding access to storage facilities.",
-     "the inspectors managed to enter the closed territory without a ID check by the guards,",
-     "access to the warehouse territory was possible from the side of the adjacent room, which has a common non-continuous wall with the warehouse",
-     "To examine video recordings (more than 40 hours of recording)",
-     "As part of the study, specific instances of theft were identified. The products, without authorization, were taken out of the warehouse by a company employee.",
-     "The chain of actions was as follows:",
-     "An employee arrives at the warehouse in his car early in the morning, at 4-5am.",
-     "He enters the warehouse unauthorized",
-     "Once in the warehouse, he takes a cart, opens his smartphone and then walks along the shelves with products, transferring the stored products to the cart, focusing on the list from the phone",
-     "Then he puts the stolen products into his backpack, takes it out of the warehouse, puts it in the trunk of his car, and then returns to the office premises, which are located in the neighborhood, and begins his",
-     "working day.",
-     "At the same time, it was noted that surveillance installation cost the company a significant amount, but its effectiveness could not be estimated above 20-30%: several cameras did not function, several of the working",
-     "cameras did not cover the intended areas. Moreover, the transfer of materials by the company's security service was carried out with serious difficulties - the files were duplicated, a number of files were missing, the",
-     "data was transmitted with a long delay.",
-     "To conduct interviews with several employees, making it possible to outline a list of people within the company who could be involved in the criminal scheme.",
-     "Using the codes on the packages, to organize the monitoring of a number of points of sale of specified products. A list of objects potentially involved in the sale of stolen products was also compiled.",
-     "By monitoring social networks, to identify the current residence address of the malicious employee, which was not indicated by him when he applied for the job."
-    ]
-   },
-   {
-    "h": "Outcome",
-    "p": [
-     "All collected information was transferred to the Department of Economic Crimes of the Main Directorate of the Ministry of Internal Affairs. The police promptly opened a case based on this data, and an investigation was carried",
-     "out in a short time.",
-     "The offender was sentenced to imprisonment for two years (suspended sentence), and all previously identified participants in the criminal scheme were dismissed from the company.",
-     "Vlasta-Consulting proposed recommendations for eliminating vulnerabilities in the security system, which made it possible to radically increase the level of security based on the existing infrastructure.",
-     "With this implementation and the successful completion of the investigation, cases of theft in the warehouse ceased."
-    ]
-   }
-  ],
-  "outcome": "Установлен сговор сотрудников разных уровней, канал хищения со склада перекрыт, активы возвращены."
- },
- {
-  "slug": "tamozhnya-politsiya",
-  "n": 3,
-  "category": "Brand protection",
-  "title": "Investigation Customs + Police",
-  "intro": "The company's products (food) are widely counterfeited. Several illicit industries are located in Russia. Part of combating this situation, Vlasta-Consulting is conducting a large-scale program against counterfeiting, by collaborating with police and…",
-  "metric": "Канал поставок перекрыт",
-  "tags": [
-   "таможня",
-   "полиция",
-   "нелегальное производство",
-   "контрафакт",
-   "координация",
-   "пустая тара",
-   "ОБЭП"
-  ],
-  "img": "assets/img/cases/4.jpg",
-  "sections": [
-   {
-    "h": "Situation",
-    "p": [
-     "The company's products (food) are widely counterfeited. Several illicit industries are located in Russia. Part of combating this situation, Vlasta-Consulting is conducting a large-scale program against counterfeiting, by",
-     "collaborating with police and customs."
-    ]
-   },
-   {
-    "h": "Problem",
-    "p": [
-     "One of the customs posts, with which previous cooperation had been established in the framework of exchanging contact data and training for signs of counterfeit products, notified of the detention of a truck with empty",
-     "containers for the target products.",
-     "The products did not contain the applied specification and, therefore, could not be recognized as counterfeit and subject to seizure. The documents for the supply of the specified products were assigned to a shell company, and",
-     "could not be used for investigation.",
-     "At the same time, there was no doubt that the good were intended for delivery to an illegal production facility."
-    ]
-   },
-   {
-    "h": "Solution",
-    "p": [
-     "Given the information above, a meeting was held with the Economic Crime Unit, resulting in the following approved action plan:",
-     "Customs releases most of the products, removing only the part not reflected in the documents.",
-     "ECU employees carry out a series of activities aimed at identifying the final address of the container delivery (illegal production).",
-     "As part of this plan, the ECU is coordinated in several federal districts. Vlasta-Consulting acted as a coordinator and provided information support.",
-     "As a result, the police established the alleged address of the illegal production, located in the southern region at a considerable distance from large residential areas.",
-     "In support of police measures, Vlasta-Consulting employees were sent on an urgent business trip and 12 hours after receiving information on the preliminary location of the facility, they were already on site.",
-     "The location of the illegal production was preliminarily confirmed by Vlasta-Consulting employees.",
-     "After the arrival of the container at the production facility and completion of several preparatory measures, the police initiated a raid and stopped the illegal production. Both finished products and a huge number of",
-     "labels, lids and containers were seized, including the one that was originally released by customs."
-    ]
-   },
-   {
-    "h": "Outcome",
-    "p": [
-     "As a result of a complex of measures carried out by the joint forces of customs and the Department of Economic Crimes and coordination with Vlasta-Consulting, illegal production was successfully detected and suppressed.",
-     "An alternative would have been the seizure by the customs of the detained packaging, but, due to the lack of specifications on it and the impossibility of calculating the damage, most likely the products would have been returned",
-     "to the violators. In this case, the opportunity would have been missed and the identification of the production address would not have been possible."
-    ]
-   }
-  ],
-  "outcome": "Совместно с таможней и полицией изъяты партии поддельной упаковки, нелегальный выпуск остановлен."
- },
- {
-  "slug": "rassledovanie-onlayn-oflayn",
-  "n": 4,
-  "category": "Brand protection",
-  "title": "Protection: Online + Offline",
-  "intro": "For one of the clients (automotive products), in addition to fulfilling offline goals (i.e. visiting sales outlets, markets, warehouses and initiating raids for the seizure of counterfeit products), Vlasta-Consulting also worked online (finding ads and…",
-  "metric": "Онлайн и офлайн зачищены",
-  "tags": [
-   "online investigation",
-   "offline investigation",
-   "контрафакт",
-   "склад",
-   "социальные сети",
-   "геотеги",
-   "police raid"
-  ],
-  "img": "assets/img/cases/rassledovanie-onlayn-oflayn.jpg",
-  "sections": [
-   {
-    "h": "Situation",
-    "p": [
-     "For one of the clients (automotive products), in addition to fulfilling offline goals (i.e. visiting sales outlets, markets, warehouses and initiating raids for the seizure of counterfeit products), Vlasta-Consulting also worked",
-     "online (finding ads and sites with technical specifications violations, their subsequent closure)."
-    ]
-   },
-   {
-    "h": "Problem",
-    "p": [
-     "As part of the online program, an ad was found selling questionable products at extremely low prices. Instead of automatically sending a link for take-down, it was decided to conduct an informational investigation, since there",
-     "were grounds for a potential investigation (the phone number indicated in the ad was also found on a number of other online resources)."
-    ]
-   },
-   {
-    "h": "Solution",
-    "p": [
-     "An initial informational investigation revealed the following:",
-     "A group was discovered on social media, Vkontakte, which was dedicated to offering dubious products",
-     "Profiles of group administrators were identified in the group, and they were identified",
-     "There were photos in the group posted by these administrators, showing storage rooms with pallets of target products",
-     "One of the photos revealed a car of one of the participants loaded with products. The car registration number was also visible in the photo, which helped identify one of the administrators",
-     "In a detailed study of the photos of the finished products presented in the group in the warehouse, it was found that one of them had geo-tags. By coordinates, it was possible to establish the actual address of the",
-     "warehouse.",
-     "All collected information was transferred to work offline. Our experts established contact with the violators, and thanks to the knowledge of the address of the warehouse of the sellers, it was possible to coordinate the",
-     "purchase with them directly. The counterfeiting of the products offered was confirmed, as well as the availability of the wholesale quantity of counterfeit products in the warehouse of violators."
-    ]
-   },
-   {
-    "h": "Outcome",
-    "p": [
-     "Based on the success of our investigation, Vlasta-Consulting initiated a police raid at the identified address.",
-     "As a result, a significant amount of counterfeit goods was seized, and when analyzing the documents received as part of the raid, a connection was established between these violators and the production of counterfeiting, which",
-     "was also investigated. This allowed to significantly accelerate the implementation of the police to curb production (the raid at the identified warehouse served in the materials of the production case as the sale of counterfeit",
-     "products to the final consumer).",
-     "Thus, achieving the goal, which initially was a simple online offer to sell, resulted in a large-scale police action in the warehouses of violators. This also played a significant role in another matter: curbing illegal",
-     "proceedings by bringing the organizers to criminal liability.",
-     "At the same time, in the absence of an analytical component in the online program, the investigation would not have been possible and the result of the case would have been a simple closure of one of the many ads on the",
-     "Internet."
-    ]
-   }
-  ],
-  "outcome": "Контрольные закупки, инспекции складов и блокировка карточек убрали товар нарушителя с обоих каналов."
- },
- {
-  "slug": "reyd-na-proizvodstve",
-  "n": 5,
-  "category": "Brand protection",
-  "title": "Raid on illegal production",
-  "intro": "The company is engaged in the production and sale of spare parts for heavy vehicles. The customer’s business model is B2B. The specialization is narrow, the market is quite closed. At the end of the fiscal year, the company recorded a drop in turnover and…",
-  "metric": "ROI 300%",
-  "tags": [
-   "рейд на производстве",
-   "контрафакт",
-   "запчасти",
-   "большегрузные автомобили",
-   "изъятие",
-   "анализ рынка",
-   "RoI"
-  ],
-  "img": "assets/img/cases/6.jpg",
-  "sections": [
-   {
-    "h": "Situation",
-    "p": [
-     "The company is engaged in the production and sale of spare parts for heavy vehicles. The customer’s business model is B2B. The specialization is narrow, the market is quite closed."
-    ]
-   },
-   {
-    "h": "Problem",
-    "p": [
-     "At the end of the fiscal year, the company recorded a drop in turnover and a corresponding decrease in profits. At the same time, signals began to come from the market that counterfeit products were on sale. Vlasta-Consulting",
-     "specialists procured questionable samples and provided them for examination to the client. The analysis confirmed the counterfeiting of the products, while the manufacturing quality was recognized as high (a number of elements",
-     "were applied to the part using a more advanced method relative to the original). The task was to stop the production and distribution of counterfeit products."
-    ]
-   },
-   {
-    "h": "Solution",
-    "p": [
-     "Using the collected information, the organizers and the address of production were established. In the shortest possible time, a raid was conducted with law enforcement agencies to curb the illegal activities of this group.",
-     "As a result, hundreds of units of finished products and hundreds of blanks were seized. As part of the raid, additional information was collected on the suppliers and contacts of this group. During its subsequent analysis and",
-     "comparative overlap on the previously collected data, it was found that in addition to the suppressed production, the market has one more facility, not inferior in scale to the first. Immediately after the raid, the development",
-     "of a new target was launched.",
-     "The raid was carried out a few months after the first. The scale of the event and the number of seized products exceeded the previous one by an order of magnitude – preliminary investigation found thousands of finished products",
-     "and thousands of blanks. Also, in this case there was an illegal production with the application of TK - in particular, thousands of tags were removed from the TK, ready to be applied to the products."
-    ]
-   },
-   {
-    "h": "Outcome",
-    "p": [
-     "Analysis of the market after the measures indicated a sharp decrease in the number of counterfeit products on sale. In fact, the only remaining offers related to the sale of leftover products, already put into circulation.",
-     "Thus, in the framework of the anti-counterfeiting program, two activities were carried out - both in illegal production and both with significant confiscations, which turned out to be enough to \"clean up\" the market. This was",
-     "largely due to the active position of the company to combat counterfeiting, expressed in advisory assistance in communicating with sellers and establishing a channel of communication with their distributors, who also shared the",
-     "situation on the market.",
-     "As a result, each ruble spent under the program led to the seizure of counterfeit products by 4 rubles, thus, the return on investment (RoI) amounted to 300%."
-    ]
-   }
-  ],
-  "outcome": "Найдена и нейтрализована площадка, выпускавшая высококачественные подделки; выручка клиента восстановлена."
- },
- {
-  "slug": "proverka-bekgraunda",
-  "n": 6,
-  "category": "Due diligence",
-  "title": "Background screening",
-  "intro": "Our team was tasked to identify business of a Client’s potential contractor in a country, investigative capacities whereof are very limited. We made a number of operative enquiries through our network of well-placed human sources to find out quickly that…",
-  "metric": "Мошенник выявлен",
-  "tags": [
-   "проверка бэкграунда",
-   "due diligence",
-   "потенциальный партнер",
-   "Центральная Азия",
-   "мошенничество",
-   "технические компании"
-  ],
-  "img": "assets/img/cases/8.jpg",
-  "sections": [
-   {
-    "h": "Situation",
-    "p": [
-     "Our team was tasked to identify business of a Client’s potential contractor in a country, investigative capacities whereof are very limited. We made a number of operative enquiries through our network of well-placed human",
-     "sources to find out quickly that the Client was approached by a fraudster who had caused substantial damage to his our clients previously."
-    ]
-   },
-   {
-    "h": "Problem",
-    "p": [
-     "Seeking new business opportunities in one of countries of Central Asia, the client encountered a businessman who offered distributorship. As the country where he wanted to expand was considered risky to do business, he proceeded",
-     "with background screening to assess risks of cooperation."
-    ]
-   },
-   {
-    "h": "Solution",
-    "p": [
-     "Preliminary searches showed that the designated contractor was a newly established body corporate with no commercial activities so far. Publicly available registries were examined to find traces of the company’s predecessors and",
-     "narrow down beneficiaries and their other business interests.",
-     "Upon summing up the results, our team traced connections that were identified as a group of individuals that had been active in the industry for many years. The contractor’s owner himself was a key principal of this group that",
-     "acted through multiple technical companies.",
-     "Contacts were established with former clients and suppliers of legal entities that belonged to this group. They confirmed that the individual who approached the client, as well as his associates, had a derogatory reputation",
-     "within the industry. However, they managed to get away with fraudulent activities, and it would be virtually impossible to prosecute them.",
-     "The individual himself inflicted substantial damage to his employer and engaged with fraudulent activities. Even though his misdeeds or unethical behavior by his group of companies had never ensued further legal ramifications,",
-     "gathering of HUMINT and crosschecks of retrieved information with circumstantial evidence allowed establishing a comprehensive profile of the contractor, identifying its principal stockholders and evaluating actual market",
-     "capabilities of the associated business group."
-    ]
-   },
-   {
-    "h": "Outcome",
-    "p": [
-     "The client discontinued all commercial activities with the contractor and alerted his representatives about the situation."
-    ]
-   }
-  ],
-  "outcome": "Due diligence партнёра в стране СНГ вскрыл человека, ранее нанёсшего ущерб другим инвесторам. Сделка не состоялась."
- },
- {
-  "slug": "podderzhka-v-sude",
-  "n": 7,
-  "category": "Litigation support",
-  "title": "Litigation support",
-  "intro": "Our Client participated in a court case dealing with a multimillion international embezzlement scheme. When he faced a seemingly dead-end situation with authorities at one of the countries displaying reluctance to cooperate, he addressed us to find any…",
-  "metric": "Дело выиграно",
-  "tags": [
-   "поддержка в суде",
-   "международное хищение",
-   "PEP",
-   "коррупция",
-   "отмывание средств",
-   "судебное разбирательство"
-  ],
-  "img": "assets/img/cases/podderzhka-v-sude.jpg",
-  "sections": [
-   {
-    "h": "Situation",
-    "p": [
-     "Our Client participated in a court case dealing with a multimillion international embezzlement scheme. When he faced a seemingly dead-end situation with authorities at one of the countries displaying reluctance to cooperate, he",
-     "addressed us to find any investigative opportunities within that country to follow. As a result, we managed to collect evidence suggesting the involvement of suspected citizens in the scheme, as well as their strong connections",
-     "within the state administration."
-    ]
-   },
-   {
-    "h": "Problem",
-    "p": [
-     "A whistleblower informed the law enforcement in one of the European countries about massive embezzlement taking place in an international alliance whose members provide certain services across the globe. The prosecution managed",
-     "to localize one of the major sources and approached the national government for further measures only to find out that issue had been already resolved in a judicial procedure. Client addressed Smart Consulting to make sure that",
-     "the scheme was actually discontinued."
-    ]
-   },
-   {
-    "h": "Solution",
-    "p": [
-     "At the first stage, evidence was taken from OSINT and well-placed operative sources to identify key principals of the business operation in suspicion. As a result, those were evaluated as politically exposed individuals able to",
-     "exert significant influence of corrupt nature.",
-     "Further steps revealed that although a large fine was imposed on key organizations, the structure of corporate affiliations didn't undergo any changes. Moreover, key principals even expanded the business operation, having",
-     "created more companies, trusts, and public organizations, where their relatives acted as nominees. The business operation was embedded into an even bigger money laundering scheme.",
-     "With help of local sources, it became apparent that many cases whereby local prosecution investigated connected companies and natural persons, were essentially suspended. Key stockholders carried on the established business",
-     "routine and employed their immediate family members to run a number of assets identified as a secretive business operation that had engaged with many other dubious commercial activities."
-    ]
-   },
-   {
-    "h": "Outcome",
-    "p": [
-     "Informed of the actual state of affairs, the client managed to provide the prosecution with additional evidence that enhanced its positions in the trial. State authorities in the jurisdiction where the trial took place mobilized",
-     "resource to pressure government of the country that hosted the criminal operation, exposing corrupt ties within the state administration."
-    ]
-   }
-  ],
-  "outcome": "Доказательная база по многострановому хищению собрана там, где межгосударственное сотрудничество было заблокировано."
- },
- {
-  "slug": "strukturirovannyy-analiz",
-  "n": 8,
-  "category": "Risk analytics",
-  "title": "Structured analysis",
-  "intro": "Vlasta Consulting took an assignment to assess the situation with the Client’s trusted high-profile contractor in one of the CIS countries. The situation was still unresolved, so our team had to deal with a notable degree of uncertainty. We collected data…",
-  "metric": "Решение обосновано",
-  "tags": [
-   "структурированный анализ",
-   "риск-матрица",
-   "PEP",
-   "контент-анализ",
-   "сценарный анализ",
-   "интервью источников"
-  ],
-  "img": "assets/img/cases/strukturirovannyy-analiz.jpg",
-  "sections": [
-   {
-    "h": "Situation",
-    "p": [
-     "Vlasta Consulting took an assignment to assess the situation with the Client’s trusted high-profile contractor in one of the CIS countries. The situation was still unresolved, so our team had to deal with a notable degree of",
-     "uncertainty. We collected data from public domain and operative sources, and then undertook a wide range of analytical techniques to assess the target’s business and his position within the state administration. As a result, we",
-     "developed and tested several hypotheses that made it possible to elaborate further mutually beneficial cooperation between the Client and his contractor."
-    ]
-   },
-   {
-    "h": "Problem",
-    "p": [
-     "Client had been maintaining business partnership with a politically exposed individual from Eastern Europe who lost his high-profile position on the sidelines of an international incident that he may have or may have not been",
-     "involved in."
-    ]
-   },
-   {
-    "h": "Solution",
-    "p": [
-     "Our team had to evaluate whether both events were connected to each other, and if they were, what consequences it could imply for the individual's business. The course of investigation was split into three lines of inquiry to",
-     "obtain sufficient evidence.",
-     "The first one included comprehensive evaluation of his business group as of a few years prior to the dismissal and afterwards, with following comparison of the two datasets. The second one ensued approaches to well-placed",
-     "sources both in the business circles and upper echelons of power to gain reputational information. Third, a content analysis was employed to parse media sources about the individual, his business, and the situation it found",
-     "itself in.",
-     "After that, the team aggregated evidence to build up a risk matrix representing four outcomes corresponding with each elaborated hypothesis. As a result of competitive hypotheses testing, it became possible to enhance",
-     "conclusions made with help of open data and HUMINT research and develop appropriate tactics for the Client."
-    ]
-   },
-   {
-    "h": "Outcome",
-    "p": [
-     "The client became aware that the individual was not actually involved in the controversy. His dismissal was not related to deterioration of his connections with the authorities. The client was advised to keep on his cooperation",
-     "with this individual. In order to reduce risks, the team designed tactics to gradually scale down this partnership, it monitoring of the situation would have revealed new points of concern."
-    ]
-   }
-  ],
-  "outcome": "OSINT и оперативные данные дали клиенту фактическую основу для кадрового решения по топ-менеджеру."
- },
- {
-  "slug": "korporativnye-spory",
-  "n": 9,
-  "category": "Corporate security",
-  "title": "Corporate disputes",
-  "intro": "The Client suspected that employees of its Russian representation colluded with organizations that the Client supplied. Our team proved these suspicions correct, exposed the scheme and drafted a strategy that helped the Client to resolve the situation.…",
-  "metric": "Без суда и потерь",
-  "tags": [
-   "корпоративные споры",
-   "сговор сотрудников",
-   "откаты",
-   "дистрибьютор",
-   "налоговые нарушения",
-   "инженерное оборудование"
-  ],
-  "img": "assets/img/cases/7.jpg",
-  "sections": [
-   {
-    "h": "Situation",
-    "p": [
-     "The Client suspected that employees of its Russian representation colluded with organizations that the Client supplied. Our team proved these suspicions correct, exposed the scheme and drafted a strategy that helped the Client to resolve the situation. Although the authorities became aware of the scheme taking place, the Client didn’t encounter any negative legal ramifications and continued doing business in Russia."
-    ]
-   },
-   {
-    "h": "Problem",
-    "p": [
-     "A major manufacturer of high-tech engineering equipment received troubling reports from its local office. Apparently, the representation filed inaccurate financial data, which made the client suspect a double game having taken place in its local sales department consisting of several managers."
-    ]
-   },
-   {
-    "h": "Solution",
-    "p": [
-     "First of all, the team retrieved information about the sales department and evaluated key managers who were connected to business processes that alerted the client.",
-     "Forensics measures that followed allowed narrowing down the searches to those managers who actually colluded with third parties unbeknownst to the head office. Additional checks allowed assessing a possibility of the involvement of each manager in corrupt practices.",
-     "Two sales managers had apparent expenditure that didn’t meet their income in the client’s company, implying external sources of wealth. Further investigation showed that they indeed abused corporate practices that not only resulted in shortfall in profits but also put the client’s positions on the local market in jeopardy.",
-     "The scheme involved overpricing and kickbacks legalized through a fake investment contract. Moreover, the company's distributor, who was involved in the scheme, turned out to evade taxes and bribe local customs authorities."
-    ]
-   },
-   {
-    "h": "Outcome",
-    "p": [
-     "As soon as client discontinued his business with this distributor, the scheme collapsed. A company that colluded with the client’s managers could no longer bribe the authorities, who suspended the criminal investigation for several years. The client cleared himself off suspicions that he anyhow favored these practices. A criminal investigation that followed revealed tens of millions of dollars in underpaid taxes, while the client remained intact."
-    ]
-   }
-  ],
-  "outcome": "Сговор сотрудников с поставщиками разрешён внутренне — без судебных издержек и репутационного ущерба."
- },
- {
-  "slug": "blokirovka-kanalov-distribucii",
-  "n": 10,
-  "category": "Brand protection",
-  "title": "Shutting down counterfeit distribution channels",
-  "intro": "A combined online and offline programme covering the whole of Russia: a zero-tolerance strategy cut the number of retail outlets carrying counterfeit by 85%.",
-  "metric": "−85% outlets carrying fakes",
-  "tags": [
-   "distribution channels",
-   "counterfeit",
-   "small retail",
-   "marketplaces",
-   "raids",
-   "criminal proceedings"
-  ],
-  "img": "assets/img/cases/blokirovka-kanalov.jpg",
-  "sections": [
-   {
-    "h": "Situation",
-    "p": [
-     "A trial wholesale consignment of counterfeit goods was brought into Russia.",
-     "To counter it, a combined online and offline programme covering the whole territory of Russia was agreed with the client."
-    ]
-   },
-   {
-    "h": "Problem",
-    "p": [
-     "The infringers chose small retail as their sales channel, as the safest option for them. Wholesalers did not sell directly, which also shielded them from raids.",
-     "That left blocking the final links in the chain and working with small volumes. Given the number of retail outlets across the country, the damage to the business could have been enormous."
-    ]
-   },
-   {
-    "h": "Solution",
-    "p": [
-     "We applied a zero-tolerance strategy to counterfeit both offline and online. Infringements were monitored across Russia, and every confirmed case — even one holding only a couple of counterfeit units — was passed to law enforcement. Online, we covered not only pure e-commerce but classified-ad boards as well.",
-     "In parallel we found listings offering large wholesale lots (several pallets). Work on those ended in raids, seizure of the counterfeit goods and criminal proceedings."
-    ]
-   },
-   {
-    "h": "Outcome",
-    "p": [
-     "After six months of sustained work the number of outlets found carrying counterfeit fell by 85%, and stock on hand dropped to 8–10 units. With infringing listings closed as fast as they appeared, new ones became rare.",
-     "The infringers explained that retail had stopped taking their goods because of the pressure on the market; that blocked listings left them unable to move volume through e-commerce; and that with their channels closed they finally decided to dump the consignment wholesale at knock-down prices simply to recover costs.",
-     "After that series of raids no further counterfeit shipments entered the country, and attention moved to other product lines of the client."
-    ]
-   }
-  ],
-  "outcome": "Within six months the number of outlets found carrying counterfeit fell by 85%, and no further shipments entered the country."
- },
- {
-  "slug": "rabota-po-eaes",
-  "n": 11,
-  "category": "Brand protection",
-  "title": "Working across the EAEU: protecting a market from cross-border counterfeit",
-  "intro": "A Russian market leader expanded into the EAEU and met a wholesale counterfeit shipment aimed at reaching Russia. A project office in every member state stopped it before the border.",
-  "metric": "8-month investigation",
-  "tags": [
-   "EAEU",
-   "customs register",
-   "cross-border counterfeit",
-   "project office",
-   "Kazakhstan",
-   "criminal case"
-  ],
-  "img": "assets/img/cases/rabota-eaes.jpg",
-  "sections": [
-   {
-    "h": "Situation",
-    "p": [
-     "A Russian company that had become the leader in its product segment entered the EAEU markets. By then we already had a shared record of success inside Russia, but no work had been done across the EAEU."
-    ]
-   },
-   {
-    "h": "Problem",
-    "p": [
-     "Some time after entering these markets, the company received a signal from one of the southern countries of the region about a wholesale counterfeit shipment.",
-     "According to that information, the consignment was intended for distribution in small lots across the member states, with the main objective of penetrating the Russian market as the key one.",
-     "The company faced a choice: either intensify enforcement across the EAEU at short notice and defend the market, or withdraw from the EAEU to limit the damage to the brand."
-    ]
-   },
-   {
-    "h": "Solution",
-    "p": [
-     "Having studied the situation, we drew up a plan to intensify detection and enforcement across the whole region. A project office was set up with the client’s representatives in each country, together with programme leads on both sides.",
-     "Working groups were organised per country for information exchange and effective collaboration on the ground; meetings and training on identifying counterfeit were held with dozens of relevant agencies.",
-     "Monitoring was put on a regular footing in each country, with every recorded instance of counterfeit sale passed to the supervisory authorities. Comprehensive investigations were run into the wholesalers named by market participants and by the client’s sales team. The procedure to enter the trademarks into the customs registers of all EAEU states was initiated."
-    ]
-   },
-   {
-    "h": "Outcome",
-    "p": [
-     "The counterfeit met resistance in every EAEU country on its way to the Russian market. Because effort was concentrated in Kazakhstan, the goods never reached Russia.",
-     "The necessary trademarks were registered in the customs registers, and an eight-month investigation made it possible to cut off the original import channel, identify the organisers, open a criminal case and seize what remained of the consignment."
-    ]
-   }
-  ],
-  "outcome": "The counterfeit was stopped in Kazakhstan, the trademarks were entered into the customs registers of the EAEU states, and criminal proceedings were opened."
- },
- {
-  "slug": "issledovanie-kanalov-postavok",
-  "n": 12,
-  "category": "Business intelligence",
-  "title": "Mapping the supply channels",
-  "intro": "A foreign company suspended operations in Russia while keeping a ban on direct supply. We identified four unauthorised import channels accounting for at least 40% of all imports.",
-  "metric": "40% of imports mapped",
-  "tags": [
-   "business intelligence",
-   "supply channels",
-   "parallel imports",
-   "marketplaces",
-   "distribution",
-   "SKU analytics"
-  ],
-  "img": "assets/img/cases/kanaly-postavok.jpg",
-  "sections": [
-   {
-    "h": "Situation",
-    "p": [
-     "A large foreign company suspended its operations in Russia and stopped official supply. It kept a core team in place and did not rule out returning to the Russian market."
-    ]
-   },
-   {
-    "h": "Problem",
-    "p": [
-     "Having cut its presence to a minimum and no longer supplying the market itself, the company nevertheless had an agreement with foreign distributors prohibiting direct supply to Russia, so as to retain at least minimal control over distribution of its genuine goods.",
-     "Against that background we were asked — in addition to monitoring online and offline offers with analytics on the SKUs offered and price levels — to run intelligence investigations focused on identifying the first link of import into Russia, without revealing the client’s interest in any way."
-    ]
-   },
-   {
-    "h": "Solution",
-    "p": [
-     "We carried out extensive work requesting supply document chains and mapping the links of the distribution chains; our partners in the dispatching countries also assisted.",
-     "Close cooperation with the marketplaces played a significant part in the result. On several of them, a seller’s failure to produce supply-chain documentation is grounds for delisting. Obtaining those documents was our original interest, while the blocking of unauthorised sellers was also a welcome outcome from the client’s point of view."
-    ]
-   },
-   {
-    "h": "Outcome",
-    "p": [
-     "We identified four key channels of unauthorised import into Russia, together accounting for no less than 40% of all imports. The information gathered on the original consignors was handed to the client, allowing head office to cut off supply.",
-     "Combined with the detailed market monitoring, this let the client preserve a foothold for a potential return to the market."
-    ]
-   }
-  ],
-  "outcome": "Four unauthorised import channels were identified; head office was able to cut off supply at the source."
- }
+  {
+    "slug": "rassledovanie-khishcheniy",
+    "n": 2,
+    "category": "Corporate security",
+    "title": "Identifying and documenting theft",
+    "intro": "The Russian division of a company (a manufacturer of medical products, the absolute leader in its market segment) has introduced a new inventory scheme in the warehouse. As a result, theft of finished products was revealed in the amount of about 10,000,000…",
+    "metric": "≈10 млн ₽ возвращено",
+    "tags": [
+      "хищения на складе",
+      "документирование хищений",
+      "risk assessment",
+      "видеонаблюдение",
+      "внутренняя проверка",
+      "ОБЭП",
+      "безопасность склада"
+    ],
+    "img": "assets/img/cases/2.jpg",
+    "sections": [
+      {
+        "h": "Situation",
+        "p": [
+          "The Russian division of a company (a manufacturer of medical products, the absolute leader in its market segment) has introduced a new inventory scheme in the warehouse. As a result, theft of finished products was revealed in",
+          "the amount of about 10,000,000 rubles (130,000 USD)."
+        ]
+      },
+      {
+        "h": "Problem",
+        "p": [
+          "The company suspected one of the company's employees of stealing. In addition, it was clear that there was collusion between employees at several levels within the company.",
+          "Initially the idea of introducing a new inventory format was met with negative response on the part of the security management, despite the fact that the old scheme had obvious vulnerabilities.",
+          "Thus, the company could not connect internal resources for the review due to the risk of information leakage and the potential unreliability of those employees who will be assigned the task.",
+          "However, direct monthly damage to the company from theft from the warehouse was estimated at 500-600 thousand rubles, so the situation required an immediate solution."
+        ]
+      },
+      {
+        "h": "Solution",
+        "p": [
+          "Based on the indicated introductory notes, Vlasta-Consulting was involved in the comprehensive evidence collection and its subsequent transfer to the police.",
+          "Due to the significant damage caused to the company, Vlasta-Consulting assigned 3 employees to support the case.",
+          "This allowed, in a period of about 2 weeks:",
+          "To perform a visit to the warehouse and conduct a short risk analysis (Risk Assessment)",
+          "As a result, a number of critical vulnerabilities were identified regarding access to storage facilities.",
+          "Facts indicating access vulnerabilities were identified: entry to the closed territory without an ID check by the guards,",
+          "territorial vulnerability — access to the warehouse was possible from the adjacent room, which shares a non-continuous wall with the warehouse",
+          "To examine video recordings (more than 40 hours of recording)",
+          "As part of the study, specific instances of theft were identified. The products, without authorization, were taken out of the warehouse by a company employee.",
+          "The chain of actions was as follows:",
+          "An employee arrives at the warehouse in his car early in the morning, at 4-5am.",
+          "He enters the warehouse unauthorized",
+          "Once in the warehouse, he takes a cart, opens his smartphone and then walks along the shelves with products, transferring the stored products to the cart, focusing on the list from the phone",
+          "Then he puts the stolen products into his backpack, takes it out of the warehouse, puts it in the trunk of his car, and then returns to the office premises, which are located in the neighborhood, and begins his",
+          "working day.",
+          "At the same time, it was noted that surveillance installation cost the company a significant amount, but its effectiveness could not be estimated above 20-30%: several cameras did not function, several of the working",
+          "cameras did not cover the intended areas. Moreover, the transfer of materials by the company's security service was carried out with serious difficulties - the files were duplicated, a number of files were missing, the",
+          "data was transmitted with a long delay.",
+          "To conduct interviews with several employees, making it possible to outline a list of people within the company who could be involved in the scheme.",
+          "Using the codes on the packages, to organize the monitoring of a number of points of sale of specified products. A list of objects potentially involved in the sale of stolen products was also compiled.",
+          "Open-source analysis of social media yielded additional location information relevant to checking the circumstances of the case."
+        ]
+      },
+      {
+        "h": "Outcome",
+        "p": [
+          "All collected information was transferred to the Department of Economic Crimes of the Main Directorate of the Ministry of Internal Affairs. The police promptly opened a case based on this data, and an investigation was carried",
+          "out in a short time.",
+          "The offender was sentenced to imprisonment for two years (suspended sentence), and all previously identified participants in the scheme were dismissed from the company.",
+          "Vlasta-Consulting proposed recommendations for eliminating vulnerabilities in the security system, which made it possible to radically increase the level of security based on the existing infrastructure.",
+          "With this implementation and the successful completion of the review, cases of theft in the warehouse ceased."
+        ]
+      }
+    ],
+    "outcome": "Установлен сговор сотрудников разных уровней, канал хищения со склада перекрыт, активы возвращены."
+  },
+  {
+    "slug": "tamozhnya-politsiya",
+    "n": 3,
+    "category": "Brand protection",
+    "title": "Identifying illegal production: customs + police",
+    "intro": "The company's products (food) are widely counterfeited. Several illicit industries are located in Russia. Part of combating this situation, Vlasta-Consulting is conducting a large-scale program against counterfeiting, by collaborating with police and…",
+    "metric": "Канал поставок перекрыт",
+    "tags": [
+      "таможня",
+      "полиция",
+      "нелегальное производство",
+      "контрафакт",
+      "координация",
+      "пустая тара",
+      "ОБЭП"
+    ],
+    "img": "assets/img/cases/4.jpg",
+    "sections": [
+      {
+        "h": "Situation",
+        "p": [
+          "The company's products (food) are widely counterfeited. Several illicit industries are located in Russia. Part of combating this situation, Vlasta-Consulting is conducting a large-scale program against counterfeiting, by",
+          "collaborating with police and customs."
+        ]
+      },
+      {
+        "h": "Problem",
+        "p": [
+          "One of the customs posts, with which previous cooperation had been established in the framework of exchanging contact data and training for signs of counterfeit products, notified of the detention of a truck with empty",
+          "containers for the target products.",
+          "The products did not contain the applied specification and, therefore, could not be recognized as counterfeit and subject to seizure. The documents for the supply of the specified products were assigned to a shell company, and",
+          "could not be used for investigation.",
+          "At the same time, there was no doubt that the good were intended for delivery to an illegal production facility."
+        ]
+      },
+      {
+        "h": "Solution",
+        "p": [
+          "Given the information above, a meeting was held with the Economic Crime Unit, resulting in the following approved action plan:",
+          "Customs releases most of the products, removing only the part not reflected in the documents.",
+          "ECU employees carry out a series of activities aimed at identifying the final address of the container delivery (illegal production).",
+          "As part of this plan, the ECU is coordinated in several federal districts. Vlasta-Consulting acted as a coordinator and provided information support.",
+          "As a result, the police established the alleged address of the illegal production, located in the southern region at a considerable distance from large residential areas.",
+          "In support of police measures, Vlasta-Consulting employees were sent on an urgent business trip and 12 hours after receiving information on the preliminary location of the facility, they were already on site.",
+          "The location of the illegal production was preliminarily confirmed by Vlasta-Consulting employees.",
+          "After the arrival of the container at the production facility and completion of several preparatory measures, the police initiated a raid and stopped the illegal production. Both finished products and a huge number of",
+          "labels, lids and containers were seized, including the one that was originally released by customs."
+        ]
+      },
+      {
+        "h": "Outcome",
+        "p": [
+          "As a result of a complex of measures carried out by the joint forces of customs and the Department of Economic Crimes and coordination with Vlasta-Consulting, illegal production was successfully detected and suppressed.",
+          "An alternative would have been the seizure by the customs of the detained packaging, but, due to the lack of specifications on it and the impossibility of calculating the damage, most likely the products would have been returned",
+          "to the violators. In this case, the opportunity would have been missed and the identification of the production address would not have been possible."
+        ]
+      }
+    ],
+    "outcome": "Совместно с таможней и полицией изъяты партии поддельной упаковки, нелегальный выпуск остановлен."
+  },
+  {
+    "slug": "rassledovanie-onlayn-oflayn",
+    "n": 4,
+    "category": "Brand protection",
+    "title": "Identifying counterfeit: online monitoring and offline verification",
+    "intro": "For one of the clients (automotive products), in addition to fulfilling offline goals (i.e. visiting sales outlets, markets, warehouses and initiating raids for the seizure of counterfeit products), Vlasta-Consulting also worked online (finding ads and…",
+    "metric": "Reduced counterfeit presence in online and offline channels",
+    "tags": [
+      "online monitoring",
+      "offline verification",
+      "контрафакт",
+      "склад",
+      "социальные сети",
+      "геотеги",
+      "police raid"
+    ],
+    "img": "assets/img/cases/rassledovanie-onlayn-oflayn.jpg",
+    "sections": [
+      {
+        "h": "Situation",
+        "p": [
+          "For one of the clients (automotive products), in addition to fulfilling offline goals (i.e. visiting sales outlets, markets, warehouses and initiating raids for the seizure of counterfeit products), Vlasta-Consulting also worked",
+          "online (finding ads and sites with technical specifications violations, their subsequent closure)."
+        ]
+      },
+      {
+        "h": "Problem",
+        "p": [
+          "As part of the online program, an ad was found selling questionable products at extremely low prices. Instead of automatically sending a link for take-down, it was decided to conduct an deeper analysis, since there",
+          "were grounds for a potential follow-up analysis (the phone number indicated in the ad was also found on a number of other online resources)."
+        ]
+      },
+      {
+        "h": "Solution",
+        "p": [
+          "An initial open-source analysis revealed the following:",
+          "A group was discovered on social media, Vkontakte, which was dedicated to offering dubious products",
+          "Profiles of group administrators were identified in the group, and they were identified",
+          "There were photos in the group posted by these administrators, showing storage rooms with pallets of target products",
+          "One of the photos revealed a car of one of the participants loaded with products. The car registration number was also visible in the photo, which helped identify one of the administrators",
+          "In a detailed study of the photos of the finished products presented in the group in the warehouse, it was found that one of them had geo-tags. By coordinates, it was possible to establish the actual address of the",
+          "warehouse.",
+          "All collected information was transferred to work offline. Our experts established contact with the violators, and thanks to the knowledge of the address of the warehouse of the sellers, it was possible to coordinate the",
+          "purchase with them directly. The counterfeiting of the products offered was confirmed, as well as the availability of the wholesale quantity of counterfeit products in the warehouse of violators."
+        ]
+      },
+      {
+        "h": "Outcome",
+        "p": [
+          "Based on the materials collected, Vlasta-Consulting initiated a police raid at the identified address.",
+          "As a result, a significant amount of counterfeit goods was seized, and when analyzing the documents received as part of the raid, a connection was established between these violators and the production of counterfeiting, which",
+          "was also analysed. This allowed to significantly accelerate the implementation of the police to curb production (the raid at the identified warehouse served in the materials of the production case as the sale of counterfeit",
+          "products to the final consumer).",
+          "Thus, achieving the goal, which initially was a simple online offer to sell, resulted in a large-scale police action in the warehouses of violators. This also played a significant role in another matter: curbing illegal",
+          "proceedings by bringing the organizers to criminal liability.",
+          "At the same time, in the absence of an analytical component in the online program, the follow-up would not have been possible and the result of the case would have been a simple closure of one of the many ads on the",
+          "Internet."
+        ]
+      }
+    ],
+    "outcome": "Verification purchases, documenting warehouse infringements and delisting cards reduced the infringer’s presence in online and offline channels."
+  },
+  {
+    "slug": "reyd-na-proizvodstve",
+    "n": 5,
+    "category": "Brand protection",
+    "title": "Raid on illegal production",
+    "intro": "Vlasta Consulting identified two illegal production sites and provided informational support for suppression measures together with law enforcement.",
+    "metric": "ROI 300%",
+    "tags": [
+      "рейд на производстве",
+      "контрафакт",
+      "запчасти",
+      "большегрузные автомобили",
+      "изъятие",
+      "анализ рынка",
+      "RoI"
+    ],
+    "img": "assets/img/cases/6.jpg",
+    "sections": [
+      {
+        "h": "Situation",
+        "p": [
+          "The company is engaged in the production and sale of spare parts for heavy vehicles. The customer’s business model is B2B. The specialization is narrow, the market is quite closed."
+        ]
+      },
+      {
+        "h": "Problem",
+        "p": [
+          "At the end of the fiscal year, the company recorded a drop in turnover and a corresponding decrease in profits. At the same time, signals began to come from the market that counterfeit products were on sale. Vlasta-Consulting",
+          "specialists procured questionable samples and provided them for examination to the client. The analysis confirmed the counterfeiting of the products, while the manufacturing quality was recognized as high (a number of elements",
+          "were applied to the part using a more advanced method relative to the original). The task was to stop the production and distribution of counterfeit products."
+        ]
+      },
+      {
+        "h": "Solution",
+        "p": [
+          "Using the collected information, the organizers and the address of production were established. In the shortest possible time, a raid was conducted with law enforcement agencies to curb the illegal activities of this group.",
+          "As a result, hundreds of units of finished products and hundreds of blanks were seized. As part of the raid, additional information was collected on the suppliers and contacts of this group. During its subsequent analysis and",
+          "comparative overlap on the previously collected data, it was found that in addition to the suppressed production, the market has one more facility, not inferior in scale to the first. Immediately after the raid, the development",
+          "of a new target was launched.",
+          "The raid was carried out a few months after the first. The scale of the event and the number of seized products exceeded the previous one by an order of magnitude – the measures found thousands of finished products",
+          "and thousands of blanks. Also, in this case there was an illegal production with the application of TK - in particular, thousands of tags were removed from the TK, ready to be applied to the products."
+        ]
+      },
+      {
+        "h": "Outcome",
+        "p": [
+          "Analysis of the market after the measures indicated a sharp decrease in the number of counterfeit products on sale. In fact, the only remaining offers related to the sale of leftover products, already put into circulation.",
+          "Thus, in the framework of the anti-counterfeiting program, two activities were carried out - both in illegal production and both with significant confiscations, which turned out to be enough to reduce counterfeit presence on the market. This was",
+          "largely due to the active position of the company to combat counterfeiting, expressed in advisory assistance in communicating with sellers and establishing a channel of communication with their distributors, who also shared the",
+          "situation on the market.",
+          "As a result, each ruble spent under the program led to the seizure of counterfeit products by 4 rubles, thus, the return on investment (RoI) amounted to 300%."
+        ]
+      }
+    ],
+    "outcome": "Найдена и нейтрализована площадка, выпускавшая высококачественные подделки; выручка клиента восстановлена."
+  },
+  {
+    "slug": "proverka-bekgraunda",
+    "n": 6,
+    "category": "Due diligence",
+    "title": "Background screening",
+    "intro": "Our team was tasked to identify business of a Client’s potential contractor in a country, where access to reliable data is limited. We made a number of operative enquiries through our network of well-placed human sources to find out quickly that…",
+    "metric": "Мошенник выявлен",
+    "tags": [
+      "проверка бэкграунда",
+      "due diligence",
+      "потенциальный партнер",
+      "Центральная Азия",
+      "мошенничество",
+      "технические компании"
+    ],
+    "img": "assets/img/cases/8.jpg",
+    "sections": [
+      {
+        "h": "Situation",
+        "p": [
+          "Our team was tasked to identify business of a Client’s potential contractor in a country, where access to reliable data is limited. We made a number of operative enquiries through our network of well-placed human",
+          "sources to find out quickly that the Client was approached by a fraudster who had caused substantial damage to his our clients previously."
+        ]
+      },
+      {
+        "h": "Problem",
+        "p": [
+          "Seeking new business opportunities in one of countries of Central Asia, the client encountered a businessman who offered distributorship. As the country where he wanted to expand was considered risky to do business, he proceeded",
+          "with background screening to assess risks of cooperation."
+        ]
+      },
+      {
+        "h": "Solution",
+        "p": [
+          "Preliminary searches showed that the designated contractor was a newly established body corporate with no commercial activities so far. Publicly available registries were examined to find traces of the company’s predecessors and",
+          "narrow down beneficiaries and their other business interests.",
+          "Upon summing up the results, our team traced connections that were identified as a group of individuals that had been active in the industry for many years. The contractor’s owner himself was a key principal of this group that",
+          "acted through multiple technical companies.",
+          "Contacts were established with former clients and suppliers of legal entities that belonged to this group. They confirmed that the individual who approached the client, as well as his associates, had a derogatory reputation",
+          "within the industry. However, they managed to get away with fraudulent activities, and it would be virtually impossible to prosecute them.",
+          "The individual himself inflicted substantial damage to his employer and engaged with fraudulent activities. Even though his misdeeds or unethical behavior by his group of companies had never ensued further legal ramifications,",
+          "gathering of HUMINT and crosschecks of retrieved information with circumstantial evidence allowed establishing a comprehensive profile of the contractor, identifying its principal stockholders and evaluating actual market",
+          "capabilities of the associated business group."
+        ]
+      },
+      {
+        "h": "Outcome",
+        "p": [
+          "The client discontinued all commercial activities with the contractor and alerted his representatives about the situation."
+        ]
+      }
+    ],
+    "outcome": "Due diligence партнёра в стране СНГ вскрыл человека, ранее нанёсшего ущерб другим инвесторам. Сделка не состоялась."
+  },
+  {
+    "slug": "podderzhka-v-sude",
+    "n": 7,
+    "category": "Litigation support",
+    "title": "Litigation support",
+    "intro": "Our Client participated in a court case dealing with a multimillion international embezzlement scheme. When he faced a seemingly dead-end situation with authorities at one of the countries displaying reluctance to cooperate, he addressed us to find any…",
+    "metric": "Дело выиграно",
+    "tags": [
+      "поддержка в суде",
+      "международное хищение",
+      "PEP",
+      "reputational risks",
+      "отмывание средств",
+      "судебное разбирательство"
+    ],
+    "img": "assets/img/cases/podderzhka-v-sude.jpg",
+    "sections": [
+      {
+        "h": "Situation",
+        "p": [
+          "Our Client participated in a court case dealing with a multimillion international embezzlement scheme. When he faced a seemingly dead-end situation with authorities at one of the countries displaying reluctance to cooperate, he",
+          "addressed us to find any further information-gathering opportunities within that country to follow. As a result, we managed to collect evidence suggesting the involvement of suspected citizens in the scheme, as well as their strong connections",
+          "within the state administration."
+        ]
+      },
+      {
+        "h": "Problem",
+        "p": [
+          "A whistleblower informed the law enforcement in one of the European countries about massive embezzlement taking place in an international alliance whose members provide certain services across the globe. The prosecution managed",
+          "to localize one of the major sources and approached the national government for further measures only to find out that issue had been already resolved in a judicial procedure. Client addressed Smart Consulting to make sure that",
+          "the scheme was actually discontinued."
+        ]
+      },
+      {
+        "h": "Solution",
+        "p": [
+          "At the first stage, evidence was taken from OSINT and well-placed operative sources to identify key principals of the business operation in suspicion. As a result, those were evaluated as politically exposed individuals (PEPs) associated with reputational and compliance risks.",
+          "Further steps revealed that although a large fine was imposed on key organizations, the structure of corporate affiliations didn't undergo any changes. Moreover, key principals even expanded the business operation, having",
+          "created more companies, trusts, and public organizations, where their relatives acted as nominees. The business operation was embedded into an even bigger money laundering scheme.",
+          "With help of local sources, it became apparent that many cases whereby local prosecution investigated connected companies and natural persons, were essentially suspended. Key stockholders carried on the established business",
+          "routine and employed their immediate family members to run a number of assets identified as a secretive business operation that had engaged with many other dubious commercial activities."
+        ]
+      },
+      {
+        "h": "Outcome",
+        "p": [
+          "Informed of the actual state of affairs, the client managed to provide the prosecution with additional evidence that enhanced its positions in the trial. State authorities in the jurisdiction where the trial took place mobilized",
+          "resource to pressure government of the country that hosted the scheme, highlighting related reputational and compliance risks."
+        ]
+      }
+    ],
+    "outcome": "Доказательная база по многострановому хищению собрана там, где межгосударственное сотрудничество было заблокировано."
+  },
+  {
+    "slug": "strukturirovannyy-analiz",
+    "n": 8,
+    "category": "Risk analytics",
+    "title": "Structured analysis",
+    "intro": "Vlasta Consulting took an assignment to assess the situation with the Client’s trusted high-profile contractor in one of the CIS countries. The situation was still unresolved, so our team had to deal with a notable degree of uncertainty. We collected data…",
+    "metric": "Решение обосновано",
+    "tags": [
+      "структурированный анализ",
+      "риск-матрица",
+      "PEP",
+      "контент-анализ",
+      "сценарный анализ",
+      "интервью источников"
+    ],
+    "img": "assets/img/cases/strukturirovannyy-analiz.jpg",
+    "sections": [
+      {
+        "h": "Situation",
+        "p": [
+          "Vlasta Consulting took an assignment to assess the situation with the Client’s trusted high-profile contractor in one of the CIS countries. The situation was still unresolved, so our team had to deal with a notable degree of",
+          "uncertainty. We collected data from public domain and operative sources, and then undertook a wide range of analytical techniques to assess the target’s business and his position within the state administration. As a result, we",
+          "developed and tested several hypotheses that made it possible to elaborate further mutually beneficial cooperation between the Client and his contractor."
+        ]
+      },
+      {
+        "h": "Problem",
+        "p": [
+          "Client had been maintaining business partnership with a politically exposed individual from Eastern Europe who lost his high-profile position on the sidelines of an international incident that he may have or may have not been",
+          "involved in."
+        ]
+      },
+      {
+        "h": "Solution",
+        "p": [
+          "Our team had to evaluate whether both events were connected to each other, and if they were, what consequences it could imply for the individual's business. The work was split into three lines of inquiry to",
+          "obtain sufficient evidence.",
+          "The first one included comprehensive evaluation of his business group as of a few years prior to the dismissal and afterwards, with following comparison of the two datasets. The second one ensued approaches to well-placed",
+          "sources both in the business circles and upper echelons of power to gain reputational information. Third, a content analysis was employed to parse media sources about the individual, his business, and the situation it found",
+          "itself in.",
+          "After that, the team aggregated evidence to build up a risk matrix representing four outcomes corresponding with each elaborated hypothesis. As a result of competitive hypotheses testing, it became possible to enhance",
+          "conclusions made with help of open data and HUMINT research and develop appropriate tactics for the Client."
+        ]
+      },
+      {
+        "h": "Outcome",
+        "p": [
+          "The client became aware that the individual was not actually involved in the controversy. His dismissal was not related to deterioration of his connections with the authorities. The client was advised to keep on his cooperation",
+          "with this individual. In order to reduce risks, the team designed tactics to gradually scale down this partnership, it monitoring of the situation would have revealed new points of concern."
+        ]
+      }
+    ],
+    "outcome": "OSINT и оперативные данные дали клиенту фактическую основу для кадрового решения по топ-менеджеру."
+  },
+  {
+    "slug": "korporativnye-spory",
+    "n": 9,
+    "category": "Corporate security",
+    "title": "Corporate disputes",
+    "intro": "The Client suspected that employees of its Russian representation colluded with organizations that the Client supplied. Our team proved these suspicions correct, exposed the scheme and drafted a strategy that helped the Client to resolve the situation.…",
+    "metric": "Без суда и потерь",
+    "tags": [
+      "корпоративные споры",
+      "сговор сотрудников",
+      "откаты",
+      "дистрибьютор",
+      "налоговые нарушения",
+      "инженерное оборудование"
+    ],
+    "img": "assets/img/cases/7.jpg",
+    "sections": [
+      {
+        "h": "Situation",
+        "p": [
+          "The Client suspected that employees of its Russian representation colluded with organizations that the Client supplied. Our team proved these suspicions correct, exposed the scheme and drafted a strategy that helped the Client to resolve the situation. Although the authorities became aware of the scheme taking place, the Client didn’t encounter any negative legal ramifications and continued doing business in Russia."
+        ]
+      },
+      {
+        "h": "Problem",
+        "p": [
+          "A major manufacturer of high-tech engineering equipment received troubling reports from its local office. Apparently, the representation filed inaccurate financial data, which made the client suspect a double game having taken place in its local sales department consisting of several managers."
+        ]
+      },
+      {
+        "h": "Solution",
+        "p": [
+          "First of all, the team retrieved information about the sales department and evaluated key managers who were connected to business processes that alerted the client.",
+          "Forensics measures that followed allowed narrowing down the searches to those managers who actually colluded with third parties unbeknownst to the head office. Additional checks allowed assessing a possibility of the involvement of each manager in improper practices.",
+          "Two sales managers had apparent expenditure that didn’t meet their income in the client’s company, implying external sources of wealth. Further checks showed that they indeed abused corporate practices that not only resulted in shortfall in profits but also put the client’s positions on the local market in jeopardy.",
+          "The scheme involved overpricing and kickbacks legalized through a fake investment contract. Moreover, information indicated possible improper interactions between the distributor involved in the scheme and customs officials, as well as tax evasion."
+        ]
+      },
+      {
+        "h": "Outcome",
+        "p": [
+          "As soon as client discontinued his business with this distributor, the scheme collapsed. A company that colluded with the client’s managers could no longer sustain the improper practices; related proceedings were suspended for several years. The client cleared himself off suspicions that he anyhow favored these practices. Subsequent proceedings revealed tens of millions of dollars in underpaid taxes, while the client remained intact."
+        ]
+      }
+    ],
+    "outcome": "Сговор сотрудников с поставщиками разрешён внутренне — без судебных издержек и репутационного ущерба."
+  },
+  {
+    "slug": "blokirovka-kanalov-distribucii",
+    "n": 10,
+    "category": "Brand protection",
+    "title": "Shutting down counterfeit distribution channels",
+    "intro": "A combined programme to identify and suppress counterfeit distribution channels online and offline across Russia: a zero-tolerance strategy cut the number of retail outlets carrying counterfeit by 85%.",
+    "metric": "−85% outlets carrying fakes",
+    "tags": [
+      "distribution channels",
+      "counterfeit",
+      "small retail",
+      "marketplaces",
+      "raids",
+      "criminal proceedings"
+    ],
+    "img": "assets/img/cases/blokirovka-kanalov.jpg",
+    "sections": [
+      {
+        "h": "Situation",
+        "p": [
+          "A trial wholesale consignment of counterfeit goods was brought into Russia.",
+          "To counter it, a combined online and offline programme covering the whole territory of Russia was agreed with the client."
+        ]
+      },
+      {
+        "h": "Problem",
+        "p": [
+          "The infringers chose small retail as their sales channel, as the safest option for them. Wholesalers did not sell directly, which also shielded them from raids.",
+          "That left blocking the final links in the chain and working with small volumes. Given the number of retail outlets across the country, the damage to the business could have been enormous."
+        ]
+      },
+      {
+        "h": "Solution",
+        "p": [
+          "We applied a zero-tolerance strategy to counterfeit both offline and online. Infringements were monitored across Russia, and every confirmed case — even one holding only a couple of counterfeit units — was passed to law enforcement. Online, we covered not only pure e-commerce but classified-ad boards as well.",
+          "In parallel we found listings offering large wholesale lots (several pallets). Work on those ended in raids, seizure of the counterfeit goods and criminal proceedings."
+        ]
+      },
+      {
+        "h": "Outcome",
+        "p": [
+          "After six months of sustained work the number of outlets found carrying counterfeit fell by 85%, and stock on hand dropped to 8–10 units. With infringing listings closed as fast as they appeared, new ones became rare.",
+          "The infringers explained that retail had stopped taking their goods because of the pressure on the market; that blocked listings left them unable to move volume through e-commerce; and that with their channels closed they finally decided to dump the consignment wholesale at knock-down prices simply to recover costs.",
+          "After that series of raids no further counterfeit shipments entered the country, and attention moved to other product lines of the client."
+        ]
+      }
+    ],
+    "outcome": "Within six months the number of outlets found carrying counterfeit fell by 85%, and no further shipments entered the country."
+  },
+  {
+    "slug": "rabota-po-eaes",
+    "n": 11,
+    "category": "Brand protection",
+    "title": "Working across the EAEU: protecting a market from cross-border counterfeit",
+    "intro": "A Russian market leader expanded into the EAEU and met a wholesale counterfeit shipment aimed at reaching Russia. A project office in every member state stopped it before the border.",
+    "metric": "Import channel cut off",
+    "tags": [
+      "EAEU",
+      "customs register",
+      "cross-border counterfeit",
+      "project office",
+      "Kazakhstan",
+      "criminal case"
+    ],
+    "img": "assets/img/cases/rabota-eaes.jpg",
+    "sections": [
+      {
+        "h": "Situation",
+        "p": [
+          "A Russian company that had become the leader in its product segment entered the EAEU markets. By then we already had a shared record of success inside Russia, but no work had been done across the EAEU."
+        ]
+      },
+      {
+        "h": "Problem",
+        "p": [
+          "Some time after entering these markets, the company received a signal from one of the southern countries of the region about a wholesale counterfeit shipment.",
+          "According to that information, the consignment was intended for distribution in small lots across the member states, with the main objective of penetrating the Russian market as the key one.",
+          "The company faced a choice: either intensify enforcement across the EAEU at short notice and defend the market, or withdraw from the EAEU to limit the damage to the brand."
+        ]
+      },
+      {
+        "h": "Solution",
+        "p": [
+          "Having studied the situation, we drew up a plan to intensify detection and enforcement across the whole region. A project office was set up with the client’s representatives in each country, together with programme leads on both sides.",
+          "Working groups were organised per country for information exchange and effective collaboration on the ground; meetings and training on identifying counterfeit were held with dozens of relevant agencies.",
+          "Monitoring was put on a regular footing in each country, with every recorded instance of counterfeit sale passed to the supervisory authorities. Comprehensive analysis was run into the wholesalers named by market participants and by the client’s sales team. The procedure to enter the trademarks into the customs registers of all EAEU states was initiated."
+        ]
+      },
+      {
+        "h": "Outcome",
+        "p": [
+          "The counterfeit met resistance in every EAEU country on its way to the Russian market. Because effort was concentrated in Kazakhstan, the goods never reached Russia.",
+          "The necessary trademarks were registered in the customs registers, and eight months of coordinated work made it possible to cut off the original import channel, identify the organisers, open a criminal case and seize what remained of the consignment."
+        ]
+      }
+    ],
+    "outcome": "The counterfeit was stopped in Kazakhstan, the trademarks were entered into the customs registers of the EAEU states, and criminal proceedings were opened."
+  },
+  {
+    "slug": "issledovanie-kanalov-postavok",
+    "n": 12,
+    "category": "Analytics",
+    "title": "Mapping the supply channels",
+    "intro": "A foreign company suspended operations in Russia while keeping a ban on direct supply. We identified four unauthorised import channels accounting for at least 40% of all imports.",
+    "metric": "40% of imports mapped",
+    "tags": [
+      "market analytics",
+      "supply channels",
+      "parallel imports",
+      "marketplaces",
+      "distribution",
+      "SKU analytics"
+    ],
+    "img": "assets/img/cases/kanaly-postavok.jpg",
+    "sections": [
+      {
+        "h": "Situation",
+        "p": [
+          "A large foreign company suspended its operations in Russia and stopped official supply. It kept a core team in place and did not rule out returning to the Russian market."
+        ]
+      },
+      {
+        "h": "Problem",
+        "p": [
+          "Having cut its presence to a minimum and no longer supplying the market itself, the company nevertheless had an agreement with foreign distributors prohibiting direct supply to Russia, so as to retain at least minimal control over distribution of its genuine goods.",
+          "Against that background we were asked — in addition to monitoring online and offline offers with analytics on the SKUs offered and price levels — to carry out information analysis focused on identifying the first link of import into Russia, maintaining confidentiality under terms agreed with the client."
+        ]
+      },
+      {
+        "h": "Solution",
+        "p": [
+          "We carried out extensive work requesting supply document chains and mapping the links of the distribution chains; our partners in the dispatching countries also assisted.",
+          "Close cooperation with the marketplaces played a significant part in the result. On several of them, a seller’s failure to produce supply-chain documentation is grounds for delisting. Obtaining those documents was our original interest, while the blocking of unauthorised sellers was also a welcome outcome from the client’s point of view."
+        ]
+      },
+      {
+        "h": "Outcome",
+        "p": [
+          "We identified four key channels of unauthorised import into Russia, together accounting for no less than 40% of all imports. The information gathered on the original consignors was handed to the client, allowing head office to cut off supply.",
+          "Combined with the detailed market monitoring, this let the client preserve a foothold for a potential return to the market."
+        ]
+      }
+    ],
+    "outcome": "Four unauthorised import channels were identified; head office was able to cut off supply at the source."
+  }
 ]
