@@ -2597,6 +2597,11 @@
     var down = false, moved = false, sx = 0, sy = 0, sl = 0, pid = null;
     var snapTimer = 0;
 
+    /* Skip when the rail is a non-scrolling grid (homepage services ≥900px). */
+    function isScrollableX() {
+      return rail.scrollWidth > rail.clientWidth + 4;
+    }
+
     /* Scroll-snap must be off while we apply X deltas — proximity/mandatory
        otherwise snaps mid-gesture back to the current card (trackpad feels dead). */
     function hushSnap() {
@@ -2611,6 +2616,7 @@
     rail.addEventListener('pointerdown', function (e) {
       if (e.pointerType === 'touch') return;   // native touch scrolling is better
       if (e.button !== 0) return;
+      if (!isScrollableX()) return;
       /* Leave real controls alone (nested highlight links still drag the rail
          when the user swipes; a still click navigates). */
       if (e.target.closest && e.target.closest('button,input,textarea,select,label')) return;
