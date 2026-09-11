@@ -220,7 +220,7 @@ const C = {
     whoKicker:'Кто мы', whoTitle:'Надёжный партнёр в вопросах экономической безопасности',
     whoDesc:'Основанная в 2006 году компания Власта-Консалтинг занимает лидирующее место в сфере обеспечения безопасности бизнеса и широко известна в отечественных и иностранных бизнес-кругах. Главный принцип в работе «Власта-Консалтинг» - комплексный подход к каждому клиенту.',
     teamKicker:'Руководство', teamTitle:'Руководители компании',
-    teamDesc:'На странице представлены руководители «Власта-Консалтинг» — не полный состав команды.',
+    teamDesc:'',
     assocKicker:'Партнёрство', assocTitle:'Ассоциации и профессиональные сообщества',
     assocDesc:'Мы состоим в ведущих российских и международных объединениях. Нажмите на карточку, чтобы узнать об участии в каждой ассоциации.',
     assocNav:'Ассоциации — прокрутите по горизонтали',
@@ -293,7 +293,7 @@ const C = {
     whoKicker:'Who we are', whoTitle:'A dependable partner in business security',
     whoDesc:'Founded in 2006, Vlasta-Consulting is a leader in business security and is widely known in domestic and foreign business circles. The main principle in the work of Vlasta-Consulting is an integrated approach to each client.',
     teamKicker:'Leadership', teamTitle:'Company executives',
-    teamDesc:'The profiles below introduce the company’s leadership — not the full staff.',
+    teamDesc:'',
     assocKicker:'Partnerships', assocTitle:'Associations and professional bodies',
     assocDesc:'We belong to leading Russian and international bodies. Select a card to read about our involvement in each.',
     assocNav:'Associations — scroll horizontally',
@@ -1306,7 +1306,10 @@ function scenariosBlock() {
   const groups = sc.groups.map(g => {
     const items = g.items.map(it => {
       n += 1;
+      const num = String(n).padStart(2, '0');
       const hint = tt(it, 'hint');
+      const title = esc(tt(it, 'trigger'));
+      const hintHtml = hint ? ` <span class="scen__hint">(${esc(hint)})</span>` : '';
       const offers = (it.offers || []).map(o => {
         const svc = svcById[o.to];
         const label = svcShort[o.to] || (svc ? t(svc, 'title') : o.to);
@@ -1319,9 +1322,12 @@ function scenariosBlock() {
           </li>`;
       }).join('');
       return `<li class="scen__item reveal">
-          <span class="scen__n" aria-hidden="true">${String(n).padStart(2, '0')}</span>
-          <div class="scen__body">
-            <h4 class="scen__t">${esc(tt(it, 'trigger'))}${hint ? ` <span class="scen__hint">(${esc(hint)})</span>` : ''}</h4>
+          <button type="button" class="scen__toggle" aria-expanded="false" aria-controls="scen-panel-${num}" id="scen-btn-${num}">
+            <span class="scen__n" aria-hidden="true">${num}</span>
+            <span class="scen__t">${title}${hintHtml}</span>
+            <span class="scen__pm" aria-hidden="true"></span>
+          </button>
+          <div class="scen__panel" id="scen-panel-${num}" role="region" aria-labelledby="scen-btn-${num}">
             <ul class="scen__offers">${offers}</ul>
           </div>
         </li>`;
