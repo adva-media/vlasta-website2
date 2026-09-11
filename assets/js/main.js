@@ -3562,6 +3562,238 @@
     }
   })();
 
+  /* ------------------------------------ client scenarios accordion
+     Compact liquid-glass tiles: closed shows number + title + plus;
+     open reveals the linked service offers. One open at a time. */
+  (function initScenarios() {
+    var root = $('#scenarios');
+    if (!root) return;
+    var cards = $$('.scen__item', root);
+    if (!cards.length) return;
+
+    var items = cards.map(function (card) {
+      return {
+        card: card,
+        btn: $('.scen__toggle', card),
+        panel: $('.scen__panel', card),
+        open: false,
+        timer: 0
+      };
+    }).filter(function (it) { return it.btn && it.panel; });
+    if (!items.length) return;
+
+    function settle(it) {
+      clearTimeout(it.timer);
+      it.timer = setTimeout(function () {
+        it.panel.style.height = it.open ? 'auto' : '';
+      }, 400);
+    }
+
+    function close(it) {
+      if (!it.open) return;
+      it.open = false;
+      clearTimeout(it.timer);
+      it.panel.style.height = it.panel.scrollHeight + 'px';
+      void it.panel.offsetHeight;
+      it.card.classList.remove('is-open');
+      it.btn.setAttribute('aria-expanded', 'false');
+      it.panel.style.height = '0px';
+      settle(it);
+    }
+
+    function open(it) {
+      items.forEach(function (other) { if (other !== it) close(other); });
+      if (it.open) return;
+      it.open = true;
+      clearTimeout(it.timer);
+      it.card.classList.add('is-open');
+      it.btn.setAttribute('aria-expanded', 'true');
+      it.panel.style.height = it.panel.scrollHeight + 'px';
+      settle(it);
+    }
+
+    items.forEach(function (it) {
+      it.panel.style.height = '0px';
+      it.btn.setAttribute('aria-expanded', 'false');
+      it.btn.addEventListener('click', function () {
+        if (it.open) close(it); else open(it);
+      });
+      it.panel.addEventListener('transitionend', function (e) {
+        if (e.propertyName === 'height' && e.target === it.panel) settle(it);
+      });
+    });
+  })();
+
+  /* ------------------------------------------- association / letter belts
+     Same interaction model as the homepage logo marquee: JS auto-scroll,
+     pause while hovered or focused, pointer drag + flick inertia. Click
+     without a swipe still opens the assoc/letter dialog. */
+  $$('.belt').forEach(function (section) {
+    var vp = $('.belt__vp', section);
+    var track = $('.belt__track', section);
+    if (!vp || !track) return;
+    section.classList.add('is-live');
+
+    var durAttr = getComputedStyle(section).getPropertyValue('--belt-dur').trim();
+    var DUR = parseFloat(durAttr) || 64; /* seconds per loop */
+    var THRESH = 8;
+    var x = 0;
+    var vel = 0;
+    var loopW = 0;
+    var auto = 0;
+    var pressed = false;
+    var dragging = false;
+    var hovered = false;
+    var pid = null;
+    var startX = 0;
+    var startY = 0;
+    var lastX = 0;
+    var samples = [];
+    var resumeAt = 0;
+    var suppressClick = false;
+
+    function measure() {
+      loopW = track.scrollWidth / 2;
+      auto = loopW > 0 ? loopW / DUR : 0;
+    }
+    function wrap(v) {
+      if (loopW <= 0) return 0;
+      v %= loopW;
+      if (v < 0) v += loopW;
+      return v;
+    }
+    function paint() {
+      track.style.transform = 'translate3d(' + (-wrap(x)) + 'px,0,0)';
+    }
+
+    measure();
+    paint();
+
+    var last = performance.now();
+    function frame(now) {
+      var dt = Math.min(0.05, (now - last) / 1000);
+      last = now;
+      if (!dragging) {
+        var running = !hovered && now >= resumeAt;
+        if (running) x += auto * dt;
+        if (vel) {
+          x += vel * dt;
+          vel *= Math.exp(-3.2 * dt);
+          if (Math.abs(vel) < 6) vel = 0;
+        }
+        paint();
+      }
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+
+    addEventListener('resize', function () {
+      var prev = loopW;
+      measure();
+      if (prev > 0 && loopW > 0) x = x * (loopW / prev);
+      paint();
+    });
+
+    section.addEventListener('pointerenter', function () { hovered = true; });
+    section.addEventListener('pointerleave', function () {
+      if (!dragging) hovered = false;
+    });
+    section.addEventListener('focusin', function () { hovered = true; });
+    section.addEventListener('focusout', function (e) {
+      if (!section.contains(e.relatedTarget)) hovered = false;
+    });
+
+    function sample(cx) {
+      samples.push({ t: performance.now(), x: cx });
+      while (samples.length > 6) samples.shift();
+    }
+
+    function commitDrag(e) {
+      dragging = true;
+      suppressClick = true;
+      vel = 0;
+      lastX = e.clientX;
+      samples = [{ t: performance.now(), x: e.clientX }];
+      vp.classList.add('is-dragging');
+      try { vp.setPointerCapture(pid); } catch (err) {}
+    }
+
+    function down(e) {
+      if (e.pointerType === 'mouse' && e.button !== 0) return;
+      pressed = true;
+      dragging = false;
+      suppressClick = false;
+      pid = e.pointerId;
+      startX = lastX = e.clientX;
+      startY = e.clientY;
+      samples = [{ t: performance.now(), x: e.clientX }];
+    }
+    function move(e) {
+      if (!pressed || e.pointerId !== pid) return;
+      if (!dragging) {
+        var adx = Math.abs(e.clientX - startX);
+        var ady = Math.abs(e.clientY - startY);
+        if (ady > THRESH && ady > adx) {
+          pressed = false;
+          pid = null;
+          samples = [];
+          return;
+        }
+        if (adx < THRESH) return;
+        commitDrag(e);
+      }
+      var dx = e.clientX - lastX;
+      lastX = e.clientX;
+      x -= dx;
+      sample(e.clientX);
+      paint();
+      if (e.cancelable) e.preventDefault();
+    }
+    function up(e) {
+      if (!pressed || (pid != null && e.pointerId !== pid)) return;
+      var wasDrag = dragging;
+      pressed = false;
+      dragging = false;
+      vp.classList.remove('is-dragging');
+      try { if (pid != null) vp.releasePointerCapture(pid); } catch (err) {}
+      pid = null;
+
+      if (!wasDrag) {
+        samples = [];
+        return;
+      }
+
+      if (samples.length >= 2) {
+        var a = samples[0], b = samples[samples.length - 1];
+        var dt = (b.t - a.t) / 1000;
+        if (dt > 0.012) {
+          vel = -(b.x - a.x) / dt;
+          if (vel > 2800) vel = 2800;
+          if (vel < -2800) vel = -2800;
+        }
+      }
+      resumeAt = performance.now() + 320;
+      samples = [];
+      /* Keep pause while the pointer is still over the belt after a swipe. */
+      hovered = section.matches(':hover') || section.contains(doc.activeElement);
+    }
+
+    vp.addEventListener('pointerdown', down);
+    vp.addEventListener('pointermove', move, { passive: false });
+    vp.addEventListener('pointerup', up);
+    vp.addEventListener('pointercancel', up);
+    vp.addEventListener('lostpointercapture', function (e) {
+      if (pressed && e.pointerId === pid) up(e);
+    });
+    vp.addEventListener('dragstart', function (e) { e.preventDefault(); });
+    vp.addEventListener('click', function (e) {
+      if (!suppressClick) return;
+      e.preventDefault();
+      e.stopPropagation();
+      suppressClick = false;
+    }, true);
+  });
+
   /* ------------------------------------------- clients logo marquee
      Two brick rows share one band. Auto-scroll at half the old CSS speed,
      with pointer drag + flick inertia that blends back into the marquee.

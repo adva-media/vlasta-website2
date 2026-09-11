@@ -28,7 +28,7 @@
 <link rel="preload" href="../assets/fonts/montserrat-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="../assets/fonts/montserrat-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
 
-<link rel="stylesheet" href="../assets/css/style.min.css?v=810898e0">
+<link rel="stylesheet" href="../assets/css/style.min.css?v=efde194e">
 <link rel="icon" href="../assets/img/logo-dark.svg" type="image/svg+xml">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Власта-Консалтинг","alternateName":"Vlasta Consulting","url":"https://vlasta-s.com/","logo":"https://vlasta-s.com/assets/img/logo-dark.svg","foundingDate":"2006","telephone":"+74951233336","email":"info@vlasta-s.com","address":{"@type":"PostalAddress","streetAddress":"ул. Усачёва, д. 13, помещ. 4н","addressLocality":"Москва","postalCode":"119048","addressCountry":"RU"},"areaServed":["RU","BY","KZ","UZ","KG","AM","GE"],"contactPoint":{"@type":"ContactPoint","telephone":"+74951233336","contactType":"customer service","availableLanguage":["Russian","English"]}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://vlasta-s.com/"},{"@type":"ListItem","position":2,"name":"Услуги","item":"https://vlasta-s.com/services.html"}]}</script>
@@ -113,9 +113,12 @@
     <div class="scen"><div class="scen__group">
         <h3 class="scen__g">Growth and deals</h3>
         <ol class="scen__list"><li class="scen__item reveal">
-          <span class="scen__n" aria-hidden="true">01</span>
-          <div class="scen__body">
-            <h4 class="scen__t">Entering a new market <span class="scen__hint">(region, country or segment)</span></h4>
+          <button type="button" class="scen__toggle" aria-expanded="false" aria-controls="scen-panel-01" id="scen-btn-01">
+            <span class="scen__n" aria-hidden="true">01</span>
+            <span class="scen__t">Entering a new market <span class="scen__hint">(region, country or segment)</span></span>
+            <span class="scen__pm" aria-hidden="true"></span>
+          </button>
+          <div class="scen__panel" id="scen-panel-01" role="region" aria-labelledby="scen-btn-01">
             <ul class="scen__offers"><li class="scen__offer">
             <a class="scen__link" href="#compliance" aria-label="Go to section: Compliance analysis">
               <span class="scen__svc">Compliance analysis</span>
@@ -131,9 +134,12 @@
           </li></ul>
           </div>
         </li><li class="scen__item reveal">
-          <span class="scen__n" aria-hidden="true">02</span>
-          <div class="scen__body">
-            <h4 class="scen__t">Launching a new product <span class="scen__hint">(line, service or technology)</span></h4>
+          <button type="button" class="scen__toggle" aria-expanded="false" aria-controls="scen-panel-02" id="scen-btn-02">
+            <span class="scen__n" aria-hidden="true">02</span>
+            <span class="scen__t">Launching a new product <span class="scen__hint">(line, service or technology)</span></span>
+            <span class="scen__pm" aria-hidden="true"></span>
+          </button>
+          <div class="scen__panel" id="scen-panel-02" role="region" aria-labelledby="scen-btn-02">
             <ul class="scen__offers"><li class="scen__offer">
             <a class="scen__link" href="#compliance" aria-label="Go to section: Compliance analysis">
               <span class="scen__svc">Compliance analysis</span>
@@ -149,9 +155,12 @@
           </li></ul>
           </div>
         </li><li class="scen__item reveal">
-          <span class="scen__n" aria-hidden="true">03</span>
-          <div class="scen__body">
-            <h4 class="scen__t">Entering a tender <span class="scen__hint">(public procurement or corporate auction)</span></h4>
+          <button type="button" class="scen__toggle" aria-expanded="false" aria-controls="scen-panel-03" id="scen-btn-03">
+            <span class="scen__n" aria-hidden="true">03</span>
+            <span class="scen__t">Entering a tender <span class="scen__hint">(public procurement or corporate auction)</span></span>
+            <span class="scen__pm" aria-hidden="true"></span>
+          </button>
+          <div class="scen__panel" id="scen-panel-03" role="region" aria-labelledby="scen-btn-03">
             <ul class="scen__offers"><li class="scen__offer">
             <a class="scen__link" href="#security" aria-label="Go to section: Business security">
               <span class="scen__svc">Business security</span>
@@ -173,9 +182,12 @@
           </li></ul>
           </div>
         </li><li class="scen__item reveal">
-          <span class="scen__n" aria-hidden="true">04</span>
-          <div class="scen__body">
-            <h4 class="scen__t">Launching a new logistics chain <span class="scen__hint">(warehouses, routes, carriers)</span></h4>
+          <button type="button" class="scen__toggle" aria-expanded="false" aria-controls="scen-panel-04" id="scen-btn-04">
+            <span class="scen__n" aria-hidden="true">04</span>
+            <span class="scen__t">Launching a new logistics chain <span class="scen__hint">(warehouses, routes, carriers)</span></span>
+            <span class="scen__pm" aria-hidden="true"></span>
+          </button>
+          <div class="scen__panel" id="scen-panel-04" role="region" aria-labelledby="scen-btn-04">
             <ul class="scen__offers"><li class="scen__offer">
             <a class="scen__link" href="#security" aria-label="Go to section: Business security">
               <span class="scen__svc">Business security</span>
@@ -197,9 +209,12 @@
           </li></ul>
           </div>
         </li><li class="scen__item reveal">
-          <span class="scen__n" aria-hidden="true">05</span>
-          <div class="scen__body">
-            <h4 class="scen__t">Acquisition or purchase of an existing business <span class="scen__hint">(M&amp;A)</span></h4>
+          <button type="button" class="scen__toggle" aria-expanded="false" aria-controls="scen-panel-05" id="scen-btn-05">
+            <span class="scen__n" aria-hidden="true">05</span>
+            <span class="scen__t">Acquisition or purchase of an existing business <span class="scen__hint">(M&amp;A)</span></span>
+            <span class="scen__pm" aria-hidden="true"></span>
+          </button>
+          <div class="scen__panel" id="scen-panel-05" role="region" aria-labelledby="scen-btn-05">
             <ul class="scen__offers"><li class="scen__offer">
             <a class="scen__link" href="#compliance" aria-label="Go to section: Compliance analysis">
               <span class="scen__svc">Compliance analysis</span>
@@ -224,9 +239,12 @@
       </div><div class="scen__group">
         <h3 class="scen__g">Threats and incidents</h3>
         <ol class="scen__list"><li class="scen__item reveal">
-          <span class="scen__n" aria-hidden="true">06</span>
-          <div class="scen__body">
-            <h4 class="scen__t">Learning of a theft <span class="scen__hint">(shortage or theft at a production site or office)</span></h4>
+          <button type="button" class="scen__toggle" aria-expanded="false" aria-controls="scen-panel-06" id="scen-btn-06">
+            <span class="scen__n" aria-hidden="true">06</span>
+            <span class="scen__t">Learning of a theft <span class="scen__hint">(shortage or theft at a production site or office)</span></span>
+            <span class="scen__pm" aria-hidden="true"></span>
+          </button>
+          <div class="scen__panel" id="scen-panel-06" role="region" aria-labelledby="scen-btn-06">
             <ul class="scen__offers"><li class="scen__offer">
             <a class="scen__link" href="#security" aria-label="Go to section: Business security">
               <span class="scen__svc">Business security</span>
@@ -242,9 +260,12 @@
           </li></ul>
           </div>
         </li><li class="scen__item reveal">
-          <span class="scen__n" aria-hidden="true">07</span>
-          <div class="scen__body">
-            <h4 class="scen__t">Police seized counterfeit products of your brand <span class="scen__hint">(at a warehouse, retail point or during an inspection)</span></h4>
+          <button type="button" class="scen__toggle" aria-expanded="false" aria-controls="scen-panel-07" id="scen-btn-07">
+            <span class="scen__n" aria-hidden="true">07</span>
+            <span class="scen__t">Police seized counterfeit products of your brand <span class="scen__hint">(at a warehouse, retail point or during an inspection)</span></span>
+            <span class="scen__pm" aria-hidden="true"></span>
+          </button>
+          <div class="scen__panel" id="scen-panel-07" role="region" aria-labelledby="scen-btn-07">
             <ul class="scen__offers"><li class="scen__offer">
             <a class="scen__link" href="#compliance" aria-label="Go to section: Compliance analysis">
               <span class="scen__svc">Compliance analysis</span>
@@ -266,9 +287,12 @@
           </li></ul>
           </div>
         </li><li class="scen__item reveal">
-          <span class="scen__n" aria-hidden="true">08</span>
-          <div class="scen__body">
-            <h4 class="scen__t">Finding a brand clone on marketplaces <span class="scen__hint">(Ozon, Wildberries, own sites)</span></h4>
+          <button type="button" class="scen__toggle" aria-expanded="false" aria-controls="scen-panel-08" id="scen-btn-08">
+            <span class="scen__n" aria-hidden="true">08</span>
+            <span class="scen__t">Finding a brand clone on marketplaces <span class="scen__hint">(Ozon, Wildberries, own sites)</span></span>
+            <span class="scen__pm" aria-hidden="true"></span>
+          </button>
+          <div class="scen__panel" id="scen-panel-08" role="region" aria-labelledby="scen-btn-08">
             <ul class="scen__offers"><li class="scen__offer">
             <a class="scen__link" href="#brand" aria-label="Go to section: Brand &amp; IP">
               <span class="scen__svc">Brand &amp; IP</span>
@@ -284,9 +308,12 @@
           </li></ul>
           </div>
         </li><li class="scen__item reveal">
-          <span class="scen__n" aria-hidden="true">09</span>
-          <div class="scen__body">
-            <h4 class="scen__t">A sudden on-site inspection <span class="scen__hint">(tax service, prosecutor’s office, emergency service or police)</span></h4>
+          <button type="button" class="scen__toggle" aria-expanded="false" aria-controls="scen-panel-09" id="scen-btn-09">
+            <span class="scen__n" aria-hidden="true">09</span>
+            <span class="scen__t">A sudden on-site inspection <span class="scen__hint">(tax service, prosecutor’s office, emergency service or police)</span></span>
+            <span class="scen__pm" aria-hidden="true"></span>
+          </button>
+          <div class="scen__panel" id="scen-panel-09" role="region" aria-labelledby="scen-btn-09">
             <ul class="scen__offers"><li class="scen__offer">
             <a class="scen__link" href="#consulting" aria-label="Go to section: Consulting">
               <span class="scen__svc">Consulting</span>
@@ -302,9 +329,12 @@
           </li></ul>
           </div>
         </li><li class="scen__item reveal">
-          <span class="scen__n" aria-hidden="true">10</span>
-          <div class="scen__body">
-            <h4 class="scen__t">Cargo held at customs <span class="scen__hint">(or suspected parallel import)</span></h4>
+          <button type="button" class="scen__toggle" aria-expanded="false" aria-controls="scen-panel-10" id="scen-btn-10">
+            <span class="scen__n" aria-hidden="true">10</span>
+            <span class="scen__t">Cargo held at customs <span class="scen__hint">(or suspected parallel import)</span></span>
+            <span class="scen__pm" aria-hidden="true"></span>
+          </button>
+          <div class="scen__panel" id="scen-panel-10" role="region" aria-labelledby="scen-btn-10">
             <ul class="scen__offers"><li class="scen__offer">
             <a class="scen__link" href="#brand" aria-label="Go to section: Brand &amp; IP">
               <span class="scen__svc">Brand &amp; IP</span>
@@ -323,9 +353,12 @@
       </div><div class="scen__group">
         <h3 class="scen__g">People and events</h3>
         <ol class="scen__list"><li class="scen__item reveal">
-          <span class="scen__n" aria-hidden="true">11</span>
-          <div class="scen__body">
-            <h4 class="scen__t">Hiring a top manager with access to trade secrets</h4>
+          <button type="button" class="scen__toggle" aria-expanded="false" aria-controls="scen-panel-11" id="scen-btn-11">
+            <span class="scen__n" aria-hidden="true">11</span>
+            <span class="scen__t">Hiring a top manager with access to trade secrets</span>
+            <span class="scen__pm" aria-hidden="true"></span>
+          </button>
+          <div class="scen__panel" id="scen-panel-11" role="region" aria-labelledby="scen-btn-11">
             <ul class="scen__offers"><li class="scen__offer">
             <a class="scen__link" href="#security" aria-label="Go to section: Business security">
               <span class="scen__svc">Business security</span>
@@ -335,9 +368,12 @@
           </li></ul>
           </div>
         </li><li class="scen__item reveal">
-          <span class="scen__n" aria-hidden="true">12</span>
-          <div class="scen__body">
-            <h4 class="scen__t">A major business event <span class="scen__hint">(forum, exhibition or conference with senior speakers)</span></h4>
+          <button type="button" class="scen__toggle" aria-expanded="false" aria-controls="scen-panel-12" id="scen-btn-12">
+            <span class="scen__n" aria-hidden="true">12</span>
+            <span class="scen__t">A major business event <span class="scen__hint">(forum, exhibition or conference with senior speakers)</span></span>
+            <span class="scen__pm" aria-hidden="true"></span>
+          </button>
+          <div class="scen__panel" id="scen-panel-12" role="region" aria-labelledby="scen-btn-12">
             <ul class="scen__offers"><li class="scen__offer">
             <a class="scen__link" href="#security" aria-label="Go to section: Business security">
               <span class="scen__svc">Business security</span>
@@ -874,6 +910,6 @@
   </div>
 </div>
 <button class="totop" type="button" aria-label="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg></button>
-<script src="../assets/js/main.min.js?v=73f2a944" defer></script>
+<script src="../assets/js/main.min.js?v=2fdfc7fb" defer></script>
 </body>
 </html>

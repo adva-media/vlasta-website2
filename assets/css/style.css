@@ -1213,58 +1213,80 @@ body.over-hero .hero{
 .flow__s h4{margin:9px 0 7px;font-size:16px;font-weight:700;letter-spacing:-.012em}
 .flow__s p{font-size:14px;line-height:1.6;color:var(--body)}
 
-/* client scenarios: situation → linked service blocks.
-   Pale-blue plate (same family as Approach) so liquid-glass tiles have
-   something to bend; each trigger is a card, not a hairline list. */
+/* client scenarios: compact liquid-glass accordion tiles.
+   Closed = number + title + plus; open = linked service offers. */
 #scenarios{scroll-margin-top:calc(var(--hdr-h) + var(--svc-tabs-h) + 16px);
   background:
     linear-gradient(180deg,rgba(83,93,134,.10),transparent 26%),
     #E6E8F2}
-.scen{display:grid;gap:clamp(36px,4.5vw,56px)}
-.scen__group{display:grid;gap:18px}
+.scen{display:grid;gap:clamp(22px,3vw,36px)}
+.scen__group{display:grid;gap:12px}
 .scen__g{margin:0;display:flex;align-items:center;gap:12px;
-  font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
   color:var(--accent)}
-.scen__g::before{content:"";width:24px;height:1px;background:currentColor;opacity:.55;flex:none}
-.scen__list{list-style:none;margin:0;padding:0;display:grid;gap:14px}
-.scen__item{position:relative;display:grid;gap:0;align-items:start;overflow:hidden;
-  padding:22px 22px 18px;border:1px solid rgba(83,93,134,.16);border-radius:var(--r-lg);
+.scen__g::before{content:"";width:20px;height:1px;background:currentColor;opacity:.55;flex:none}
+.scen__list{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.scen__item{position:relative;overflow:hidden;
+  border:1px solid rgba(83,93,134,.16);border-radius:var(--r-md);
   background:
-    linear-gradient(165deg,rgba(255,255,255,.38),rgba(255,255,255,.70) 44%,rgba(243,243,248,.78)),
-    linear-gradient(120deg,rgba(83,93,134,.14),transparent 55%);
-  box-shadow:var(--sh-md),inset 0 1px 0 rgba(255,255,255,.82);
+    linear-gradient(165deg,rgba(255,255,255,.42),rgba(255,255,255,.72) 44%,rgba(243,243,248,.8)),
+    linear-gradient(120deg,rgba(83,93,134,.12),transparent 55%);
+  box-shadow:var(--sh-sm),inset 0 1px 0 rgba(255,255,255,.82);
   -webkit-backdrop-filter:blur(18px) saturate(1.5);
   backdrop-filter:blur(18px) saturate(1.5);
-  transition:transform .3s var(--ease),box-shadow .3s var(--ease),border-color .3s var(--ease)}
-.scen__item:hover{transform:translateY(-3px);
-  box-shadow:var(--sh-lg),inset 0 1px 0 rgba(255,255,255,.9);
+  transition:transform .28s var(--ease),box-shadow .28s var(--ease),border-color .28s var(--ease)}
+.scen__item:hover{transform:translateY(-2px);
+  box-shadow:var(--sh-md),inset 0 1px 0 rgba(255,255,255,.9);
   border-color:rgba(83,93,134,.34)}
-.scen__n{position:absolute;right:14px;top:6px;z-index:0;
-  font-family:var(--ui);font-size:clamp(44px,5.6vw,68px);font-weight:700;
-  letter-spacing:-.06em;line-height:1;color:rgba(83,93,134,.18);
-  pointer-events:none;user-select:none}
-.scen__body{position:relative;z-index:1;min-width:0;display:grid;gap:14px;
-  padding-right:clamp(36px,6vw,56px)}
-.scen__t{margin:0;font-size:clamp(17px,1.9vw,21px);font-weight:700;letter-spacing:-.02em;
-  line-height:1.3;color:var(--ink);text-wrap:balance}
-.scen__hint{display:block;margin-top:6px;font-weight:500;color:var(--steel);font-size:.78em;
+.scen__item.is-open{transform:none;
+  border-color:rgba(83,93,134,.4);
+  box-shadow:var(--sh-md),inset 0 1px 0 rgba(255,255,255,.92)}
+.scen__toggle{position:relative;z-index:1;display:grid;width:100%;
+  grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:12px 14px;
+  margin:0;padding:14px 16px;border:0;background:transparent;cursor:pointer;
+  text-align:left;font:inherit;color:inherit;-webkit-tap-highlight-color:transparent}
+.scen__toggle:focus-visible{outline:2px solid var(--accent);outline-offset:-3px;
+  border-radius:calc(var(--r-md) - 2px)}
+.scen__n{position:relative;z-index:0;flex:none;
+  font-family:var(--ui);font-size:clamp(22px,2.6vw,28px);font-weight:700;
+  letter-spacing:-.05em;line-height:1;color:rgba(83,93,134,.28);
+  pointer-events:none;user-select:none;min-width:1.6em}
+.scen__t{margin:0;min-width:0;font-size:clamp(14.5px,1.55vw,17px);font-weight:700;
+  letter-spacing:-.015em;line-height:1.35;color:var(--ink);text-wrap:balance}
+.scen__hint{display:inline;margin-left:.15em;font-weight:500;color:var(--steel);font-size:.86em;
   letter-spacing:.01em}
-.scen__offers{list-style:none;margin:0;padding:0;display:grid;gap:8px}
-.scen__offer{display:grid;gap:4px;padding:12px 14px;border-radius:var(--r-sm);
+.scen__pm{position:relative;flex:none;width:28px;height:28px;border-radius:50%;
+  border:1px solid rgba(83,93,134,.28);background:rgba(255,255,255,.45);
+  transition:background .28s var(--ease),border-color .28s var(--ease),transform .4s var(--ease)}
+.scen__pm::before,.scen__pm::after{content:"";position:absolute;top:50%;left:50%;
+  background:var(--accent);border-radius:1px;
+  transition:transform .4s var(--ease),opacity .28s var(--ease)}
+.scen__pm::before{width:11px;height:1.7px;transform:translate(-50%,-50%)}
+.scen__pm::after{width:1.7px;height:11px;transform:translate(-50%,-50%)}
+.scen__item:hover .scen__pm{background:rgba(255,255,255,.75);border-color:rgba(83,93,134,.42)}
+.scen__item.is-open .scen__pm{transform:rotate(180deg);
+  background:rgba(83,93,134,.12);border-color:rgba(83,93,134,.35)}
+.scen__item.is-open .scen__pm::after{transform:translate(-50%,-50%) rotate(90deg)}
+.scen__panel{height:0;overflow:hidden;visibility:hidden;
+  transition:height .38s var(--ease),visibility 0s linear .38s}
+.scen__item.is-open>.scen__panel{visibility:visible;
+  transition:height .38s var(--ease),visibility 0s linear 0s}
+.scen__offers{list-style:none;margin:0;padding:0 16px 14px;display:grid;gap:8px}
+.scen__offer{display:grid;gap:3px;padding:10px 12px;border-radius:var(--r-sm);
   border:1px solid var(--line-soft);border-left:2px solid rgba(83,93,134,.28);
   background:rgba(255,255,255,.55);
   transition:border-color .25s var(--ease),background .25s var(--ease),box-shadow .25s var(--ease)}
 .scen__offer:hover{border-left-color:var(--accent);background:rgba(255,255,255,.92);
   box-shadow:var(--sh-sm)}
 .scen__link{display:inline-flex;align-items:center;gap:8px;width:fit-content;
-  font-size:14px;font-weight:700;color:var(--accent);text-decoration:none}
+  font-size:13.5px;font-weight:700;color:var(--accent);text-decoration:none}
 .scen__link svg{width:14px;height:14px;transition:transform .3s var(--ease)}
 .scen__link:hover svg{transform:translateX(4px)}
-.scen__how{margin:0;font-size:13.5px;line-height:1.5;color:var(--body)}
+.scen__how{margin:0;font-size:13px;line-height:1.45;color:var(--body)}
 @media (min-width:900px){
-  .scen__list{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:stretch}
-  .scen__item{height:100%;padding:24px 24px 20px}
-  .scen__offers{grid-template-columns:1fr;gap:8px}
+  .scen__list{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 12px;align-items:start}
+  .scen__toggle{padding:15px 18px;gap:12px 16px}
+  .scen__offers{padding:0 18px 16px}
 }
 @media (prefers-reduced-motion:reduce){
   .scen__item:hover{transform:none}
@@ -1274,8 +1296,11 @@ body.over-hero .hero{
   background:linear-gradient(165deg,rgba(80,90,140,.22),rgba(22,22,42,.88) 48%,rgba(16,16,36,.94));
   border-color:rgba(255,255,255,.12);
   box-shadow:var(--sh-sm),inset 0 1px 0 rgba(255,255,255,.08)}
-[data-theme="dark"] .scen__item:hover{border-color:rgba(154,158,192,.4)}
-[data-theme="dark"] .scen__n{color:rgba(154,158,192,.16)}
+[data-theme="dark"] .scen__item:hover,[data-theme="dark"] .scen__item.is-open{
+  border-color:rgba(154,158,192,.4)}
+[data-theme="dark"] .scen__n{color:rgba(154,158,192,.22)}
+[data-theme="dark"] .scen__pm{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.16)}
+[data-theme="dark"] .scen__pm::before,[data-theme="dark"] .scen__pm::after{background:#E8EAF4}
 [data-theme="dark"] .scen__offer{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.08)}
 [data-theme="dark"] .scen__offer:hover{background:rgba(255,255,255,.08)}
 
@@ -2975,30 +3000,37 @@ section[id]{scroll-margin-top:96px}
 
 /* =========================================================================
    Belt — continuous carousel with interactive tiles
-   (associations, letters). Same motion as the client strip, but these
-   respond to clicks, so the belt pauses on hover: a moving target cannot
-   be clicked reliably.
+   (associations, letters). JS-driven like the client logo marquee: auto
+   scroll, pause on hover, pointer drag + flick. CSS keyframes stay as a
+   no-JS fallback; `.is-live` switches to transform paint from main.js.
    ========================================================================= */
 .belt{position:relative;overflow:hidden}
 .belt__vp{
+  cursor:grab;touch-action:pan-y;
   -webkit-mask:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);
   mask:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);
-}
+  -webkit-user-select:none;user-select:none}
+.belt__vp.is-dragging{cursor:grabbing;touch-action:none}
 /* The loop shifts by exactly -50%, so each half must be exactly one repeat
    wide. A flex gap cannot deliver that: n items carry only n-1 gaps, so the
    seam between the two halves never matches the rhythm inside them. Giving
    every tile its own trailing margin makes the repeat exactly n*(tile+gap)
    and the loop seamless for any number of tiles. */
 .belt__track{display:flex;width:max-content;padding:6px 0 10px;
-  animation:belt var(--belt-dur,64s) linear infinite}
+  animation:belt var(--belt-dur,64s) linear infinite;
+  will-change:transform}
+.belt.is-live .belt__track{animation:none}
 .belt__dup{display:flex}
 @keyframes belt{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.belt:hover .belt__track,
-.belt:focus-within .belt__track{animation-play-state:paused}
+.belt:not(.is-live):hover .belt__track,
+.belt:not(.is-live):focus-within .belt__track{animation-play-state:paused}
 
 .belt__i{flex:none;cursor:pointer;text-align:left;font:inherit;color:inherit;
-  background:none;border:0;padding:0;margin-right:18px;transition:transform var(--t)}
+  background:none;border:0;padding:0;margin-right:18px;transition:transform var(--t);
+  -webkit-user-drag:none}
+.belt__vp.is-dragging .belt__i{pointer-events:none}
 .belt__i:hover{transform:translateY(-4px)}
+.belt__vp.is-dragging .belt__i:hover{transform:none}
 .belt__i:focus-visible{outline:2px solid var(--accent);outline-offset:4px;border-radius:var(--r-md)}
 
 /* associations */
