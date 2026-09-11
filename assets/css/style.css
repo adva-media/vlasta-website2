@@ -804,14 +804,15 @@ body.over-hero .hero{
 }
 .svc-card:not(.svc-card--ink):hover,
 .svc-card:not(.svc-card--ink):focus-within{
+  /* +10pp more photo vs prior hover (was 77%→…); soft edge stays in the LR span */
   --svc-wash-dur:3s;
-  --svc-wash-a:77%;
-  --svc-wash-b:83%;
-  --svc-wash-c:88%;
-  --svc-wash-d:94%;
-  --svc-wash-e:99%;
-  --svc-wash-f:100%;
-  --svc-wash-g:100%;
+  --svc-wash-a:67%;
+  --svc-wash-b:73%;
+  --svc-wash-c:78%;
+  --svc-wash-d:84%;
+  --svc-wash-e:89%;
+  --svc-wash-f:94%;
+  --svc-wash-g:97%;
 }
 /* Dark ink scheme — previous look. Activate: class="svc-card svc-card--ink" */
 .svc-card--ink{
